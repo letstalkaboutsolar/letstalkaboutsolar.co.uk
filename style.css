@@ -1,13 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
 body {
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
-  background: #f5f7fa;
-  color: #333;
+  background: #F5F7FA;
+  color: #0D1B2A;
 }
 
 header {
-  background: #003049;
+  background: #0091FF;
   color: #fff;
   padding: 2rem;
   text-align: center;
@@ -15,29 +17,38 @@ header {
 
 h1, h2, h3 {
   margin: 0.5rem 0;
+  font-weight: 600;
 }
 
 main {
   padding: 2rem;
-  max-width: 800px;
+  max-width: 900px;
   margin: auto;
 }
 
 section.hero {
-  background: #eaecef;
+  background: white;
   padding: 2rem;
-  border-radius: 8px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   margin-bottom: 2rem;
+  text-align: center;
 }
 
-a {
-  color: #0066cc;
+.cta {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.9rem 2rem;
+  background: #0091FF;
+  color: white;
   text-decoration: none;
-  font-weight: bold;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background 0.3s ease;
 }
 
-a:hover {
-  text-decoration: underline;
+.cta:hover {
+  background: #007bd1;
 }
 
 section.features {
@@ -45,16 +56,19 @@ section.features {
 }
 
 .feature {
-  background: #fff;
-  padding: 1rem;
-  border-left: 4px solid #003049;
-  margin-bottom: 1rem;
-  border-radius: 4px;
+  background: white;
+  padding: 1.5rem;
+  border-left: 5px solid #0091FF;
+  margin-bottom: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
 }
 
 footer {
   text-align: center;
   font-size: 0.9rem;
   padding: 2rem;
-  background: #f1f1f1;
+  background: #e4efff;
+  color: #333;
+  border-top: 2px solid #0091FF;
 }
