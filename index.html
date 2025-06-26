@@ -167,6 +167,16 @@
     }
   </style>
 </head>
+<script>
+  window.addEventListener("scroll", function () {
+    const logo = document.querySelector(".disappearing-logo");
+    if (window.scrollY > 60) {
+      logo.classList.add("logo-hidden");
+    } else {
+      logo.classList.remove("logo-hidden");
+    }
+  });
+</script>
 <body>
   <nav>
     <div class="logo">Let’s Talk About Solar</div>
