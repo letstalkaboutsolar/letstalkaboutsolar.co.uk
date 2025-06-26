@@ -94,3 +94,16 @@ document.getElementById("savingsForm").addEventListener("submit", function (e) {
   }
   animateCount();
 });
+const hamburger = document.querySelector('.hamburger');
+const navLinks = document.querySelector('nav ul');
+if(hamburger && navLinks){
+  hamburger.addEventListener('click', () => {
+    navLinks.classList.toggle('active');
+    hamburger.setAttribute('aria-expanded', navLinks.classList.contains('active'));
+  });
+  hamburger.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') {
+      hamburger.click();
+    }
+  });
+}
