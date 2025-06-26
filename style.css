@@ -1,162 +1,36 @@
+/* style.css — sunny cartoon style */
+
 /* General Reset */
 
-{ margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+{ margin: 0; padding: 0; box-sizing: border-box; }
 
 
-body { line-height: 1.6; color: #333; background: #f9f9f9; }
+body { font-family: 'Comic Neue', 'Segoe UI', sans-serif; background: #fdfdfc; color: #333; line-height: 1.6; padding-top: 80px; }
 
-/* Navbar */ nav { background: #003049; color: #fff; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
+/* Navigation */ nav { position: fixed; top: 0; width: 100%; background: linear-gradient(to right, #ffcc70, #fdd365); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); z-index: 1000; border-bottom: 3px solid #f4b400; }
 
-nav .logo { font-size: 1.5rem; font-weight: bold; }
+nav a { color: #333; text-decoration: none; font-weight: bold; margin: 0 1rem; transition: transform 0.2s; }
 
-nav ul { list-style: none; display: flex; gap: 1rem; }
+nav a:hover { transform: scale(1.1); color: #f57c00; }
 
-nav ul li a { color: #fff; text-decoration: none; font-weight: 500; }
+/* Hero Section */ .hero { background: linear-gradient(to bottom right, #a3e4f7, #d0f0fd); border-radius: 30px; margin: 2rem auto; padding: 4rem 2rem; max-width: 900px; text-align: center; box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1); animation: fadeIn 1s ease-in-out; }
 
-/* Hero Section */ #hero { background: linear-gradient(to right, #0091ff, #003049); color: white; padding: 6rem 2rem; text-align: center; }
+.hero h1 { font-size: 2.5rem; color: #0077b6; text-shadow: 1px 1px 0 #fff; margin-bottom: 1rem; }
 
-#hero h1 { font-size: 2.5rem; margin-bottom: 1rem; }
+.hero p { font-size: 1.2rem; color: #555; margin-bottom: 2rem; }
 
-#hero p { font-size: 1.2rem; margin-bottom: 2rem; }
+.hero .cta { background: #ffb703; color: #fff; border: none; padding: 0.9rem 2rem; border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: background 0.3s ease; box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15); }
 
-.cta { background: #fff; color: #003049; padding: 1rem 2rem; border-radius: 8px; font-weight: bold; text-decoration: none; transition: background 0.3s ease; }
+.hero .cta:hover { background: #fb8500; }
 
-.cta:hover { background: #ffcc00; color: #002b45; }
+/* Section Styling */ section { margin: 2rem auto; max-width: 900px; padding: 2rem; border-radius: 20px; background: #ffffff; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06); }
 
-/* Sections */ section { padding: 4rem 2rem; max-width: 1000px; margin: auto; }
+h2 { font-size: 2rem; margin-bottom: 1rem; color: #023047; }
 
-#benefits .benefit, #features ul li { background: #fff; margin: 1rem 0; padding: 1.5rem; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+/* Animation */ @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-#benefits h3 { color: #003049; margin-bottom: 0.5rem; }
+/* Form Styling */ form input, form textarea { width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 2px solid #ccc; border-radius: 10px; font-size: 1rem; }
 
-#features ul { list-style: none; padding: 0; }
+form button { background: #219ebc; color: white; border: none; padding: 0.8rem 2rem; border-radius: 12px; cursor: pointer; font-weight: bold; transition: background 0.3s ease; }
 
-#features ul li { margin-bottom: 1rem; }
-
-/* FAQ */ .faq-item { margin-bottom: 1rem; }
-
-.faq-question { background: #0091ff; color: white; padding: 1rem; width: 100%; border: none; border-radius: 5px; text-align: left; font-weight: bold; cursor: pointer; }
-
-.faq-answer { padding: 1rem; background: #e6f0ff; display: none; border-radius: 0 0 5px 5px; }
-
-/* Contact Form */ .contact form { display: grid; gap: 1rem; margin-top: 2rem; }
-
-.contact input, .contact button { padding: 1rem; border-radius: 5px; border: 1px solid #ccc; }
-
-.contact button { background: #003049; color: white; border: none; font-weight: bold; cursor: pointer; }
-
-.contact button:hover { background: #0091ff; }
-
-/* Footer */ footer { background: #003049; color: white; text-align: center; padding: 2rem; }
-
-.footer-links a { margin: 0 1rem; color: #ffcc00; text-decoration: none; }
-
-.footer-links a:hover { text-decoration: underline; }
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.6s ease;
-}
-
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-/* Google Font */
-@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
-
-/* Reset + Premium Theme */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Patrick Hand', cursive;
-  background-color: #f4faff;
-  color: #1c1c1c;
-  line-height: 1.8;
-}
-
-/* Colour Palette */
-:root {
-  --primary: #0099cc;
-  --accent: #007aad;
-  --background: #f4faff;
-  --card: #ffffff;
-  --text: #1c1c1c;
-  --shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-}
-
-/* Headings */
-h1, h2, h3 {
-  color: var(--primary);
-  margin-bottom: 1rem;
-}
-
-h1 {
-  font-size: 2.8rem;
-  text-align: center;
-}
-
-h2 {
-  font-size: 2.2rem;
-  text-align: center;
-}
-
-h3 {
-  font-size: 1.5rem;
-}
-
-/* Sections / Boxes */
-section {
-  background-color: var(--card);
-  max-width: 960px;
-  margin: 3rem auto;
-  padding: 2.5rem 2rem;
-  border-radius: 20px;
-  box-shadow: var(--shadow);
-}
-
-/* Buttons & CTAs */
-button, .cta {
-  background-color: var(--primary);
-  color: white;
-  font-size: 1.1rem;
-  padding: 0.8rem 1.6rem;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: inline-block;
-  margin-top: 1rem;
-}
-
-button:hover, .cta:hover {
-  background-color: var(--accent);
-  transform: scale(1.05);
-}
-
-/* Forms & Inputs */
-input, textarea, select {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  margin-top: 0.5rem;
-  border: 2px solid #ddd;
-  border-radius: 12px;
-  font-family: 'Patrick Hand', cursive;
-  font-size: 1rem;
-  background-color: #fff;
-}
-
-/* Responsive */
-@media screen and (max-width: 768px) {
-  h1, h2 {
-    font-size: 2rem;
-  }
-
-  section {
-    padding: 2rem 1rem;
-  }
-}
+form button:hover { background: #126782; }
