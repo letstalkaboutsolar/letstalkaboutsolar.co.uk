@@ -8,6 +8,7 @@
   <meta name="description" content="Clear, friendly, and honest solar advice for UK homeowners. Discover real savings, trusted installers, and smart solar tools." />
   <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
   <style>
+    /* ... (styles unchanged for brevity, same as before) ... */
     :root {
       --primary: #72bcd4;
       --secondary: #eaf9ff;
@@ -267,6 +268,9 @@
     <input id="addressInput" type="text" placeholder="Enter your address" />
     <div id="map" style="width: 100%; height: 400px; margin-top: 1rem; border-radius: 12px;"></div>
     <p id="orientationResult" style="margin-top: 1rem; font-weight: bold;"></p>
+    <p style="font-size:0.85rem;color:gray;margin-top:0.5rem;">
+      These calculations are very generic—please book a consultation to get accurate and validated figures.
+    </p>
   </section>
 
   <section id="calculator" class="section">
@@ -280,26 +284,30 @@
       <button type="submit">Calculate</button>
     </form>
     <div id="calcResult"></div>
-    <p style="font-size: 0.8rem; margin-top: 1rem; color: gray;">Estimates based on a 4kW Aiko monocrystalline panel system under G98 permitted development regulations. Actual performance may vary.</p>
+    <p style="font-size: 0.8rem; margin-top: 1rem; color: gray;">
+      Estimates based on a 4kW Aiko monocrystalline panel system under G98 permitted development regulations. Actual performance may vary.
+      <br>
+      These calculations are very generic—please book a consultation to get accurate and validated figures.
+    </p>
   </section>
 
   <section id="trust" class="section">
     <h2>Who Can You Trust?</h2>
     <div class="trust-logos">
       <a class="trust-logo" href="https://mcscertified.com/" target="_blank">
-        <img src="https://mcscertified.com/wp-content/themes/mcscertified/assets/images/logo.svg" alt="MCS Certified" />
+        <img src="assets/mcs logo.png" alt="MCS Certified" />
         <p><strong>MCS</strong>: Quality guaranteed equipment and installers.</p>
       </a>
       <a class="trust-logo" href="https://www.epvs.co.uk/" target="_blank">
-        <img src="https://www.epvs.co.uk/assets/images/logo.svg" alt="EPVS" />
+        <img src="assets/epvs logi.jpeg" alt="EPVS" />
         <p><strong>EPVS</strong>: Verified energy savings and performance claims.</p>
       </a>
       <a class="trust-logo" href="https://www.hiesscheme.org.uk/" target="_blank">
-        <img src="https://www.hiesscheme.org.uk/wp-content/uploads/2019/10/hies-logo.png" alt="HIES" />
+        <img src="assets/hies-cc-logo-2.png" alt="HIES" />
         <p><strong>HIES</strong>: Consumer protection from start to finish.</p>
       </a>
       <a class="trust-logo" href="https://www.napit.org.uk/" target="_blank">
-        <img src="https://www.napit.org.uk/images/napit-logo.png" alt="NAPIT" />
+        <img src="assets/NAPIT-NEW-LOGO.jpg" alt="NAPIT" />
         <p><strong>NAPIT</strong>: Government-approved installer certification.</p>
       </a>
     </div>
@@ -386,7 +394,7 @@
         }
 
         document.getElementById("orientationResult").innerHTML =
-          `<strong>Estimated Roof Orientation:</strong> ${orientation}<br><em>${explanation}</em>`;
+          `<strong>Estimated Roof Orientation:</strong> ${orientation}<br><em>${explanation}</em><br><span style='font-size:0.82rem;color:gray;'>These calculations are very generic—please book a consultation to get accurate and validated figures.</span>`;
       });
     }
 
@@ -399,7 +407,8 @@
       const battery = document.getElementById("battery").checked;
       const rise = 1.0704;
       let efficiency = battery ? 0.95 : 0.7;
-      let save = orientationFactor * efficiency * usage * rate / 100;
+      // Now, include homeowner at home half the day
+      let save = 0.5 * orientationFactor * efficiency * usage * rate / 100;
       let total = 0, without = 0;
       let html = `<h3>10-Year Savings Estimate:</h3><ul>`;
       for (let i = 1; i <= 10; i++) {
@@ -410,7 +419,8 @@
       }
       html += `</ul><p><strong>Total Solar Savings:</strong> £${total.toFixed(2)}</p>`;
       html += `<p><strong>Without Solar:</strong> £${without.toFixed(2)}</p>`;
-      html += `<p style="margin-top:1rem;font-size:1rem;"><strong>Based on a 4kW system registered G98.</strong></p>`;
+      html += `<p style="margin-top:1rem;font-size:1rem;"><strong>Based on a 4kW system registered G98 and the assumption the homeowner is at home half the day.</strong></p>`;
+      html += `<p style="font-size:0.85rem;color:gray;">These calculations are very generic—please book a consultation to get accurate and validated figures.</p>`;
       document.getElementById("calcResult").innerHTML = html;
     });
   </script>
