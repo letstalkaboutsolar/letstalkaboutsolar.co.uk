@@ -221,6 +221,35 @@
         padding: 1.6rem 0.2rem;
       }
     }
+    /* News list styling for API news section */
+    #news-list {
+      list-style: none;
+      max-width: 700px;
+      margin: 1.3rem auto 0 auto;
+      padding: 0 0.6em;
+      font-size: 1.05rem;
+      color: #2c3e50;
+    }
+    #news-list li {
+      margin-bottom: 1.1em;
+      line-height: 1.5;
+      border-bottom: 1px solid #e3f0fc;
+      padding-bottom: 0.6em;
+    }
+    #news-list a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.14s;
+    }
+    #news-list a:hover {
+      color: #155a92;
+      text-decoration: underline;
+    }
+    #news-list span {
+      color: #888;
+      font-size: 0.93em;
+    }
   </style>
 </head>
 <body>
@@ -269,7 +298,7 @@
     </div>
   </section>
 
-  <!-- NEW ORIENTATION SECTION WITH STREET VIEW BUTTON -->
+  <!-- ORIENTATION SECTION WITH STREET VIEW BUTTON -->
   <section id="orientation" class="section">
     <h2>Check Your Roof Orientation</h2>
     <p>Enter your address to estimate your solar potential.</p>
@@ -304,18 +333,17 @@
     </p>
   </section>
 
-  <!-- START OF NEWS WIDGET SECTION -->
+  <!-- NEWS WIDGET SECTION: NewsAPI version -->
   <section id="energy-news" class="section">
     <h2>Latest UK Energy News</h2>
-    <iframe 
-      src="https://www.bing.com/news/search?q=UK+energy+price+cap+OR+energy+price+increase&FORM=HDRSC6"
-      style="width:100%;height:500px;border:none;border-radius:20px;box-shadow:0 4px 20px rgba(0,0,0,0.05)">
-    </iframe>
+    <ul id="news-list"><li>Loading news...</li></ul>
     <p style="font-size:0.9rem;color:gray;margin-top:0.5rem;">
-      News provided by Bing. For the most up-to-date information, check back here regularly.
+      News provided by NewsAPI.org.<br>
+      For the most up-to-date information, check back here regularly.
     </p>
   </section>
-  <!-- END OF NEWS WIDGET SECTION -->
+  
+  <!-- END OF NEWS SECTION -->
 
   <!-- START OF HISTORIC DATA GRAPH SECTION -->
   <section id="historic-prices" class="section">
@@ -439,7 +467,7 @@
       lastScroll = currentScroll;
     });
 
-    // New orientation section logic (Street View only)
+    // Orientation section logic (Street View only)
     let autocomplete, lastPlaceLocation = null, panoMap = null;
 
     function initMap() {
@@ -540,6 +568,6 @@
       html += `<p style="font-size:0.85rem;color:gray;">These calculations are very generic—please book a consultation to get accurate and validated figures.</p>`;
       document.getElementById("calcResult").innerHTML = html;
     });
-  </script>
-</body>
-</html>
+
+    // NEWSAPI.ORG FETCH LOGIC
+    fetch('https://newsapi.org/v2/everything?q=solar+en
