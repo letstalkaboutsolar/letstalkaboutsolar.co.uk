@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ&libraries=places&callback=initMap" async defer></script>
+  <!-- Only one Google Maps/Places script is needed, so we load it once, with a combined callback -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ&libraries=places&callback=mapsApiLoaded" async defer></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Let’s Talk About Solar</title>
   <meta name="description" content="Clear, friendly, and honest solar advice for UK homeowners. Discover real savings, trusted installers, and smart solar tools." />
   <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
   <style>
+    /* ... your CSS from before, unchanged ... */
     :root {
       --primary: #72bcd4;
       --secondary: #eaf9ff;
@@ -393,62 +395,6 @@
     </div>
   </section>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-  function toggleHistoric() {
-    let g = document.getElementById('historic-graph');
-    g.style.display = (g.style.display === 'none' || g.style.display === '') ? 'block' : 'none';
-    if (g.style.display === 'block' && !window._historicChartLoaded) {
-      drawPriceChart();
-      window._historicChartLoaded = true;
-    }
-  }
-  function drawPriceChart() {
-    const ctx = document.getElementById('pricesChart').getContext('2d');
-    const years = [
-      2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,
-      2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,
-      2020,2021,2022,2023,2024,2025
-    ];
-    const prices = [
-      7.0,7.3,7.2,7.1,7.4,8.2,10.0,10.6,13.3,13.9,
-      13.7,14.5,15.5,15.6,15.6,15.2,14.4,14.4,15.0,17.2,
-      17.2,19.0,28.0,30.0,28.5,27.5
-    ];
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: years,
-        datasets: [{
-          label: 'UK Domestic Electricity Price (p/kWh)',
-          data: prices,
-          borderColor: '#72bcd4',
-          backgroundColor: 'rgba(114,188,212,0.15)',
-          tension: 0.25,
-          pointBackgroundColor: '#ffd700',
-          pointRadius: 5,
-          fill: true
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: true },
-          tooltip: { enabled: true }
-        },
-        scales: {
-          y: {
-            beginAtZero: true,
-            title: { display: true, text: 'pence per kWh' }
-          },
-          x: {
-            title: { display: true, text: 'Year' }
-          }
-        }
-      }
-    });
-  }
-  </script>
-
   <section id="trust" class="section">
     <h2>Who Can You Trust?</h2>
     <div class="trust-logos">
@@ -483,11 +429,12 @@
     </div>
   </section>
 
+  <!-- QUOTE FORM WITH ADDRESS AUTOCOMPLETE -->
   <section id="quote" class="section">
     <h2>Request a Free Quote</h2>
     <form action="https://formspree.io/f/mldnarjp" method="POST" class="quote-form">
       <input type="text" name="name" placeholder="Full Name" required autocomplete="name">
-      <input type="text" name="address" placeholder="Full Address" required autocomplete="street-address">
+      <input type="text" name="address" id="quote-address" placeholder="Start typing your address…" required autocomplete="street-address">
       <input type="email" name="email" placeholder="Email Address" required autocomplete="email">
       <input type="tel" name="phone" placeholder="Phone Number" required autocomplete="tel">
       <input type="text" name="unitrate" placeholder="Electricity Unit Rate (p/kWh)" required>
@@ -500,6 +447,7 @@
     <p>&copy; 2025 Let’s Talk About Solar. All rights reserved.</p>
   </footer>
 
+  <!-- MAIN SCRIPTS -->
   <script>
     let lastScroll = 0;
     const nav = document.getElementById("navbar");
@@ -514,9 +462,19 @@
     // Orientation section logic (Street View only)
     let autocomplete, lastPlaceLocation = null, panoMap = null;
 
+    // The callback for Google Maps JS API - sets up both orientation and quote form autocomplete
+    function mapsApiLoaded() {
+      if (typeof initMap === "function") initMap();
+      if (typeof initQuoteAddressAutocomplete === "function") initQuoteAddressAutocomplete();
+    }
+
     function initMap() {
       const input = document.getElementById("addressInput");
-      autocomplete = new google.maps.places.Autocomplete(input);
+      autocomplete = new google.maps.places.Autocomplete(input, {
+        componentRestrictions: { country: 'uk' },
+        fields: ["geometry", "formatted_address", "address_components"],
+        types: ["address"]
+      });
 
       autocomplete.addListener("place_changed", () => {
         const place = autocomplete.getPlace();
@@ -561,8 +519,24 @@
       });
     }
 
-    window.initMap = initMap;
+    // Autocomplete for the quote form address field (UK only, addresses only)
+    function initQuoteAddressAutocomplete() {
+      var input = document.getElementById('quote-address');
+      if (!input) return;
+      var options = {
+        componentRestrictions: { country: 'uk' },
+        fields: ["formatted_address", "geometry"],
+        types: ["address"]
+      };
+      var autocomplete = new google.maps.places.Autocomplete(input, options);
+      // Optionally, bias to UK viewport
+      autocomplete.setBounds(new google.maps.LatLngBounds(
+        new google.maps.LatLng(49.9, -7.6),
+        new google.maps.LatLng(58.7, 1.8)
+      ));
+    }
 
+    // Street View toggle
     function toggleStreetView() {
       const container = document.getElementById("streetview-container");
       const btn = document.getElementById("toggleMapBtn");
@@ -571,4 +545,123 @@
           alert("Please enter your address and select it from the dropdown first.");
           return;
         }
-        container.style.display = "block"
+        container.style.display = "block";
+        if (!panoMap) {
+          panoMap = new google.maps.StreetViewPanorama(
+            document.getElementById("pano"),
+            {
+              position: lastPlaceLocation,
+              pov: { heading: 165, pitch: 0 },
+              zoom: 1
+            }
+          );
+        } else {
+          panoMap.setPosition(lastPlaceLocation);
+        }
+        btn.innerText = "Hide Street View";
+      } else {
+        container.style.display = "none";
+        btn.innerText = "Show Street View";
+      }
+    }
+
+    // Solar Savings Calculator
+    document.getElementById("calcForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const rate = parseFloat(document.getElementById("rate").value);
+      const usage = parseFloat(document.getElementById("usage").value);
+      const battery = document.getElementById("battery").checked;
+      const systemSize = 4;
+      const outputPerKW = 850;
+      const yearlyGen = systemSize * outputPerKW;
+      const selfUse = battery ? 0.95 : 0.70;
+      const usedSolar = Math.min(usage, yearlyGen * selfUse * orientationFactor);
+      const savings = (usedSolar * rate) / 100;
+      const breakEvenEstimate = battery ? 9500 : 6000;
+      const breakEvenYears = (breakEvenEstimate / savings);
+      const calcResult = document.getElementById("calcResult");
+      calcResult.innerHTML = `
+        <h3>Estimated Annual Savings: £${savings.toFixed(2)}</h3>
+        <p>With a ${battery ? 'battery' : 'standard'} system, you’ll use about ${(selfUse * 100).toFixed(0)}% of your solar energy.</p>
+        <p>Typical installation: <strong>£${breakEvenEstimate.toLocaleString()}</strong>, break even in <strong>${breakEvenYears.toFixed(1)} years</strong>.</p>
+        <p><strong>Want a bespoke quote? Message us now — we’ll do the rest.</strong></p>
+      `;
+    });
+
+    // Historic prices chart
+    function toggleHistoric() {
+      let g = document.getElementById('historic-graph');
+      g.style.display = (g.style.display === 'none' || g.style.display === '') ? 'block' : 'none';
+      if (g.style.display === 'block' && !window._historicChartLoaded) {
+        drawPriceChart();
+        window._historicChartLoaded = true;
+      }
+    }
+    function drawPriceChart() {
+      const ctx = document.getElementById('pricesChart').getContext('2d');
+      const years = [
+        2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,
+        2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,
+        2020,2021,2022,2023,2024,2025
+      ];
+      const prices = [
+        7.0,7.3,7.2,7.1,7.4,8.2,10.0,10.6,13.3,13.9,
+        13.7,14.5,15.5,15.6,15.6,15.2,14.4,14.4,15.0,17.2,
+        17.2,19.0,28.0,30.0,28.5,27.5
+      ];
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: years,
+          datasets: [{
+            label: 'UK Domestic Electricity Price (p/kWh)',
+            data: prices,
+            borderColor: '#72bcd4',
+            backgroundColor: 'rgba(114,188,212,0.15)',
+            tension: 0.25,
+            pointBackgroundColor: '#ffd700',
+            pointRadius: 5,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: true },
+            tooltip: { enabled: true }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: { display: true, text: 'pence per kWh' }
+            },
+            x: {
+              title: { display: true, text: 'Year' }
+            }
+          }
+        }
+      });
+    }
+
+    // News API for energy news list
+    fetch('https://newsapi.org/v2/everything?q=solar+energy+UK&language=en&sortBy=publishedAt&pageSize=5&apiKey=6c8d21b5a67a48bf8e1b5d7e20b6a6c5')
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById('news-list');
+        if (!data.articles || !data.articles.length) {
+          list.innerHTML = "<li>No news found right now.</li>";
+          return;
+        }
+        list.innerHTML = "";
+        data.articles.forEach(article => {
+          const item = document.createElement('li');
+          item.innerHTML = `<a href="${article.url}" target="_blank">${article.title}</a> <span>(${new Date(article.publishedAt).toLocaleDateString()})</span>`;
+          list.appendChild(item);
+        });
+      })
+      .catch(() => {
+        document.getElementById('news-list').innerHTML = "<li>Unable to fetch news at this time.</li>";
+      });
+  </script>
+</body>
+</html>
