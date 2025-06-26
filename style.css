@@ -62,3 +62,101 @@ nav ul li a { color: #fff; text-decoration: none; font-weight: 500; }
   opacity: 1;
   transform: translateY(0);
 }
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+
+/* Reset + Premium Theme */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Patrick Hand', cursive;
+  background-color: #f4faff;
+  color: #1c1c1c;
+  line-height: 1.8;
+}
+
+/* Colour Palette */
+:root {
+  --primary: #0099cc;
+  --accent: #007aad;
+  --background: #f4faff;
+  --card: #ffffff;
+  --text: #1c1c1c;
+  --shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+/* Headings */
+h1, h2, h3 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 2.8rem;
+  text-align: center;
+}
+
+h2 {
+  font-size: 2.2rem;
+  text-align: center;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+/* Sections / Boxes */
+section {
+  background-color: var(--card);
+  max-width: 960px;
+  margin: 3rem auto;
+  padding: 2.5rem 2rem;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+/* Buttons & CTAs */
+button, .cta {
+  background-color: var(--primary);
+  color: white;
+  font-size: 1.1rem;
+  padding: 0.8rem 1.6rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+button:hover, .cta:hover {
+  background-color: var(--accent);
+  transform: scale(1.05);
+}
+
+/* Forms & Inputs */
+input, textarea, select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-top: 0.5rem;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1rem;
+  background-color: #fff;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+  h1, h2 {
+    font-size: 2rem;
+  }
+
+  section {
+    padding: 2rem 1rem;
+  }
+}
