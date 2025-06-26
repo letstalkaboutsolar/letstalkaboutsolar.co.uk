@@ -1,585 +1,202 @@
 <!DOCTYPE html>
 <html lang="en">
-<head> <link href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Let’s Talk About Solar – Bright Solar for UK Homes</title>
-  <meta name="description" content="Discover how solar energy can brighten your home and your future. Simple, expert, and trustworthy advice for UK homeowners.">
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Patrick+Hand&display=swap" rel="stylesheet">
+  <title>Let’s Talk About Solar – Honest Solar for Your Home</title>
+  <meta name="description" content="Honest, expert advice for UK homeowners considering solar. Discover the real savings, benefits, and peace of mind of solar energy.">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    /* --- Bright blue sky, glassy whiteboard, educational style --- */
     :root {
-      --primary: #1b6eea;
-      --accent: #fffbe0;
-      --accent2: #ffe066;
-      --background: #b9eaff;
-      --board: #fff;
-      --glass: rgba(255,255,255,0.85);
-      --glass-blur: blur(18px);
-      --shadow: 0 8px 40px rgba(30, 80, 225, 0.13);
-      --sun: #ffe066;
-      --text: #133d67;
-      --radius: 22px;
+      --primary: #1769aa;
+      --secondary: #e3f0fc;
+      --accent: #ffd700;
+      --background: #f7fafc;
+      --card: #fff;
+      --shadow: 0 4px 24px rgba(34,56,92,0.08);
+      --radius: 18px;
+      --text: #253858;
     }
     html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      background: var(--background);
-      font-family: 'Fredoka', 'Patrick Hand', 'Comic Sans MS', Arial, sans-serif;
+      margin: 0; padding: 0; background: var(--background);
+      font-family: 'Poppins', Arial, sans-serif;
       color: var(--text);
       min-height: 100vh;
       box-sizing: border-box;
     }
-    body {
-      background: linear-gradient(180deg, #6cc6ff 0%, #b9eaff 60%, #fff 100%);
-      overflow-x: hidden;
-      position: relative;
-    }
-    body::before {
-      /* Sun */
-      content: "";
-      position: absolute;
-      top: -80px; left: 60px;
-      width: 220px; height: 220px;
-      background: radial-gradient(circle at 50% 50%, var(--sun) 50%, rgba(255,255,255,0) 75%);
-      opacity: 0.82;
-      z-index: 0;
-      pointer-events: none;
-      filter: blur(2px);
-    }
-    body::after {
-      /* Large white cloud at bottom left (stock image) */
-      content: "";
-      position: absolute;
-      bottom: -40px; left: -80px;
-      width: 420px; height: 140px;
-      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80');
-      background-size: cover;
-      opacity: 0.92;
-      z-index: 0;
-      pointer-events: none;
-    }
-    .cloud {
-      position: absolute;
-      z-index: 1;
-      pointer-events: none;
-      background-repeat: no-repeat;
-      background-size: contain;
-      opacity: 0.92;
-    }
-    .cloud.cloud1 {
-      top: 60px; left: 15vw;
-      width: 200px; height: 70px;
-      background-image: url('https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80');
-    }
-    .cloud.cloud2 {
-      top: 140px; right: 18vw;
-      width: 150px; height: 50px;
-      background-image: url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=600&q=80');
-    }
-    .cloud.cloud3 {
-      top: 240px; left: 8vw;
-      width: 110px; height: 40px;
-      background-image: url('https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80');
-    }
-    .cloud.cloud4 {
-      top: 220px; right: 6vw;
-      width: 130px; height: 44px;
-      background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80');
-    }
-    nav#navbar {
-      position: fixed;
-      top: 0; left: 0; width: 100%; z-index: 100;
-      background: none;
-      box-shadow: none;
-      height: 70px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 2rem;
-      font-family: 'Fredoka', sans-serif;
-    }
-    nav .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.7em;
-      font-family: 'Fredoka', sans-serif;
-      font-weight: 700;
-      font-size: 1.31rem;
-      color: var(--primary);
-      text-shadow: 1px 2px 0px #fff, 0 0 6px #b2eaff;
-      letter-spacing: 0.04em;
-    }
-    nav .logo img {
-      height: 44px;
-      width: 44px;
-      border-radius: 12px;
-      box-shadow: 0 2px 8px #fff9;
+    nav {
       background: #fff;
-      object-fit: cover;
+      box-shadow: 0 2px 16px #e3f0fc;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0 2rem; height: 72px; position: sticky; top: 0; z-index: 10;
+    }
+    .logo {
+      display: flex; align-items: center; gap: 1rem; font-size: 1.3rem; font-weight: 700;
+      color: var(--primary);
+    }
+    .logo img {
+      height: 40px; width: 40px; border-radius: 8px; background: #e3f0fc;
+      object-fit: cover; box-shadow: 0 2px 7px #e3f0fc;
     }
     nav ul {
-      display: flex;
-      gap: 2rem;
-      align-items: center;
-      list-style: none;
-      margin: 0; padding: 0;
-      background: none;
-      box-shadow: none;
+      display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0;
     }
     nav ul li a {
-      color: var(--primary);
-      font-weight: 600;
-      text-decoration: none;
-      font-size: 1.1rem;
-      font-family: 'Fredoka', sans-serif;
-      background: rgba(255,255,255,0.61);
-      padding: 0.55em 1.1em;
-      border-radius: 18px;
-      transition: background 0.18s, color 0.18s, box-shadow 0.18s;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-      margin: 0 1px;
+      text-decoration: none; color: var(--text); font-weight: 500;
+      padding: 0.6em 1.2em; border-radius: 999px; transition: background 0.18s;
     }
     nav ul li a.cta-nav {
-      background: linear-gradient(90deg, var(--accent2), var(--accent));
-      color: #133d67;
-      box-shadow: 0 4px 14px rgba(255,215,0,0.11);
+      background: var(--primary); color: #fff; font-weight: 600;
+      box-shadow: 0 2px 8px #e3f0fc;
     }
-    nav ul li a:hover {
-      background: #fff;
-      color: var(--primary);
-      box-shadow: 0 2px 18px rgba(27,110,234,0.07);
-    }
-    nav #menu-toggle {
-      display: none;
-    }
+    nav ul li a:hover { background: var(--secondary); color: var(--primary);}
+    nav ul li a.cta-nav:hover { background: #155a92; color: #fff;}
     @media (max-width: 900px) {
-      nav ul {
-        display: none;
-        position: fixed;
-        top: 70px;
-        right: 0;
-        min-width: 210px;
-        background: rgba(255,255,255,0.96);
-        flex-direction: column;
-        gap: 1.2rem;
-        padding: 1.3rem 1.2rem;
-        border-radius: 0 0 0 var(--radius);
-        box-shadow: 0 12px 32px rgba(27,110,234,0.13);
-      }
-      nav ul.open {
-        display: flex;
-      }
-      nav #menu-toggle {
-        display: flex;
-        flex-direction: column;
-        gap: 4px;
-        background: none;
-        border: none;
-        margin-left: 1.5rem;
-        cursor: pointer;
-      }
-      nav #menu-toggle span {
-        display: block;
-        width: 28px;
-        height: 4px;
-        background: var(--primary);
-        border-radius: 2px;
-      }
+      nav ul { gap: 1rem; }
+      .logo { font-size: 1rem; }
     }
-    #hero {
-      min-height: 62vh;
-      padding-top: 94px;
+
+    .hero {
+      background: linear-gradient(120deg, #e3f0fc 0%, #fff 100%);
+      padding: 4.5rem 1.5rem 2rem 1.5rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
-      z-index: 2;
-    }
-    .hero-content {
-      z-index: 2;
-      position: relative;
-      padding: 3.5rem 2.2rem;
-      max-width: 600px;
-      margin: 3rem auto;
-      text-align: center;
-      background: var(--glass);
-      border-radius: 36px;
-      box-shadow: 0 8px 34px #7dbfff33;
-      border: 5px solid #fff;
-      outline: 4px dashed #ffe06677;
-      outline-offset: -17px;
-    }
-    .hero-content h1 {
-      font-family: 'Fredoka', sans-serif;
-      color: var(--primary);
-      font-size: 2.7rem;
-      font-weight: 700;
-      margin-bottom: 1.1rem;
-      letter-spacing: -0.03em;
-      text-shadow: 2px 3px 0px #fff, 0 0 7px #b9eaff;
-    }
-    .hero-content .lead {
-      color: #1976d2;
-      font-size: 1.15rem;
-      font-family: 'Patrick Hand', cursive;
-      margin-bottom: 1.4rem;
-      text-shadow: 1px 1px 0px #fff, 0 0 2px #b2eaff;
-    }
-    .cta, .cta-nav, .quote-form button.cta {
-      background: linear-gradient(90deg, var(--accent2), var(--accent));
-      color: #184264;
-      font-family: 'Fredoka', sans-serif;
-      font-weight: 700;
-      font-size: 1.13rem;
-      padding: 0.8rem 2rem;
-      border: none;
-      border-radius: 999px;
-      text-decoration: none;
-      box-shadow: 0 4px 14px rgba(255,215,0,0.12);
-      transition: background 0.22s, transform 0.18s;
-      cursor: pointer;
-      margin-top: 1.2rem;
-      display: inline-block;
-      border: 2.5px solid #fff8;
-    }
-    .cta:hover, .cta-nav:hover, .quote-form button.cta:hover {
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      transform: scale(1.05);
-    }
-    .hero-badges {
-      display: flex;
-      gap: 1.1rem;
-      margin-top: 1.8rem;
-      justify-content: center;
       flex-wrap: wrap;
+      gap: 3rem;
     }
-    .hero-badges img {
-      height: 42px;
-      width: auto;
-      border-radius: 11px;
-      background: #fff;
-      box-shadow: 0 2px 8px rgba(30,32,40,0.08);
-      padding: 4px 8px;
+    .hero-text {
+      max-width: 480px;
     }
-    .section {
-      max-width: 1050px;
-      margin: 4rem auto 0 auto;
-      padding: 2.6rem 1.9rem;
+    .hero-text h1 {
+      font-size: 2.5rem; color: var(--primary); font-weight: 700;
+      margin-bottom: 1.1rem; line-height: 1.1;
+    }
+    .hero-text p {
+      font-size: 1.13rem; margin-bottom: 2rem; color: #3d5a80;
+    }
+    .cta {
+      background: var(--primary); color: #fff; font-weight: 600;
+      font-size: 1.15rem; padding: 0.9rem 2.2rem; border: none;
+      border-radius: 999px; cursor: pointer; text-decoration: none;
+      transition: background 0.17s;
+      box-shadow: 0 3px 16px #e3f0fc;
+      display: inline-block;
+    }
+    .cta:hover { background: #155a92;}
+    .hero-img {
+      max-width: 340px;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      background: var(--glass);
-      backdrop-filter: var(--glass-blur);
-      position: relative;
-      border: 4px solid #fff;
-      outline: 3px dashed #ffe06666;
-      outline-offset: -12px;
+      background: #e3f0fc;
     }
-    #benefits {
-      background: none;
-      box-shadow: none;
-      padding-top: 1.4rem;
+    .hero-img img {
+      width: 100%; border-radius: var(--radius);
+      display: block;
     }
-    #benefits h2 {
-      text-align: center;
-      font-size: 2rem;
-      font-family: 'Fredoka', sans-serif;
-      margin-bottom: 2rem;
-      color: var(--primary);
-      text-shadow: 1px 2px 0px #fff, 0 0 3px #b2eaff;
+
+    .section {
+      max-width: 980px; margin: 4rem auto 0 auto;
+      background: var(--card); border-radius: var(--radius);
+      box-shadow: var(--shadow); padding: 2.5rem 2rem;
+    }
+    .section h2 {
+      font-size: 2rem; margin-bottom: 1.6rem; color: var(--primary);
+      font-weight: 600; text-align: center;
     }
     .benefit-cards {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      justify-content: center;
+      display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center;
+      margin-bottom: 1.2rem;
     }
     .benefit-card {
-      flex: 1 1 200px;
-      min-width: 210px;
-      max-width: 310px;
-      text-align: center;
-      padding: 1.6rem 1.1rem 1.1rem 1.1rem;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      background: var(--glass);
-      border: 3px dashed #ffe06666;
-      transition: transform 0.18s, box-shadow 0.18s;
-      margin-bottom: 1.1rem;
-      position: relative;
+      flex: 1 1 220px; min-width: 220px; max-width: 300px;
+      padding: 1.6rem 1.3rem 1rem 1.3rem;
+      background: var(--secondary); border-radius: var(--radius);
+      box-shadow: 0 2px 12px #e3f0fc;
+      text-align: center; transition: box-shadow 0.17s;
     }
-    .benefit-card:hover {
-      transform: translateY(-6px) scale(1.03);
-      box-shadow: 0 12px 32px rgba(27,110,234,0.15);
-      background: #fff;
-    }
+    .benefit-card:hover { box-shadow: 0 6px 34px #b3d2f5; }
     .benefit-card img {
-      height: 54px;
-      margin-bottom: 1rem;
-      filter: drop-shadow(0 2px 0 #fff9);
+      width: 60px; height: 60px; object-fit: cover;
+      border-radius: 10px; margin-bottom: 1.1rem;
       background: #fff;
-      border-radius: 50%;
-      object-fit: cover;
     }
-    .benefit-card h3 {
-      font-family: 'Fredoka', sans-serif;
-      margin-bottom: 0.5rem;
-      font-size: 1.09rem;
-      color: var(--primary);
-    }
-    #features { margin-top: 2.5rem; }
+    .benefit-card h3 { font-size: 1.15rem; color: var(--primary); margin-bottom: 0.5rem;}
+    .benefit-card p { color: #355a78; font-size: 1.01rem; margin-bottom: 0;}
     .features-list {
-      list-style: none;
-      max-width: 650px;
-      margin: 2rem auto 0 auto;
-      padding: 0;
-      font-size: 1.07rem;
-      color: #203040;
-      font-family: 'Patrick Hand', cursive;
+      list-style: none; max-width: 650px; margin: 1.7rem auto 0 auto; padding: 0;
+      font-size: 1.09rem; color: #2d4059;
     }
     .features-list li {
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      padding: 1.02rem 0;
-      border-bottom: 1px dashed #ffe06644;
+      margin-bottom: 1rem; display: flex; align-items: center; gap: 0.7rem;
     }
-    .features-list li:last-child { border-bottom: none; }
-    .features-list li span {
-      display: block;
-      font-weight: 500;
-    }
-    #trust {
-      margin-top: 2.6rem;
-      background: var(--glass);
-      box-shadow: var(--shadow);
-      padding: 2.1rem 1.2rem;
-    }
-    #trust h2 {
-      text-align: center;
-      font-family: 'Fredoka', sans-serif;
+    .features-list li:before {
+      content: "•";
       color: var(--primary);
-      margin-bottom: 1.7rem;
-      text-shadow: 1px 2px 0px #fff, 0 0 3px #b2eaff;
+      font-weight: bold;
+      font-size: 1.2em;
     }
+
     .trust-logos {
-      display: flex;
-      gap: 1.2rem;
-      justify-content: center;
-      flex-wrap: wrap;
+      display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;
+      margin-top: 1.7rem;
     }
     .trust-logo {
-      position: relative;
-      text-align: center;
+      text-align: center; background: #f7fafc; border-radius: 12px; padding: 1rem 1.5rem;
+      box-shadow: 0 2px 10px #e3f0fc;
+      min-width: 140px;
     }
-    .trust-logo img {
-      height: 44px;
-      width: auto;
-      background: #fff;
-      border-radius: 9px;
-      box-shadow: 0 2px 8px rgba(30,32,40,0.07);
-      cursor: pointer;
-      margin-bottom: 0.5rem;
-    }
-    .trust-logo .popover {
-      display: none;
-      position: absolute;
-      top: 45px; left: 50%; transform: translateX(-50%);
-      background: #fff;
-      color: #1976d2;
-      box-shadow: 0 8px 24px rgba(30,32,40,0.11);
-      border-radius: 11px;
-      padding: 0.7rem 1.1rem;
-      min-width: 160px;
-      font-size: 0.98rem;
-      z-index: 10;
-      text-align: left;
-      font-family: 'Patrick Hand', cursive;
-      border: 2px solid #e3f1fd;
-    }
-    .trust-logo:focus .popover, .trust-logo:hover .popover {
-      display: block;
-      animation: fadeIn 0.21s;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px);}
-      to { opacity: 1; transform: translateY(0);}
-    }
-    #calculator {
-      background: none;
-      box-shadow: none;
-      margin-top: 2.8rem;
-    }
+    .trust-logo img { height: 40px; margin-bottom: 0.7rem;}
+    .trust-logo strong { color: var(--primary);}
+    .trust-logo p { font-size: 0.97rem; color: #355a78; margin: 0; }
+
     #calculator .glass {
-      max-width: 410px;
-      margin: 2rem auto;
-      padding: 1.7rem 1.1rem;
-      border: 2px dashed #ffe06666;
+      max-width: 420px; margin: 2rem auto; padding: 2.2rem 1.5rem;
+      background: #f7fafc; border-radius: var(--radius);
+      box-shadow: 0 2px 10px #e3f0fc;
     }
-    #calculator label {
-      display: block;
-      margin-bottom: 0.23rem;
-      font-weight: 500;
-      font-family: 'Fredoka', sans-serif;
+    #calculator label { display: block; font-weight: 600; margin-bottom: 0.3rem;}
+    #calculator input[type="number"], #calculator input[type="text"], #calculator input[type="email"], #calculator input[type="tel"] {
+      width: 100%; padding: 0.7rem 1rem; margin-bottom: 1.1rem; border: 1.3px solid #e3f0fc; border-radius: 10px;
+      font-size: 1.07rem; background: #fff; font-family: inherit;
     }
-    #calculator input[type="number"],
-    #calculator input[type="text"],
-    #calculator input[type="email"],
-    #calculator input[type="tel"] {
-      width: 100%;
-      padding: 0.7rem 1rem;
-      margin-bottom: 0.9rem;
-      border: 1.3px solid #bfe7ff;
-      border-radius: 10px;
-      font-size: 1.03rem;
-      background: #fff;
-      font-family: inherit;
-      outline: none;
-      transition: border 0.14s;
-    }
-    #calculator input:focus { border-color: var(--accent2); }
-    #calculator button[type="submit"] {
-      margin-top: 0.3rem;
-    }
-    #result {
-      text-align: center;
-      margin-top: 1.4rem;
-      min-height: 40px;
-      font-size: 1.12rem;
-      color: var(--primary);
-      font-family: 'Patrick Hand', cursive;
-    }
-    .result-animated h3 {
-      font-size: 1.19rem;
-      font-family: 'Fredoka', sans-serif;
-      color: var(--accent2);
-      margin-bottom: 0.5rem;
-      letter-spacing: -0.01em;
-    }
+    #calculator button[type="submit"] { margin-top: 0.7rem;}
+    #result { text-align: center; margin-top: 2rem; min-height: 60px; font-size: 1.12rem; color: var(--primary);}
+    .result-animated h3 { font-size: 1.21rem; color: var(--primary); margin-bottom: 0.7rem;}
+
     #contact .quote-form {
-      max-width: 370px;
-      margin: 1rem auto 0 auto;
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
+      max-width: 410px; margin: 1.5rem auto 0 auto; display: flex; flex-direction: column; gap: 1.1rem;
     }
-    .quote-form input,
+    .quote-form input, .quote-form button {
+      font-size: 1.07rem; padding: 0.7rem 1rem; border-radius: 10px;
+      border: 1.3px solid #e3f0fc; background: #fff; font-family: inherit;
+    }
     .quote-form button {
-      font-size: 1.06rem;
-      padding: 0.7rem 0.8rem;
-      border-radius: 10px;
-      border: 1.3px solid #bfe7ff;
-      background: #fff;
-      transition: border 0.14s;
-      font-family: inherit;
+      background: var(--primary); color: #fff; font-weight: 600; border: none; margin-top: 0.5rem; border-radius: 999px;
+      transition: background 0.16s;
     }
-    .quote-form input:focus { border-color: var(--accent2); }
-    .quote-form button {
-      background: linear-gradient(90deg, var(--accent2), var(--accent));
-      color: #184264;
-      font-family: 'Fredoka', sans-serif;
-      font-weight: 700;
-      border: none;
-      margin-top: 0.3rem;
-    }
-    .floating-chat {
-      position: fixed;
-      bottom: 18px;
-      right: 18px;
-      z-index: 200;
-      background: #25d366;
-      border-radius: 50%;
-      box-shadow: 0 4px 22px rgba(30,32,40,0.19);
-      padding: 0.6rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: box-shadow 0.17s, transform 0.18s;
-    }
-    .floating-chat:hover {
-      box-shadow: 0 8px 32px rgba(30,32,40,0.23);
-      transform: scale(1.07);
-    }
-    .floating-chat img {
-      width: 34px;
-      height: 34px;
-      display: block;
-    }
+    .quote-form button:hover { background: #155a92; }
     footer {
-      background: #1b6eea;
-      color: #fff;
-      margin-top: 2.6rem;
-      padding: 1.8rem 0;
-      border-radius: var(--radius) var(--radius) 0 0;
-      box-shadow: 0 -2px 12px #fff6;
+      background: #1769aa; color: #fff;
+      margin-top: 3.2rem; padding: 2.3rem 0; border-radius: var(--radius) var(--radius) 0 0; box-shadow: 0 -2px 12px #e3f0fc;
     }
-    .footer-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1050px;
-      margin: 0 auto;
-      padding: 0 2rem;
-      flex-wrap: wrap;
-    }
-    .footer-links {
-      display: flex;
-      gap: 2rem;
-    }
+    .footer-content { display: flex; justify-content: space-between; align-items: center; max-width: 980px; margin: 0 auto; padding: 0 2rem; flex-wrap: wrap;}
+    .footer-links { display: flex; gap: 2rem;}
     .footer-links a {
-      color: #fffde7;
-      text-decoration: none;
-      font-weight: 600;
-      font-family: 'Fredoka', sans-serif;
-      transition: color 0.14s;
+      color: #fffde7; text-decoration: none; font-weight: 600; font-family: 'Poppins', sans-serif; transition: color 0.13s;
     }
-    .footer-links a:hover {
-      color: #ffe066;
-    }
-    @media (max-width: 1200px) {
-      .section, footer .footer-content {
-        max-width: 98vw;
-      }
-    }
-    @media (max-width: 700px) {
-      #hero {
-        min-height: 48vh;
-        padding-top: 70px;
-      }
-      .hero-content {
-        padding: 1.2rem 0.6rem;
-        max-width: 99vw;
-      }
-      .benefit-cards {
-        flex-direction: column;
-        gap: 0.8rem;
-      }
-      .footer-content {
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
-      }
-      .footer-links {
-        gap: 1rem;
-        justify-content: center;
-        width: 100%;
-      }
-    }
-    ::-webkit-scrollbar { width: 10px; background: #e3eaff;}
+    .footer-links a:hover { color: var(--accent);}
+    @media (max-width: 1000px) { .section, .footer-content { max-width: 97vw;} .hero {flex-direction: column;} .hero-img { margin-top:2rem;}}
+    @media (max-width: 700px) { nav { padding: 0 1rem;} .hero {padding: 3rem 0.4rem;} .hero-text h1 {font-size:2rem;} .section {padding: 1.3rem 0.4rem;} .footer-content {flex-direction: column; gap:1.1rem; text-align:center;} .footer-links {gap:1rem;}}
+    ::-webkit-scrollbar { width: 10px; background: #e3f0fc;}
     ::-webkit-scrollbar-thumb { background: #bfc8e2; border-radius: 6px;}
   </style>
 </head>
 <body>
-  <!-- Cartoon clouds (stock photo until SVGs ready) -->
-  <div class="cloud cloud1"></div>
-  <div class="cloud cloud2"></div>
-  <div class="cloud cloud3"></div>
-  <div class="cloud cloud4"></div>
-  <nav id="navbar">
+  <nav>
     <div class="logo">
-      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=80&q=80" alt="Let’s Talk About Solar logo" />
-      <span>Let’s Talk About Solar</span>
+      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=80&q=80" alt="Solar Logo" />
+      Let’s Talk About Solar
     </div>
     <ul>
       <li><a href="#hero">Home</a></li>
@@ -589,91 +206,82 @@
       <li><a href="#calculator">Savings</a></li>
       <li><a href="#contact" class="cta-nav">Get Quote</a></li>
     </ul>
-    <button id="menu-toggle" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
   </nav>
-  <section id="hero">
-    <div class="hero-content">
-      <h1>Solar for Your Home, Made Bright & Simple</h1>
-      <p class="lead">Learn how solar can cut your bills and help the planet. No jargon—just honest, friendly advice.</p>
+
+  <section class="hero" id="hero">
+    <div class="hero-text">
+      <h1>Solar for Your Home, Backed by Real Numbers</h1>
+      <p>Clear, honest advice for UK homeowners looking to invest in a brighter, more secure energy future. No jargon, no sales tricks—just facts and guidance.</p>
       <a href="#contact" class="cta">Get My Free Quote</a>
-      <div class="hero-badges">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/79/MCS_Logo.png" alt="MCS Certified" title="MCS Certified" />
-        <img src="https://www.epvs.co.uk/assets/images/logo.svg" alt="EPVS Member" title="EPVS Member" />
-        <img src="https://www.hiesscheme.org.uk/wp-content/uploads/2022/04/HIES-Logo.svg" alt="HIES Consumer Code" title="HIES Consumer Code" />
-        <img src="https://www.napit.org.uk/images/napit/logo.svg" alt="NAPIT Registered" title="NAPIT Registered" />
-      </div>
+    </div>
+    <div class="hero-img">
+      <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=600&q=80" alt="Modern solar panels on a house" />
     </div>
   </section>
+
   <section id="benefits" class="section">
-    <h2>Why Go Solar?</h2>
+    <h2>Why Choose Solar?</h2>
     <div class="benefit-cards">
       <div class="benefit-card">
-        <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=80&q=80" alt="" />
-        <h3>Generate Your Own Power</h3>
-        <p>Use sunshine to power your home and reduce your bills every day.</p>
+        <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=80&q=80" alt="Solar Panels" />
+        <h3>Cut Your Electricity Bills</h3>
+        <p>Generate your own clean energy and lower your monthly expenses from day one.</p>
       </div>
       <div class="benefit-card">
-        <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=80&q=80" alt="" />
-        <h3>Store It for Later</h3>
-        <p>Add a battery and use solar even when the sun isn’t shining.</p>
+        <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=80&q=80" alt="Battery storage" />
+        <h3>Store Energy for Later</h3>
+        <p>Smart battery storage means you use your own power, even after sunset.</p>
       </div>
       <div class="benefit-card">
-        <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=80&q=80" alt="" />
+        <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=80&q=80" alt="Protected from price hikes" />
         <h3>Protection from Price Hikes</h3>
-        <p>Solar shields you from rising energy costs and market shocks.</p>
+        <p>Shield yourself from rising grid prices and future-proof your energy costs.</p>
       </div>
       <div class="benefit-card">
-        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=80&q=80" alt="" />
-        <h3>Help the Planet</h3>
-        <p>Lower your carbon footprint and make your home more valuable.</p>
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=80&q=80" alt="Eco friendly" />
+        <h3>Value & Sustainability</h3>
+        <p>Boost your home’s value and help the environment with every sunny day.</p>
       </div>
     </div>
   </section>
+
   <section id="features" class="section">
-    <h2>What You’ll Get</h2>
+    <h2>What Makes Us Different?</h2>
     <ul class="features-list">
       <li><span>Save up to <strong>70% on electricity</strong></span></li>
-      <li><span>Earn with the <strong>Smart Export Guarantee (SEG)</strong></span></li>
-      <li><span>Zero-pressure, expert guidance</span></li>
-      <li><span>Fast, friendly installation</span></li>
-      <li><span>25-year warranty and premium aftercare</span></li>
+      <li><span>Earn money back with the <strong>Smart Export Guarantee (SEG)</strong></span></li>
+      <li><span>Clear, pressure-free advice from real experts</span></li>
+      <li><span>Fast, professional installation</span></li>
+      <li><span>25-year product and performance warranties</span></li>
     </ul>
   </section>
+
   <section id="trust" class="section">
-    <h2>Who Can You Trust?</h2>
+    <h2>Accreditations & Trust</h2>
     <div class="trust-logos">
-      <div class="trust-logo" tabindex="0">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/79/MCS_Logo.png" alt="MCS" />
-        <div class="popover">
-          <strong>MCS Certified</strong><br>
-          Your installer and equipment meet strict standards for safety and performance.
-        </div>
+      <div class="trust-logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/79/MCS_Logo.png" alt="MCS Certified" />
+        <strong>MCS Certified</strong>
+        <p>Your installer and equipment meet strict UK standards for safety and performance.</p>
       </div>
-      <div class="trust-logo" tabindex="0">
-        <img src="https://www.epvs.co.uk/assets/images/logo.svg" alt="EPVS" />
-        <div class="popover">
-          <strong>EPVS Member</strong><br>
-          Savings and system performance are independently verified and honest.
-        </div>
+      <div class="trust-logo">
+        <img src="https://www.epvs.co.uk/assets/images/logo.svg" alt="EPVS Member" />
+        <strong>EPVS Member</strong>
+        <p>Your savings and system performance are independently verified.</p>
       </div>
-      <div class="trust-logo" tabindex="0">
-        <img src="https://www.hiesscheme.org.uk/wp-content/uploads/2022/04/HIES-Logo.svg" alt="HIES" />
-        <div class="popover">
-          <strong>HIES Consumer Code</strong><br>
-          Total protection for your deposit, warranty, and peace of mind.
-        </div>
+      <div class="trust-logo">
+        <img src="https://www.hiesscheme.org.uk/wp-content/uploads/2022/04/HIES-Logo.svg" alt="HIES Consumer Code" />
+        <strong>HIES Consumer Code</strong>
+        <p>Deposit, warranty and aftercare protection for total peace of mind.</p>
       </div>
-      <div class="trust-logo" tabindex="0">
-        <img src="https://www.napit.org.uk/images/napit/logo.svg" alt="NAPIT" />
-        <div class="popover">
-          <strong>NAPIT Registered</strong><br>
-          Fully qualified, vetted installers for your safety.
-        </div>
+      <div class="trust-logo">
+        <img src="https://www.napit.org.uk/images/napit/logo.svg" alt="NAPIT Registered" />
+        <strong>NAPIT Registered</strong>
+        <p>Fully qualified, independently audited installers.</p>
       </div>
     </div>
   </section>
+
   <section id="calculator" class="section">
     <h2>Solar Savings Calculator</h2>
     <p>Estimate your annual savings with solar for your home.</p>
@@ -682,16 +290,17 @@
       <input type="number" id="rate" placeholder="e.g. 24.99" required>
       <label for="usage">Your yearly electricity usage (kWh):</label>
       <input type="number" id="usage" placeholder="e.g. 4000" required>
-      <label>
+      <label style="font-weight:400;">
         <input type="checkbox" id="battery"> Include battery storage?
       </label>
-      <button type="submit">Calculate Savings</button>
+      <button type="submit" class="cta">Calculate Savings</button>
     </form>
     <div id="result" class="result-animated"></div>
   </section>
+
   <section id="contact" class="section">
     <h2>Get Your Free Solar Quote</h2>
-    <p>Send us your details for a tailored quote—no sales pressure, just honest numbers.</p>
+    <p>Send us your details for a tailored quote—no pressure, just real numbers and honest answers.</p>
     <form action="https://bit.ly/letstalksolarsavings" method="POST" class="quote-form">
       <input type="text" name="name" placeholder="Full Name" required>
       <input type="text" name="address" placeholder="Full Address" required>
@@ -702,9 +311,7 @@
       <button type="submit" class="cta">Send My Quote Request</button>
     </form>
   </section>
-  <a href="https://wa.me/447123456789" class="floating-chat" title="Chat with us on WhatsApp" target="_blank">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Chat">
-  </a>
+
   <footer>
     <div class="footer-content">
       <div>&copy; 2025 Let’s Talk About Solar</div>
@@ -717,18 +324,6 @@
     </div>
   </footer>
   <script>
-    // Mobile nav menu toggle
-    const menuToggle = document.getElementById('menu-toggle');
-    const navMenu = document.querySelector('nav#navbar ul');
-    if (menuToggle && navMenu) {
-      menuToggle.addEventListener('click', () => {
-        navMenu.classList.toggle('open');
-        menuToggle.setAttribute('aria-expanded', navMenu.classList.contains('open'));
-      });
-      navMenu.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => navMenu.classList.remove('open'));
-      });
-    }
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
@@ -738,16 +333,6 @@
           document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
         }
       });
-    });
-    // Trust badge popovers (keyboard accessibility)
-    document.querySelectorAll('.trust-logo').forEach((logo) => {
-      logo.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          logo.classList.toggle('popover-open');
-        }
-      });
-      logo.addEventListener('blur', () => logo.classList.remove('popover-open'));
     });
     // Savings calculator animated count up
     document.getElementById("savingsForm").addEventListener("submit", function (e) {
