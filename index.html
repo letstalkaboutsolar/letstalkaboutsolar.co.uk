@@ -163,6 +163,67 @@
       border-radius: 999px;
       cursor: pointer;
     }
+    /* Combined toolkit section */
+    #solar-toolkit {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      align-items: flex-start;
+      text-align: left;
+    }
+    #solar-toolkit > div {
+      flex: 1 1 320px;
+      min-width: 280px;
+      max-width: 450px;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2rem;
+      margin-bottom: 0;
+    }
+    #solar-toolkit h2 {
+      text-align: center;
+    }
+    @media (max-width: 950px) {
+      #solar-toolkit {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+      }
+      #solar-toolkit > div {
+        margin: 0 auto 2rem auto;
+      }
+    }
+    /* News list styling for API news section */
+    #news-list {
+      list-style: none;
+      max-width: 700px;
+      margin: 1.3rem auto 0 auto;
+      padding: 0 0.6em;
+      font-size: 1.05rem;
+      color: #2c3e50;
+    }
+    #news-list li {
+      margin-bottom: 1.1em;
+      line-height: 1.5;
+      border-bottom: 1px solid #e3f0fc;
+      padding-bottom: 0.6em;
+    }
+    #news-list a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.14s;
+    }
+    #news-list a:hover {
+      color: #155a92;
+      text-decoration: underline;
+    }
+    #news-list span {
+      color: #888;
+      font-size: 0.93em;
+    }
     footer {
       background: var(--primary);
       color: white;
@@ -220,35 +281,14 @@
       .section {
         padding: 1.6rem 0.2rem;
       }
-    }
-    /* News list styling for API news section */
-    #news-list {
-      list-style: none;
-      max-width: 700px;
-      margin: 1.3rem auto 0 auto;
-      padding: 0 0.6em;
-      font-size: 1.05rem;
-      color: #2c3e50;
-    }
-    #news-list li {
-      margin-bottom: 1.1em;
-      line-height: 1.5;
-      border-bottom: 1px solid #e3f0fc;
-      padding-bottom: 0.6em;
-    }
-    #news-list a {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.14s;
-    }
-    #news-list a:hover {
-      color: #155a92;
-      text-decoration: underline;
-    }
-    #news-list span {
-      color: #888;
-      font-size: 0.93em;
+      #solar-toolkit {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+      }
+      #solar-toolkit > div {
+        margin: 0 auto 2rem auto;
+      }
     }
   </style>
 </head>
@@ -272,7 +312,6 @@
       <a href="#quote" class="cta">Get My Free Quote</a>
     </div>
     <div class="hero-img">
-      <!-- Cartoon solar panel illustration (copyright-free) -->
       <img src="https://cdn.pixabay.com/photo/2017/01/31/13/14/solar-panel-2029350_1280.png" alt="Cartoon solar panel" />
     </div>
   </section>
@@ -281,293 +320,42 @@
     <h2>Why Solar?</h2>
     <div class="benefit-cards">
       <div class="benefit-card">
-        <!-- Money/GBP icon -->
         <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Money saving GBP icon">
         <p>Save money on your bills from day one.</p>
       </div>
       <div class="benefit-card">
-        <!-- Battery storage icon -->
         <img src="https://cdn-icons-png.flaticon.com/512/3103/3103446.png" alt="Battery storage icon">
         <p>Store your sunshine with battery technology.</p>
       </div>
       <div class="benefit-card">
-        <!-- Pylon/grid icon -->
         <img src="https://cdn-icons-png.flaticon.com/512/2422/2422625.png" alt="Pylon selling to grid icon">
         <p>Sell your surplus energy back to the grid.</p>
       </div>
     </div>
   </section>
 
-  <!-- ORIENTATION SECTION WITH STREET VIEW BUTTON -->
-  <section id="orientation" class="section">
-    <h2>Check Your Roof Orientation</h2>
-    <p>Enter your address to estimate your solar potential.</p>
-    <input id="addressInput" type="text" placeholder="Enter your address" style="max-width:350px;margin:0 auto 1rem auto;display:block;" />
-    <button id="toggleMapBtn" onclick="toggleStreetView()" style="margin:1rem 0 1.2rem 0;padding:0.7rem 1.3rem;border-radius:999px;background:#72bcd4;color:#fff;font-weight:bold;font-size:1rem;border:none;box-shadow:0 2px 8px rgba(114,188,212,0.07);cursor:pointer;">
-      Show Street View
-    </button>
-    <div id="streetview-container" style="width:100%;max-width:500px;height:200px;display:none;border-radius:18px;overflow:hidden;margin:0 auto 1rem auto;background:#f4fbff;">
-      <div id="pano" style="width:100%;height:100%;"></div>
-    </div>
-    <p id="orientationResult" style="margin-top: 1rem; font-weight: bold;"></p>
-    <p style="font-size:0.85rem;color:gray;margin-top:0.5rem;">
-      These calculations are very generic—please book a consultation to get accurate and validated figures.
-    </p>
-  </section>
-
-  <section id="calculator" class="section">
-    <h2>Solar Savings Calculator</h2>
-    <form id="calcForm" class="calculator">
-      <label for="rate">Electricity unit rate (p/kWh):</label>
-      <input type="number" id="rate" placeholder="e.g. 25" required>
-      <label for="usage">Annual electricity usage (kWh):</label>
-      <input type="number" id="usage" placeholder="e.g. 4000" required>
-      <label><input type="checkbox" id="battery"> Include battery?</label>
-      <button type="submit">Calculate</button>
-    </form>
-    <div id="calcResult"></div>
-    <p style="font-size: 0.8rem; margin-top: 1rem; color: gray;">
-      Estimates based on a 4kW Aiko monocrystalline panel system under G98 permitted development regulations. Actual performance may vary.
-      <br>
-      These calculations are very generic—please book a consultation to get accurate and validated figures.
-    </p>
-  </section>
-
-  <!-- NEWS WIDGET SECTION: NewsAPI version -->
-  <section id="energy-news" class="section">
-    <h2>Latest UK Energy News</h2>
-    <ul id="news-list"><li>Loading news...</li></ul>
-    <p style="font-size:0.9rem;color:gray;margin-top:0.5rem;">
-      News provided by NewsAPI.org.<br>
-      For the most up-to-date information, check back here regularly.
-    </p>
-  </section>
-  
-  <!-- END OF NEWS SECTION -->
-
-  <!-- START OF HISTORIC DATA GRAPH SECTION -->
-  <section id="historic-prices" class="section">
-    <button onclick="toggleHistoric()" style="font-size:1.1rem;padding:0.5rem 1.5rem;background:#72bcd4;color:#fff;border:none;border-radius:20px;cursor:pointer;">
-      Show Historic Electricity Prices (2000-2025)
-    </button>
-    <div id="historic-graph" style="display:none;margin-top:2rem;">
-      <canvas id="pricesChart" width="400" height="200"></canvas>
-      <p style="font-size:0.9rem;color:gray;">
-        Source: 
-        <a href="https://www.gov.uk/government/statistical-data-sets/annual-domestic-energy-price-statistics" target="_blank">UK Government</a>,
-        Ofgem, ONS
+  <!-- COMBINED ORIENTATION & CALCULATOR SECTION -->
+  <section id="solar-toolkit" class="section">
+    <div>
+      <h2>Check Your Roof Orientation</h2>
+      <p>Enter your address to estimate your solar potential.</p>
+      <input id="addressInput" type="text" placeholder="Enter your address" style="max-width:350px;margin:0 auto 1rem auto;display:block;" />
+      <button id="toggleMapBtn" onclick="toggleStreetView()" style="margin:1rem 0 1.2rem 0;padding:0.7rem 1.3rem;border-radius:999px;background:#72bcd4;color:#fff;font-weight:bold;font-size:1rem;border:none;box-shadow:0 2px 8px rgba(114,188,212,0.07);cursor:pointer;">
+        Show Street View
+      </button>
+      <div id="streetview-container" style="width:100%;max-width:400px;height:200px;display:none;border-radius:18px;overflow:hidden;margin:0 auto 1rem auto;background:#f4fbff;">
+        <div id="pano" style="width:100%;height:100%;"></div>
+      </div>
+      <p id="orientationResult" style="margin-top: 1rem; font-weight: bold;"></p>
+      <p style="font-size:0.85rem;color:gray;margin-top:0.5rem;">
+        These calculations are very generic—please book a consultation to get accurate and validated figures.
       </p>
     </div>
-  </section>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-  function toggleHistoric() {
-    let g = document.getElementById('historic-graph');
-    g.style.display = (g.style.display === 'none' || g.style.display === '') ? 'block' : 'none';
-    if (g.style.display === 'block' && !window._historicChartLoaded) {
-      drawPriceChart();
-      window._historicChartLoaded = true;
-    }
-  }
-  function drawPriceChart() {
-    const ctx = document.getElementById('pricesChart').getContext('2d');
-    const years = [
-      2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,
-      2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,
-      2020,2021,2022,2023,2024,2025
-    ];
-    const prices = [
-      7.0,7.3,7.2,7.1,7.4,8.2,10.0,10.6,13.3,13.9,
-      13.7,14.5,15.5,15.6,15.6,15.2,14.4,14.4,15.0,17.2,
-      17.2,19.0,28.0,30.0,28.5,27.5
-    ];
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: years,
-        datasets: [{
-          label: 'UK Domestic Electricity Price (p/kWh)',
-          data: prices,
-          borderColor: '#72bcd4',
-          backgroundColor: 'rgba(114,188,212,0.15)',
-          tension: 0.25,
-          pointBackgroundColor: '#ffd700',
-          pointRadius: 5,
-          fill: true
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: true },
-          tooltip: { enabled: true }
-        },
-        scales: {
-          y: {
-            beginAtZero: true,
-            title: { display: true, text: 'pence per kWh' }
-          },
-          x: {
-            title: { display: true, text: 'Year' }
-          }
-        }
-      }
-    });
-  }
-  </script>
-  <!-- END OF HISTORIC DATA GRAPH SECTION -->
-
-  <section id="trust" class="section">
-    <h2>Who Can You Trust?</h2>
-    <div class="trust-logos">
-      <a class="trust-logo" href="https://mcscertified.com/" target="_blank">
-        <img src="assets/mcs logo.png" alt="MCS Certified" />
-        <p><strong>MCS</strong>: Quality guaranteed equipment and installers.</p>
-      </a>
-      <a class="trust-logo" href="https://www.epvs.co.uk/" target="_blank">
-        <img src="assets/epvs logi.jpeg" alt="EPVS" />
-        <p><strong>EPVS</strong>: Verified energy savings and performance claims.</p>
-      </a>
-      <a class="trust-logo" href="https://www.hiesscheme.org.uk/" target="_blank">
-        <img src="assets/hies-cc-logo-2.png" alt="HIES" />
-        <p><strong>HIES</strong>: Consumer protection from start to finish.</p>
-      </a>
-      <a class="trust-logo" href="https://www.napit.org.uk/" target="_blank">
-        <img src="assets/NAPIT-NEW-LOGO.jpg" alt="NAPIT" />
-        <p><strong>NAPIT</strong>: Government-approved installer certification.</p>
-      </a>
-    </div>
-  </section>
-
-  <section id="quote" class="section">
-    <h2>Request a Free Quote</h2>
-    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="quote-form">
-      <input type="text" name="name" placeholder="Full Name" required autocomplete="name">
-      <input type="text" name="address" placeholder="Full Address" required autocomplete="street-address">
-      <input type="email" name="email" placeholder="Email Address" required autocomplete="email">
-      <input type="tel" name="phone" placeholder="Phone Number" required autocomplete="tel">
-      <input type="text" name="unitrate" placeholder="Electricity Unit Rate (p/kWh)" required>
-      <input type="text" name="annualspend" placeholder="Annual Electricity Spend (£)" required>
-      <button type="submit">Send My Quote Request</button>
-    </form>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 Let’s Talk About Solar. All rights reserved.</p>
-  </footer>
-
-  <script>
-    let lastScroll = 0;
-    const nav = document.getElementById("navbar");
-    let orientationFactor = 1;
-
-    window.addEventListener("scroll", () => {
-      const currentScroll = window.pageYOffset;
-      nav.classList.toggle("hidden", currentScroll > lastScroll);
-      lastScroll = currentScroll;
-    });
-
-    // Orientation section logic (Street View only)
-    let autocomplete, lastPlaceLocation = null, panoMap = null;
-
-    function initMap() {
-      const input = document.getElementById("addressInput");
-      autocomplete = new google.maps.places.Autocomplete(input);
-
-      autocomplete.addListener("place_changed", () => {
-        const place = autocomplete.getPlace();
-        if (!place.geometry || !place.geometry.location) {
-          alert("No details available for input: '" + place.name + "'");
-          lastPlaceLocation = null;
-          return;
-        }
-        lastPlaceLocation = place.geometry.location;
-        // Orientation logic
-        const viewport = place.geometry.viewport;
-        let orientation = "Unknown";
-        let explanation = "";
-        orientationFactor = 0.9;
-
-        if (viewport) {
-          const ne = viewport.getNorthEast();
-          const sw = viewport.getSouthWest();
-          const angle = Math.atan2(ne.lat() - sw.lat(), ne.lng() - sw.lng()) * (180 / Math.PI);
-
-          if (angle > -45 && angle <= 45) {
-            orientation = "East";
-            orientationFactor = 0.85;
-            explanation = "Your front roof likely faces East and the rear West. A solar system can still work well with morning sunlight.";
-          } else if (angle > 45 && angle <= 135) {
-            orientation = "North";
-            orientationFactor = 0.75;
-            explanation = "Your front roof likely faces North and the rear South. South-facing roofs are ideal for solar.";
-          } else if (angle > -135 && angle <= -45) {
-            orientation = "South";
-            orientationFactor = 1.0;
-            explanation = "Your front roof likely faces South and the rear North. This is excellent for solar efficiency.";
-          } else {
-            orientation = "West";
-            orientationFactor = 0.8;
-            explanation = "Your front roof likely faces West and the rear East. Good for catching late afternoon sunlight.";
-          }
-        }
-
-        document.getElementById("orientationResult").innerHTML =
-          `<strong>Estimated Roof Orientation:</strong> ${orientation}<br><em>${explanation}</em><br><span style='font-size:0.82rem;color:gray;'>These calculations are very generic—please book a consultation to get accurate and validated figures.</span>`;
-      });
-    }
-
-    window.initMap = initMap;
-
-    function toggleStreetView() {
-      const container = document.getElementById("streetview-container");
-      const btn = document.getElementById("toggleMapBtn");
-      if (container.style.display === 'none' || container.style.display === '') {
-        if (!lastPlaceLocation) {
-          alert("Please enter your address and select it from the dropdown first.");
-          return;
-        }
-        container.style.display = "block";
-        btn.innerText = "Hide Street View";
-        if (!panoMap) {
-          panoMap = new google.maps.StreetViewPanorama(
-            document.getElementById('pano'), {
-              position: lastPlaceLocation,
-              pov: { heading: 160, pitch: 0 },
-              zoom: 1
-            }
-          );
-        } else {
-          panoMap.setPosition(lastPlaceLocation);
-        }
-      } else {
-        container.style.display = "none";
-        btn.innerText = "Show Street View";
-      }
-    }
-
-    document.getElementById("calcForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const rate = parseFloat(document.getElementById("rate").value);
-      const usage = parseFloat(document.getElementById("usage").value);
-      const battery = document.getElementById("battery").checked;
-      const rise = 1.0704;
-      let efficiency = battery ? 0.95 : 0.7;
-      let save = 0.5 * orientationFactor * efficiency * usage * rate / 100;
-      let total = 0, without = 0;
-      let html = `<h3>10-Year Savings Estimate:</h3><ul>`;
-      for (let i = 1; i <= 10; i++) {
-        total += save;
-        without += usage * Math.pow(rise, i) * rate / 100;
-        html += `<li>Year ${i}: £${save.toFixed(2)}</li>`;
-        save *= rise;
-      }
-      html += `</ul><p><strong>Total Solar Savings:</strong> £${total.toFixed(2)}</p>`;
-      html += `<p><strong>Without Solar:</strong> £${without.toFixed(2)}</p>`;
-      html += `<p style="margin-top:1rem;font-size:1rem;"><strong>Based on a 4kW system registered G98 and the assumption the homeowner is at home half the day.</strong></p>`;
-      html += `<p style="font-size:0.85rem;color:gray;">These calculations are very generic—please book a consultation to get accurate and validated figures.</p>`;
-      document.getElementById("calcResult").innerHTML = html;
-    });
-
-    // NEWSAPI.ORG FETCH LOGIC
-    fetch('https://newsapi.org/v2/everything?q=solar+en
+    <div>
+      <h2>Solar Savings Calculator</h2>
+      <form id="calcForm" class="calculator">
+        <label for="rate">Electricity unit rate (p/kWh):</label>
+        <input type="number" id="rate" placeholder="e.g. 25" required>
+        <label for="usage">Annual electricity usage (kWh):</label>
+        <input type="number" id="usage" placeholder="e.g. 4000" required>
+        <label><input type="checkbox" id="battery
