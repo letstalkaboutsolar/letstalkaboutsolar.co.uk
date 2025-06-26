@@ -1,72 +1,141 @@
 /* style.css — sunny cartoon style */
 
 /* General Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-{ margin: 0; padding: 0; box-sizing: border-box; }
+/* Body Styling */
+body {
+  font-family: 'Comic Neue', 'Segoe UI', sans-serif;
+  background: #fdfdfc;
+  color: #333;
+  line-height: 1.6;
+  padding-top: 80px;
+}
 
+/* Navigation */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: linear-gradient(to right, #ffcc70, #fdd365);
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  border-bottom: 3px solid #f4b400;
+}
 
-body { font-family: 'Comic Neue', 'Segoe UI', sans-serif; background: #fdfdfc; color: #333; line-height: 1.6; padding-top: 80px; }
+nav a {
+  color: #333;
+  text-decoration: none;
+  font-weight: bold;
+  margin: 0 1rem;
+  transition: transform 0.2s;
+}
 
-/* Navigation */ nav { position: fixed; top: 0; width: 100%; background: linear-gradient(to right, #ffcc70, #fdd365); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); z-index: 1000; border-bottom: 3px solid #f4b400; }
+nav a:hover {
+  transform: scale(1.1);
+  color: #f57c00;
+}
 
-nav a { color: #333; text-decoration: none; font-weight: bold; margin: 0 1rem; transition: transform 0.2s; }
+/* Hero Section */
+.hero {
+  background: linear-gradient(to bottom right, #a3e4f7, #d0f0fd);
+  border-radius: 30px;
+  margin: 2rem auto;
+  padding: 4rem 2rem;
+  max-width: 900px;
+  text-align: center;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 1s ease-in-out;
+}
 
-nav a:hover { transform: scale(1.1); color: #f57c00; }
+.hero h1 {
+  font-size: 2.5rem;
+  color: #0077b6;
+  text-shadow: 1px 1px 0 #fff;
+  margin-bottom: 1rem;
+}
 
-/* Hero Section */ .hero { background: linear-gradient(to bottom right, #a3e4f7, #d0f0fd); border-radius: 30px; margin: 2rem auto; padding: 4rem 2rem; max-width: 900px; text-align: center; box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1); animation: fadeIn 1s ease-in-out; }
+.hero p {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 2rem;
+}
 
-.hero h1 { font-size: 2.5rem; color: #0077b6; text-shadow: 1px 1px 0 #fff; margin-bottom: 1rem; }
+.hero .cta {
+  background: #ffb703;
+  color: #fff;
+  border: none;
+  padding: 0.9rem 2rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+}
 
-.hero p { font-size: 1.2rem; color: #555; margin-bottom: 2rem; }
+.hero .cta:hover {
+  background: #fb8500;
+}
 
-.hero .cta { background: #ffb703; color: #fff; border: none; padding: 0.9rem 2rem; border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: background 0.3s ease; box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15); }
+/* Section Styling */
+section {
+  margin: 2rem auto;
+  max-width: 900px;
+  padding: 2rem;
+  border-radius: 20px;
+  background: #ffffff;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06);
+}
 
-.hero .cta:hover { background: #fb8500; }
+h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #023047;
+}
 
-/* Section Styling */ section { margin: 2rem auto; max-width: 900px; padding: 2rem; border-radius: 20px; background: #ffffff; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06); }
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-h2 { font-size: 2rem; margin-bottom: 1rem; color: #023047; }
+/* Form Styling */
+form input,
+form textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+}
 
-/* Animation */ @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+form button {
+  background: #219ebc;
+  color: white;
+  border: none;
+  padding: 0.8rem 2rem;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
 
-/* Form Styling */ form input, form textarea { width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 2px solid #ccc; border-radius: 10px; font-size: 1rem; }
-
-form button { background: #219ebc; color: white; border: none; padding: 0.8rem 2rem; border-radius: 12px; cursor: pointer; font-weight: bold; transition: background 0.3s ease; }
-
-form button:hover { background: #126782; }
-/* style.css — sunny cartoon style */
-
-/* General Reset */
-
-{ margin: 0; padding: 0; box-sizing: border-box; }
-
-
-body { font-family: 'Comic Neue', 'Segoe UI', sans-serif; background: #fdfdfc; color: #333; line-height: 1.6; padding-top: 80px; }
-
-/* Navigation */ nav { position: fixed; top: 0; width: 100%; background: linear-gradient(to right, #ffcc70, #fdd365); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); z-index: 1000; border-bottom: 3px solid #f4b400; }
-
-nav a { color: #333; text-decoration: none; font-weight: bold; margin: 0 1rem; transition: transform 0.2s; }
-
-nav a:hover { transform: scale(1.1); color: #f57c00; }
-
-/* Hero Section */ .hero { background: linear-gradient(to bottom right, #a3e4f7, #d0f0fd); border-radius: 30px; margin: 2rem auto; padding: 4rem 2rem; max-width: 900px; text-align: center; box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1); animation: fadeIn 1s ease-in-out; }
-
-.hero h1 { font-size: 2.5rem; color: #0077b6; text-shadow: 1px 1px 0 #fff; margin-bottom: 1rem; }
-
-.hero p { font-size: 1.2rem; color: #555; margin-bottom: 2rem; }
-
-.hero .cta { background: #ffb703; color: #fff; border: none; padding: 0.9rem 2rem; border-radius: 12px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: background 0.3s ease; box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15); }
-
-.hero .cta:hover { background: #fb8500; }
-
-/* Section Styling */ section { margin: 2rem auto; max-width: 900px; padding: 2rem; border-radius: 20px; background: #ffffff; box-shadow: 0 6px 15px rgba(0, 0, 0, 0.06); }
-
-h2 { font-size: 2rem; margin-bottom: 1rem; color: #023047; }
-
-/* Animation */ @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-/* Form Styling */ form input, form textarea { width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 2px solid #ccc; border-radius: 10px; font-size: 1rem; }
-
-form button { background: #219ebc; color: white; border: none; padding: 0.8rem 2rem; border-radius: 12px; cursor: pointer; font-weight: bold; transition: background 0.3s ease; }
-
-form button:hover { background: #126782; }
+form button:hover {
+  background: #126782;
+}
