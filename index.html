@@ -3,8 +3,7 @@
 <head>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ&libraries=places&callback=initMap" async defer></script>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Let’s Talk About Solar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"  <title>Let’s Talk About Solar</title>
   <meta name="description" content="Clear, friendly, and honest solar advice for UK homeowners. Discover real savings, trusted installers, and smart solar tools." />
   <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
   <style>
@@ -385,9 +384,10 @@
     <div id="historic-graph" style="display:none;margin-top:2rem;">
       <canvas id="pricesChart" width="400" height="200"></canvas>
       <p style="font-size:0.9rem;color:gray;">
-        Source: 
-        <a href="https://www.gov.uk/government/statistical-data-sets/annual-domestic-energy-price-statistics" target="_blank">UK Government</a>,
-        Ofgem, ONS
+        Sources: 
+        <a href="https://www.gov.uk/government/statistical-data-sets/annual-domestic-energy-price-statistics" target="_blank">UK Government</a>, 
+        <a href="https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindices" target="_blank">Office for National Statistics (ONS)</a>, 
+        <a href="https://www.ofgem.gov.uk/energy-data-and-research/data-portal/retail-market-indicators" target="_blank">Ofgem</a>
       </p>
     </div>
   </section>
@@ -586,11 +586,4 @@
       let efficiency = battery ? 0.95 : 0.7;
       let save = 0.5 * orientationFactor * efficiency * usage * rate / 100;
       let total = 0, without = 0;
-      let html = `<h3>10-Year Savings Estimate:</h3><ul>`;
-      for (let i = 1; i <= 10; i++) {
-        total += save;
-        without += usage * Math.pow(rise, i) * rate / 100;
-        html += `<li>Year ${i}: £${save.toFixed(2)}</li>`;
-        save *= rise;
-      }
-      html += `</ul><p><strong>Total Sola
+      let html = `<h3>10-Year Saving
