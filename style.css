@@ -694,3 +694,46 @@ img {
   transform: translateY(-12px);
   pointer-events: none;
 }
+nav {
+  background: var(--card);
+  box-shadow: var(--shadow);
+  padding: 0.5rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  height: 58px;
+  transition: all 0.25s ease-in-out;
+}
+
+.logo {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--primary);
+  white-space: nowrap;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 1rem;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: var(--text);
+  font-size: 1rem;
+}
+
+nav.scrolled {
+  transform: translateY(-100%);
+}
+
+.hero {
+  padding: 5rem 1.5rem 3rem;
+  margin-top: 58px; /* fixes the overlap under nav */
+}
