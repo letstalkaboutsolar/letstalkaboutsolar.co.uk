@@ -9,328 +9,327 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ&libraries=places&callback=initMap" async defer></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-/* --- style.css from your repo --- */
-:root {
-  --primary: #72bcd4;
-  --secondary: #eaf9ff;
-  --accent: #ffd700;
-  --background: #f4fbff;
-  --card: #fff;
-  --text: #2c3e50;
-  --radius: 20px;
-  --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-}
-* { box-sizing: border-box; }
-html, body {
-  margin: 0;
-  padding: 0;
-  background: var(--background);
-  font-family: 'Patrick Hand', cursive;
-  color: var(--text);
-  scroll-behavior: smooth;
-}
-nav {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: var(--card);
-  box-shadow: var(--shadow);
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 100;
-  transition: top 0.3s;
-  height: auto;
-}
-nav.hidden { top: -100px; }
-.logo { font-size: 1.5rem; font-weight: bold; color: var(--primary); }
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 1.5rem;
-  margin: 0;
-  padding: 0;
-}
-nav ul li a {
-  text-decoration: none;
-  color: var(--text);
-  font-size: 1.1rem;
-  padding: 0.5rem 0.8rem;
-  border-radius: 999px;
-  transition: background 0.18s;
-}
-nav ul li a.cta-nav {
-  background: var(--primary);
-  color: white;
-  padding: 0.5rem 1rem;
-}
-nav ul li a:hover,
-nav ul li a.cta-nav:hover {
-  background: var(--secondary);
-  color: var(--primary);
-}
-.hero {
-  padding: 4rem 2rem 2rem;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  background: linear-gradient(to right, #e0f7ff, #ffffff);
-  margin-top: 72px;
-}
-.hero-text {
-  max-width: 480px;
-  padding: 1rem;
-}
-.hero-text h1 {
-  font-size: 2.2rem;
-  color: var(--primary);
-  margin: 0 0 1rem;
-}
-.hero-text p {
-  font-size: 1.1rem;
-  margin-bottom: 1rem;
-}
-.cta {
-  background: var(--primary);
-  color: white;
-  padding: 0.75rem 1.5rem;
-  text-decoration: none;
-  border-radius: 999px;
-  font-size: 1rem;
-  display: inline-block;
-}
-.hero-img {
-  max-width: 320px;
-  padding: 1rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.hero-img img {
-  width: 100%;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  object-fit: cover;
-  background: white;
-}
-.section { padding: 3rem 1rem; text-align: center; }
-.benefit-cards, .trust-logos {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: center;
-  margin-top: 2rem;
-}
-.benefit-card, .trust-logo {
-  background: var(--card);
-  padding: 1.5rem;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  max-width: 250px;
-}
-.benefit-card img, .trust-logo img {
-  width: 60px;
-  height: 60px;
-  object-fit: contain;
-  margin-bottom: 1rem;
-}
-.calculator, .quote-form {
-  max-width: 500px;
-  margin: 0 auto;
-  background: var(--card);
-  padding: 2rem;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-}
-label, input, button {
-  display: block;
-  width: 100%;
-  font-size: 1rem;
-  margin-top: 1rem;
-  font-family: 'Patrick Hand', cursive;
-}
-input {
-  padding: 0.6rem;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-}
-#rate { box-shadow: 0 2px 8px #e3f0fc; }
-button {
-  background: var(--primary);
-  color: white;
-  padding: 0.75rem;
-  border: none;
-  border-radius: 999px;
-  cursor: pointer;
-}
-#solar-toolkit {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
-  justify-content: center;
-  align-items: flex-start;
-  text-align: left;
-}
-#solar-toolkit > div {
-  flex: 1 1 320px;
-  min-width: 280px;
-  max-width: 450px;
-  background: var(--card);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  padding: 2rem;
-  margin-bottom: 0;
-}
-#solar-toolkit h2 {
-  text-align: center;
-}
-@media (max-width: 950px) {
-  #solar-toolkit {
-    flex-direction: column;
-    align-items: stretch;
-    text-align: center;
-  }
-  #solar-toolkit > div {
-    margin: 0 auto 2rem auto;
-  }
-}
-#news-list {
-  list-style: none;
-  max-width: 700px;
-  margin: 1.3rem auto 0 auto;
-  padding: 0 0.6em;
-  font-size: 1.05rem;
-  color: #2c3e50;
-}
-#news-list li {
-  margin-bottom: 1.1em;
-  line-height: 1.5;
-  border-bottom: 1px solid #e3f0fc;
-  padding-bottom: 0.6em;
-}
-#news-list a {
-  color: var(--primary);
-  text-decoration: none;
-  font-weight: 600;
-  transition: color 0.14s;
-}
-#news-list a:hover {
-  color: #155a92;
-  text-decoration: underline;
-}
-#news-list span {
-  color: #888;
-  font-size: 0.93em;
-}
-footer {
-  background: var(--primary);
-  color: white;
-  padding: 2rem;
-  text-align: center;
-  margin-top: 3rem;
-  border-radius: var(--radius) var(--radius) 0 0;
-  font-size: 0.9rem;
-}
-/* FAQ Accordion */
-.faq-container {padding:0;}
-.faq-item {
-  margin-bottom:1.1rem;
-  border-radius:14px;
-  background:#fff;
-  box-shadow:0 2px 12px #e3eafc;
-}
-.faq-question {
-  background:var(--primary);
-  color:#fff;
-  width:100%;
-  text-align:left;
-  padding:1rem 1.2rem;
-  border:none;
-  font-size:1.15rem;
-  font-family:'Patrick Hand',cursive;
-  border-radius:14px;
-  cursor:pointer;
-  transition: background 0.18s;
-  outline:none;
-  display:block;
-  margin:0;
-}
-.faq-question:hover, .faq-question.active {
-  background:var(--accent);
-  color:#2c3e50;
-}
-.faq-answer {
-  display:none;
-  padding:1.1rem 1.2rem 1rem 1.2rem;
-  font-size:1.05rem;
-  border-top:1px solid #e3eafc;
-  animation: fadeIn .25s;
-  background: #f9fcff;
-}
-@keyframes fadeIn {
-  from {opacity:0;}
-  to {opacity:1;}
-}
-/* Responsive tweaks */
-@media (max-width: 600px) {
-  nav {
-    padding: 0.4rem 0.7rem;
-    background: rgba(255,255,255,0.97);
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    height: auto;
-  }
-  .logo {
-    font-size: 1rem;
-    padding: 0.2rem 0;
-  }
-  nav ul {
-    gap: 0.8rem;
-    overflow-x: auto;
-    white-space: nowrap;
-    flex-wrap: nowrap;
-  }
-  nav ul li a {
-    font-size: 0.95rem;
-    padding: 0.3rem 0.7rem;
-  }
-  nav ul li a.cta-nav {
-    padding: 0.35rem 0.8rem;
-  }
-  .hero {
-    padding: 2.2rem 0.5rem 1rem 0.5rem;
-    margin-top: 56px;
-  }
-  .hero-text h1 {
-    font-size: 1.2rem;
-  }
-  .hero-img {
-    max-width: 95vw;
-    margin: 0 auto;
-    padding: 0.3rem;
-  }
-  .benefit-cards, .trust-logos {
-    flex-direction: column;
-    align-items: center;
-    gap: 1.2rem;
-  }
-  .benefit-card, .trust-logo {
-    max-width: 98vw;
-    padding: 1.2rem 0.7rem;
-  }
-  .section {
-    padding: 1.6rem 0.2rem;
-  }
-  #solar-toolkit {
-    flex-direction: column;
-    align-items: stretch;
-    text-align: center;
-  }
-  #solar-toolkit > div {
-    margin: 0 auto 2rem auto;
-  }
-}
+    :root {
+      --primary: #72bcd4;
+      --secondary: #eaf9ff;
+      --accent: #ffd700;
+      --background: #f4fbff;
+      --card: #fff;
+      --text: #2c3e50;
+      --radius: 20px;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--background);
+      font-family: 'Patrick Hand', cursive, sans-serif;
+      color: var(--text);
+      scroll-behavior: smooth;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: var(--card);
+      box-shadow: var(--shadow);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      transition: top 0.3s;
+      height: auto;
+    }
+    nav.hidden { top: -100px; }
+    .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary); }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: var(--text);
+      font-size: 1.1rem;
+      padding: 0.5rem 0.8rem;
+      border-radius: 999px;
+      transition: background 0.18s;
+    }
+    nav ul li a.cta-nav {
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem 1rem;
+    }
+    nav ul li a:hover,
+    nav ul li a.cta-nav:hover {
+      background: var(--secondary);
+      color: var(--primary);
+    }
+    .hero {
+      padding: 4rem 2rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to right, #e0f7ff, #ffffff);
+      margin-top: 72px;
+    }
+    .hero-text {
+      max-width: 480px;
+      padding: 1rem;
+    }
+    .hero-text h1 {
+      font-size: 2.2rem;
+      color: var(--primary);
+      margin: 0 0 1rem;
+    }
+    .hero-text p {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+    .cta {
+      background: var(--primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      border-radius: 999px;
+      font-size: 1rem;
+      display: inline-block;
+    }
+    .hero-img {
+      max-width: 320px;
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .hero-img img {
+      width: 100%;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      object-fit: cover;
+      background: white;
+    }
+    .section { padding: 3rem 1rem; text-align: center; }
+    .benefit-cards, .trust-logos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    .benefit-card, .trust-logo {
+      background: var(--card);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      max-width: 250px;
+    }
+    .benefit-card img, .trust-logo img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      margin-bottom: 1rem;
+    }
+    .calculator, .quote-form {
+      max-width: 500px;
+      margin: 0 auto;
+      background: var(--card);
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    label, input, button {
+      display: block;
+      width: 100%;
+      font-size: 1rem;
+      margin-top: 1rem;
+      font-family: 'Patrick Hand', cursive, sans-serif;
+    }
+    input {
+      padding: 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    #rate { box-shadow: 0 2px 8px #e3f0fc; }
+    button {
+      background: var(--primary);
+      color: white;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    #solar-toolkit {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      align-items: flex-start;
+      text-align: left;
+    }
+    #solar-toolkit > div {
+      flex: 1 1 320px;
+      min-width: 280px;
+      max-width: 450px;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2rem;
+      margin-bottom: 0;
+    }
+    #solar-toolkit h2 {
+      text-align: center;
+    }
+    @media (max-width: 950px) {
+      #solar-toolkit {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+      }
+      #solar-toolkit > div {
+        margin: 0 auto 2rem auto;
+      }
+    }
+    #news-list {
+      list-style: none;
+      max-width: 700px;
+      margin: 1.3rem auto 0 auto;
+      padding: 0 0.6em;
+      font-size: 1.05rem;
+      color: #2c3e50;
+    }
+    #news-list li {
+      margin-bottom: 1.1em;
+      line-height: 1.5;
+      border-bottom: 1px solid #e3f0fc;
+      padding-bottom: 0.6em;
+    }
+    #news-list a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.14s;
+    }
+    #news-list a:hover {
+      color: #155a92;
+      text-decoration: underline;
+    }
+    #news-list span {
+      color: #888;
+      font-size: 0.93em;
+    }
+    footer {
+      background: var(--primary);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      margin-top: 3rem;
+      border-radius: var(--radius) var(--radius) 0 0;
+      font-size: 0.9rem;
+    }
+    /* FAQ Accordion */
+    .faq-container {padding:0;}
+    .faq-item {
+      margin-bottom:1.1rem;
+      border-radius:14px;
+      background:#fff;
+      box-shadow:0 2px 12px #e3eafc;
+    }
+    .faq-question {
+      background:var(--primary);
+      color:#fff;
+      width:100%;
+      text-align:left;
+      padding:1rem 1.2rem;
+      border:none;
+      font-size:1.15rem;
+      font-family:'Patrick Hand',cursive,sans-serif;
+      border-radius:14px;
+      cursor:pointer;
+      transition: background 0.18s;
+      outline:none;
+      display:block;
+      margin:0;
+    }
+    .faq-question:hover, .faq-question.active {
+      background:var(--accent);
+      color:#2c3e50;
+    }
+    .faq-answer {
+      display:none;
+      padding:1.1rem 1.2rem 1rem 1.2rem;
+      font-size:1.05rem;
+      border-top:1px solid #e3eafc;
+      animation: fadeIn .25s;
+      background: #f9fcff;
+    }
+    @keyframes fadeIn {
+      from {opacity:0;}
+      to {opacity:1;}
+    }
+    /* Responsive tweaks */
+    @media (max-width: 600px) {
+      nav {
+        padding: 0.4rem 0.7rem;
+        background: rgba(255,255,255,0.97);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        height: auto;
+      }
+      .logo {
+        font-size: 1rem;
+        padding: 0.2rem 0;
+      }
+      nav ul {
+        gap: 0.8rem;
+        overflow-x: auto;
+        white-space: nowrap;
+        flex-wrap: nowrap;
+      }
+      nav ul li a {
+        font-size: 0.95rem;
+        padding: 0.3rem 0.7rem;
+      }
+      nav ul li a.cta-nav {
+        padding: 0.35rem 0.8rem;
+      }
+      .hero {
+        padding: 2.2rem 0.5rem 1rem 0.5rem;
+        margin-top: 56px;
+      }
+      .hero-text h1 {
+        font-size: 1.2rem;
+      }
+      .hero-img {
+        max-width: 95vw;
+        margin: 0 auto;
+        padding: 0.3rem;
+      }
+      .benefit-cards, .trust-logos {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.2rem;
+      }
+      .benefit-card, .trust-logo {
+        max-width: 98vw;
+        padding: 1.2rem 0.7rem;
+      }
+      .section {
+        padding: 1.6rem 0.2rem;
+      }
+      #solar-toolkit {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+      }
+      #solar-toolkit > div {
+        margin: 0 auto 2rem auto;
+      }
+    }
   </style>
 </head>
 <body>
@@ -474,7 +473,7 @@ footer {
     <div class="faq-container" style="max-width:700px;margin:2rem auto 0 auto;text-align:left;">
       <div class="faq-item">
         <button class="faq-question" aria-expanded="false">Why go solar in 2025?</button>
-        <div class="faq-answer" style="display:none;">
+        <div class="faq-answer">
           <p>
             With UK energy prices continuing to rise, solar panels are one of the most effective ways to take control of your electricity costs and reduce your reliance on the grid. Modern solar technology is highly efficient and more affordable than ever. A standard 4kW solar system—just 9 highly efficient PV panels—can generate a significant portion of a typical household’s needs. If your roof can fit more panels, you can generate even more electricity and save more money.
           </p>
@@ -488,7 +487,7 @@ footer {
       </div>
       <div class="faq-item">
         <button class="faq-question" aria-expanded="false">How much can solar actually save you?</button>
-        <div class="faq-answer" style="display:none;">
+        <div class="faq-answer">
           <p>
             A typical 4kW solar panel system in the UK can save between <strong>£500 and £1,000 per year</strong> on electricity bills. If you add a battery, you can use up to 95% of your self-generated solar energy, meaning even less reliance on purchased electricity. If your roof allows for a larger system—more than 9 panels—your savings and earnings from the Smart Export Guarantee could be even greater.
           </p>
@@ -502,7 +501,7 @@ footer {
       </div>
       <div class="faq-item">
         <button class="faq-question" aria-expanded="false">Who can you trust with solar?</button>
-        <div class="faq-answer" style="display:none;">
+        <div class="faq-answer">
           <p>
             Not all solar companies are created equal. Always look for installers accredited by <strong>MCS, HIES, EPVS, or NAPIT</strong>. These certifications guarantee that your installation meets high standards for quality, safety, and consumer protection.
           </p>
@@ -513,7 +512,7 @@ footer {
       </div>
       <div class="faq-item">
         <button class="faq-question" aria-expanded="false">How do I check if my roof is suitable for solar?</button>
-        <div class="faq-answer" style="display:none;">
+        <div class="faq-answer">
           <p>
             The suitability of your roof for solar depends on its orientation, pitch, and shading. South-facing roofs are ideal, but east- and west-facing roofs can also perform well with modern high-efficiency panels. Use our free orientation checker to estimate your roof’s solar potential—just enter your address for a quick assessment.
           </p>
@@ -524,36 +523,9 @@ footer {
       </div>
       <div class="faq-item">
         <button class="faq-question" aria-expanded="false">How does the free, honest solar quote work?</button>
-        <div class="faq-answer" style="display:none;">
+        <div class="faq-answer">
           <p>
             We keep things simple and transparent. Just provide your details using our online quote form, and we’ll send you a clear, tailored quote showing your likely savings, recommended system size, and expected payback period—without any pressure or hidden costs.
           </p>
           <p>
-            You stay in control: no pushy calls, just straightforward advice so you can decide confidently if solar is right for you.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="quote" class="section">
-    <h2>Request a Free Quote</h2>
-    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="quote-form">
-      <input type="text" name="name" placeholder="Full Name" required autocomplete="name">
-      <input type="text" name="address" placeholder="Full Address" required autocomplete="street-address">
-      <input type="email" name="email" placeholder="Email Address" required autocomplete="email">
-      <input type="tel" name="phone" placeholder="Phone Number" required autocomplete="tel">
-      <input type="text" name="unitrate" placeholder="Electricity Unit Rate (p/kWh)" required>
-      <input type="text" name="annualspend" placeholder="Annual Electricity Spend (£)" required>
-      <button type="submit">Send My Quote Request</button>
-    </form>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 Let’s Talk About Solar. All rights reserved.</p>
-  </footer>
-
-  <script>
-// Sticky nav hide on scroll
-let lastScroll = 0;
-const nav = document
+            You stay in control:
