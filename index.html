@@ -6,11 +6,28 @@
   <meta name="description" content="Honest, expert advice for UK homeowners considering solar. Discover the real savings, benefits, and peace of mind of solar energy.">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    /* All your styles remain the same here */
-    /* ... (for brevity, not repeated again here) */
+    :root {
+      --primary: #1769aa;
+      --secondary: #e3f0fc;
+      --accent: #ffd700;
+      --background: #f7fafc;
+      --card: #fff;
+      --shadow: 0 4px 24px rgba(34,56,92,0.08);
+      --radius: 18px;
+      --text: #253858;
+    }
+    html, body {
+      margin: 0; padding: 0; background: var(--background);
+      font-family: 'Poppins', Arial, sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+    }
+    /* All additional styles remain unchanged */
+    /* Only show updated or changed code if specified */
   </style>
 </head>
 <body>
+  <!-- Header -->
   <nav>
     <div class="logo">
       <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=80&q=80" alt="Solar Logo" />
@@ -24,10 +41,39 @@
       <li><a href="#calculator">Savings</a></li>
       <li><a href="#contact" class="cta-nav">Get Quote</a></li>
     </ul>
-  </nav>  <main>
-    <!-- Hero, benefits, features, trust and contact sections remain the same -->
-    <!-- Just continue using your existing HTML code inside <main> tag -->
-  </main>  <footer>
+  </nav>  <!-- Hero Section -->  <section class="hero" id="hero">
+    <div class="hero-text">
+      <h1>Solar for Your Home, Backed by Real Numbers</h1>
+      <p>Clear, honest advice for UK homeowners looking to invest in a brighter, more secure energy future. No jargon, no sales tricks—just facts and guidance.</p>
+      <a href="#contact" class="cta">Get My Free Quote</a>
+    </div>
+    <div class="hero-img">
+      <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=600&q=80" alt="Modern solar panels on a house" />
+    </div>
+  </section>  <!-- Calculator Section -->  <section id="calculator" class="section">
+    <h2>Solar Savings Calculator</h2>
+    <p>Estimate your annual savings with solar for your home.</p>
+    <form id="savingsForm" class="glass">
+      <label for="rate">Your electricity unit rate (p/kWh):</label>
+      <input type="number" id="rate" placeholder="e.g. 24.99" required>
+      <label for="usage">Your yearly electricity usage (kWh):</label>
+      <input type="number" id="usage" placeholder="e.g. 4000" required>
+      <label><input type="checkbox" id="battery"> Include battery storage?</label>
+      <button type="submit" class="cta">Calculate Savings</button>
+    </form>
+    <div id="result" class="result-animated"></div>
+  </section>  <!-- Contact Section -->  <section id="contact" class="section">
+    <h2>Get Your Free Solar Quote</h2>
+    <form action="https://bit.ly/letstalksolarsavings" method="POST" class="quote-form">
+      <input type="text" name="name" placeholder="Full Name" required>
+      <input type="text" name="address" placeholder="Full Address" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="tel" name="phone" placeholder="Phone Number" required>
+      <input type="text" name="unitrate" placeholder="Electricity Unit Rate (p/kWh)" required>
+      <input type="text" name="annualspend" placeholder="Annual Electricity Spend (£)" required>
+      <button type="submit" class="cta">Send My Quote Request</button>
+    </form>
+  </section>  <footer>
     <div class="footer-content">
       <div>&copy; 2025 Let’s Talk About Solar</div>
       <div class="footer-links">
@@ -37,19 +83,7 @@
         <a href="#contact">Contact</a>
       </div>
     </div>
-  </footer>  <script>
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        const targetId = this.getAttribute('href');
-        if (targetId.length > 1 && document.querySelector(targetId)) {
-          e.preventDefault();
-          document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
-        }
-      });
-    });
-
-    // Savings calculator logic
+  </footer>  <!-- Scripts -->  <script>
     document.getElementById("savingsForm").addEventListener("submit", function (e) {
       e.preventDefault();
       const rate = parseFloat(document.getElementById("rate").value);
@@ -63,7 +97,6 @@
       const savings = (usedSolar * rate) / 100;
       const breakEvenEstimate = battery ? 9500 : 6000;
       const breakEvenYears = (breakEvenEstimate / savings);
-
       const resultEl = document.getElementById("result");
       resultEl.innerHTML = '';
       let current = 0;
@@ -71,7 +104,6 @@
       let duration = 1250;
       let stepTime = Math.abs(Math.floor(duration / final));
       if (isNaN(stepTime) || !isFinite(stepTime) || stepTime < 12) stepTime = 12;
-
       function animateCount() {
         current += final / (duration / stepTime);
         if (current >= final) {
@@ -80,4 +112,14 @@
             <h3>Estimated Annual Savings: £${final.toFixed(2)}</h3>
             <p>With a ${battery ? 'battery' : 'standard'} system, you’ll use about ${(selfUse * 100).toFixed(0)}% of your solar energy.</p>
             <p>Typical installation: <strong>£${breakEvenEstimate.toLocaleString()}</strong>, break even in <strong>${breakEvenYears.toFixed(1)} years</strong>.</p>
-            <p><strong>Based on a 4kW system registered G98. Want a bespoke quote? Message us now 
+            <p><strong>Want a bespoke quote? Message us now — we’ll do the rest.</strong></p>
+          `;
+          return;
+        }
+        resultEl.innerHTML = `<h3>Estimated Annual Savings: £${current.toFixed(0)}</h3>`;
+        setTimeout(animateCount, stepTime);
+      }
+      animateCount();
+    });
+  </script></body>
+</html>
