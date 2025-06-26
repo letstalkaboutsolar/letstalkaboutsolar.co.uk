@@ -184,7 +184,6 @@
   </style>
 </head>
 <body>
-  <!-- Body content stays the same -->
   <section id="orientation" class="section">
     <h2>Check Your Roof Orientation</h2>
     <p>Enter your address to estimate your solar potential.</p>
@@ -220,6 +219,7 @@
         const viewport = place.geometry.viewport;
         let orientation = "Unknown";
         let explanation = "";
+
         if (viewport) {
           const ne = viewport.getNorthEast();
           const sw = viewport.getSouthWest();
@@ -243,6 +243,7 @@
         document.getElementById("orientationResult").textContent = `Estimated Roof Orientation: ${orientation}. ${explanation}`;
       });
     }
+
     window.initMap = initMap;
   </script>
 </body>
