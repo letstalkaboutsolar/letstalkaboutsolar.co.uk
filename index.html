@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ&libraries=places&callback=initMap" async defer></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Let’s Talk About Solar</title>
   <meta name="description" content="Clear, friendly, and honest solar advice for UK homeowners. Discover real savings, trusted installers, and smart solar tools." />
   <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ&libraries=places&callback=initMap" async defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     :root {
       --primary: #72bcd4;
@@ -313,6 +314,7 @@
       font-size:1.05rem;
       border-top:1px solid #e3eafc;
       animation: fadeIn .25s;
+      background: #f9fcff;
     }
     @keyframes fadeIn {
       from {opacity:0;}
@@ -326,9 +328,10 @@
     <ul>
       <li><a href="#hero">Home</a></li>
       <li><a href="#benefits">Why Solar?</a></li>
-      <li><a href="#orientation">Orientation</a></li>
-      <li><a href="#calculator">Savings</a></li>
+      <li><a href="#solar-toolkit">Orientation</a></li>
+      <li><a href="#solar-toolkit">Savings</a></li>
       <li><a href="#trust">Trust</a></li>
+      <li><a href="#solar-faq">FAQs</a></li>
       <li><a href="#quote" class="cta-nav">Get Quote</a></li>
     </ul>
   </nav>
@@ -362,7 +365,6 @@
     </div>
   </section>
 
-  <!-- COMBINED ORIENTATION & CALCULATOR SECTION -->
   <section id="solar-toolkit" class="section">
     <div>
       <h2>Check Your Roof Orientation</h2>
@@ -420,62 +422,6 @@
       </p>
     </div>
   </section>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-  function toggleHistoric() {
-    let g = document.getElementById('historic-graph');
-    g.style.display = (g.style.display === 'none' || g.style.display === '') ? 'block' : 'none';
-    if (g.style.display === 'block' && !window._historicChartLoaded) {
-      drawPriceChart();
-      window._historicChartLoaded = true;
-    }
-  }
-  function drawPriceChart() {
-    const ctx = document.getElementById('pricesChart').getContext('2d');
-    const years = [
-      2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,
-      2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,
-      2020,2021,2022,2023,2024,2025
-    ];
-    const prices = [
-      7.0,7.3,7.2,7.1,7.4,8.2,10.0,10.6,13.3,13.9,
-      13.7,14.5,15.5,15.6,15.6,15.2,14.4,14.4,15.0,17.2,
-      17.2,19.0,28.0,30.0,28.5,27.5
-    ];
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: years,
-        datasets: [{
-          label: 'UK Domestic Electricity Price (p/kWh)',
-          data: prices,
-          borderColor: '#72bcd4',
-          backgroundColor: 'rgba(114,188,212,0.15)',
-          tension: 0.25,
-          pointBackgroundColor: '#ffd700',
-          pointRadius: 5,
-          fill: true
-        }]
-      },
-      options: {
-        responsive: true,
-        plugins: {
-          legend: { display: true },
-          tooltip: { enabled: true }
-        },
-        scales: {
-          y: {
-            beginAtZero: true,
-            title: { display: true, text: 'pence per kWh' }
-          },
-          x: {
-            title: { display: true, text: 'Year' }
-          }
-        }
-      }
-    });
-  }
-  </script>
 
   <section id="trust" class="section">
     <h2>Who Can You Trust?</h2>
@@ -511,11 +457,10 @@
     </div>
   </section>
 
-  <!-- BEGIN FAQ SECTION -->
+  <!-- FAQ Section -->
   <section id="solar-faq" class="section">
     <h2>Solar Insights & FAQs</h2>
     <div class="faq-container" style="max-width:700px;margin:2rem auto 0 auto;text-align:left;">
-      <!-- FAQ 1 -->
       <div class="faq-item">
         <button class="faq-question" aria-expanded="false">Why go solar in 2025?</button>
         <div class="faq-answer" style="display:none;">
@@ -530,7 +475,6 @@
           </p>
         </div>
       </div>
-      <!-- FAQ 2 -->
       <div class="faq-item">
         <button class="faq-question" aria-expanded="false">How much can solar actually save you?</button>
         <div class="faq-answer" style="display:none;">
@@ -545,7 +489,6 @@
           </p>
         </div>
       </div>
-      <!-- FAQ 3 -->
       <div class="faq-item">
         <button class="faq-question" aria-expanded="false">Who can you trust with solar?</button>
         <div class="faq-answer" style="display:none;">
@@ -553,4 +496,26 @@
             Not all solar companies are created equal. Always look for installers accredited by <strong>MCS, HIES, EPVS, or NAPIT</strong>. These certifications guarantee that your installation meets high standards for quality, safety, and consumer protection.
           </p>
           <p>
-            Accredited installers follow be
+            Accredited installers follow best practices, verify your projected savings, and provide proper warranties. Choosing a reputable professional ensures your investment is protected and your system delivers reliable, long-term performance.
+          </p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">How do I check if my roof is suitable for solar?</button>
+        <div class="faq-answer" style="display:none;">
+          <p>
+            The suitability of your roof for solar depends on its orientation, pitch, and shading. South-facing roofs are ideal, but east- and west-facing roofs can also perform well with modern high-efficiency panels. Use our free orientation checker to estimate your roof’s solar potential—just enter your address for a quick assessment.
+          </p>
+          <p>
+            If your roof is large enough for more than 9 panels, you can install a bigger system for greater savings and more export earnings. For the most accurate assessment, arrange a professional survey.
+          </p>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">How does the free, honest solar quote work?</button>
+        <div class="faq-answer" style="display:none;">
+          <p>
+            We keep things simple and transparent. Just provide your details using our online quote form, and we’ll send you a clear, tailored quote showing your likely savings, recommended system size, and expected payback period—without any pressure or hidden costs.
+          </p>
+          <p>
+            You stay in control: no pushy calls, just
