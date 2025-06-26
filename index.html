@@ -3,7 +3,8 @@
 <head>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ&libraries=places&callback=initMap" async defer></script>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"  <title>Let’s Talk About Solar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Let’s Talk About Solar</title>
   <meta name="description" content="Clear, friendly, and honest solar advice for UK homeowners. Discover real savings, trusted installers, and smart solar tools." />
   <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
   <style>
@@ -467,6 +468,18 @@
         <img src="assets/NAPIT-NEW-LOGO.jpg" alt="NAPIT" />
         <p><strong>NAPIT</strong>: Government-approved installer certification.</p>
       </a>
+      <a class="trust-logo" href="https://www.tradingstandards.uk/" target="_blank">
+        <img src="https://seeklogo.com/images/T/trading-standards-uk-logo-D8D8D8E1FE-seeklogo.com.png" alt="Trading Standards" />
+        <p><strong>Trading Standards</strong>: Ensuring legal and fair business practices.</p>
+      </a>
+      <a class="trust-logo" href="https://www.trustmark.org.uk/" target="_blank">
+        <img src="https://www.trustmark.org.uk/images/default-source/default-album/tm_primary_logo_rgb.jpg?sfvrsn=2" alt="TrustMark" />
+        <p><strong>Government TrustMark</strong>: The only government-endorsed quality scheme for trades in and around the home.</p>
+      </a>
+      <a class="trust-logo" href="https://register.fca.org.uk/" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Financial_Conduct_Authority_logo.svg/320px-Financial_Conduct_Authority_logo.svg.png" alt="FCA" />
+        <p><strong>FCA</strong>: Regulated advice and consumer financial protection.</p>
+      </a>
     </div>
   </section>
 
@@ -558,32 +571,4 @@
           alert("Please enter your address and select it from the dropdown first.");
           return;
         }
-        container.style.display = "block";
-        btn.innerText = "Hide Street View";
-        if (!panoMap) {
-          panoMap = new google.maps.StreetViewPanorama(
-            document.getElementById('pano'), {
-              position: lastPlaceLocation,
-              pov: { heading: 160, pitch: 0 },
-              zoom: 1
-            }
-          );
-        } else {
-          panoMap.setPosition(lastPlaceLocation);
-        }
-      } else {
-        container.style.display = "none";
-        btn.innerText = "Show Street View";
-      }
-    }
-
-    document.getElementById("calcForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const rate = parseFloat(document.getElementById("rate").value);
-      const usage = parseFloat(document.getElementById("usage").value);
-      const battery = document.getElementById("battery").checked;
-      const rise = 1.0704;
-      let efficiency = battery ? 0.95 : 0.7;
-      let save = 0.5 * orientationFactor * efficiency * usage * rate / 100;
-      let total = 0, without = 0;
-      let html = `<h3>10-Year Saving
+        container.style.display = "bl
