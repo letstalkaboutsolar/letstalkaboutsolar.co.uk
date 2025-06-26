@@ -126,3 +126,154 @@ html><html lang="en">
 </section>
 <section id="trust" class="reveal">...</section>
 <section id="calculator" class="reveal">...</section>
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Let's Talk About Solar</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Patrick Hand', cursive;
+  background-color: #f4faff;
+  color: #1c1c1c;
+  line-height: 1.8;
+}
+
+:root {
+  --primary: #0099cc;
+  --accent: #007aad;
+  --background: #f4faff;
+  --card: #ffffff;
+  --text: #1c1c1c;
+  --shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+h1, h2, h3 {
+  color: var(--primary);
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 2.8rem;
+  text-align: center;
+}
+
+h2 {
+  font-size: 2.2rem;
+  text-align: center;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+section {
+  background-color: var(--card);
+  max-width: 960px;
+  margin: 3rem auto;
+  padding: 2.5rem 2rem;
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+button, .cta {
+  background-color: var(--primary);
+  color: white;
+  font-size: 1.1rem;
+  padding: 0.8rem 1.6rem;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+button:hover, .cta:hover {
+  background-color: var(--accent);
+  transform: scale(1.05);
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin-top: 0.5rem;
+  border: 2px solid #ddd;
+  border-radius: 12px;
+  font-family: 'Patrick Hand', cursive;
+  font-size: 1rem;
+  background-color: #fff;
+}
+
+@media screen and (max-width: 768px) {
+  h1, h2 {
+    font-size: 2rem;
+  }
+
+  section {
+    padding: 2rem 1rem;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <section>
+    <h1>Welcome to Let's Talk About Solar</h1>
+    <p style="text-align:center; max-width: 600px; margin: 0 auto;">
+      We make understanding solar simple, honest, and stress-free. Get real answers, see real savings, and discover how solar can work for your home.
+    </p>
+    <div style="text-align: center;">
+      <a href="#calculator" class="cta">Try Our Savings Calculator</a>
+    </div>
+  </section>  <section id="calculator">
+    <h2>Solar Savings Calculator</h2>
+    <p>Estimate your potential annual savings with solar panels based on your electricity usage.</p>
+    <form id="savingsForm">
+      <label for="rate">Your electricity unit rate (p/kWh):</label>
+      <input type="number" id="rate" placeholder="e.g. 24.99" required><label for="usage">Your yearly electricity usage (kWh):</label>
+  <input type="number" id="usage" placeholder="e.g. 4000" required>
+
+  <label>
+    <input type="checkbox" id="battery"> Include battery storage?
+  </label>
+
+  <button type="submit">Calculate Savings</button>
+</form>
+<div id="result" style="margin-top: 2rem;"></div>
+
+  </section>  <script>
+    document.getElementById("savingsForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const rate = parseFloat(document.getElementById("rate").value);
+      const usage = parseFloat(document.getElementById("usage").value);
+      const battery = document.getElementById("battery").checked;
+
+      const systemSize = 4;
+      const outputPerKW = 850;
+      const yearlyGen = systemSize * outputPerKW;
+
+      const selfUse = battery ? 0.95 : 0.70;
+      const usedSolar = Math.min(usage, yearlyGen * selfUse);
+      const savings = (usedSolar * rate) / 100;
+
+      const breakEvenEstimate = battery ? 9500 : 6000;
+      const breakEvenYears = (breakEvenEstimate / savings).toFixed(1);
+
+      document.getElementById("result").innerHTML = `
+        <h3>Estimated Annual Savings: £${savings.toFixed(2)}</h3>
+        <p>With a ${battery ? 'battery' : 'standard'} system, you're likely to use about ${(selfUse * 100).toFixed(0)}% of your solar energy.</p>
+        <p>Based on a typical installation cost of £${breakEvenEstimate.toLocaleString()}, you could break even in approximately ${breakEvenYears} years.</p>
+        <p><strong>Want a personalised quote? Message us now — no pressure, just honest numbers.</strong></p>
+      `;
+    });
+  </script></body>
+</html>
