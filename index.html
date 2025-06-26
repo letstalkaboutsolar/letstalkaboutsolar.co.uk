@@ -9,7 +9,6 @@
   <meta name="description" content="Clear, friendly, and honest solar advice for UK homeowners. Discover real savings, trusted installers, and smart solar tools." />
   <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
   <style>
-    /* ... your CSS from before, unchanged ... */
     :root {
       --primary: #72bcd4;
       --secondary: #eaf9ff;
@@ -165,7 +164,6 @@
       border-radius: 999px;
       cursor: pointer;
     }
-    /* Combined toolkit section */
     #solar-toolkit {
       display: flex;
       flex-wrap: wrap;
@@ -197,7 +195,6 @@
         margin: 0 auto 2rem auto;
       }
     }
-    /* News list styling for API news section */
     #news-list {
       list-style: none;
       max-width: 700px;
@@ -349,9 +346,6 @@
         <div id="pano" style="width:100%;height:100%;"></div>
       </div>
       <p id="orientationResult" style="margin-top: 1rem; font-weight: bold;"></p>
-      <p style="font-size:0.85rem;color:gray;margin-top:0.5rem;">
-        This is an estimated calculation based on a few details and doesn’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.
-      </p>
     </div>
     <div>
       <h2>Solar Savings Calculator</h2>
@@ -365,7 +359,7 @@
       </form>
       <div id="calcResult"></div>
       <p style="font-size: 0.8rem; margin-top: 1rem; color: gray;">
-        This is an estimated calculation based on a few details and doesn’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.
+        This calculation is based on a system with 9 solar panels – if your roof can fit more, your potential savings will be even higher. These are estimated figures and don’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.
       </p>
     </div>
   </section>
@@ -514,7 +508,7 @@
         }
 
         document.getElementById("orientationResult").innerHTML =
-          `<strong>Estimated Roof Orientation:</strong> ${orientation}<br><em>${explanation}</em><br><span style='font-size:0.82rem;color:gray;'>This is an estimated calculation based on a few details and doesn’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.</span>`;
+          `<strong>Estimated Roof Orientation:</strong> ${orientation}<br><em>${explanation}</em>`;
       });
     }
 
@@ -617,7 +611,7 @@
         <p>Your system is estimated to generate <strong>${estimatedAnnualGen.toFixed(0)} kWh</strong> per year.</p>
         <p>Annual self-used solar: <strong>${selfUsedKWh.toFixed(0)} kWh</strong> (${(100*selfUsedKWh/usage).toFixed(0)}% of your usage${battery ? ' with 5kWh battery' : ''}).</p>
         <p>Typical installation: <strong>£${breakEvenEstimate.toLocaleString()}</strong>, break even in <strong>${breakEvenYears.toFixed(1)} years</strong>.</p>
-        <p style="font-size:0.95em;color:#888;">This is an estimated calculation based on a few details and doesn’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.</p>
+        <p style="font-size:0.95em;color:#888;">This calculation is based on a system with 9 solar panels – if your roof can fit more, your potential savings will be even higher. These are estimated figures and don’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.</p>
       `;
     });
 
