@@ -1,6 +1,7 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head> 
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBslwFQJFILTvyAMd8r40a7IRtugNnjiE&libraries=places&callback=initMap" async defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ&libraries=places&callback=initMap" async defer></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Let’s Talk About Solar</title>
@@ -194,7 +195,9 @@
       <li><a href="#trust">Trust</a></li>
       <li><a href="#quote" class="cta-nav">Get Quote</a></li>
     </ul>
-  </nav>  <section class="hero" id="hero">
+  </nav>
+
+  <section class="hero" id="hero">
     <div class="hero-text">
       <h1>Sunshine Meets Smart Savings</h1>
       <p>See how solar can protect your bills and power your future.</p>
@@ -203,7 +206,9 @@
     <div class="hero-img">
       <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=600&q=80" alt="Solar panels" />
     </div>
-  </section>  <section id="benefits" class="section">
+  </section>
+
+  <section id="benefits" class="section">
     <h2>Why Solar?</h2>
     <div class="benefit-cards">
       <div class="benefit-card">
@@ -219,7 +224,9 @@
         <p>Escape rising energy prices year after year.</p>
       </div>
     </div>
-  </section>  <section id="calculator" class="section">
+  </section>
+
+  <section id="calculator" class="section">
     <h2>Solar Savings Calculator</h2>
     <form id="calcForm" class="calculator">
       <label for="rate">Electricity unit rate (p/kWh):</label>
@@ -230,13 +237,17 @@
       <button type="submit">Calculate</button>
     </form>
     <div id="calcResult"></div>
-  </section>  <section id="roof-orientation" class="section">
+  </section>
+
+  <section id="roof-orientation" class="section">
     <h2>Check Your Roof Orientation</h2>
     <p>Enter your address to estimate your solar potential.</p>
     <input id="addressInput" type="text" placeholder="Enter your address" />
     <div id="map" style="width: 100%; height: 400px; margin-top: 1rem; border-radius: 12px;"></div>
     <p id="orientationResult" style="margin-top: 1rem; font-weight: bold;"></p>
-  </section>  <section id="trust" class="section">
+  </section>
+
+  <section id="trust" class="section">
     <h2>Who Can You Trust?</h2>
     <div class="trust-logos">
       <div class="trust-logo">
@@ -256,7 +267,9 @@
         <p><strong>NAPIT</strong>: Government-approved professional certification.</p>
       </div>
     </div>
-  </section>  <section id="quote" class="section">
+  </section>
+
+  <section id="quote" class="section">
     <h2>Request a Free Quote</h2>
     <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="quote-form">
       <input type="text" name="name" placeholder="Full Name" required>
@@ -267,9 +280,13 @@
       <input type="text" name="annualspend" placeholder="Annual Electricity Spend (£)" required>
       <button type="submit">Send My Quote Request</button>
     </form>
-  </section>  <footer>
+  </section>
+
+  <footer>
     <p>&copy; 2025 Let’s Talk About Solar</p>
-  </footer>  <script>
+  </footer>
+
+  <script>
     let lastScroll = 0;
     const nav = document.getElementById("navbar");
     window.addEventListener("scroll", () => {
@@ -359,5 +376,6 @@
     }
 
     window.initMap = initMap;
-  </script></body>
+  </script>
+</body>
 </html>
