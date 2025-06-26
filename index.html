@@ -68,7 +68,7 @@
       border-radius: 999px;
     }
     .hero {
-      padding: 7rem 2rem 3rem;
+      padding: 6rem 2rem 3rem;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
@@ -80,12 +80,12 @@
       padding: 1rem;
     }
     .hero-text h1 {
-      font-size: 2.2rem;
+      font-size: 2.5rem;
       color: var(--primary);
       margin: 0 0 1rem;
     }
     .hero-text p {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       margin-bottom: 1rem;
     }
     .cta {
@@ -169,30 +169,15 @@
     @media (max-width: 768px) {
       nav ul {
         flex-direction: column;
-        background: var(--card);
-        position: absolute;
-        top: 70px;
-        right: 1rem;
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        display: none;
+        gap: 0.5rem;
       }
-      nav.open ul {
-        display: flex;
+      .hero-text, .hero-img {
+        max-width: 100%;
+        text-align: center;
       }
-      .menu-toggle {
-        display: block;
-        font-size: 1.5rem;
-        background: none;
-        border: none;
-        color: var(--text);
-        cursor: pointer;
-      }
-      .hero-text h1 {
-        font-size: 1.8rem;
-      }
-      .hero-text p {
-        font-size: 1rem;
+      .benefit-cards, .trust-logos {
+        flex-direction: column;
+        align-items: center;
       }
     }
   </style>
@@ -200,7 +185,6 @@
 <body>
   <nav id="navbar">
     <div class="logo">Let’s Talk About Solar</div>
-    <button class="menu-toggle" onclick="toggleMenu()">☰</button>
     <ul>
       <li><a href="#hero">Home</a></li>
       <li><a href="#benefits">Why Solar?</a></li>
@@ -209,11 +193,68 @@
       <li><a href="#quote" class="cta-nav">Get Quote</a></li>
     </ul>
   </nav>
-  <!-- Rest of your site remains unchanged -->
+  <section class="hero" id="hero">
+    <div class="hero-text">
+      <h1>Sunshine Meets Smart Savings</h1>
+      <p>See how solar can protect your bills and power your future.</p>
+      <a href="#quote" class="cta">Get My Free Quote</a>
+    </div>
+    <div class="hero-img">
+      <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=600&q=80" alt="Solar panels" />
+    </div>
+  </section>
+  <section id="roof-orientation" class="section">
+    <h2>Check Your Roof Orientation</h2>
+    <p>Enter your address to estimate your solar potential.</p>
+    <input id="addressInput" type="text" placeholder="Enter your address" />
+    <div id="map" style="width: 100%; height: 400px; margin-top: 1rem; border-radius: 12px;"></div>
+    <p id="orientationResult" style="margin-top: 1rem; font-weight: bold;"></p>
+  </section>
   <script>
-    function toggleMenu() {
-      document.getElementById('navbar').classList.toggle('open');
+    function initMap() {
+      const map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 54.6861, lng: -1.2125 },
+        zoom: 14,
+      });
+      const input = document.getElementById("addressInput");
+      const autocomplete = new google.maps.places.Autocomplete(input);
+      autocomplete.bindTo("bounds", map);
+      const marker = new google.maps.Marker({ map });
+      autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+        if (!place.geometry || !place.geometry.location) {
+          return alert("No details available for input: '" + place.name + "'");
+        }
+        const location = place.geometry.location;
+        map.setCenter(location);
+        map.setZoom(18);
+        marker.setPosition(location);
+        const viewport = place.geometry.viewport;
+        let orientation = "Unknown";
+        let explanation = "";
+        if (viewport) {
+          const ne = viewport.getNorthEast();
+          const sw = viewport.getSouthWest();
+          const angle = Math.atan2(ne.lat() - sw.lat(), ne.lng() - sw.lng()) * (180 / Math.PI);
+          if (angle > -45 && angle <= 45) {
+            orientation = "East";
+            explanation = "Your front roof likely faces East and the rear West. A solar system can still work well with morning sunlight.";
+          } else if (angle > 45 && angle <= 135) {
+            orientation = "North";
+            explanation = "Your front roof likely faces North and the rear South. South-facing roofs are ideal for solar.";
+          } else if (angle > -135 && angle <= -45) {
+            orientation = "South";
+            explanation = "Your front roof likely faces South and the rear North. This is excellent for solar efficiency.";
+          } else {
+            orientation = "West";
+            explanation = "Your front roof likely faces West and the rear East. Good for catching late afternoon sunlight.";
+          }
+        }
+        document.getElementById("orientationResult").innerHTML = 
+          `<strong>Estimated Roof Orientation:</strong> ${orientation}<br><em>${explanation}</em>`;
+      });
     }
+    window.initMap = initMap;
   </script>
 </body>
 </html>
