@@ -685,3 +685,12 @@ img {
   height: auto;
   display: block;
 }
+.disappearing-logo {
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.logo-hidden {
+  opacity: 0;
+  transform: translateY(-12px);
+  pointer-events: none;
+}
