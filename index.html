@@ -1,12 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+<!DOCTYPE html><html lang="en">
+<head> 
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBslwFQJFILTvyAMd8r40a7IRtugNnjiE&libraries=places&callback=initMap" async defer></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Let’s Talk About Solar</title>
   <meta name="description" content="Clear, friendly, and honest solar advice for UK homeowners. Discover real savings, trusted installers, and smart solar tools." />
   <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGNEv-reludbx58rGlmIrBx20k0uTzGHc&libraries=places&callback=initMap" async defer></script>
   <style>
     :root {
       --primary: #72bcd4;
@@ -190,12 +189,11 @@
       <li><a href="#hero">Home</a></li>
       <li><a href="#benefits">Why Solar?</a></li>
       <li><a href="#calculator">Savings</a></li>
+      <li><a href="#roof-orientation">Orientation</a></li>
       <li><a href="#trust">Trust</a></li>
       <li><a href="#quote" class="cta-nav">Get Quote</a></li>
     </ul>
-  </nav>
-
-  <section class="hero" id="hero">
+  </nav>  <section class="hero" id="hero">
     <div class="hero-text">
       <h1>Sunshine Meets Smart Savings</h1>
       <p>See how solar can protect your bills and power your future.</p>
@@ -204,9 +202,7 @@
     <div class="hero-img">
       <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=600&q=80" alt="Solar panels" />
     </div>
-  </section>
-
-  <section id="benefits" class="section">
+  </section>  <section id="benefits" class="section">
     <h2>Why Solar?</h2>
     <div class="benefit-cards">
       <div class="benefit-card">
@@ -222,9 +218,7 @@
         <p>Escape rising energy prices year after year.</p>
       </div>
     </div>
-  </section>
-
-  <section id="calculator" class="section">
+  </section>  <section id="calculator" class="section">
     <h2>Solar Savings Calculator</h2>
     <form id="calcForm" class="calculator">
       <label for="rate">Electricity unit rate (p/kWh):</label>
@@ -235,9 +229,13 @@
       <button type="submit">Calculate</button>
     </form>
     <div id="calcResult"></div>
-  </section>
-
-  <section id="trust" class="section">
+  </section>  <section id="roof-orientation" class="section">
+    <h2>Check Your Roof Orientation</h2>
+    <p>Enter your address to estimate your solar potential.</p>
+    <input id="addressInput" type="text" placeholder="Enter your address" />
+    <div id="map" style="width: 100%; height: 400px; margin-top: 1rem; border-radius: 12px;"></div>
+    <p id="orientationResult" style="margin-top: 1rem; font-weight: bold;"></p>
+  </section>  <section id="trust" class="section">
     <h2>Who Can You Trust?</h2>
     <div class="trust-logos">
       <div class="trust-logo">
@@ -245,5 +243,123 @@
         <p><strong>MCS</strong>: Quality guaranteed equipment and installers.</p>
       </div>
       <div class="trust-logo">
-        <img src="https://www.epvs.co.uk/assets/images
+        <img src="https://www.epvs.co.uk/assets/images/logo.svg" alt="EPVS" />
+        <p><strong>EPVS</strong>: Independent verification of savings and performance.</p>
+      </div>
+      <div class="trust-logo">
+        <img src="https://www.hiesscheme.org.uk/wp-content/uploads/2022/04/HIES-Logo.svg" alt="HIES" />
+        <p><strong>HIES</strong>: Protection on deposit, warranty and aftercare.</p>
+      </div>
+      <div class="trust-logo">
+        <img src="https://www.napit.org.uk/images/napit/logo.svg" alt="NAPIT" />
+        <p><strong>NAPIT</strong>: Government-approved professional certification.</p>
+      </div>
+    </div>
+  </section>  <section id="quote" class="section">
+    <h2>Request a Free Quote</h2>
+    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="quote-form">
+      <input type="text" name="name" placeholder="Full Name" required>
+      <input type="text" name="address" placeholder="Full Address" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="tel" name="phone" placeholder="Phone Number" required>
+      <input type="text" name="unitrate" placeholder="Electricity Unit Rate (p/kWh)" required>
+      <input type="text" name="annualspend" placeholder="Annual Electricity Spend (£)" required>
+      <button type="submit">Send My Quote Request</button>
+    </form>
+  </section>  <footer>
+    <p>&copy; 2025 Let’s Talk About Solar</p>
+  </footer>  <script>
+    // Hide nav on scroll
+    let lastScroll = 0;
+    const nav = document.getElementById("navbar");
+    window.addEventListener("scroll", () => {
+      const currentScroll = window.pageYOffset;
+      if (currentScroll <= 0) {
+        nav.classList.remove("hidden");
+        return;
+      }
+      if (currentScroll > lastScroll) {
+        nav.classList.add("hidden");
+      } else {
+        nav.classList.remove("hidden");
+      }
+      lastScroll = currentScroll;
+    });
 
+    // Savings calculator
+    document.getElementById("calcForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const rate = parseFloat(document.getElementById("rate").value);
+      const usage = parseFloat(document.getElementById("usage").value);
+      const battery = document.getElementById("battery").checked;
+      const rise = 1.0704;
+      let save = ((battery ? 0.95 : 0.7) * usage * rate) / 100;
+      let total = 0, without = 0;
+      let html = `<h3>10-Year Savings Estimate:</h3><ul>`;
+      for (let i = 1; i <= 10; i++) {
+        total += save;
+        without += usage * Math.pow(rise, i) * rate / 100;
+        html += `<li>Year ${i}: £${save.toFixed(2)}</li>`;
+        save *= rise;
+      }
+      html += `</ul><p><strong>Total Solar Savings:</strong> £${total.toFixed(2)}</p>`;
+      html += `<p><strong>Without Solar:</strong> £${without.toFixed(2)}</p>`;
+      document.getElementById("calcResult").innerHTML = html;
+    });
+
+    // Roof orientation logic
+    function initMap() {
+      const map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 54.6861, lng: -1.2125 },
+        zoom: 14,
+      });
+
+      const input = document.getElementById("addressInput");
+      const autocomplete = new google.maps.places.Autocomplete(input);
+      autocomplete.bindTo("bounds", map);
+
+      const marker = new google.maps.Marker({ map });
+
+      autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+        if (!place.geometry || !place.geometry.location) {
+          return alert("No details available for input: '" + place.name + "'");
+        }
+
+        const location = place.geometry.location;
+        map.setCenter(location);
+        map.setZoom(18);
+        marker.setPosition(location);
+
+        const viewport = place.geometry.viewport;
+        let orientation = "Unknown";
+        let explanation = "";
+
+        if (viewport) {
+          const ne = viewport.getNorthEast();
+          const sw = viewport.getSouthWest();
+          const angle = Math.atan2(ne.lat() - sw.lat(), ne.lng() - sw.lng()) * (180 / Math.PI);
+
+          if (angle > -45 && angle <= 45) {
+            orientation = "East";
+            explanation = "Your front roof likely faces East and the rear West. A solar system can still work well with morning sunlight.";
+          } else if (angle > 45 && angle <= 135) {
+            orientation = "North";
+            explanation = "Your front roof likely faces North and the rear South. South-facing roofs are ideal for solar.";
+          } else if (angle > -135 && angle <= -45) {
+            orientation = "South";
+            explanation = "Your front roof likely faces South and the rear North. This is excellent for solar efficiency.";
+          } else {
+            orientation = "West";
+            explanation = "Your front roof likely faces West and the rear East. Good for catching late afternoon sunlight.";
+          }
+        }
+
+        document.getElementById("orientationResult").innerHTML = 
+          `<strong>Estimated Roof Orientation:</strong> ${orientation}<br><em>${explanation}</em>`;
+      });
+    }
+
+    window.initMap = initMap;
+  </script></body>
+</html>
