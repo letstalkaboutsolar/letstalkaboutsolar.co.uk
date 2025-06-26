@@ -86,7 +86,8 @@
       color: var(--primary);
       margin: 0 0 1rem;
     }
-    .hero-text p;
+    .hero-text p {
+      font-size: 1.1rem;
       margin-bottom: 1rem;
     }
     .cta {
@@ -230,6 +231,7 @@
       border-radius: var(--radius) var(--radius) 0 0;
       font-size: 0.9rem;
     }
+    /* FAQ Accordion Animation - FIXED */
     .faq-container {padding:0;}
     .faq-item {
       margin-bottom:1.1rem;
@@ -258,16 +260,19 @@
       color:#2c3e50;
     }
     .faq-answer {
-      display:none;
-      padding:1.1rem 1.2rem 1rem 1.2rem;
-      font-size:1.05rem;
-      border-top:1px solid #e3eafc;
-      animation: fadeIn .25s;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s;
       background: #f9fcff;
+      padding: 0 1.2rem;
+      border-top: 1px solid #e3eafc;
+      font-size: 1.05rem;
     }
-    @keyframes fadeIn {
-      from {opacity:0;}
-      to {opacity:1;}
+    .faq-answer.open {
+      max-height: 500px;
+      opacity: 1;
+      padding: 1.1rem 1.2rem 1rem 1.2rem;
     }
     @media (max-width: 600px) {
       nav {
@@ -472,12 +477,6 @@
           <p>
             With UK energy prices continuing to rise, solar panels are one of the most effective ways to take control of your electricity costs and reduce your reliance on the grid. Modern solar technology is highly efficient and more affordable than ever. A standard 4kW solar system—just 9 highly efficient PV panels—can generate a significant portion of a typical household’s needs. If your roof can fit more panels, you can generate even more electricity and save more money.
           </p>
-          <p>
-            By generating your own power, you not only cut your bills but also protect yourself from future price hikes and contribute to a cleaner environment. Coupling your solar array with a battery and the Smart Export Guarantee means you can use more of your own energy and earn from selling any surplus back to the grid.
-          </p>
-          <p style="font-size:0.9em;color:gray;">
-            <em>*A 4kW system example is based on 9 highly efficient PV solar panels. Actual output and savings depend on your roof, location, and usage.</em>
-          </p>
         </div>
       </div>
       <div class="faq-item">
@@ -485,12 +484,6 @@
         <div class="faq-answer">
           <p>
             A typical 4kW solar panel system in the UK can save between <strong>£500 and £1,000 per year</strong> on electricity bills. If you add a battery, you can use up to 95% of your self-generated solar energy, meaning even less reliance on purchased electricity. If your roof allows for a larger system—more than 9 panels—your savings and earnings from the Smart Export Guarantee could be even greater.
-          </p>
-          <p>
-            The Smart Export Guarantee pays you for any surplus electricity you export to the grid, increasing your return. As energy prices rise, your savings grow year after year. Try our calculator to estimate your personal savings based on your usage and electricity rate.
-          </p>
-          <p style="font-size:0.9em;color:gray;">
-            <em>*Savings based on a 4kW system (9 panels), average usage, and current energy rates. Actual results depend on your individual circumstances.</em>
           </p>
         </div>
       </div>
@@ -500,9 +493,6 @@
           <p>
             Not all solar companies are created equal. Always look for installers accredited by <strong>MCS, HIES, EPVS, or NAPIT</strong>. These certifications guarantee that your installation meets high standards for quality, safety, and consumer protection.
           </p>
-          <p>
-            Accredited installers follow best practices, verify your projected savings, and provide proper warranties. Choosing a reputable professional ensures your investment is protected and your system delivers reliable, long-term performance.
-          </p>
         </div>
       </div>
       <div class="faq-item">
@@ -510,9 +500,6 @@
         <div class="faq-answer">
           <p>
             The suitability of your roof for solar depends on its orientation, pitch, and shading. South-facing roofs are ideal, but east- and west-facing roofs can also perform well with modern high-efficiency panels. Use our free orientation checker to estimate your roof’s solar potential—just enter your address for a quick assessment.
-          </p>
-          <p>
-            If your roof is large enough for more than 9 panels, you can install a bigger system for greater savings and more export earnings. For the most accurate assessment, arrange a professional survey.
           </p>
         </div>
       </div>
@@ -522,13 +509,55 @@
           <p>
             We keep things simple and transparent. Just provide your details using our online quote form, and we’ll send you a clear, tailored quote showing your likely savings, recommended system size, and expected payback period—without any pressure or hidden costs.
           </p>
-          <p>
-            You stay in control: our team will never pressure you into a sale, and you can ask any questions you like before making a decision.
-          </p>
         </div>
       </div>
     </div>
   </section>
 
   <footer>
-    <p>&copy; 2025 Let’s Talk About Solar. All rights reserved.</p
+    <p>&copy; 2025 Let’s Talk About Solar. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // FAQ Accordion Animation - FIXED
+    document.querySelectorAll(".faq-question").forEach(btn => {
+      btn.addEventListener("click", function() {
+        const a = btn.nextElementSibling;
+        document.querySelectorAll(".faq-answer").forEach(o => {
+          if (o !== a) o.classList.remove("open");
+        });
+        document.querySelectorAll(".faq-question").forEach(q => {
+          if (q !== btn) {
+            q.classList.remove("active");
+            q.setAttribute("aria-expanded", "false");
+          }
+        });
+        if (a.classList.contains("open")) {
+          a.classList.remove("open");
+          btn.classList.remove("active");
+          btn.setAttribute("aria-expanded", "false");
+        } else {
+          a.classList.add("open");
+          btn.classList.add("active");
+          btn.setAttribute("aria-expanded", "true");
+        }
+      });
+    });
+
+    // Google Maps Autocomplete & Orientation Checker
+    let autocomplete, lastPlaceLocation = null, panoMap = null;
+    window.initMap = function() {
+      const input = document.getElementById("addressInput");
+      if (!input) return;
+      autocomplete = new google.maps.places.Autocomplete(input);
+
+      autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+        if (!place.geometry || !place.geometry.location) {
+          alert("No details available for input: '" + place.name + "'");
+          lastPlaceLocation = null;
+          return;
+        }
+        lastPlaceLocation = place.geometry.location;
+        const viewport = place.geometry.viewport;
+   
