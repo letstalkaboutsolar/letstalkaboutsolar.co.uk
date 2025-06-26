@@ -3,17 +3,582 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Let’s Talk About Solar – Premium Home Solar</title>
-  <meta name="description" content="Discover premium solar energy solutions for UK homeowners. Save on bills with a luxury installation experience, modern design, and expert service. Get your free quote!">
-  <!-- Google Fonts: Poppins for headings, Inter for body -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <title>Let’s Talk About Solar – Bright Solar for UK Homes</title>
+  <meta name="description" content="Discover how solar energy can brighten your home and your future. Simple, expert, and trustworthy advice for UK homeowners.">
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600&family=Patrick+Hand&display=swap" rel="stylesheet">
+  <style>
+    /* --- Bright blue sky, glassy whiteboard, educational style --- */
+    :root {
+      --primary: #1b6eea;
+      --accent: #fffbe0;
+      --accent2: #ffe066;
+      --background: #b9eaff;
+      --board: #fff;
+      --glass: rgba(255,255,255,0.85);
+      --glass-blur: blur(18px);
+      --shadow: 0 8px 40px rgba(30, 80, 225, 0.13);
+      --sun: #ffe066;
+      --text: #133d67;
+      --radius: 22px;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: var(--background);
+      font-family: 'Fredoka', 'Patrick Hand', 'Comic Sans MS', Arial, sans-serif;
+      color: var(--text);
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    body {
+      background: linear-gradient(180deg, #6cc6ff 0%, #b9eaff 60%, #fff 100%);
+      overflow-x: hidden;
+      position: relative;
+    }
+    body::before {
+      /* Sun */
+      content: "";
+      position: absolute;
+      top: -80px; left: 60px;
+      width: 220px; height: 220px;
+      background: radial-gradient(circle at 50% 50%, var(--sun) 50%, rgba(255,255,255,0) 75%);
+      opacity: 0.82;
+      z-index: 0;
+      pointer-events: none;
+      filter: blur(2px);
+    }
+    body::after {
+      /* Large white cloud at bottom left (stock image) */
+      content: "";
+      position: absolute;
+      bottom: -40px; left: -80px;
+      width: 420px; height: 140px;
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80');
+      background-size: cover;
+      opacity: 0.92;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .cloud {
+      position: absolute;
+      z-index: 1;
+      pointer-events: none;
+      background-repeat: no-repeat;
+      background-size: contain;
+      opacity: 0.92;
+    }
+    .cloud.cloud1 {
+      top: 60px; left: 15vw;
+      width: 200px; height: 70px;
+      background-image: url('https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80');
+    }
+    .cloud.cloud2 {
+      top: 140px; right: 18vw;
+      width: 150px; height: 50px;
+      background-image: url('https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=600&q=80');
+    }
+    .cloud.cloud3 {
+      top: 240px; left: 8vw;
+      width: 110px; height: 40px;
+      background-image: url('https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80');
+    }
+    .cloud.cloud4 {
+      top: 220px; right: 6vw;
+      width: 130px; height: 44px;
+      background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80');
+    }
+    nav#navbar {
+      position: fixed;
+      top: 0; left: 0; width: 100%; z-index: 100;
+      background: none;
+      box-shadow: none;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      font-family: 'Fredoka', sans-serif;
+    }
+    nav .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.7em;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      font-size: 1.31rem;
+      color: var(--primary);
+      text-shadow: 1px 2px 0px #fff, 0 0 6px #b2eaff;
+      letter-spacing: 0.04em;
+    }
+    nav .logo img {
+      height: 44px;
+      width: 44px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px #fff9;
+      background: #fff;
+      object-fit: cover;
+    }
+    nav ul {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      list-style: none;
+      margin: 0; padding: 0;
+      background: none;
+      box-shadow: none;
+    }
+    nav ul li a {
+      color: var(--primary);
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-family: 'Fredoka', sans-serif;
+      background: rgba(255,255,255,0.61);
+      padding: 0.55em 1.1em;
+      border-radius: 18px;
+      transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      margin: 0 1px;
+    }
+    nav ul li a.cta-nav {
+      background: linear-gradient(90deg, var(--accent2), var(--accent));
+      color: #133d67;
+      box-shadow: 0 4px 14px rgba(255,215,0,0.11);
+    }
+    nav ul li a:hover {
+      background: #fff;
+      color: var(--primary);
+      box-shadow: 0 2px 18px rgba(27,110,234,0.07);
+    }
+    nav #menu-toggle {
+      display: none;
+    }
+    @media (max-width: 900px) {
+      nav ul {
+        display: none;
+        position: fixed;
+        top: 70px;
+        right: 0;
+        min-width: 210px;
+        background: rgba(255,255,255,0.96);
+        flex-direction: column;
+        gap: 1.2rem;
+        padding: 1.3rem 1.2rem;
+        border-radius: 0 0 0 var(--radius);
+        box-shadow: 0 12px 32px rgba(27,110,234,0.13);
+      }
+      nav ul.open {
+        display: flex;
+      }
+      nav #menu-toggle {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        background: none;
+        border: none;
+        margin-left: 1.5rem;
+        cursor: pointer;
+      }
+      nav #menu-toggle span {
+        display: block;
+        width: 28px;
+        height: 4px;
+        background: var(--primary);
+        border-radius: 2px;
+      }
+    }
+    #hero {
+      min-height: 62vh;
+      padding-top: 94px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-content {
+      z-index: 2;
+      position: relative;
+      padding: 3.5rem 2.2rem;
+      max-width: 600px;
+      margin: 3rem auto;
+      text-align: center;
+      background: var(--glass);
+      border-radius: 36px;
+      box-shadow: 0 8px 34px #7dbfff33;
+      border: 5px solid #fff;
+      outline: 4px dashed #ffe06677;
+      outline-offset: -17px;
+    }
+    .hero-content h1 {
+      font-family: 'Fredoka', sans-serif;
+      color: var(--primary);
+      font-size: 2.7rem;
+      font-weight: 700;
+      margin-bottom: 1.1rem;
+      letter-spacing: -0.03em;
+      text-shadow: 2px 3px 0px #fff, 0 0 7px #b9eaff;
+    }
+    .hero-content .lead {
+      color: #1976d2;
+      font-size: 1.15rem;
+      font-family: 'Patrick Hand', cursive;
+      margin-bottom: 1.4rem;
+      text-shadow: 1px 1px 0px #fff, 0 0 2px #b2eaff;
+    }
+    .cta, .cta-nav, .quote-form button.cta {
+      background: linear-gradient(90deg, var(--accent2), var(--accent));
+      color: #184264;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      font-size: 1.13rem;
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 999px;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(255,215,0,0.12);
+      transition: background 0.22s, transform 0.18s;
+      cursor: pointer;
+      margin-top: 1.2rem;
+      display: inline-block;
+      border: 2.5px solid #fff8;
+    }
+    .cta:hover, .cta-nav:hover, .quote-form button.cta:hover {
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transform: scale(1.05);
+    }
+    .hero-badges {
+      display: flex;
+      gap: 1.1rem;
+      margin-top: 1.8rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .hero-badges img {
+      height: 42px;
+      width: auto;
+      border-radius: 11px;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(30,32,40,0.08);
+      padding: 4px 8px;
+    }
+    .section {
+      max-width: 1050px;
+      margin: 4rem auto 0 auto;
+      padding: 2.6rem 1.9rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      background: var(--glass);
+      backdrop-filter: var(--glass-blur);
+      position: relative;
+      border: 4px solid #fff;
+      outline: 3px dashed #ffe06666;
+      outline-offset: -12px;
+    }
+    #benefits {
+      background: none;
+      box-shadow: none;
+      padding-top: 1.4rem;
+    }
+    #benefits h2 {
+      text-align: center;
+      font-size: 2rem;
+      font-family: 'Fredoka', sans-serif;
+      margin-bottom: 2rem;
+      color: var(--primary);
+      text-shadow: 1px 2px 0px #fff, 0 0 3px #b2eaff;
+    }
+    .benefit-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+    }
+    .benefit-card {
+      flex: 1 1 200px;
+      min-width: 210px;
+      max-width: 310px;
+      text-align: center;
+      padding: 1.6rem 1.1rem 1.1rem 1.1rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      background: var(--glass);
+      border: 3px dashed #ffe06666;
+      transition: transform 0.18s, box-shadow 0.18s;
+      margin-bottom: 1.1rem;
+      position: relative;
+    }
+    .benefit-card:hover {
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 12px 32px rgba(27,110,234,0.15);
+      background: #fff;
+    }
+    .benefit-card img {
+      height: 54px;
+      margin-bottom: 1rem;
+      filter: drop-shadow(0 2px 0 #fff9);
+      background: #fff;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .benefit-card h3 {
+      font-family: 'Fredoka', sans-serif;
+      margin-bottom: 0.5rem;
+      font-size: 1.09rem;
+      color: var(--primary);
+    }
+    #features { margin-top: 2.5rem; }
+    .features-list {
+      list-style: none;
+      max-width: 650px;
+      margin: 2rem auto 0 auto;
+      padding: 0;
+      font-size: 1.07rem;
+      color: #203040;
+      font-family: 'Patrick Hand', cursive;
+    }
+    .features-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 1.02rem 0;
+      border-bottom: 1px dashed #ffe06644;
+    }
+    .features-list li:last-child { border-bottom: none; }
+    .features-list li span {
+      display: block;
+      font-weight: 500;
+    }
+    #trust {
+      margin-top: 2.6rem;
+      background: var(--glass);
+      box-shadow: var(--shadow);
+      padding: 2.1rem 1.2rem;
+    }
+    #trust h2 {
+      text-align: center;
+      font-family: 'Fredoka', sans-serif;
+      color: var(--primary);
+      margin-bottom: 1.7rem;
+      text-shadow: 1px 2px 0px #fff, 0 0 3px #b2eaff;
+    }
+    .trust-logos {
+      display: flex;
+      gap: 1.2rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .trust-logo {
+      position: relative;
+      text-align: center;
+    }
+    .trust-logo img {
+      height: 44px;
+      width: auto;
+      background: #fff;
+      border-radius: 9px;
+      box-shadow: 0 2px 8px rgba(30,32,40,0.07);
+      cursor: pointer;
+      margin-bottom: 0.5rem;
+    }
+    .trust-logo .popover {
+      display: none;
+      position: absolute;
+      top: 45px; left: 50%; transform: translateX(-50%);
+      background: #fff;
+      color: #1976d2;
+      box-shadow: 0 8px 24px rgba(30,32,40,0.11);
+      border-radius: 11px;
+      padding: 0.7rem 1.1rem;
+      min-width: 160px;
+      font-size: 0.98rem;
+      z-index: 10;
+      text-align: left;
+      font-family: 'Patrick Hand', cursive;
+      border: 2px solid #e3f1fd;
+    }
+    .trust-logo:focus .popover, .trust-logo:hover .popover {
+      display: block;
+      animation: fadeIn 0.21s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    #calculator {
+      background: none;
+      box-shadow: none;
+      margin-top: 2.8rem;
+    }
+    #calculator .glass {
+      max-width: 410px;
+      margin: 2rem auto;
+      padding: 1.7rem 1.1rem;
+      border: 2px dashed #ffe06666;
+    }
+    #calculator label {
+      display: block;
+      margin-bottom: 0.23rem;
+      font-weight: 500;
+      font-family: 'Fredoka', sans-serif;
+    }
+    #calculator input[type="number"],
+    #calculator input[type="text"],
+    #calculator input[type="email"],
+    #calculator input[type="tel"] {
+      width: 100%;
+      padding: 0.7rem 1rem;
+      margin-bottom: 0.9rem;
+      border: 1.3px solid #bfe7ff;
+      border-radius: 10px;
+      font-size: 1.03rem;
+      background: #fff;
+      font-family: inherit;
+      outline: none;
+      transition: border 0.14s;
+    }
+    #calculator input:focus { border-color: var(--accent2); }
+    #calculator button[type="submit"] {
+      margin-top: 0.3rem;
+    }
+    #result {
+      text-align: center;
+      margin-top: 1.4rem;
+      min-height: 40px;
+      font-size: 1.12rem;
+      color: var(--primary);
+      font-family: 'Patrick Hand', cursive;
+    }
+    .result-animated h3 {
+      font-size: 1.19rem;
+      font-family: 'Fredoka', sans-serif;
+      color: var(--accent2);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+    #contact .quote-form {
+      max-width: 370px;
+      margin: 1rem auto 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    .quote-form input,
+    .quote-form button {
+      font-size: 1.06rem;
+      padding: 0.7rem 0.8rem;
+      border-radius: 10px;
+      border: 1.3px solid #bfe7ff;
+      background: #fff;
+      transition: border 0.14s;
+      font-family: inherit;
+    }
+    .quote-form input:focus { border-color: var(--accent2); }
+    .quote-form button {
+      background: linear-gradient(90deg, var(--accent2), var(--accent));
+      color: #184264;
+      font-family: 'Fredoka', sans-serif;
+      font-weight: 700;
+      border: none;
+      margin-top: 0.3rem;
+    }
+    .floating-chat {
+      position: fixed;
+      bottom: 18px;
+      right: 18px;
+      z-index: 200;
+      background: #25d366;
+      border-radius: 50%;
+      box-shadow: 0 4px 22px rgba(30,32,40,0.19);
+      padding: 0.6rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: box-shadow 0.17s, transform 0.18s;
+    }
+    .floating-chat:hover {
+      box-shadow: 0 8px 32px rgba(30,32,40,0.23);
+      transform: scale(1.07);
+    }
+    .floating-chat img {
+      width: 34px;
+      height: 34px;
+      display: block;
+    }
+    footer {
+      background: #1b6eea;
+      color: #fff;
+      margin-top: 2.6rem;
+      padding: 1.8rem 0;
+      border-radius: var(--radius) var(--radius) 0 0;
+      box-shadow: 0 -2px 12px #fff6;
+    }
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      flex-wrap: wrap;
+    }
+    .footer-links {
+      display: flex;
+      gap: 2rem;
+    }
+    .footer-links a {
+      color: #fffde7;
+      text-decoration: none;
+      font-weight: 600;
+      font-family: 'Fredoka', sans-serif;
+      transition: color 0.14s;
+    }
+    .footer-links a:hover {
+      color: #ffe066;
+    }
+    @media (max-width: 1200px) {
+      .section, footer .footer-content {
+        max-width: 98vw;
+      }
+    }
+    @media (max-width: 700px) {
+      #hero {
+        min-height: 48vh;
+        padding-top: 70px;
+      }
+      .hero-content {
+        padding: 1.2rem 0.6rem;
+        max-width: 99vw;
+      }
+      .benefit-cards {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+      .footer-content {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+      }
+      .footer-links {
+        gap: 1rem;
+        justify-content: center;
+        width: 100%;
+      }
+    }
+    ::-webkit-scrollbar { width: 10px; background: #e3eaff;}
+    ::-webkit-scrollbar-thumb { background: #bfc8e2; border-radius: 6px;}
+  </style>
 </head>
 <body>
-  <!-- Premium Glassy Navbar -->
+  <!-- Cartoon clouds (stock photo until SVGs ready) -->
+  <div class="cloud cloud1"></div>
+  <div class="cloud cloud2"></div>
+  <div class="cloud cloud3"></div>
+  <div class="cloud cloud4"></div>
   <nav id="navbar">
     <div class="logo">
-      <img src="logo-premium.svg" alt="Let’s Talk About Solar" height="40" />
+      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=80&q=80" alt="Let’s Talk About Solar logo" />
       <span>Let’s Talk About Solar</span>
     </div>
     <ul>
@@ -28,102 +593,90 @@
       <span></span><span></span><span></span>
     </button>
   </nav>
-
-  <!-- Hero Section with Gradient/Background Video & Glass Panel -->
   <section id="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-content glass">
-      <h1>Solar Power, Reimagined for Your Home</h1>
-      <p class="lead">Experience luxury, savings, and energy independence. Our premium solar solutions are crafted for modern UK living.</p>
-      <a href="#contact" class="cta">Get My Free Premium Quote</a>
+    <div class="hero-content">
+      <h1>Solar for Your Home, Made Bright & Simple</h1>
+      <p class="lead">Learn how solar can cut your bills and help the planet. No jargon—just honest, friendly advice.</p>
+      <a href="#contact" class="cta">Get My Free Quote</a>
       <div class="hero-badges">
-        <img src="mcs-badge.svg" alt="MCS Certified" title="MCS Certified" />
-        <img src="epvs-badge.svg" alt="EPVS Member" title="EPVS Member" />
-        <img src="hies-badge.svg" alt="HIES Consumer Code" title="HIES Consumer Code" />
-        <img src="napit-badge.svg" alt="NAPIT Registered" title="NAPIT Registered" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/79/MCS_Logo.png" alt="MCS Certified" title="MCS Certified" />
+        <img src="https://www.epvs.co.uk/assets/images/logo.svg" alt="EPVS Member" title="EPVS Member" />
+        <img src="https://www.hiesscheme.org.uk/wp-content/uploads/2022/04/HIES-Logo.svg" alt="HIES Consumer Code" title="HIES Consumer Code" />
+        <img src="https://www.napit.org.uk/images/napit/logo.svg" alt="NAPIT Registered" title="NAPIT Registered" />
       </div>
     </div>
   </section>
-
-  <!-- Benefits Section with Cards -->
   <section id="benefits" class="section">
-    <h2>Why Go Premium with Solar?</h2>
+    <h2>Why Go Solar?</h2>
     <div class="benefit-cards">
-      <div class="benefit-card glass reveal">
-        <img src="icon-independence.svg" alt="" />
-        <h3>Energy Independence</h3>
-        <p>Generate your own power, reduce reliance on the grid, and future-proof your home.</p>
+      <div class="benefit-card">
+        <img src="https://images.unsplash.com/photo-1501594907352-04cda38ebc29?auto=format&fit=crop&w=80&q=80" alt="" />
+        <h3>Generate Your Own Power</h3>
+        <p>Use sunshine to power your home and reduce your bills every day.</p>
       </div>
-      <div class="benefit-card glass reveal">
-        <img src="icon-battery.svg" alt="" />
-        <h3>Smart Storage</h3>
-        <p>Add a battery for round-the-clock energy. Enjoy seamless power, even after sunset.</p>
+      <div class="benefit-card">
+        <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=80&q=80" alt="" />
+        <h3>Store It for Later</h3>
+        <p>Add a battery and use solar even when the sun isn’t shining.</p>
       </div>
-      <div class="benefit-card glass reveal">
-        <img src="icon-shield.svg" alt="" />
+      <div class="benefit-card">
+        <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=80&q=80" alt="" />
         <h3>Protection from Price Hikes</h3>
-        <p>Lock in long-term savings and shield yourself from rising energy costs.</p>
+        <p>Solar shields you from rising energy costs and market shocks.</p>
       </div>
-      <div class="benefit-card glass reveal">
-        <img src="icon-eco.svg" alt="" />
-        <h3>Eco Prestige</h3>
-        <p>Reduce your carbon footprint and boost your home’s value with a stunning solar installation.</p>
+      <div class="benefit-card">
+        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=80&q=80" alt="" />
+        <h3>Help the Planet</h3>
+        <p>Lower your carbon footprint and make your home more valuable.</p>
       </div>
     </div>
   </section>
-
-  <!-- Features Section -->
   <section id="features" class="section">
-    <h2>What Sets Us Apart?</h2>
+    <h2>What You’ll Get</h2>
     <ul class="features-list">
-      <li><span>Up to <strong>70% savings</strong> on electricity bills</span></li>
+      <li><span>Save up to <strong>70% on electricity</strong></span></li>
       <li><span>Earn with the <strong>Smart Export Guarantee (SEG)</strong></span></li>
-      <li><span>Elegant, low-profile solar panel design</span></li>
-      <li><span>Zero-pressure, expert guidance from day one</span></li>
-      <li><span>Fast, white-glove installation service</span></li>
-      <li><span>Premium aftercare and 25-year warranty</span></li>
+      <li><span>Zero-pressure, expert guidance</span></li>
+      <li><span>Fast, friendly installation</span></li>
+      <li><span>25-year warranty and premium aftercare</span></li>
     </ul>
   </section>
-
-  <!-- Trust Badges Section with Popovers -->
-  <section id="trust" class="section glass">
-    <h2>Accredited & Trusted</h2>
+  <section id="trust" class="section">
+    <h2>Who Can You Trust?</h2>
     <div class="trust-logos">
       <div class="trust-logo" tabindex="0">
-        <img src="mcs-badge.svg" alt="MCS" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/7/79/MCS_Logo.png" alt="MCS" />
         <div class="popover">
           <strong>MCS Certified</strong><br>
-          Ensures your installer and equipment meet strict standards for safety and performance.
+          Your installer and equipment meet strict standards for safety and performance.
         </div>
       </div>
       <div class="trust-logo" tabindex="0">
-        <img src="epvs-badge.svg" alt="EPVS" />
+        <img src="https://www.epvs.co.uk/assets/images/logo.svg" alt="EPVS" />
         <div class="popover">
           <strong>EPVS Member</strong><br>
-          Your savings and system performance are independently verified and honest.
+          Savings and system performance are independently verified and honest.
         </div>
       </div>
       <div class="trust-logo" tabindex="0">
-        <img src="hies-badge.svg" alt="HIES" />
+        <img src="https://www.hiesscheme.org.uk/wp-content/uploads/2022/04/HIES-Logo.svg" alt="HIES" />
         <div class="popover">
           <strong>HIES Consumer Code</strong><br>
           Total protection for your deposit, warranty, and peace of mind.
         </div>
       </div>
       <div class="trust-logo" tabindex="0">
-        <img src="napit-badge.svg" alt="NAPIT" />
+        <img src="https://www.napit.org.uk/images/napit/logo.svg" alt="NAPIT" />
         <div class="popover">
           <strong>NAPIT Registered</strong><br>
-          Fully qualified, audited installers for the highest standards.
+          Fully qualified, vetted installers for your safety.
         </div>
       </div>
     </div>
   </section>
-
-  <!-- Savings Calculator with Animated Result -->
   <section id="calculator" class="section">
     <h2>Solar Savings Calculator</h2>
-    <p>Estimate your annual savings with premium solar for your home.</p>
+    <p>Estimate your annual savings with solar for your home.</p>
     <form id="savingsForm" class="glass">
       <label for="rate">Your electricity unit rate (p/kWh):</label>
       <input type="number" id="rate" placeholder="e.g. 24.99" required>
@@ -136,11 +689,9 @@
     </form>
     <div id="result" class="result-animated"></div>
   </section>
-
-  <!-- Contact / Quote Section with Glass Panel -->
-  <section id="contact" class="section glass">
-    <h2>Get Your Free Premium Solar Quote</h2>
-    <p>Send us your details for a bespoke quote from our expert team. No pressure, just honest numbers and a luxury experience.</p>
+  <section id="contact" class="section">
+    <h2>Get Your Free Solar Quote</h2>
+    <p>Send us your details for a tailored quote—no sales pressure, just honest numbers.</p>
     <form action="https://bit.ly/letstalksolarsavings" method="POST" class="quote-form">
       <input type="text" name="name" placeholder="Full Name" required>
       <input type="text" name="address" placeholder="Full Address" required>
@@ -151,13 +702,9 @@
       <button type="submit" class="cta">Send My Quote Request</button>
     </form>
   </section>
-
-  <!-- Floating WhatsApp or Live Chat Icon (optional) -->
   <a href="https://wa.me/447123456789" class="floating-chat" title="Chat with us on WhatsApp" target="_blank">
-    <img src="whatsapp-icon.svg" alt="WhatsApp Chat">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp Chat">
   </a>
-
-  <!-- Footer -->
   <footer>
     <div class="footer-content">
       <div>&copy; 2025 Let’s Talk About Solar</div>
@@ -169,8 +716,78 @@
       </div>
     </div>
   </footer>
-
-  <!-- Main JS -->
-  <script src="script.js"></script>
+  <script>
+    // Mobile nav menu toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const navMenu = document.querySelector('nav#navbar ul');
+    if (menuToggle && navMenu) {
+      menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('open');
+        menuToggle.setAttribute('aria-expanded', navMenu.classList.contains('open'));
+      });
+      navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => navMenu.classList.remove('open'));
+      });
+    }
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const targetId = this.getAttribute('href');
+        if (targetId.length > 1 && document.querySelector(targetId)) {
+          e.preventDefault();
+          document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+    // Trust badge popovers (keyboard accessibility)
+    document.querySelectorAll('.trust-logo').forEach((logo) => {
+      logo.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          logo.classList.toggle('popover-open');
+        }
+      });
+      logo.addEventListener('blur', () => logo.classList.remove('popover-open'));
+    });
+    // Savings calculator animated count up
+    document.getElementById("savingsForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const rate = parseFloat(document.getElementById("rate").value);
+      const usage = parseFloat(document.getElementById("usage").value);
+      const battery = document.getElementById("battery").checked;
+      const systemSize = 4;
+      const outputPerKW = 850;
+      const yearlyGen = systemSize * outputPerKW;
+      const selfUse = battery ? 0.95 : 0.70;
+      const usedSolar = Math.min(usage, yearlyGen * selfUse);
+      const savings = (usedSolar * rate) / 100;
+      const breakEvenEstimate = battery ? 9500 : 6000;
+      const breakEvenYears = (breakEvenEstimate / savings);
+      // Animated count-up effect for the savings value
+      const resultEl = document.getElementById("result");
+      resultEl.innerHTML = '';
+      let current = 0;
+      let final = savings;
+      let duration = 1250;
+      let stepTime = Math.abs(Math.floor(duration / final));
+      if (isNaN(stepTime) || !isFinite(stepTime) || stepTime < 12) stepTime = 12;
+      function animateCount() {
+        current += final / (duration / stepTime);
+        if (current >= final) {
+          current = final;
+          resultEl.innerHTML = `
+            <h3>Estimated Annual Savings: £${final.toFixed(2)}</h3>
+            <p>With a ${battery ? 'battery' : 'standard'} system, you’ll use about ${(selfUse * 100).toFixed(0)}% of your solar energy.</p>
+            <p>Typical installation: <strong>£${breakEvenEstimate.toLocaleString()}</strong>, break even in <strong>${breakEvenYears.toFixed(1)} years</strong>.</p>
+            <p><strong>Want a bespoke quote? Message us now — we’ll do the rest.</strong></p>
+          `;
+          return;
+        }
+        resultEl.innerHTML = `<h3>Estimated Annual Savings: £${current.toFixed(0)}</h3>`;
+        setTimeout(animateCount, stepTime);
+      }
+      animateCount();
+    });
+  </script>
 </body>
 </html>
