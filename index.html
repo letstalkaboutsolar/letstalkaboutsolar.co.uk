@@ -483,6 +483,56 @@
     </div>
   </section>
 
+  <!-- VIDEO AGENDA SECTION -->
+  <section id="video-agenda" class="section">
+    <h2>Solar Video Topics & Info</h2>
+    <ul style="max-width:700px;margin:2rem auto 0 auto;text-align:left;font-size:1.08rem;line-height:1.7;">
+      <li>
+        <strong>Why Solar? <br>Why Go Solar in 2025?</strong>
+        <ul>
+          <li>UK energy prices are still rising in 2025.</li>
+          <li>Solar panels turn your roof into a mini power station.</li>
+          <li>Cut bills, lock in savings, and enjoy cleaner energy.</li>
+          <li>Modern solar is more affordable than ever.</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Solar Savings <br>How Much Can Solar Actually Save You?</strong>
+        <ul>
+          <li>A typical 4kW system saves £500–£1,000 per year.</li>
+          <li>Batteries let you use up to 95% of your own solar power.</li>
+          <li>Even on a standard tariff, you keep more money year after year.</li>
+          <li>Use our calculator to estimate your savings.</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Trust & Certifications <br>Who Can You Trust With Solar?</strong>
+        <ul>
+          <li>Not all solar companies are equal—choose accredited installers.</li>
+          <li>Look for MCS, HIES, EPVS, or NAPIT certifications.</li>
+          <li>These schemes guarantee quality, verified savings, and consumer protection.</li>
+          <li>Let’s Talk About Solar only works with trusted professionals.</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Smart Tools / Roof Orientation <br>Check Your Roof Before You Buy Solar</strong>
+        <ul>
+          <li>Not all roofs get the same sunlight—orientation matters!</li>
+          <li>Use our free orientation checker to estimate your sunlight.</li>
+          <li>Just enter your address—no guesswork, just smart solar decisions.</li>
+        </ul>
+      </li>
+      <li>
+        <strong>Get a Free Quote <br>Want a Free, Honest Solar Quote?</strong>
+        <ul>
+          <li>No pressure, just facts and clarity.</li>
+          <li>Simple online form—see your savings, system size, and payback.</li>
+          <li>No pushy calls—you're in control.</li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+
   <section id="quote" class="section">
     <h2>Request a Free Quote</h2>
     <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="quote-form">
@@ -525,50 +575,4 @@
           lastPlaceLocation = null;
           return;
         }
-        lastPlaceLocation = place.geometry.location;
-        // Orientation logic
-        const viewport = place.geometry.viewport;
-        let orientation = "Unknown";
-        let explanation = "";
-        orientationFactor = 0.9;
-
-        if (viewport) {
-          const ne = viewport.getNorthEast();
-          const sw = viewport.getSouthWest();
-          const angle = Math.atan2(ne.lat() - sw.lat(), ne.lng() - sw.lng()) * (180 / Math.PI);
-
-          if (angle > -45 && angle <= 45) {
-            orientation = "East";
-            orientationFactor = 0.85;
-            explanation = "Your front roof likely faces East and the rear West. A solar system can still work well with morning sunlight.";
-          } else if (angle > 45 && angle <= 135) {
-            orientation = "North";
-            orientationFactor = 0.75;
-            explanation = "Your front roof likely faces North and the rear South. South-facing roofs are ideal for solar.";
-          } else if (angle > -135 && angle <= -45) {
-            orientation = "South";
-            orientationFactor = 1.0;
-            explanation = "Your front roof likely faces South and the rear North. This is excellent for solar efficiency.";
-          } else {
-            orientation = "West";
-            orientationFactor = 0.8;
-            explanation = "Your front roof likely faces West and the rear East. Good for catching late afternoon sunlight.";
-          }
-        }
-
-        document.getElementById("orientationResult").innerHTML =
-          `<strong>Estimated Roof Orientation:</strong> ${orientation}<br><em>${explanation}</em><br><span style='font-size:0.82rem;color:gray;'>These calculations are very generic—please book a consultation to get accurate and validated figures.</span>`;
-      });
-    }
-
-    window.initMap = initMap;
-
-    function toggleStreetView() {
-      const container = document.getElementById("streetview-container");
-      const btn = document.getElementById("toggleMapBtn");
-      if (container.style.display === 'none' || container.style.display === '') {
-        if (!lastPlaceLocation) {
-          alert("Please enter your address and select it from the dropdown first.");
-          return;
-        }
-        container.style.display = "bl
+        lastPlac
