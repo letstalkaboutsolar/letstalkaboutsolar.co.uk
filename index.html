@@ -485,7 +485,7 @@
 
   <section id="quote" class="section">
     <h2>Request a Free Quote</h2>
-    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="quote-form">
+    <form action="https://formspree.io/f/mldnarjp" method="POST" class="quote-form">
       <input type="text" name="name" placeholder="Full Name" required autocomplete="name">
       <input type="text" name="address" placeholder="Full Address" required autocomplete="street-address">
       <input type="email" name="email" placeholder="Email Address" required autocomplete="email">
@@ -571,67 +571,4 @@
           alert("Please enter your address and select it from the dropdown first.");
           return;
         }
-        container.style.display = "block";
-        btn.innerText = "Hide Street View";
-        if (!panoMap) {
-          panoMap = new google.maps.StreetViewPanorama(
-            document.getElementById('pano'), {
-              position: lastPlaceLocation,
-              pov: { heading: 160, pitch: 0 },
-              zoom: 1
-            }
-          );
-        } else {
-          panoMap.setPosition(lastPlaceLocation);
-        }
-      } else {
-        container.style.display = "none";
-        btn.innerText = "Show Street View";
-      }
-    }
-
-    document.getElementById("calcForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const rate = parseFloat(document.getElementById("rate").value);
-      const usage = parseFloat(document.getElementById("usage").value);
-      const battery = document.getElementById("battery").checked;
-      const rise = 1.0704;
-      let efficiency = battery ? 0.95 : 0.7;
-      let save = 0.5 * orientationFactor * efficiency * usage * rate / 100;
-      let total = 0, without = 0;
-      let html = `<h3>10-Year Savings Estimate:</h3><ul>`;
-      for (let i = 1; i <= 10; i++) {
-        total += save;
-        without += usage * Math.pow(rise, i) * rate / 100;
-        html += `<li>Year ${i}: £${save.toFixed(2)}</li>`;
-        save *= rise;
-      }
-      html += `</ul><p><strong>Total Solar Savings:</strong> £${total.toFixed(2)}</p>`;
-      html += `<p><strong>Without Solar:</strong> £${without.toFixed(2)}</p>`;
-      html += `<p style="margin-top:1rem;font-size:1rem;"><strong>Based on a 4kW system registered G98 and the assumption the homeowner is at home half the day.</strong></p>`;
-      html += `<p style="font-size:0.85rem;color:gray;">These calculations are very generic—please book a consultation to get accurate and validated figures.</p>`;
-      document.getElementById("calcResult").innerHTML = html;
-    });
-
-    // NEWSAPI.ORG FETCH LOGIC
-    fetch('https://newsapi.org/v2/everything?q=solar+energy+UK&language=en&sortBy=publishedAt&pageSize=5&apiKey=6c8d21b5a67a48bf8e1b5d7e20b6a6c5')
-      .then(res => res.json())
-      .then(data => {
-        const list = document.getElementById('news-list');
-        if (!data.articles || !data.articles.length) {
-          list.innerHTML = "<li>No news found right now.</li>";
-          return;
-        }
-        list.innerHTML = "";
-        data.articles.forEach(article => {
-          const item = document.createElement('li');
-          item.innerHTML = `<a href="${article.url}" target="_blank">${article.title}</a> <span>(${new Date(article.publishedAt).toLocaleDateString()})</span>`;
-          list.appendChild(item);
-        });
-      })
-      .catch(() => {
-        document.getElementById('news-list').innerHTML = "<li>Unable to fetch news at this time.</li>";
-      });
-  </script>
-</body>
-</html>
+        container.style.display = "block"
