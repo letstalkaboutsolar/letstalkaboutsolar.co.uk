@@ -6,31 +6,26 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Let’s Talk About Solar</title>
   <meta name="description" content="Clear, friendly, and honest solar advice for UK homeowners. Discover real savings, trusted installers, and smart solar tools." />
-  <!-- Renderforest-style font -->
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #1ea7fd;
-      --secondary: #ffe066;
-      --accent: #ff6b6b;
-      --background: #f3f7fb;
+      --primary: #72bcd4;
+      --secondary: #eaf9ff;
+      --accent: #ffd700;
+      --background: #f4fbff;
       --card: #fff;
-      --text: #222;
-      --sub: #767676;
-      --radius: 28px;
-      --shadow: 0 6px 24px 0 rgba(30,167,253,0.07), 0 1.5px 5px 0 rgba(0,0,0,0.03);
-      --headline-size: 2.3rem;
-      --button-size: 1.1rem;
+      --text: #2c3e50;
+      --radius: 20px;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     }
     * { box-sizing: border-box; }
     html, body {
       margin: 0;
       padding: 0;
       background: var(--background);
-      font-family: 'Quicksand', Arial, sans-serif;
+      font-family: 'Patrick Hand', cursive;
       color: var(--text);
       scroll-behavior: smooth;
-      font-size: 18px;
     }
     nav {
       position: fixed;
@@ -38,39 +33,35 @@
       width: 100%;
       background: var(--card);
       box-shadow: var(--shadow);
-      padding: 1.2rem 2.5rem;
+      padding: 1rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       z-index: 100;
       transition: top 0.3s;
-      border-bottom-left-radius: var(--radius);
-      border-bottom-right-radius: var(--radius);
+      height: auto;
     }
-    nav.hidden { top: -120px; }
-    .logo { font-size: 2.1rem; font-weight: bold; color: var(--primary); letter-spacing: 1px; }
+    nav.hidden { top: -100px; }
+    .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary); }
     nav ul {
       list-style: none;
       display: flex;
-      gap: 1.8rem;
+      gap: 1.5rem;
       margin: 0;
       padding: 0;
-      align-items: center;
     }
     nav ul li a {
       text-decoration: none;
       color: var(--text);
-      font-size: 1.15rem;
-      padding: 0.6rem 1.1rem;
+      font-size: 1.1rem;
+      padding: 0.5rem 0.8rem;
       border-radius: 999px;
-      transition: background 0.18s, color 0.18s;
-      font-weight: 700;
+      transition: background 0.18s;
     }
     nav ul li a.cta-nav {
       background: var(--primary);
-      color: #fff;
-      box-shadow: 0 2px 8px rgba(30,167,253,0.15);
-      border: 2px solid var(--primary);
+      color: white;
+      padding: 0.5rem 1rem;
     }
     nav ul li a:hover,
     nav ul li a.cta-nav:hover {
@@ -78,54 +69,39 @@
       color: var(--primary);
     }
     .hero {
-      padding: 5.5rem 2rem 3rem;
+      padding: 4rem 2rem 2rem;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(120deg, #e4f2ff 60%, #fff 100%);
-      margin-top: 90px;
-      border-radius: 0 0 var(--radius) var(--radius);
-      box-shadow: 0 4px 32px rgba(30,167,253,0.04);
+      background: linear-gradient(to right, #e0f7ff, #ffffff);
+      margin-top: 72px;
     }
     .hero-text {
-      max-width: 500px;
-      padding: 1rem 1rem 1rem 0;
-      flex: 1 1 300px;
+      max-width: 480px;
+      padding: 1rem;
     }
     .hero-text h1 {
-      font-size: var(--headline-size);
+      font-size: 2.2rem;
       color: var(--primary);
-      margin: 0 0 1.1rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
+      margin: 0 0 1rem;
     }
     .hero-text p {
-      font-size: 1.3rem;
-      margin-bottom: 1.6rem;
-      color: var(--sub);
-      font-weight: 500;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
     }
     .cta {
-      background: var(--accent);
-      color: #fff;
-      padding: 1rem 2.2rem;
+      background: var(--primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
       text-decoration: none;
       border-radius: 999px;
-      font-size: var(--button-size);
-      font-weight: 700;
-      box-shadow: 0 2px 12px rgba(255,107,107,0.10);
-      border: none;
-      outline: none;
-      transition: background 0.18s, color 0.18s;
-      letter-spacing: 0.5px;
+      font-size: 1rem;
       display: inline-block;
     }
-    .cta:hover { background: var(--primary); color: #fff; }
     .hero-img {
-      max-width: 340px;
-      padding: 1.5rem;
-      flex: 1 1 220px;
+      max-width: 320px;
+      padding: 1rem;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -133,154 +109,116 @@
     .hero-img img {
       width: 100%;
       border-radius: var(--radius);
-      box-shadow: 0 8px 32px rgba(30,167,253,0.08);
+      box-shadow: var(--shadow);
       object-fit: cover;
       background: white;
     }
-    .section { padding: 3.5rem 1.2rem; text-align: center; }
-    .section h2 {
-      font-size: 2rem;
-      color: var(--primary);
-      margin-bottom: 0.9rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
+    .section { padding: 3rem 1rem; text-align: center; }
     .benefit-cards, .trust-logos {
       display: flex;
       flex-wrap: wrap;
-      gap: 2.2rem;
+      gap: 2rem;
       justify-content: center;
-      margin-top: 2.4rem;
+      margin-top: 2rem;
     }
     .benefit-card, .trust-logo {
       background: var(--card);
-      padding: 2rem 1.2rem;
+      padding: 1.5rem;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       max-width: 250px;
-      min-width: 220px;
-      text-align: center;
-      transition: transform 0.15s;
-    }
-    .benefit-card:hover, .trust-logo:hover {
-      transform: translateY(-8px) scale(1.04);
-      box-shadow: 0 8px 28px rgba(30,167,253,0.13);
     }
     .benefit-card img, .trust-logo img {
-      width: 64px;
-      height: 64px;
+      width: 60px;
+      height: 60px;
       object-fit: contain;
-      margin-bottom: 1.1rem;
-      border-radius: 18px;
-      background: #f3f7fb;
-      padding: 0.4rem;
-    }
-    .benefit-card p, .trust-logo p {
-      font-size: 1.05rem;
-      color: var(--sub);
-      font-weight: 500;
+      margin-bottom: 1rem;
     }
     .calculator, .quote-form {
-      max-width: 480px;
+      max-width: 500px;
       margin: 0 auto;
       background: var(--card);
-      padding: 2.4rem 1.2rem;
+      padding: 2rem;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      font-size: 1.1rem;
     }
     label, input, button {
       display: block;
       width: 100%;
-      font-size: 1.07rem;
-      margin-top: 1.1rem;
-      font-family: 'Quicksand', Arial, sans-serif;
+      font-size: 1rem;
+      margin-top: 1rem;
+      font-family: 'Patrick Hand', cursive;
     }
     input {
-      padding: 0.7rem;
-      border: 1.5px solid #e4e4e4;
-      border-radius: 14px;
-      background: #f9fafd;
-      font-size: 1.07rem;
-      margin-bottom: 0.3rem;
+      padding: 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
     }
     #rate { box-shadow: 0 2px 8px #e3f0fc; }
-    button, .calculator button, .quote-form button {
-      background: var(--accent);
+    button {
+      background: var(--primary);
       color: white;
-      padding: 0.8rem;
+      padding: 0.75rem;
       border: none;
       border-radius: 999px;
       cursor: pointer;
-      font-weight: bold;
-      font-size: var(--button-size);
-      margin-top: 1.5rem;
-      box-shadow: 0 2px 14px rgba(255,107,107,0.10);
-      transition: background 0.15s;
-    }
-    button:hover, .calculator button:hover, .quote-form button:hover {
-      background: var(--primary);
-      color: #fff;
     }
     footer {
       background: var(--primary);
       color: white;
-      padding: 2.3rem;
+      padding: 2rem;
       text-align: center;
       margin-top: 3rem;
       border-radius: var(--radius) var(--radius) 0 0;
-      font-size: 1.03rem;
-      letter-spacing: 0.2px;
+      font-size: 0.9rem;
     }
-    /* Responsive */
-    @media (max-width: 650px) {
+    @media (max-width: 600px) {
       nav {
         padding: 0.4rem 0.7rem;
+        background: rgba(255,255,255,0.97);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         height: auto;
       }
       .logo {
-        font-size: 1.3rem;
+        font-size: 1rem;
         padding: 0.2rem 0;
       }
       nav ul {
-        gap: 0.7rem;
+        gap: 0.8rem;
         overflow-x: auto;
         white-space: nowrap;
         flex-wrap: nowrap;
       }
       nav ul li a {
-        font-size: 0.99rem;
-        padding: 0.3rem 0.8rem;
+        font-size: 0.95rem;
+        padding: 0.3rem 0.7rem;
       }
       nav ul li a.cta-nav {
-        padding: 0.35rem 0.9rem;
+        padding: 0.35rem 0.8rem;
       }
       .hero {
-        padding: 2.2rem 0.5rem 1.1rem 0.5rem;
-        margin-top: 62px;
-        flex-direction: column;
-        align-items: stretch;
+        padding: 2.2rem 0.5rem 1rem 0.5rem;
+        margin-top: 56px;
       }
       .hero-text h1 {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
       }
       .hero-img {
-        max-width: 98vw;
+        max-width: 95vw;
         margin: 0 auto;
         padding: 0.3rem;
       }
       .benefit-cards, .trust-logos {
         flex-direction: column;
         align-items: center;
-        gap: 1.5rem;
+        gap: 1.2rem;
       }
       .benefit-card, .trust-logo {
-        max-width: 99vw;
-        padding: 1.3rem 0.7rem;
-        min-width: unset;
+        max-width: 98vw;
+        padding: 1.2rem 0.7rem;
       }
       .section {
-        padding: 1.7rem 0.2rem;
+        padding: 1.6rem 0.2rem;
       }
     }
   </style>
@@ -305,6 +243,7 @@
       <a href="#quote" class="cta">Get My Free Quote</a>
     </div>
     <div class="hero-img">
+      <!-- Cartoon solar panel illustration (copyright-free) -->
       <img src="https://cdn.pixabay.com/photo/2017/01/31/13/14/solar-panel-2029350_1280.png" alt="Cartoon solar panel" />
     </div>
   </section>
@@ -313,14 +252,17 @@
     <h2>Why Solar?</h2>
     <div class="benefit-cards">
       <div class="benefit-card">
+        <!-- Money/GBP icon -->
         <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Money saving GBP icon">
         <p>Save money on your bills from day one.</p>
       </div>
       <div class="benefit-card">
+        <!-- Battery storage icon -->
         <img src="https://cdn-icons-png.flaticon.com/512/3103/3103446.png" alt="Battery storage icon">
         <p>Store your sunshine with battery technology.</p>
       </div>
       <div class="benefit-card">
+        <!-- Pylon/grid icon -->
         <img src="https://cdn-icons-png.flaticon.com/512/2422/2422625.png" alt="Pylon selling to grid icon">
         <p>Sell your surplus energy back to the grid.</p>
       </div>
@@ -331,7 +273,7 @@
     <h2>Check Your Roof Orientation</h2>
     <p>Enter your address to estimate your solar potential.</p>
     <input id="addressInput" type="text" placeholder="Enter your address" />
-    <div id="map" style="width: 100%; height: 400px; margin-top: 1rem; border-radius: 18px;"></div>
+    <div id="map" style="width: 100%; height: 400px; margin-top: 1rem; border-radius: 12px;"></div>
     <p id="orientationResult" style="margin-top: 1rem; font-weight: bold;"></p>
     <p style="font-size:0.85rem;color:gray;margin-top:0.5rem;">
       These calculations are very generic—please book a consultation to get accurate and validated figures.
@@ -361,7 +303,9 @@
     <h2>Latest UK Energy News</h2>
     <iframe 
       src="https://www.bing.com/news/search?q=UK+energy+price+cap+OR+energy+price+increase&FORM=HDRSC6"
-      style="width:100%;height:5000.7rem;">
+      style="width:100%;height:500px;border:none;border-radius:20px;box-shadow:0 4px 20px rgba(0,0,0,0.05)">
+    </iframe>
+    <p style="font-size:0.9rem;color:gray;margin-top:0.5rem;">
       News provided by Bing. For the most up-to-date information, check back here regularly.
     </p>
   </section>
@@ -369,7 +313,14 @@
 
   <!-- START OF HISTORIC DATA GRAPH SECTION -->
   <section id="historic-prices" class="section">
-    <button onclick="toggleHistoric()" style="font-size:1.2rem;padding:0.7rem 2.1rem;background:#1ea7fd;color:#fff;border:none;border-radius:999px;cursor:pointer;font-weight:700;box-shadow:0 2px 12px rgba(30-data-sets/annual-domestic-energy-price-statistics" target="_blank">UK Government</a>,
+    <button onclick="toggleHistoric()" style="font-size:1.1rem;padding:0.5rem 1.5rem;background:#72bcd4;color:#fff;border:none;border-radius:20px;cursor:pointer;">
+      Show Historic Electricity Prices (2000-2025)
+    </button>
+    <div id="historic-graph" style="display:none;margin-top:2rem;">
+      <canvas id="pricesChart" width="400" height="200"></canvas>
+      <p style="font-size:0.9rem;color:gray;">
+        Source: 
+        <a href="https://www.gov.uk/government/statistical-data-sets/annual-domestic-energy-price-statistics" target="_blank">UK Government</a>,
         Ofgem, ONS
       </p>
     </div>
@@ -386,7 +337,9 @@
   }
   function drawPriceChart() {
     const ctx = document.getElementById('pricesChart').getContext('2d');
-    const years,2017,2018,2019,
+    const years = [
+      2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,
+      2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,
       2020,2021,2022,2023,2024,2025
     ];
     const prices = [
@@ -401,11 +354,10 @@
         datasets: [{
           label: 'UK Domestic Electricity Price (p/kWh)',
           data: prices,
-          borderColor: '#1ea7fd',
-          backgroundColor: 'rgba(30,167,253,0.15)',
-          tension: 0.28,
-          pointBackgroundColor: '#ffe066',
-          pointBorderColor: '#ff6b6b',
+          borderColor: '#72bcd4',
+          backgroundColor: 'rgba(114,188,212,0.15)',
+          tension: 0.25,
+          pointBackgroundColor: '#ffd700',
           pointRadius: 5,
           fill: true
         }]
