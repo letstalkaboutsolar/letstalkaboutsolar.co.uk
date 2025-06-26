@@ -296,3 +296,53 @@ body::before {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+/* 🌞 Playful Sunny Header Redesign */
+header {
+  background: linear-gradient(to bottom, #ffe066, #ffd54f);
+  background-image: url('https://i.imgur.com/MNL0B2D.png'); /* cartoony clouds + sun */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+  padding: 1.5rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-bottom: 5px solid #fcbf49;
+  border-radius: 0 0 20px 20px;
+}
+
+/* Logo on the left */
+header .logo {
+  font-family: 'Fredoka', sans-serif;
+  font-size: 1.8rem;
+  color: #0077b6;
+  font-weight: 600;
+  text-shadow: 1px 1px #fff;
+}
+
+/* Navigation styling */
+header nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.2rem;
+  margin: 0;
+  padding: 0;
+}
+
+header nav ul li a {
+  text-decoration: none;
+  font-family: 'Fredoka', sans-serif;
+  color: #333;
+  font-weight: 500;
+  padding: 0.5rem 0.8rem;
+  background: #fff3cd;
+  border-radius: 10px;
+  transition: all 0.2s ease-in-out;
+}
+
+header nav ul li a:hover {
+  background: #ffe066;
+  color: #0077b6;
+  transform: scale(1.05);
+}
