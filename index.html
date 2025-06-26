@@ -350,7 +350,7 @@
       </div>
       <p id="orientationResult" style="margin-top: 1rem; font-weight: bold;"></p>
       <p style="font-size:0.85rem;color:gray;margin-top:0.5rem;">
-        These calculations are very generic—please book a consultation to get accurate and validated figures.
+        This is an estimated calculation based on a few details and doesn’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.
       </p>
     </div>
     <div>
@@ -365,8 +365,7 @@
       </form>
       <div id="calcResult"></div>
       <p style="font-size: 0.8rem; margin-top: 1rem; color: gray;">
-        Estimates based on a 4kW Aiko monocrystalline panel system under G98 permitted development regulations. Actual performance may vary.<br>
-        These calculations are very generic—please book a consultation to get accurate and validated figures.
+        This is an estimated calculation based on a few details and doesn’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.
       </p>
     </div>
   </section>
@@ -515,7 +514,7 @@
         }
 
         document.getElementById("orientationResult").innerHTML =
-          `<strong>Estimated Roof Orientation:</strong> ${orientation}<br><em>${explanation}</em><br><span style='font-size:0.82rem;color:gray;'>These calculations are very generic—please book a consultation to get accurate and validated figures.</span>`;
+          `<strong>Estimated Roof Orientation:</strong> ${orientation}<br><em>${explanation}</em><br><span style='font-size:0.82rem;color:gray;'>This is an estimated calculation based on a few details and doesn’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.</span>`;
       });
     }
 
@@ -565,26 +564,60 @@
       }
     }
 
-    // Solar Savings Calculator
+    // New Solar Savings Calculator for 3.68kW inverter + 9x460W panels + 5kWh battery (if selected)
     document.getElementById("calcForm").addEventListener("submit", function (e) {
       e.preventDefault();
-      const rate = parseFloat(document.getElementById("rate").value);
-      const usage = parseFloat(document.getElementById("usage").value);
+      const rate = parseFloat(document.getElementById("rate").value); // pence per kWh
+      const usage = parseFloat(document.getElementById("usage").value); // annual usage in kWh
       const battery = document.getElementById("battery").checked;
-      const systemSize = 4;
-      const outputPerKW = 850;
-      const yearlyGen = systemSize * outputPerKW;
-      const selfUse = battery ? 0.95 : 0.70;
-      const usedSolar = Math.min(usage, yearlyGen * selfUse * orientationFactor);
-      const savings = (usedSolar * rate) / 100;
-      const breakEvenEstimate = battery ? 9500 : 6000;
+
+      // 9 x 460W panels = 4140W peak (4.14kW) but limited by 3.68kW inverter
+      // We'll model max output as 3.68kW system
+      const systemSizeKW = 3.68; // kWp
+      const panelSystemKW = 9 * 0.46; // 4.14kW, but limited by inverter
+      const inverterCapKW = 3.68; // inverter limit
+      const pitchDeg = 35;
+
+      // Assume UK average irradiance for south-facing, 35deg pitch: ~1050 kWh/kWp/year
+      // Adjust for orientation (already set via orientationFactor) and panel/inverter
+      const kwhPerKWp = 1050;
+      const estimatedAnnualGen = Math.min(systemSizeKW, panelSystemKW) * kwhPerKWp * orientationFactor;
+
+      // Battery settings
+      let usableBatteryKWh = 0;
+      let batteryCyclesPerYear = 0;
+      let batterySelfUse = 0;
+      if (battery) {
+        // 5kWh battery, 90% usable each way (charge/discharge)
+        usableBatteryKWh = 5 * 0.9 * 0.9; // 5kWh * 90% charge * 90% discharge = 4.05kWh
+        // Assume one full battery cycle per day used optimally
+        batteryCyclesPerYear = 365;
+        batterySelfUse = Math.min(estimatedAnnualGen, usableBatteryKWh * batteryCyclesPerYear);
+      }
+
+      // Self-consumption ratio (rough estimate): 65% without battery, 90% with battery
+      let selfConsumptionRatio = battery ? 0.90 : 0.65;
+
+      // Calculate self-used solar kWh
+      let selfUsedKWh = estimatedAnnualGen * selfConsumptionRatio;
+      // If battery present, increase self-use up to batterySelfUse but not more than total usage or generation
+      if (battery) {
+        selfUsedKWh = Math.min(selfUsedKWh + batterySelfUse, estimatedAnnualGen, usage);
+      }
+      // Savings = self-used solar x rate (converted to £)
+      const savings = (selfUsedKWh * rate) / 100;
+
+      // Installation cost estimate (these may be refined as desired)
+      const breakEvenEstimate = battery ? 9500 : 7500;
       const breakEvenYears = (breakEvenEstimate / savings);
+
       const calcResult = document.getElementById("calcResult");
       calcResult.innerHTML = `
         <h3>Estimated Annual Savings: £${savings.toFixed(2)}</h3>
-        <p>With a ${battery ? 'battery' : 'standard'} system, you’ll use about ${(selfUse * 100).toFixed(0)}% of your solar energy.</p>
+        <p>Your system is estimated to generate <strong>${estimatedAnnualGen.toFixed(0)} kWh</strong> per year.</p>
+        <p>Annual self-used solar: <strong>${selfUsedKWh.toFixed(0)} kWh</strong> (${(100*selfUsedKWh/usage).toFixed(0)}% of your usage${battery ? ' with 5kWh battery' : ''}).</p>
         <p>Typical installation: <strong>£${breakEvenEstimate.toLocaleString()}</strong>, break even in <strong>${breakEvenYears.toFixed(1)} years</strong>.</p>
-        <p><strong>Want a bespoke quote? Message us now — we’ll do the rest.</strong></p>
+        <p style="font-size:0.95em;color:#888;">This is an estimated calculation based on a few details and doesn’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.</p>
       `;
     });
 
