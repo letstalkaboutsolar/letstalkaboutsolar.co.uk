@@ -1,27 +1,103 @@
-html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Let's Talk About Solar</title>
   <link rel="stylesheet" href="style.css" />
-</head>
-  <script>
-  function revealOnScroll() {
-    const reveals = document.querySelectorAll('.reveal');
-    reveals.forEach((el) => {
-      const windowHeight = window.innerHeight;
-      const elementTop = el.getBoundingClientRect().top;
-      const revealPoint = 100;
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-      if (elementTop < windowHeight - revealPoint) {
-        el.classList.add('active');
+    body {
+      font-family: 'Patrick Hand', cursive;
+      background-color: #f4faff;
+      color: #1c1c1c;
+      line-height: 1.8;
+    }
+
+    :root {
+      --primary: #0099cc;
+      --accent: #007aad;
+      --background: #f4faff;
+      --card: #ffffff;
+      --text: #1c1c1c;
+      --shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    h1, h2, h3 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      text-align: center;
+    }
+
+    h2 {
+      font-size: 2.2rem;
+      text-align: center;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+    }
+
+    section {
+      background-color: var(--card);
+      max-width: 960px;
+      margin: 3rem auto;
+      padding: 2.5rem 2rem;
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    button, .cta {
+      background-color: var(--primary);
+      color: white;
+      font-size: 1.1rem;
+      padding: 0.8rem 1.6rem;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-block;
+      margin-top: 1rem;
+      text-decoration: none;
+    }
+
+    button:hover, .cta:hover {
+      background-color: var(--accent);
+      transform: scale(1.05);
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      margin-top: 0.5rem;
+      border: 2px solid #ddd;
+      border-radius: 12px;
+      font-family: 'Patrick Hand', cursive;
+      font-size: 1rem;
+      background-color: #fff;
+    }
+
+    @media screen and (max-width: 768px) {
+      h1, h2 {
+        font-size: 2rem;
       }
-    });
-  }
 
-  window.addEventListener('scroll', revealOnScroll);
-  window.addEventListener('load', revealOnScroll); // in case some elements are in view on page load
-</script>
+      section {
+        padding: 2rem 1rem;
+      }
+    }
+  </style>
+</head>
 <body>
   <nav id="navbar">
     <div class="logo">Let's Talk About Solar</div>
@@ -32,11 +108,15 @@ html><html lang="en">
       <li><a href="#faq">FAQs</a></li>
       <li><a href="#contact">Free Quote</a></li>
     </ul>
-  </nav>  <section id="hero">
+  </nav>
+
+  <section id="hero">
     <h1>Solar Energy for UK Homeowners</h1>
     <p>Cut your bills, earn from the sun, and gain energy freedom.</p>
     <a href="#contact" class="cta">Book Your Free Solar Quote</a>
-  </section>  <section id="benefits">
+  </section>
+
+  <section id="benefits">
     <h2>Why Choose Solar?</h2>
     <div class="benefit">
       <h3>Generate Your Own Power</h3>
@@ -50,7 +130,9 @@ html><html lang="en">
       <h3>Protected From Price Hikes</h3>
       <p>Solar protects you from rising electricity prices and energy shocks.</p>
     </div>
-  </section>  <section id="features">
+  </section>
+
+  <section id="features">
     <h2>What You’ll Get</h2>
     <ul>
       <li>Save up to 70% on electricity</li>
@@ -58,7 +140,9 @@ html><html lang="en">
       <li>Zero-pressure, expert advice</li>
       <li>Fast, professional installation</li>
     </ul>
-  </section>  <section id="faq">
+  </section>
+
+  <section id="faq">
     <h2>FAQs</h2>
     <div class="faq-item">
       <button class="faq-question">Does solar work on cloudy days?</button>
@@ -72,7 +156,9 @@ html><html lang="en">
       <button class="faq-question">What’s the lifespan of a solar system?</button>
       <div class="faq-answer">Most systems last 25+ years with minimal maintenance.</div>
     </div>
-  </section>  <section id="contact" class="contact">
+  </section>
+
+  <section id="contact">
     <h2>Get Your Free Solar Quote</h2>
     <p>Send us your details and we’ll come back with numbers — no pressure, no sales talk.</p>
     <form action="https://bit.ly/letstalksolarsavings" method="POST">
@@ -84,172 +170,90 @@ html><html lang="en">
       <input type="text" name="annualspend" placeholder="Annual Electricity Spend (£)" required>
       <button type="submit">Send Quote Request</button>
     </form>
-  </section>  <footer>
+  </section>
+
+  <section id="trust">
+    <h2>Who Can You Trust With Solar?</h2>
+    <div class="trust-logos">
+      <div>
+        <h3>MCS</h3>
+        <p>The Microgeneration Certification Scheme ensures your installer and equipment meet strict standards for performance and safety.</p>
+      </div>
+      <div>
+        <h3>EPVS</h3>
+        <p>The Energy Performance Validation Scheme makes sure your expected savings and performance are honest and independently verified.</p>
+      </div>
+      <div>
+        <h3>HIES</h3>
+        <p>The Home Insulation & Energy Systems scheme protects you as a consumer — covering deposits, workmanship, and warranties.</p>
+      </div>
+      <div>
+        <h3>NAPIT</h3>
+        <p>Registered installers under NAPIT are fully qualified and audited, so you know the work meets electrical and building standards.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="calculator">
+    <h2>Solar Savings Calculator</h2>
+    <p>Estimate your potential annual savings with solar panels based on your electricity usage.</p>
+    <form id="savingsForm">
+      <label for="rate">Your electricity unit rate (p/kWh):</label>
+      <input type="number" id="rate" placeholder="e.g. 24.99" required>
+      <label for="usage">Your yearly electricity usage (kWh):</label>
+      <input type="number" id="usage" placeholder="e.g. 4000" required>
+      <label>
+        <input type="checkbox" id="battery"> Include battery storage?
+      </label>
+      <button type="submit">Calculate Savings</button>
+    </form>
+    <div id="result" style="margin-top: 2rem;"></div>
+  </section>
+
+  <footer>
     <p>&copy; 2025 Let’s Talk About Solar</p>
     <div class="footer-links">
       <a href="#features">Features</a>
       <a href="#faq">FAQs</a>
       <a href="#contact">Contact</a>
     </div>
-  </footer>  <script src="script.js"></script></body>
-</html>
-<section id="trust">
-  <h2>Who Can You Trust With Solar?</h2>
-  <div class="trust-logos">
+  </footer>
 
-    <div>
-      <h3>MCS</h3>
-      <p>The Microgeneration Certification Scheme ensures your installer and equipment meet strict standards for performance and safety.</p>
-    </div>
+  <script>
+    // Smooth scrolling for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href'))
+          .scrollIntoView({ behavior: 'smooth' });
+      });
+    });
 
-    <div>
-      <h3>EPVS</h3>
-      <p>The Energy Performance Validation Scheme makes sure your expected savings and performance are honest and independently verified.</p>
-    </div>
+    // FAQ toggle
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.parentNode.classList.toggle('active');
+      });
+    });
 
-    <div>
-      <h3>HIES</h3>
-      <p>The Home Insulation & Energy Systems scheme protects you as a consumer — covering deposits, workmanship, and warranties.</p>
-    </div>
+    // Reveal on scroll
+    function revealOnScroll() {
+      const reveals = document.querySelectorAll('.reveal');
+      reveals.forEach((el) => {
+        const windowHeight = window.innerHeight;
+        const elementTop = el.getBoundingClientRect().top;
+        const revealPoint = 100;
 
-    <div>
-      <h3>NAPIT</h3>
-      <p>Registered installers under NAPIT are fully qualified and audited, so you know the work meets electrical and building standards.</p>
-    </div>
+        if (elementTop < windowHeight - revealPoint) {
+          el.classList.add('active');
+        }
+      });
+    }
 
-  </div>
-</section>
-<!-- Trust Section ends here -->
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
 
-<section id="calculator">
-  <!-- full calculator HTML + JS block -->
-</section>
-<section id="trust" class="reveal">...</section>
-<section id="calculator" class="reveal">...</section>
-<!DOCTYPE html><html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Let's Talk About Solar</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Patrick Hand', cursive;
-  background-color: #f4faff;
-  color: #1c1c1c;
-  line-height: 1.8;
-}
-
-:root {
-  --primary: #0099cc;
-  --accent: #007aad;
-  --background: #f4faff;
-  --card: #ffffff;
-  --text: #1c1c1c;
-  --shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-}
-
-h1, h2, h3 {
-  color: var(--primary);
-  margin-bottom: 1rem;
-}
-
-h1 {
-  font-size: 2.8rem;
-  text-align: center;
-}
-
-h2 {
-  font-size: 2.2rem;
-  text-align: center;
-}
-
-h3 {
-  font-size: 1.5rem;
-}
-
-section {
-  background-color: var(--card);
-  max-width: 960px;
-  margin: 3rem auto;
-  padding: 2.5rem 2rem;
-  border-radius: 20px;
-  box-shadow: var(--shadow);
-}
-
-button, .cta {
-  background-color: var(--primary);
-  color: white;
-  font-size: 1.1rem;
-  padding: 0.8rem 1.6rem;
-  border: none;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: inline-block;
-  margin-top: 1rem;
-}
-
-button:hover, .cta:hover {
-  background-color: var(--accent);
-  transform: scale(1.05);
-}
-
-input, textarea, select {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  margin-top: 0.5rem;
-  border: 2px solid #ddd;
-  border-radius: 12px;
-  font-family: 'Patrick Hand', cursive;
-  font-size: 1rem;
-  background-color: #fff;
-}
-
-@media screen and (max-width: 768px) {
-  h1, h2 {
-    font-size: 2rem;
-  }
-
-  section {
-    padding: 2rem 1rem;
-  }
-}
-
-  </style>
-</head>
-<body>
-  <section>
-    <h1>Welcome to Let's Talk About Solar</h1>
-    <p style="text-align:center; max-width: 600px; margin: 0 auto;">
-      We make understanding solar simple, honest, and stress-free. Get real answers, see real savings, and discover how solar can work for your home.
-    </p>
-    <div style="text-align: center;">
-      <a href="#calculator" class="cta">Try Our Savings Calculator</a>
-    </div>
-  </section>  <section id="calculator">
-    <h2>Solar Savings Calculator</h2>
-    <p>Estimate your potential annual savings with solar panels based on your electricity usage.</p>
-    <form id="savingsForm">
-      <label for="rate">Your electricity unit rate (p/kWh):</label>
-      <input type="number" id="rate" placeholder="e.g. 24.99" required><label for="usage">Your yearly electricity usage (kWh):</label>
-  <input type="number" id="usage" placeholder="e.g. 4000" required>
-
-  <label>
-    <input type="checkbox" id="battery"> Include battery storage?
-  </label>
-
-  <button type="submit">Calculate Savings</button>
-</form>
-<div id="result" style="margin-top: 2rem;"></div>
-
-  </section>  <script>
+    // Savings calculator
     document.getElementById("savingsForm").addEventListener("submit", function (e) {
       e.preventDefault();
 
@@ -275,5 +279,6 @@ input, textarea, select {
         <p><strong>Want a personalised quote? Message us now — no pressure, just honest numbers.</strong></p>
       `;
     });
-  </script></body>
+  </script>
+</body>
 </html>
