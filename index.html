@@ -1,200 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head> 
+<!DOCTYPE html><html lang="en">
+<head>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ&libraries=places&callback=initMap" async defer></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Let’s Talk About Solar</title>
   <meta name="description" content="Clear, friendly, and honest solar advice for UK homeowners. Discover real savings, trusted installers, and smart solar tools." />
   <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #72bcd4;
-      --secondary: #eaf9ff;
-      --accent: #ffd700;
-      --background: #f4fbff;
-      --card: #fff;
-      --text: #2c3e50;
-      --radius: 20px;
-      --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    }
-    * {
-      box-sizing: border-box;
-    }
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: var(--background);
-      font-family: 'Patrick Hand', cursive;
-      color: var(--text);
-      scroll-behavior: smooth;
-    }
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: var(--card);
-      box-shadow: var(--shadow);
-      padding: 1rem 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 100;
-    }
-    .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: var(--primary);
-    }
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 1.5rem;
-      margin: 0;
-      padding: 0;
-    }
-    nav ul li a {
-      text-decoration: none;
-      color: var(--text);
-      font-size: 1.1rem;
-    }
-    nav ul li a.cta-nav {
-      background: var(--primary);
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 999px;
-    }
-    .hero {
-      padding: 6rem 2rem 3rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(to right, #e0f7ff, #ffffff);
-    }
-    .hero-text {
-      max-width: 480px;
-      padding: 1rem;
-    }
-    .hero-text h1 {
-      font-size: 2.5rem;
-      color: var(--primary);
-      margin: 0 0 1rem;
-    }
-    .hero-text p {
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
-    }
-    .cta {
-      background: var(--primary);
-      color: white;
-      padding: 0.75rem 1.5rem;
-      text-decoration: none;
-      border-radius: 999px;
-      font-size: 1rem;
-      display: inline-block;
-    }
-    .hero-img {
-      max-width: 320px;
-      padding: 1rem;
-    }
-    .hero-img img {
-      width: 100%;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
-    .section {
-      padding: 3rem 1rem;
-      text-align: center;
-    }
-    .benefit-cards, .trust-logos {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      justify-content: center;
-      margin-top: 2rem;
-    }
-    .benefit-card, .trust-logo {
-      background: var(--card);
-      padding: 1.5rem;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      max-width: 250px;
-    }
-    .benefit-card img, .trust-logo img {
-      width: 60px;
-      height: 60px;
-      object-fit: cover;
-      margin-bottom: 1rem;
-    }
-    .calculator, .quote-form {
-      max-width: 500px;
-      margin: 0 auto;
-      background: var(--card);
-      padding: 2rem;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
-    label, input, button {
-      display: block;
-      width: 100%;
-      font-size: 1rem;
-      margin-top: 1rem;
-      font-family: 'Patrick Hand', cursive;
-    }
-    input {
-      padding: 0.6rem;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-    }
-    button {
-      background: var(--primary);
-      color: white;
-      padding: 0.75rem;
-      border: none;
-      border-radius: 999px;
-      cursor: pointer;
-    }
-    footer {
-      background: var(--primary);
-      color: white;
-      padding: 2rem;
-      text-align: center;
-      margin-top: 3rem;
-      border-radius: var(--radius) var(--radius) 0 0;
-    }
-    @media (max-width: 768px) {
-      nav ul {
-        flex-direction: column;
-        gap: 0.5rem;
-        background: var(--card);
-        padding: 1rem;
-      }
-      .hero-text, .hero-img {
-        max-width: 100%;
-        text-align: center;
-      }
-      .benefit-cards, .trust-logos {
-        flex-direction: column;
-        align-items: center;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <nav>
+  <nav id="navbar">
     <div class="logo">Let’s Talk About Solar</div>
     <ul>
       <li><a href="#hero">Home</a></li>
       <li><a href="#benefits">Why Solar?</a></li>
-      <li><a href="#roof-orientation">Roof Check</a></li>
+      <li><a href="#orientation">Orientation</a></li>
       <li><a href="#calculator">Savings</a></li>
       <li><a href="#trust">Trust</a></li>
       <li><a href="#quote" class="cta-nav">Get Quote</a></li>
     </ul>
-  </nav>
-
-  <section class="hero" id="hero">
+  </nav>  <section class="hero" id="hero">
     <div class="hero-text">
       <h1>Sunshine Meets Smart Savings</h1>
       <p>See how solar can protect your bills and power your future.</p>
@@ -203,9 +28,7 @@
     <div class="hero-img">
       <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=600&q=80" alt="Solar panels" />
     </div>
-  </section>
-
-  <section id="benefits" class="section">
+  </section>  <section id="benefits" class="section">
     <h2>Why Solar?</h2>
     <div class="benefit-cards">
       <div class="benefit-card">
@@ -221,17 +44,13 @@
         <p>Escape rising energy prices year after year.</p>
       </div>
     </div>
-  </section>
-
-  <section id="roof-orientation" class="section">
+  </section>  <section id="orientation" class="section">
     <h2>Check Your Roof Orientation</h2>
     <p>Enter your address to estimate your solar potential.</p>
     <input id="addressInput" type="text" placeholder="Enter your address" />
     <div id="map" style="width: 100%; height: 400px; margin-top: 1rem; border-radius: 12px;"></div>
     <p id="orientationResult" style="margin-top: 1rem; font-weight: bold;"></p>
-  </section>
-
-  <section id="calculator" class="section">
+  </section>  <section id="calculator" class="section">
     <h2>Solar Savings Calculator</h2>
     <form id="calcForm" class="calculator">
       <label for="rate">Electricity unit rate (p/kWh):</label>
@@ -242,31 +61,28 @@
       <button type="submit">Calculate</button>
     </form>
     <div id="calcResult"></div>
-  </section>
-
-  <section id="trust" class="section">
+    <p style="font-size: 0.8rem; margin-top: 1rem; color: gray;">Estimates based on a 4kW Aiko monocrystalline panel system under G98 permitted development regulations. Actual performance may vary.</p>
+  </section>  <section id="trust" class="section">
     <h2>Who Can You Trust?</h2>
     <div class="trust-logos">
-      <a href="https://mcscertified.com" class="trust-logo" target="_blank">
+      <a class="trust-logo" href="https://mcscertified.com/" target="_blank">
         <img src="https://upload.wikimedia.org/wikipedia/commons/7/79/MCS_Logo.png" alt="MCS Certified" />
         <p><strong>MCS</strong>: Quality guaranteed equipment and installers.</p>
       </a>
-      <a href="https://epvs.co.uk" class="trust-logo" target="_blank">
+      <a class="trust-logo" href="https://www.epvs.co.uk/" target="_blank">
         <img src="https://www.epvs.co.uk/assets/images/logo.svg" alt="EPVS" />
-        <p><strong>EPVS</strong>: Independent verification of savings and performance.</p>
+        <p><strong>EPVS</strong>: Verified energy savings and performance claims.</p>
       </a>
-      <a href="https://www.hiesscheme.org.uk" class="trust-logo" target="_blank">
+      <a class="trust-logo" href="https://www.hiesscheme.org.uk/" target="_blank">
         <img src="https://www.hiesscheme.org.uk/wp-content/uploads/2022/04/HIES-Logo.svg" alt="HIES" />
-        <p><strong>HIES</strong>: Protection on deposit, warranty and aftercare.</p>
+        <p><strong>HIES</strong>: Consumer protection from start to finish.</p>
       </a>
-      <a href="https://www.napit.org.uk" class="trust-logo" target="_blank">
+      <a class="trust-logo" href="https://www.napit.org.uk/" target="_blank">
         <img src="https://www.napit.org.uk/images/napit/logo.svg" alt="NAPIT" />
-        <p><strong>NAPIT</strong>: Government-approved professional certification.</p>
+        <p><strong>NAPIT</strong>: Government-approved installer certification.</p>
       </a>
     </div>
-  </section>
-
-  <section id="quote" class="section">
+  </section>  <section id="quote" class="section">
     <h2>Request a Free Quote</h2>
     <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="quote-form">
       <input type="text" name="name" placeholder="Full Name" required>
@@ -277,44 +93,19 @@
       <input type="text" name="annualspend" placeholder="Annual Electricity Spend (£)" required>
       <button type="submit">Send My Quote Request</button>
     </form>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 Let’s Talk About Solar</p>
-  </footer>
-
-  <script>
-    // Nav hide on scroll
+  </section>  <footer>
+    <p>&copy; 2025 Let’s Talk About Solar. All rights reserved.</p>
+  </footer>  <script>
     let lastScroll = 0;
-    const nav = document.querySelector("nav");
+    const nav = document.getElementById("navbar");
+    let orientationFactor = 1;
+
     window.addEventListener("scroll", () => {
       const currentScroll = window.pageYOffset;
       nav.classList.toggle("hidden", currentScroll > lastScroll);
       lastScroll = currentScroll;
     });
 
-    // Calculator
-    document.getElementById("calcForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const rate = parseFloat(document.getElementById("rate").value);
-      const usage = parseFloat(document.getElementById("usage").value);
-      const battery = document.getElementById("battery").checked;
-      const rise = 1.0704;
-      let save = ((battery ? 0.95 : 0.7) * usage * rate) / 100;
-      let total = 0, without = 0;
-      let html = `<h3>10-Year Savings Estimate:</h3><ul>`;
-      for (let i = 1; i <= 10; i++) {
-        total += save;
-        without += usage * Math.pow(rise, i) * rate / 100;
-        html += `<li>Year ${i}: £${save.toFixed(2)}</li>`;
-        save *= rise;
-      }
-      html += `</ul><p><strong>Total Solar Savings:</strong> £${total.toFixed(2)}</p>`;
-      html += `<p><strong>Without Solar:</strong> £${without.toFixed(2)}</p>`;
-      document.getElementById("calcResult").innerHTML = html;
-    });
-
-    // Google Maps & Orientation
     function initMap() {
       const map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: 54.6861, lng: -1.2125 },
@@ -341,6 +132,7 @@
         const viewport = place.geometry.viewport;
         let orientation = "Unknown";
         let explanation = "";
+        orientationFactor = 0.9;
 
         if (viewport) {
           const ne = viewport.getNorthEast();
@@ -349,25 +141,49 @@
 
           if (angle > -45 && angle <= 45) {
             orientation = "East";
+            orientationFactor = 0.85;
             explanation = "Your front roof likely faces East and the rear West. A solar system can still work well with morning sunlight.";
           } else if (angle > 45 && angle <= 135) {
             orientation = "North";
+            orientationFactor = 0.75;
             explanation = "Your front roof likely faces North and the rear South. South-facing roofs are ideal for solar.";
           } else if (angle > -135 && angle <= -45) {
             orientation = "South";
+            orientationFactor = 1.0;
             explanation = "Your front roof likely faces South and the rear North. This is excellent for solar efficiency.";
           } else {
             orientation = "West";
+            orientationFactor = 0.8;
             explanation = "Your front roof likely faces West and the rear East. Good for catching late afternoon sunlight.";
           }
         }
 
-        document.getElementById("orientationResult").innerHTML = 
+        document.getElementById("orientationResult").innerHTML =
           `<strong>Estimated Roof Orientation:</strong> ${orientation}<br><em>${explanation}</em>`;
       });
     }
 
     window.initMap = initMap;
-  </script>
-</body>
+
+    document.getElementById("calcForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const rate = parseFloat(document.getElementById("rate").value);
+      const usage = parseFloat(document.getElementById("usage").value);
+      const battery = document.getElementById("battery").checked;
+      const rise = 1.0704;
+      let efficiency = battery ? 0.95 : 0.7;
+      let save = orientationFactor * efficiency * usage * rate / 100;
+      let total = 0, without = 0;
+      let html = `<h3>10-Year Savings Estimate:</h3><ul>`;
+      for (let i = 1; i <= 10; i++) {
+        total += save;
+        without += usage * Math.pow(rise, i) * rate / 100;
+        html += `<li>Year ${i}: £${save.toFixed(2)}</li>`;
+        save *= rise;
+      }
+      html += `</ul><p><strong>Total Solar Savings:</strong> £${total.toFixed(2)}</p>`;
+      html += `<p><strong>Without Solar:</strong> £${without.toFixed(2)}</p>`;
+      document.getElementById("calcResult").innerHTML = html;
+    });
+  </script></body>
 </html>
