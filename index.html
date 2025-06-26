@@ -37,20 +37,22 @@
       font-weight: bold;
       color: var(--primary);
     }
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 1.5rem;
-    }
-    nav ul li a {
-      text-decoration: none;
-      color: var(--text);
-      font-size: 1rem;
-      padding: 0.5rem 1rem;
-      border-radius: 999px;
-      transition: background 0.2s;
-    }
-    nav ul li a:hover {
+    <nav>
+  <div class="nav-container">
+    <div class="logo">
+      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=80&q=80" alt="Solar Logo" />
+      Let’s Talk About Solar
+    </div>
+    <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#benefits">Why Solar?</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#trust">Trust</a></li>
+      <li><a href="#calculator">Savings</a></li>
+      <li><a href="#contact" class="cta-nav">Get Quote</a></li>
+    </ul>
+  </div>
+</nav>{
       background: var(--secondary);
     }
     .hero {
