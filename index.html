@@ -279,9 +279,8 @@
       <a href="#contact" class="cta">Get My Free Quote</a>
     </div>
     <div class="hero-img">
-      <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=600&q=80"
-           alt="Modern solar panels on a house"
-           style="border: 6px solid #fff; border-radius: 18px; box-shadow: 0 4px 24px rgba(34,56,92,0.18); background: #fff;">
+      <!-- Cartoon Solar Panel SVG -->
+      <img src="https://cdn.jsdelivr.net/gh/letstalkaboutsolar/public-assets@main/cartoon-solar-panel.svg" alt="Cartoon Solar Panel" style="width:100%;max-width:340px;display:block;">
     </div>
   </section>
 
@@ -479,7 +478,7 @@
       if(val) document.getElementById('address').value = val;
     });
 
-    // Solar News API (using NewsAPI.org - replace with your own key for more results)
+    // Solar News API (using NewsAPI.org demo key, get your own for production)
     fetch('https://newsapi.org/v2/everything?q=solar+energy+UK&language=en&sortBy=publishedAt&pageSize=5&apiKey=6c8d21b5a67a48bf8e1b5d7e20b6a6c5')
       .then(res => res.json())
       .then(data => {
