@@ -1,10 +1,9 @@
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Let’s Talk About Solar</title>
-  <meta name="description" content="Honest, expert advice for UK homeowners considering solar. Discover the real savings, benefits, and peace of mind of solar energy.">
   <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -17,7 +16,6 @@
       --radius: 20px;
       --text: #2c3e50;
     }
-    * { box-sizing: border-box; }
     html, body {
       margin: 0; padding: 0; background: var(--background);
       font-family: 'Patrick Hand', cursive;
@@ -30,23 +28,24 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: sticky;
+      position: fixed;
       top: 0;
-      z-index: 100;
+      width: 100%;
+      z-index: 999;
+      transition: transform 0.3s ease;
+    }
+    nav.hide {
+      transform: translateY(-100%);
     }
     .logo {
       font-size: 1.5rem;
       font-weight: bold;
       color: var(--primary);
-      transition: opacity 0.3s ease;
-    }
-    .logo.hidden {
-      opacity: 0;
     }
     nav ul {
       list-style: none;
       display: flex;
-      gap: 1.5rem;
+      gap: 1.2rem;
       margin: 0;
       padding: 0;
     }
@@ -57,20 +56,21 @@
       font-size: 1rem;
     }
     .hero {
+      padding: 6rem 1rem 3rem;
+      background: linear-gradient(to right, #e0f7ff, #ffffff);
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      padding: 3rem 1rem;
-      background: linear-gradient(to right, #e0f7ff, #ffffff);
+      gap: 2rem;
     }
     .hero-text {
       max-width: 480px;
-      padding: 1rem;
     }
     .hero-text h1 {
       font-size: 2.5rem;
       color: var(--primary);
+      margin-bottom: 1rem;
     }
     .hero-text p {
       font-size: 1.2rem;
@@ -91,7 +91,6 @@
     }
     .hero-img {
       max-width: 320px;
-      padding: 1rem;
     }
     .hero-img img {
       width: 100%;
@@ -122,37 +121,6 @@
       object-fit: cover;
       margin-bottom: 1rem;
     }
-    .calculator, .quote-form, .trust-section {
-      max-width: 500px;
-      margin: 0 auto;
-      background: var(--card);
-      padding: 2rem;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-    }
-    label, input, button {
-      display: block;
-      width: 100%;
-      font-size: 1rem;
-      margin-top: 1rem;
-      font-family: 'Patrick Hand', cursive;
-    }
-    input {
-      padding: 0.6rem;
-      border: 1px solid #ccc;
-      border-radius: 10px;
-    }
-    button {
-      background: var(--primary);
-      color: white;
-      padding: 0.75rem;
-      border: none;
-      border-radius: 999px;
-      cursor: pointer;
-    }
-    button:hover {
-      background: #5daec7;
-    }
     footer {
       background: var(--primary);
       color: white;
@@ -162,15 +130,25 @@
       border-radius: var(--radius) var(--radius) 0 0;
     }
     @media (max-width: 768px) {
-      nav ul { flex-direction: column; gap: 0.5rem; }
-      .hero-text, .hero-img { max-width: 100%; text-align: center; }
-      .benefit-cards { flex-direction: column; align-items: center; }
+      nav ul {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .hero-text, .hero-img {
+        max-width: 100%;
+        text-align: center;
+      }
+      .benefit-cards {
+        flex-direction: column;
+        align-items: center;
+      }
     }
   </style>
 </head>
 <body>
-  <nav>
-    <div class="logo" id="logo">Let’s Talk About Solar</div>
+
+  <nav id="navbar">
+    <div class="logo">Let’s Talk About Solar</div>
     <ul>
       <li><a href="#hero">Home</a></li>
       <li><a href="#benefits">Why Solar?</a></li>
@@ -179,6 +157,7 @@
       <li><a href="#quote">Get Quote</a></li>
     </ul>
   </nav>
+
   <section class="hero" id="hero">
     <div class="hero-text">
       <h1>Sunshine Meets Smart Savings</h1>
@@ -189,6 +168,7 @@
       <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=600&q=80" alt="Solar panels" />
     </div>
   </section>
+
   <section id="benefits" class="section">
     <h2>Why Solar?</h2>
     <div class="benefit-cards">
@@ -206,72 +186,25 @@
       </div>
     </div>
   </section>
-  <section id="calculator" class="section">
-    <h2>Solar Savings Calculator</h2>
-    <form id="calcForm" class="calculator">
-      <label for="rate">Electricity unit rate (p/kWh):</label>
-      <input type="number" id="rate" placeholder="e.g. 25" required>
-      <label for="usage">Annual electricity usage (kWh):</label>
-      <input type="number" id="usage" placeholder="e.g. 4000" required>
-      <label><input type="checkbox" id="battery"> Include battery?</label>
-      <button type="submit">Calculate</button>
-    </form>
-    <div id="calcResult"></div>
-  </section>
-  <section id="trust" class="section">
-    <h2>Who Can You Trust?</h2>
-    <div class="trust-section">
-      <p><strong>EPVS</strong>: Verifies your savings are real, not exaggerated.</p>
-      <p><strong>HIES</strong>: Protects your deposit, warranty and aftercare.</p>
-      <p><strong>MCS</strong>: Ensures systems meet strict quality standards.</p>
-      <p><strong>NAPIT</strong>: Certifies professional installers.</p>
-    </div>
-  </section>
-  <section id="quote" class="section">
-    <h2>Request a Free Quote</h2>
-    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="quote-form">
-      <input type="text" name="name" placeholder="Full Name" required>
-      <input type="text" name="address" placeholder="Full Address" required>
-      <input type="email" name="email" placeholder="Email Address" required>
-      <input type="tel" name="phone" placeholder="Phone Number" required>
-      <input type="text" name="unitrate" placeholder="Electricity Unit Rate (p/kWh)" required>
-      <input type="text" name="annualspend" placeholder="Annual Electricity Spend (£)" required>
-      <button type="submit">Send My Quote Request</button>
-    </form>
-  </section>
+
   <footer>
     <p>&copy; 2025 Let’s Talk About Solar</p>
   </footer>
-  <script>
-    // Logo hides on scroll
-    window.addEventListener("scroll", function () {
-      const logo = document.getElementById("logo");
-      if (window.scrollY > 60) {
-        logo.classList.add("hidden");
-      } else {
-        logo.classList.remove("hidden");
-      }
-    });// Savings calculator logic
-document.getElementById("calcForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-  const rate = parseFloat(document.getElementById("rate").value);
-  const usage = parseFloat(document.getElementById("usage").value);
-  const battery = document.getElementById("battery").checked;
-  const yearlyPriceRise = 1.0704;
-  let annualSavings = ((battery ? 0.95 : 0.70) * usage * rate) / 100;
-  let total = 0, altTotal = 0;
-  let breakdown = `<h3>10-Year Savings Estimate:</h3><ul>`;
-  for (let i = 1; i <= 10; i++) {
-    total += annualSavings;
-    altTotal += usage * Math.pow(yearlyPriceRise, i) * rate / 100;
-    breakdown += `<li>Year ${i}: £${annualSavings.toFixed(2)}</li>`;
-    annualSavings *= yearlyPriceRise;
-  }
-  breakdown += `</ul><p><strong>Total Solar Savings:</strong> £${total.toFixed(2)}</p>`;
-  breakdown += `<p><strong>Cost without Solar:</strong> £${altTotal.toFixed(2)}</p>`;
-  document.getElementById("calcResult").innerHTML = breakdown;
-});
 
+  <script>
+    // Hide nav bar on scroll down, show on scroll up
+    let lastScrollTop = 0;
+    const navbar = document.getElementById("navbar");
+    window.addEventListener("scroll", function() {
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      if (scrollTop > lastScrollTop) {
+        navbar.classList.add("hide");
+      } else {
+        navbar.classList.remove("hide");
+      }
+      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    });
   </script>
+
 </body>
 </html>
