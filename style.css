@@ -572,3 +572,6 @@ footer {
 }
 ::-webkit-scrollbar { width: 10px; background: #e3eaff;}
 ::-webkit-scrollbar-thumb { background: #bfc8e2; border-radius: 6px;}
+html, body, h1, h2, h3, h4, h5, h6, input, button, label, p, a, li, span, div {
+  font-family: 'Comic Neue', 'Comic Sans MS', cursive, sans-serif !important;
+}
