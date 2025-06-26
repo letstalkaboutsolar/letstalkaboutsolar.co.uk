@@ -151,6 +151,9 @@
       border: 1px solid #ccc;
       border-radius: 10px;
     }
+    #rate {
+      box-shadow: 0 2px 8px #e3f0fc;
+    }
     button {
       background: var(--primary);
       color: white;
@@ -254,7 +257,7 @@
     <h2>Who Can You Trust?</h2>
     <div class="trust-logos">
       <a class="trust-logo" href="https://mcscertified.com/" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/79/MCS_Logo.png" alt="MCS Certified" />
+        <img src="https://mcscertified.com/wp-content/themes/mcscertified/assets/images/logo.svg" alt="MCS Certified" />
         <p><strong>MCS</strong>: Quality guaranteed equipment and installers.</p>
       </a>
       <a class="trust-logo" href="https://www.epvs.co.uk/" target="_blank">
@@ -262,11 +265,11 @@
         <p><strong>EPVS</strong>: Verified energy savings and performance claims.</p>
       </a>
       <a class="trust-logo" href="https://www.hiesscheme.org.uk/" target="_blank">
-        <img src="https://www.hiesscheme.org.uk/wp-content/uploads/2022/04/HIES-Logo.svg" alt="HIES" />
+        <img src="https://www.hiesscheme.org.uk/wp-content/uploads/2019/10/hies-logo.png" alt="HIES" />
         <p><strong>HIES</strong>: Consumer protection from start to finish.</p>
       </a>
       <a class="trust-logo" href="https://www.napit.org.uk/" target="_blank">
-        <img src="https://www.napit.org.uk/images/napit/logo.svg" alt="NAPIT" />
+        <img src="https://www.napit.org.uk/images/napit-logo.png" alt="NAPIT" />
         <p><strong>NAPIT</strong>: Government-approved installer certification.</p>
       </a>
     </div>
@@ -275,10 +278,10 @@
   <section id="quote" class="section">
     <h2>Request a Free Quote</h2>
     <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="quote-form">
-      <input type="text" name="name" placeholder="Full Name" required>
-      <input type="text" name="address" placeholder="Full Address" required>
-      <input type="email" name="email" placeholder="Email Address" required>
-      <input type="tel" name="phone" placeholder="Phone Number" required>
+      <input type="text" name="name" placeholder="Full Name" required autocomplete="name">
+      <input type="text" name="address" placeholder="Full Address" required autocomplete="street-address">
+      <input type="email" name="email" placeholder="Email Address" required autocomplete="email">
+      <input type="tel" name="phone" placeholder="Phone Number" required autocomplete="tel">
       <input type="text" name="unitrate" placeholder="Electricity Unit Rate (p/kWh)" required>
       <input type="text" name="annualspend" placeholder="Annual Electricity Spend (£)" required>
       <button type="submit">Send My Quote Request</button>
@@ -377,6 +380,7 @@
       }
       html += `</ul><p><strong>Total Solar Savings:</strong> £${total.toFixed(2)}</p>`;
       html += `<p><strong>Without Solar:</strong> £${without.toFixed(2)}</p>`;
+      html += `<p style="margin-top:1rem;font-size:1rem;"><strong>Based on a 4kW system registered G98.</strong></p>`;
       document.getElementById("calcResult").innerHTML = html;
     });
   </script>
