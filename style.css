@@ -139,3 +139,83 @@ form button {
 form button:hover {
   background: #126782;
 }
+/* --- Cartoon Solar Theme --- */
+body {
+  background: linear-gradient(to bottom, #cceeff, #ffffff);
+  font-family: 'Fredoka', sans-serif;
+  background-image: url('https://i.imgur.com/X5Ln1AA.png'); /* cloud bg */
+  background-size: cover;
+  background-attachment: fixed;
+  color: #333;
+}
+
+/* Sunshine header */
+header {
+  background: linear-gradient(to right, #ffe066, #ffd54f);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  border-bottom: 3px solid #fcbf49;
+}
+
+/* Nav links fun style */
+nav a {
+  font-weight: 600;
+  color: #333;
+  transition: all 0.3s ease;
+}
+nav a:hover {
+  color: #f57c00;
+  transform: scale(1.05);
+}
+
+/* Headings: fun, bouncy */
+h1, h2 {
+  font-family: 'Fredoka', sans-serif;
+  color: #0288d1;
+  text-shadow: 1px 1px 0 #fff;
+}
+
+/* Buttons: pill shape, cheerful */
+button, .btn {
+  background: #03a9f4;
+  color: #fff;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 25px;
+  font-weight: bold;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+button:hover, .btn:hover {
+  transform: scale(1.05);
+  background: #0288d1;
+}
+
+/* Sections: cloud panels */
+section {
+  background: rgba(255, 255, 255, 0.9);
+  margin: 20px auto;
+  padding: 30px;
+  border-radius: 30px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Add floating sun */
+body::before {
+  content: '';
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 80px;
+  height: 80px;
+  background: radial-gradient(circle, #ffeb3b, #fbc02d);
+  border-radius: 50%;
+  box-shadow: 0 0 30px #fff176;
+  animation: spin 30s linear infinite;
+  z-index: -1;
+}
+
+/* Floaty sun animation */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
