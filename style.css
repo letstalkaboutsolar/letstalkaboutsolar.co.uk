@@ -1,74 +1,43 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
-
-body {
-  font-family: 'Poppins', sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #F5F7FA;
-  color: #0D1B2A;
-}
-
-header {
+/* Sticky nav with smooth scroll */
+#navbar {
+  position: sticky;
+  top: 0;
   background: #0091FF;
-  color: #fff;
-  padding: 2rem;
-  text-align: center;
+  padding: 1rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  z-index: 100;
 }
-
-h1, h2, h3 {
-  margin: 0.5rem 0;
-  font-weight: 600;
-}
-
-main {
-  padding: 2rem;
-  max-width: 900px;
-  margin: auto;
-}
-
-section.hero {
-  background: white;
-  padding: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  margin-bottom: 2rem;
-  text-align: center;
-}
-
-.cta {
-  display: inline-block;
-  margin-top: 1.5rem;
-  padding: 0.9rem 2rem;
-  background: #0091FF;
+#navbar a {
   color: white;
   text-decoration: none;
-  border-radius: 8px;
   font-weight: 600;
-  transition: background 0.3s ease;
+}
+#navbar a:hover {
+  text-decoration: underline;
 }
 
+/* FAQ toggle effect */
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+/* Expands when active */
+.faq-item.active .faq-answer {
+  max-height: 200px;
+}
+
+/* Button micro-animations */
+button,
+.cta {
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+button:hover,
 .cta:hover {
-  background: #007bd1;
-}
-
-section.features {
-  margin-bottom: 2rem;
-}
-
-.feature {
-  background: white;
-  padding: 1.5rem;
-  border-left: 5px solid #0091FF;
-  margin-bottom: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-}
-
-footer {
-  text-align: center;
-  font-size: 0.9rem;
-  padding: 2rem;
-  background: #e4efff;
-  color: #333;
-  border-top: 2px solid #0091FF;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
