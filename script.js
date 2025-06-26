@@ -1,8 +1,34 @@
-// Google Maps Autocomplete & Orientation
+// --- FAQ Accordion Logic ---
+document.querySelectorAll(".faq-question").forEach(btn => {
+  btn.addEventListener("click", function() {
+    const a = btn.nextElementSibling;
+    // Close all other answers
+    document.querySelectorAll(".faq-answer").forEach(o => {
+      if (o !== a) o.style.display = "none";
+    });
+    document.querySelectorAll(".faq-question").forEach(q => {
+      if (q !== btn) {
+        q.classList.remove("active");
+        q.setAttribute("aria-expanded", "false");
+      }
+    });
+    if (a.style.display === "block") {
+      a.style.display = "none";
+      btn.classList.remove("active");
+      btn.setAttribute("aria-expanded", "false");
+    } else {
+      a.style.display = "block";
+      btn.classList.add("active");
+      btn.setAttribute("aria-expanded", "true");
+    }
+  });
+});
+
+// --- Google Maps Autocomplete & Orientation Checker ---
 let autocomplete, lastPlaceLocation = null, panoMap = null;
 function initMap() {
   const input = document.getElementById("addressInput");
-  if (!input) return; // avoid JS error if element not present
+  if (!input) return;
   autocomplete = new google.maps.places.Autocomplete(input);
 
   autocomplete.addListener("place_changed", () => {
@@ -49,7 +75,7 @@ function initMap() {
 }
 window.initMap = initMap;
 
-// Street View toggle
+// --- Street View Toggle Logic ---
 window.toggleStreetView = function() {
   const container = document.getElementById("streetview-container");
   const btn = document.getElementById("toggleMapBtn");
@@ -75,4 +101,120 @@ window.toggleStreetView = function() {
     container.style.display = "none";
     btn.innerText = "Show Street View";
   }
+}
+
+// --- Solar Savings Calculator Logic ---
+const calcForm = document.getElementById("calcForm");
+if (calcForm) {
+  calcForm.addEventListener("submit", function(e) {
+    e.preventDefault();
+    const rate = parseFloat(document.getElementById("rate").value);
+    const usage = parseFloat(document.getElementById("usage").value);
+    const battery = document.getElementById("battery").checked;
+    const rise = 1.0704;
+    let efficiency = battery ? 0.95 : 0.7;
+    let orientationFactor = window.orientationFactor || 0.9;
+    let save = 0.5 * orientationFactor * efficiency * usage * rate / 100;
+    let total = 0, without = 0;
+    let html = `<h3>10-Year Savings Estimate:</h3><ul>`;
+    for (let i = 1; i <= 10; i++) {
+      total += save;
+      without += usage * Math.pow(rise, i) * rate / 100;
+      html += `<li>Year ${i}: £${save.toFixed(2)}</li>`;
+      save *= rise;
+    }
+    html += `</ul><p><strong>Total Solar Savings:</strong> £${total.toFixed(2)}</p>`;
+    html += `<p><strong>Without Solar:</strong> £${without.toFixed(2)}</p>`;
+    html += `<p style="margin-top:1rem;font-size:1rem;"><strong>Based on a 4kW system registered G98 and the assumption the homeowner is at home half the day.</strong></p>`;
+    html += `<p style="font-size:0.85rem;color:gray;">These calculations are very generic—please book a consultation to get accurate and validated figures.</p>`;
+    document.getElementById("calcResult").innerHTML = html;
+  });
+}
+
+// --- Historic Price Chart (Chart.js) ---
+window.toggleHistoric = function() {
+  let g = document.getElementById('historic-graph');
+  g.style.display = (g.style.display === 'none' || g.style.display === '') ? 'block' : 'none';
+  if (g.style.display === 'block' && !window._historicChartLoaded) {
+    drawPriceChart();
+    window._historicChartLoaded = true;
+  }
+}
+function drawPriceChart() {
+  const ctx = document.getElementById('pricesChart').getContext('2d');
+  const years = [
+    2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,
+    2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,
+    2020,2021,2022,2023,2024,2025
+  ];
+  const prices = [
+    7.0,7.3,7.2,7.1,7.4,8.2,10.0,10.6,13.3,13.9,
+    13.7,14.5,15.5,15.6,15.6,15.2,14.4,14.4,15.0,17.2,
+    17.2,19.0,28.0,30.0,28.5,27.5
+  ];
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: years,
+      datasets: [{
+        label: 'UK Domestic Electricity Price (p/kWh)',
+        data: prices,
+        borderColor: '#72bcd4',
+        backgroundColor: 'rgba(114,188,212,0.15)',
+        tension: 0.25,
+        pointBackgroundColor: '#ffd700',
+        pointRadius: 5,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: true },
+        tooltip: { enabled: true }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: { display: true, text: 'pence per kWh' }
+        },
+        x: {
+          title: { display: true, text: 'Year' }
+        }
+      }
+    }
+  });
+}
+
+// --- News API Fetch for Energy News ---
+fetch('https://newsapi.org/v2/everything?q=solar+energy+UK&language=en&sortBy=publishedAt&pageSize=5&apiKey=6c8d21b5a67a48bf8e1b5d7e20b6a6c5')
+  .then(res => res.json())
+  .then(data => {
+    const list = document.getElementById('news-list');
+    if (!list) return;
+    if (!data.articles || !data.articles.length) {
+      list.innerHTML = "<li>No news found right now.</li>";
+      return;
+    }
+    list.innerHTML = "";
+    data.articles.forEach(article => {
+      const item = document.createElement('li');
+      item.innerHTML = `<a href="${article.url}" target="_blank">${article.title}</a> <span>(${new Date(article.publishedAt).toLocaleDateString()})</span>`;
+      list.appendChild(item);
+    });
+  })
+  .catch(() => {
+    const list = document.getElementById('news-list');
+    if (list) list.innerHTML = "<li>Unable to fetch news at this time.</li>";
+  });
+
+// --- Sticky Nav Hide on Scroll ---
+let lastScroll = 0;
+const nav = document.getElementById("navbar");
+if (nav) {
+  window.addEventListener("scroll", () => {
+    const currentScroll = window.pageYOffset;
+    nav.classList.toggle("hidden", currentScroll > lastScroll);
+    lastScroll = currentScroll;
+  });
 }
