@@ -269,11 +269,17 @@
     </div>
   </section>
 
+  <!-- NEW ORIENTATION SECTION WITH STREET VIEW BUTTON -->
   <section id="orientation" class="section">
     <h2>Check Your Roof Orientation</h2>
     <p>Enter your address to estimate your solar potential.</p>
-    <input id="addressInput" type="text" placeholder="Enter your address" />
-    <div id="map" style="width: 100%; height: 400px; margin-top: 1rem; border-radius: 12px;"></div>
+    <input id="addressInput" type="text" placeholder="Enter your address" style="max-width:350px;margin:0 auto 1rem auto;display:block;" />
+    <button id="toggleMapBtn" onclick="toggleStreetView()" style="margin:1rem 0 1.2rem 0;padding:0.7rem 1.3rem;border-radius:999px;background:#72bcd4;color:#fff;font-weight:bold;font-size:1rem;border:none;box-shadow:0 2px 8px rgba(114,188,212,0.07);cursor:pointer;">
+      Show Street View
+    </button>
+    <div id="streetview-container" style="width:100%;max-width:500px;height:200px;display:none;border-radius:18px;overflow:hidden;margin:0 auto 1rem auto;background:#f4fbff;">
+      <div id="pano" style="width:100%;height:100%;"></div>
+    </div>
     <p id="orientationResult" style="margin-top: 1rem; font-weight: bold;"></p>
     <p style="font-size:0.85rem;color:gray;margin-top:0.5rem;">
       These calculations are very generic—please book a consultation to get accurate and validated figures.
@@ -433,29 +439,22 @@
       lastScroll = currentScroll;
     });
 
+    // New orientation section logic (Street View only)
+    let autocomplete, lastPlaceLocation = null, panoMap = null;
+
     function initMap() {
-      const map = new google.maps.Map(document.getElementById("map"), {
-        center: { lat: 54.6861, lng: -1.2125 },
-        zoom: 14,
-      });
-
       const input = document.getElementById("addressInput");
-      const autocomplete = new google.maps.places.Autocomplete(input);
-      autocomplete.bindTo("bounds", map);
-
-      const marker = new google.maps.Marker({ map });
+      autocomplete = new google.maps.places.Autocomplete(input);
 
       autocomplete.addListener("place_changed", () => {
         const place = autocomplete.getPlace();
         if (!place.geometry || !place.geometry.location) {
-          return alert("No details available for input: '" + place.name + "'");
+          alert("No details available for input: '" + place.name + "'");
+          lastPlaceLocation = null;
+          return;
         }
-
-        const location = place.geometry.location;
-        map.setCenter(location);
-        map.setZoom(18);
-        marker.setPosition(location);
-
+        lastPlaceLocation = place.geometry.location;
+        // Orientation logic
         const viewport = place.geometry.viewport;
         let orientation = "Unknown";
         let explanation = "";
@@ -491,6 +490,33 @@
     }
 
     window.initMap = initMap;
+
+    function toggleStreetView() {
+      const container = document.getElementById("streetview-container");
+      const btn = document.getElementById("toggleMapBtn");
+      if (container.style.display === 'none' || container.style.display === '') {
+        if (!lastPlaceLocation) {
+          alert("Please enter your address and select it from the dropdown first.");
+          return;
+        }
+        container.style.display = "block";
+        btn.innerText = "Hide Street View";
+        if (!panoMap) {
+          panoMap = new google.maps.StreetViewPanorama(
+            document.getElementById('pano'), {
+              position: lastPlaceLocation,
+              pov: { heading: 160, pitch: 0 },
+              zoom: 1
+            }
+          );
+        } else {
+          panoMap.setPosition(lastPlaceLocation);
+        }
+      } else {
+        container.style.display = "none";
+        btn.innerText = "Show Street View";
+      }
+    }
 
     document.getElementById("calcForm").addEventListener("submit", function(e) {
       e.preventDefault();
