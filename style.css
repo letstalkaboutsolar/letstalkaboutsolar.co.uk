@@ -52,3 +52,13 @@ nav ul li a { color: #fff; text-decoration: none; font-weight: 500; }
 .footer-links a { margin: 0 1rem; color: #ffcc00; text-decoration: none; }
 
 .footer-links a:hover { text-decoration: underline; }
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
