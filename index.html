@@ -102,11 +102,15 @@
     .hero-img {
       max-width: 320px;
       padding: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .hero-img img {
       width: 100%;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
+      object-fit: cover;
     }
     .section { padding: 3rem 1rem; text-align: center; }
     .benefit-cards, .trust-logos {
@@ -167,7 +171,6 @@
       border-radius: var(--radius) var(--radius) 0 0;
       font-size: 0.9rem;
     }
-    /* MOBILE NAV IMPROVEMENTS */
     @media (max-width: 600px) {
       nav {
         padding: 0.4rem 0.7rem;
@@ -239,7 +242,7 @@
       <a href="#quote" class="cta">Get My Free Quote</a>
     </div>
     <div class="hero-img">
-      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80" alt="Solar panels on a roof in sunlight" />
+      <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=600&q=80" alt="Solar panels on a roof" />
     </div>
   </section>
 
@@ -247,16 +250,16 @@
     <h2>Why Solar?</h2>
     <div class="benefit-cards">
       <div class="benefit-card">
-        <img src="https://cdn-icons-png.flaticon.com/512/1113/1113805.png" alt="bill icon">
-        <p>Lower your bills from day one.</p>
+        <img src="https://cdn-icons-png.flaticon.com/512/1046/1046857.png" alt="Solar panel icon">
+        <p>Lower your bills from day one with solar power.</p>
       </div>
       <div class="benefit-card">
-        <img src="https://cdn-icons-png.flaticon.com/512/4287/4287704.png" alt="battery">
-        <p>Store power to use when you need it most.</p>
+        <img src="https://cdn-icons-png.flaticon.com/512/2917/2917242.png" alt="Battery storage icon">
+        <p>Store clean power to use when you need it most.</p>
       </div>
       <div class="benefit-card">
-        <img src="https://cdn-icons-png.flaticon.com/512/2907/2907457.png" alt="price">
-        <p>Escape rising energy prices year after year.</p>
+        <img src="https://cdn-icons-png.flaticon.com/512/1046/1046866.png" alt="Sun and roof icon">
+        <p>Escape rising energy prices for years to come.</p>
       </div>
     </div>
   </section>
@@ -406,7 +409,6 @@
       const battery = document.getElementById("battery").checked;
       const rise = 1.0704;
       let efficiency = battery ? 0.95 : 0.7;
-      // Now, include homeowner at home half the day
       let save = 0.5 * orientationFactor * efficiency * usage * rate / 100;
       let total = 0, without = 0;
       let html = `<h3>10-Year Savings Estimate:</h3><ul>`;
