@@ -1,60 +1,78 @@
-<nav id="navbar">
-  <a href="#hero">Home</a>
-  <a href="#features">Features</a>
-  <a href="#contact">Contact</a>
-</nav>
-<section id="hero">…</section>
-<section id="features" class="features">
-  <h2>Why Choose Solar?</h2>
-  <div class="features-grid">
-    <div class="feature">
-      <i class="fas fa-sun"></i>
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Let's Talk About Solar</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav id="navbar">
+    <div class="logo">Let's Talk About Solar</div>
+    <ul>
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#benefits">Why Solar?</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#faq">FAQs</a></li>
+      <li><a href="#contact">Free Quote</a></li>
+    </ul>
+  </nav>  <section id="hero">
+    <h1>Solar Energy for UK Homeowners</h1>
+    <p>Cut your bills, earn from the sun, and gain energy freedom.</p>
+    <a href="#contact" class="cta">Book Your Free Solar Quote</a>
+  </section>  <section id="benefits">
+    <h2>Why Choose Solar?</h2>
+    <div class="benefit">
       <h3>Generate Your Own Power</h3>
       <p>Use sunlight to cut your electricity bills and gain energy independence.</p>
     </div>
-    <div class="feature">
-      <i class="fas fa-battery-full"></i>
+    <div class="benefit">
       <h3>Store It For Later</h3>
       <p>Add a battery and power your home even when the sun isn’t out.</p>
     </div>
-    <div class="feature">
-      <i class="fas fa-shield-alt"></i>
-      <h3>Protected from Price Hikes</h3>
+    <div class="benefit">
+      <h3>Protected From Price Hikes</h3>
       <p>Solar protects you from rising electricity prices and energy shocks.</p>
     </div>
-  </div>
-</section>
-<section id="faq">
-  <h2>FAQs</h2>
-  <div class="faq-item">
-    <button class="faq-question">Does solar work on cloudy days?</button>
-    <div class="faq-answer">Yes — modern panels still generate in lower light.</div>
-  </div>
-</section>
-<section <section id="contact" class="contact">
-  <h2>Get Your Free Solar Quote</h2>
-  <p>Send us your details and we'll come back with numbers — no pressure, no sales talk.</p>
-  <form action="https://bit.ly/letstalksolarsavings" method="POST">
-    <input type="text" name="name" placeholder="Your Name" required>
-    <input type="email" name="email" placeholder="Your Email" required>
-    <textarea name="message" rows="5" placeholder="Tell us about your home…" required></textarea>
-    <button type="submit">Send Quote Request</button>
-  </form>
-</section>
-<nav class="navbar">
-  <div class="container">
-    <a href="#home" class="logo">Let's Talk About Solar</a>
-    <ul class="nav-links">
-      <li><a href="#features">Features</a></li>
-      <li><a href="#faqs">FAQs</a></li>
-      <li><a href="#contact">Contact</a></li>
+  </section>  <section id="features">
+    <h2>What You’ll Get</h2>
+    <ul>
+      <li>Save up to 70% on electricity</li>
+      <li>Earn through Smart Export Guarantee (SEG)</li>
+      <li>Zero-pressure, expert advice</li>
+      <li>Fast, professional installation</li>
     </ul>
-  </div>
-</nav>
-<section id="home" class="hero">
-  <div class="hero-content">
-    <h1>Cut Your Energy Bills with Solar</h1>
-    <p>Smart savings, total control, and zero-pressure advice — all tailored to your home.</p>
-    <a href="#contact" class="cta-button">Get My Free Quote</a>
-  </div>
-</section>
+  </section>  <section id="faq">
+    <h2>FAQs</h2>
+    <div class="faq-item">
+      <button class="faq-question">Does solar work on cloudy days?</button>
+      <div class="faq-answer">Yes — modern panels still generate in lower light.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">Can I sell energy back to the grid?</button>
+      <div class="faq-answer">Yes — with SEG you can get paid for excess energy.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-question">What’s the lifespan of a solar system?</button>
+      <div class="faq-answer">Most systems last 25+ years with minimal maintenance.</div>
+    </div>
+  </section>  <section id="contact" class="contact">
+    <h2>Get Your Free Solar Quote</h2>
+    <p>Send us your details and we’ll come back with numbers — no pressure, no sales talk.</p>
+    <form action="https://bit.ly/letstalksolarsavings" method="POST">
+      <input type="text" name="name" placeholder="Full Name" required>
+      <input type="text" name="address" placeholder="Full Address" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="tel" name="phone" placeholder="Phone Number" required>
+      <input type="text" name="unitrate" placeholder="Electricity Unit Rate (p/kWh)" required>
+      <input type="text" name="annualspend" placeholder="Annual Electricity Spend (£)" required>
+      <button type="submit">Send Quote Request</button>
+    </form>
+  </section>  <footer>
+    <p>&copy; 2025 Let’s Talk About Solar</p>
+    <div class="footer-links">
+      <a href="#features">Features</a>
+      <a href="#faq">FAQs</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </footer>  <script src="script.js"></script></body>
+</html>
