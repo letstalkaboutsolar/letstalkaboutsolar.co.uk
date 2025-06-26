@@ -1,8 +1,8 @@
-<!DOCTYPE html><html lang="en">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Let’s Talk About Solar – Honest Solar for Your Home</title>
+  <title>Let’s Talk About Solar</title>
   <meta name="description" content="Honest, expert advice for UK homeowners considering solar. Discover the real savings, benefits, and peace of mind of solar energy.">
   <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
   <style>
@@ -16,6 +16,7 @@
       --radius: 20px;
       --text: #2c3e50;
     }
+    * { box-sizing: border-box; }
     html, body {
       margin: 0; padding: 0; background: var(--background);
       font-family: 'Patrick Hand', cursive;
@@ -36,9 +37,9 @@
       font-size: 1.5rem;
       font-weight: bold;
       color: var(--primary);
-      transition: opacity 0.3s ease-in-out;
+      transition: opacity 0.3s ease;
     }
-    .logo.logo-hidden {
+    .logo.hidden {
       opacity: 0;
     }
     nav ul {
@@ -160,4 +161,116 @@
       border-radius: var(--radius) var(--radius) 0 0;
     }
     @media (max-width: 768px) {
-      nav ul { flex
+      nav ul { flex-direction: column; gap: 0.5rem; }
+      .hero-text, .hero-img { max-width: 100%; text-align: center; }
+      .benefit-cards { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="logo" id="logo">Let’s Talk About Solar</div>
+    <ul>
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#benefits">Why Solar?</a></li>
+      <li><a href="#calculator">Savings</a></li>
+      <li><a href="#trust">Trust</a></li>
+      <li><a href="#quote">Get Quote</a></li>
+    </ul>
+  </nav>
+  <section class="hero" id="hero">
+    <div class="hero-text">
+      <h1>Sunshine Meets Smart Savings</h1>
+      <p>See how solar can protect your bills and power your future.</p>
+      <a href="#quote" class="cta">Get My Free Quote</a>
+    </div>
+    <div class="hero-img">
+      <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=600&q=80" alt="Solar panels" />
+    </div>
+  </section>
+  <section id="benefits" class="section">
+    <h2>Why Solar?</h2>
+    <div class="benefit-cards">
+      <div class="benefit-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/1113/1113805.png" alt="bill icon">
+        <p>Lower your bills from day one.</p>
+      </div>
+      <div class="benefit-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/4287/4287704.png" alt="battery">
+        <p>Store power to use when you need it most.</p>
+      </div>
+      <div class="benefit-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/2907/2907457.png" alt="price">
+        <p>Escape rising energy prices year after year.</p>
+      </div>
+    </div>
+  </section>
+  <section id="calculator" class="section">
+    <h2>Solar Savings Calculator</h2>
+    <form id="calcForm" class="calculator">
+      <label for="rate">Electricity unit rate (p/kWh):</label>
+      <input type="number" id="rate" placeholder="e.g. 25" required>
+      <label for="usage">Annual electricity usage (kWh):</label>
+      <input type="number" id="usage" placeholder="e.g. 4000" required>
+      <label><input type="checkbox" id="battery"> Include battery?</label>
+      <button type="submit">Calculate</button>
+    </form>
+    <div id="calcResult"></div>
+  </section>
+  <section id="trust" class="section">
+    <h2>Who Can You Trust?</h2>
+    <div class="trust-section">
+      <p><strong>EPVS</strong>: Verifies your savings are real, not exaggerated.</p>
+      <p><strong>HIES</strong>: Protects your deposit, warranty and aftercare.</p>
+      <p><strong>MCS</strong>: Ensures systems meet strict quality standards.</p>
+      <p><strong>NAPIT</strong>: Certifies professional installers.</p>
+    </div>
+  </section>
+  <section id="quote" class="section">
+    <h2>Request a Free Quote</h2>
+    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="quote-form">
+      <input type="text" name="name" placeholder="Full Name" required>
+      <input type="text" name="address" placeholder="Full Address" required>
+      <input type="email" name="email" placeholder="Email Address" required>
+      <input type="tel" name="phone" placeholder="Phone Number" required>
+      <input type="text" name="unitrate" placeholder="Electricity Unit Rate (p/kWh)" required>
+      <input type="text" name="annualspend" placeholder="Annual Electricity Spend (£)" required>
+      <button type="submit">Send My Quote Request</button>
+    </form>
+  </section>
+  <footer>
+    <p>&copy; 2025 Let’s Talk About Solar</p>
+  </footer>
+  <script>
+    // Logo hides on scroll
+    window.addEventListener("scroll", function () {
+      const logo = document.getElementById("logo");
+      if (window.scrollY > 60) {
+        logo.classList.add("hidden");
+      } else {
+        logo.classList.remove("hidden");
+      }
+    });// Savings calculator logic
+document.getElementById("calcForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const rate = parseFloat(document.getElementById("rate").value);
+  const usage = parseFloat(document.getElementById("usage").value);
+  const battery = document.getElementById("battery").checked;
+  const yearlyPriceRise = 1.0704;
+  let annualSavings = ((battery ? 0.95 : 0.70) * usage * rate) / 100;
+  let total = 0, altTotal = 0;
+  let breakdown = `<h3>10-Year Savings Estimate:</h3><ul>`;
+  for (let i = 1; i <= 10; i++) {
+    total += annualSavings;
+    altTotal += usage * Math.pow(yearlyPriceRise, i) * rate / 100;
+    breakdown += `<li>Year ${i}: £${annualSavings.toFixed(2)}</li>`;
+    annualSavings *= yearlyPriceRise;
+  }
+  breakdown += `</ul><p><strong>Total Solar Savings:</strong> £${total.toFixed(2)}</p>`;
+  breakdown += `<p><strong>Cost without Solar:</strong> £${altTotal.toFixed(2)}</p>`;
+  document.getElementById("calcResult").innerHTML = breakdown;
+});
+
+  </script>
+</body>
+</html>
