@@ -483,96 +483,58 @@
     </div>
   </section>
 
-  <!-- VIDEO AGENDA SECTION -->
-  <section id="video-agenda" class="section">
-    <h2>Solar Video Topics & Info</h2>
-    <ul style="max-width:700px;margin:2rem auto 0 auto;text-align:left;font-size:1.08rem;line-height:1.7;">
-      <li>
-        <strong>Why Solar? <br>Why Go Solar in 2025?</strong>
-        <ul>
-          <li>UK energy prices are still rising in 2025.</li>
-          <li>Solar panels turn your roof into a mini power station.</li>
-          <li>Cut bills, lock in savings, and enjoy cleaner energy.</li>
-          <li>Modern solar is more affordable than ever.</li>
-        </ul>
-      </li>
-      <li>
-        <strong>Solar Savings <br>How Much Can Solar Actually Save You?</strong>
-        <ul>
-          <li>A typical 4kW system saves £500–£1,000 per year.</li>
-          <li>Batteries let you use up to 95% of your own solar power.</li>
-          <li>Even on a standard tariff, you keep more money year after year.</li>
-          <li>Use our calculator to estimate your savings.</li>
-        </ul>
-      </li>
-      <li>
-        <strong>Trust & Certifications <br>Who Can You Trust With Solar?</strong>
-        <ul>
-          <li>Not all solar companies are equal—choose accredited installers.</li>
-          <li>Look for MCS, HIES, EPVS, or NAPIT certifications.</li>
-          <li>These schemes guarantee quality, verified savings, and consumer protection.</li>
-          <li>Let’s Talk About Solar only works with trusted professionals.</li>
-        </ul>
-      </li>
-      <li>
-        <strong>Smart Tools / Roof Orientation <br>Check Your Roof Before You Buy Solar</strong>
-        <ul>
-          <li>Not all roofs get the same sunlight—orientation matters!</li>
-          <li>Use our free orientation checker to estimate your sunlight.</li>
-          <li>Just enter your address—no guesswork, just smart solar decisions.</li>
-        </ul>
-      </li>
-      <li>
-        <strong>Get a Free Quote <br>Want a Free, Honest Solar Quote?</strong>
-        <ul>
-          <li>No pressure, just facts and clarity.</li>
-          <li>Simple online form—see your savings, system size, and payback.</li>
-          <li>No pushy calls—you're in control.</li>
-        </ul>
-      </li>
-    </ul>
-  </section>
-
-  <section id="quote" class="section">
-    <h2>Request a Free Quote</h2>
-    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" class="quote-form">
-      <input type="text" name="name" placeholder="Full Name" required autocomplete="name">
-      <input type="text" name="address" placeholder="Full Address" required autocomplete="street-address">
-      <input type="email" name="email" placeholder="Email Address" required autocomplete="email">
-      <input type="tel" name="phone" placeholder="Phone Number" required autocomplete="tel">
-      <input type="text" name="unitrate" placeholder="Electricity Unit Rate (p/kWh)" required>
-      <input type="text" name="annualspend" placeholder="Annual Electricity Spend (£)" required>
-      <button type="submit">Send My Quote Request</button>
-    </form>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 Let’s Talk About Solar. All rights reserved.</p>
-  </footer>
-
-  <script>
-    let lastScroll = 0;
-    const nav = document.getElementById("navbar");
-    let orientationFactor = 1;
-
-    window.addEventListener("scroll", () => {
-      const currentScroll = window.pageYOffset;
-      nav.classList.toggle("hidden", currentScroll > lastScroll);
-      lastScroll = currentScroll;
-    });
-
-    // Orientation section logic (Street View only)
-    let autocomplete, lastPlaceLocation = null, panoMap = null;
-
-    function initMap() {
-      const input = document.getElementById("addressInput");
-      autocomplete = new google.maps.places.Autocomplete(input);
-
-      autocomplete.addListener("place_changed", () => {
-        const place = autocomplete.getPlace();
-        if (!place.geometry || !place.geometry.location) {
-          alert("No details available for input: '" + place.name + "'");
-          lastPlaceLocation = null;
-          return;
-        }
-        lastPlac
+  <!-- BEGIN FAQ SECTION -->
+  <section id="solar-faq" class="section">
+    <h2>Solar Insights & FAQs</h2>
+    <div class="faq-container" style="max-width:700px;margin:2rem auto 0 auto;text-align:left;">
+      <!-- FAQ 1 -->
+      <div class="faq-item">
+        <button class="faq-question">Why go solar in 2025?</button>
+        <div class="faq-answer">
+          <p>
+            With UK energy prices continuing to rise, solar panels are one of the most effective ways to take control of your electricity costs and reduce your reliance on the grid. Modern solar technology is highly efficient and more affordable than ever. A standard 4kW solar system—just 9 highly efficient PV panels—can generate a significant portion of a typical household’s needs. If your roof can fit more panels, you can generate even more electricity and save more money.
+          </p>
+          <p>
+            By generating your own power, you not only cut your bills but also protect yourself from future price hikes and contribute to a cleaner environment. Coupling your solar array with a battery and the Smart Export Guarantee means you can use more of your own energy and earn from selling any surplus back to the grid.
+          </p>
+          <p style="font-size:0.9em;color:gray;">
+            <em>*A 4kW system example is based on 9 highly efficient PV solar panels. Actual output and savings depend on your roof, location, and usage.</em>
+          </p>
+        </div>
+      </div>
+      <!-- FAQ 2 -->
+      <div class="faq-item">
+        <button class="faq-question">How much can solar actually save you?</button>
+        <div class="faq-answer">
+          <p>
+            A typical 4kW solar panel system in the UK can save between <strong>£500 and £1,000 per year</strong> on electricity bills. If you add a battery, you can use up to 95% of your self-generated solar energy, meaning even less reliance on purchased electricity. If your roof allows for a larger system—more than 9 panels—your savings and earnings from the Smart Export Guarantee could be even greater.
+          </p>
+          <p>
+            The Smart Export Guarantee pays you for any surplus electricity you export to the grid, increasing your return. As energy prices rise, your savings grow year after year. Try our calculator to estimate your personal savings based on your usage and electricity rate.
+          </p>
+          <p style="font-size:0.9em;color:gray;">
+            <em>*Savings based on a 4kW system (9 panels), average usage, and current energy rates. Actual results depend on your individual circumstances.</em>
+          </p>
+        </div>
+      </div>
+      <!-- FAQ 3 -->
+      <div class="faq-item">
+        <button class="faq-question">Who can you trust with solar?</button>
+        <div class="faq-answer">
+          <p>
+            Not all solar companies are created equal. Always look for installers accredited by <strong>MCS, HIES, EPVS, or NAPIT</strong>. These certifications guarantee that your installation meets high standards for quality, safety, and consumer protection.
+          </p>
+          <p>
+            Accredited installers follow best practices, verify your projected savings, and provide proper warranties. Choosing a reputable professional ensures your investment is protected and your system delivers reliable, long-term performance.
+          </p>
+        </div>
+      </div>
+      <!-- FAQ 4 -->
+      <div class="faq-item">
+        <button class="faq-question">How do I check if my roof is suitable for solar?</button>
+        <div class="faq-answer">
+          <p>
+            The suitability of your roof for solar depends on its orientation, pitch, and shading. South-facing roofs are ideal, but east- and west-facing roofs can also perform well with modern high-efficiency panels. Use our free orientation checker to estimate your roof’s solar potential—just enter your address for a quick assessment.
+          </p>
+          <p>
+            If your roof is large enough for more than 9 panels, you can install a bigger syst
