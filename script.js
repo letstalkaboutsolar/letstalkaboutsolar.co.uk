@@ -1,63 +1,96 @@
-// Smooth scrolling for nav links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.onclick = function(e) {
-    e.preventDefault();
-    document.querySelector(this.getAttribute('href'))
-      .scrollIntoView({ behavior: 'smooth' });
-  };
-});
+// Mobile nav menu toggle
+const menuToggle = document.getElementById('menu-toggle');
+const navMenu = document.querySelector('nav#navbar ul');
+if (menuToggle && navMenu) {
+  menuToggle.addEventListener('click', () => {
+    navMenu.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', navMenu.classList.contains('open'));
+  });
+  // Close menu on link click (mobile)
+  navMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => navMenu.classList.remove('open'));
+  });
+}
 
-// FAQ toggle
-document.querySelectorAll('.faq-question').forEach(btn => {
-  btn.addEventListener('click', () => {
-    btn.parentNode.classList.toggle('active');
+// Smooth scrolling for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const targetId = this.getAttribute('href');
+    if (targetId.length > 1 && document.querySelector(targetId)) {
+      e.preventDefault();
+      document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
+    }
   });
 });
-<script>
-const ctx = document.getElementById('solarSavingsChart').getContext('2d');
-const solarSavingsChart = new Chart(ctx, {
-  type: 'bar',
-  data: {
-    labels: ['Year 1','Year 2','Year 3','Year 4','Year 5','Year 6','Year 7','Year 8','Year 9','Year 10'],
-    datasets: [
-      {
-        label: 'Cost Without Solar (£)',
-        data: [1500.00, 1605.60, 1720.71, 1846.47, 1984.02, 2134.74, 2299.12, 2477.61, 2670.84, 2880.41],
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-        borderColor: 'rgba(255, 99, 132, 1)',
-        borderWidth: 2,
-        type: 'line',
-        fill: false
-      },
-      {
-        label: 'Cost With Solar (£)',
-        data: [450.0, 481.68, 516.21, 553.94, 595.21, 640.42, 689.74, 743.28, 801.25, 864.12],
-        backgroundColor: 'rgba(54, 162, 235, 0.5)',
-        borderColor: 'rgba(54, 162, 235, 1)',
-        borderWidth: 2,
-        type: 'line',
-        fill: false
-      },
-      {
-        label: 'Annual Savings (£)',
-        data: [1050.0, 1123.92, 1204.5, 1292.52, 1388.81, 1494.32, 1610.0, 1734.33, 1869.59, 2016.29],
-        backgroundColor: 'rgba(255, 206, 86, 0.6)',
-        borderColor: 'rgba(255, 206, 86, 1)',
-        borderWidth: 1
-      }
-    ]
-  },
-  options: {
-    responsive: true,
-    plugins: {
-      legend: { position: 'top' }
-    },
-    scales: {
-      y: {
-        beginAtZero: false,
-        title: { display: true, text: '£' }
-      }
+
+// Reveal on scroll (for .reveal elements)
+function revealOnScroll() {
+  const reveals = document.querySelectorAll('.reveal');
+  reveals.forEach((el) => {
+    const windowHeight = window.innerHeight;
+    const elementTop = el.getBoundingClientRect().top;
+    const revealPoint = 85;
+    if (elementTop < windowHeight - revealPoint) {
+      el.classList.add('active');
     }
-  }
+  });
+}
+window.addEventListener('scroll', revealOnScroll);
+window.addEventListener('load', revealOnScroll);
+
+// Trust badge popovers (keyboard accessibility)
+document.querySelectorAll('.trust-logo').forEach((logo) => {
+  logo.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      logo.classList.toggle('popover-open');
+    }
+  });
+  logo.addEventListener('blur', () => logo.classList.remove('popover-open'));
 });
-</script>
+
+// Savings calculator with animated count up
+document.getElementById("savingsForm").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const rate = parseFloat(document.getElementById("rate").value);
+  const usage = parseFloat(document.getElementById("usage").value);
+  const battery = document.getElementById("battery").checked;
+
+  const systemSize = 4;
+  const outputPerKW = 850;
+  const yearlyGen = systemSize * outputPerKW;
+
+  const selfUse = battery ? 0.95 : 0.70;
+  const usedSolar = Math.min(usage, yearlyGen * selfUse);
+  const savings = (usedSolar * rate) / 100;
+
+  const breakEvenEstimate = battery ? 9500 : 6000;
+  const breakEvenYears = (breakEvenEstimate / savings);
+
+  // Animated count-up effect for the savings value
+  const resultEl = document.getElementById("result");
+  resultEl.innerHTML = '';
+  let current = 0;
+  let final = savings;
+  let duration = 1250;
+  let stepTime = Math.abs(Math.floor(duration / final));
+  if (isNaN(stepTime) || !isFinite(stepTime) || stepTime < 12) stepTime = 12;
+
+  function animateCount() {
+    current += final / (duration / stepTime);
+    if (current >= final) {
+      current = final;
+      resultEl.innerHTML = `
+        <h3>Estimated Annual Savings: £${final.toFixed(2)}</h3>
+        <p>With a ${battery ? 'battery' : 'standard'} system, you’ll use about ${(selfUse * 100).toFixed(0)}% of your solar energy.</p>
+        <p>Typical installation: <strong>£${breakEvenEstimate.toLocaleString()}</strong>, break even in <strong>${breakEvenYears.toFixed(1)} years</strong>.</p>
+        <p><strong>Want a bespoke quote? Message us now — we’ll do the rest.</strong></p>
+      `;
+      return;
+    }
+    resultEl.innerHTML = `<h3>Estimated Annual Savings: £${current.toFixed(0)}</h3>`;
+    setTimeout(animateCount, stepTime);
+  }
+  animateCount();
+});
