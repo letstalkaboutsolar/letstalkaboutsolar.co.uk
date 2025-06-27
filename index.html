@@ -389,9 +389,7 @@
     <div>
       <h2>Check Your Roof Orientation</h2>
       <p>Enter your address to estimate your solar potential.</p>
-      <!-- Disabled/deprecated Google Maps Autocomplete for new customers.
-           To re-enable, use the PlaceAutocompleteElement as per Google documentation.
-           For now, this field is just a plain input. -->
+      <!-- Placeholder for address autocomplete -->
       <input id="addressInput" type="text" placeholder="Enter your address" style="max-width:350px;margin:0 auto 1rem auto;display:block;" autocomplete="off" />
       <button id="toggleMapBtn" type="button" style="margin:1rem 0 1.2rem 0;padding:0.7rem 1.3rem;border-radius:999px;background:#338abf;color:#fff;font-weight:bold;font-size:1rem;border:none;box-shadow:0 2px 8px rgba(114,188,212,0.07);cursor:pointer;" disabled>
         Show Street View
@@ -496,7 +494,7 @@
 
   <!-- MAIN SCRIPTS -->
   <script>
-    // Default orientationFactor
+    // Navbar hide on scroll
     let orientationFactor = 0.9;
     let lastScroll = 0;
     const nav = document.getElementById("navbar");
@@ -508,7 +506,7 @@
     });
 
     document.addEventListener("DOMContentLoaded", function () {
-      // CALCULATOR FORM
+      // Solar Savings Calculator
       var calcForm = document.getElementById("calcForm");
       if (calcForm) {
         calcForm.addEventListener("submit", function (e) {
@@ -528,7 +526,6 @@
           const systemSizeKW = 3.68;
           const panelSystemKW = 9 * 0.46; // 4.14kW, but limited by inverter
           const kwhPerKWp = 1050;
-          // If orientationFactor is missing, use default
           const orientation = typeof orientationFactor === "number" && orientationFactor > 0 ? orientationFactor : 0.9;
           const estimatedAnnualGen = Math.min(systemSizeKW, panelSystemKW) * kwhPerKWp * orientation;
 
@@ -542,107 +539,8 @@
 
           let selfConsumptionRatio = battery ? 0.90 : 0.65;
           let selfUsedKWh = estimatedAnnualGen * selfConsumptionRatio;
-          if (battery) {
-            selfUsedKWh = Math.min(selfUsedKWh + batterySelfUse, estimatedAnnualGen, usage);
-          }
-          const savings = (selfUsedKWh * rate) / 100;
-          const breakEvenEstimate = battery ? 9500 : 7500;
+          let billReductionKWh = Math.min(selfUsedKWh, usage);
+          let savings = billReductionKWh * (rate / 100);
 
-          if (isNaN(savings) || savings <= 0) {
-            document.getElementById("calcResult").innerHTML =
-              "<p style='color:red'>Unable to calculate savings. Please check your entries.</p>";
-            return;
-          }
-
-          document.getElementById("calcResult").innerHTML = `
-            <h3>Estimated Annual Savings: £${savings.toFixed(2)}</h3>
-            <p>Your system is estimated to generate <strong>${estimatedAnnualGen.toFixed(0)} kWh</strong> per year.</p>
-            <p>Annual self-used solar: <strong>${selfUsedKWh.toFixed(0)} kWh</strong> (${(100*selfUsedKWh/usage).toFixed(0)}% of your usage${battery ? ' with 5kWh battery' : ''}).</p>
-            <p>Typical installation: <strong>£${breakEvenEstimate.toLocaleString()}</strong></p>
-            <p style="font-size:0.95em;color:#888;">This calculation is based on a system with 9 solar panels – if your roof can fit more, your potential savings will be even higher. These are estimated figures and don’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.</p>
-          `;
-        });
-      }
-
-      // UK News Headlines fetch (uses rss2json for public RSS access)
-      fetch('https://api.rss2json.com/v1/api.json?rss_url=https://feeds.bbci.co.uk/news/rss.xml')
-        .then(res => res.json())
-        .then(data => {
-          const list = document.getElementById('news-list');
-          if (!data.items || !data.items.length) {
-            list.innerHTML = "<li>No news found right now. Try again later, or check BBC for the latest UK news.</li>";
-            return;
-          }
-          list.innerHTML = "";
-          data.items.slice(0, 7).forEach(article => {
-            const item = document.createElement('li');
-            item.innerHTML = `
-              <a href="${article.link}" target="_blank">${article.title}</a>
-              <span> (BBC News)</span>
-              ${article.description ? '<br><span style="font-size:0.98em;">' + article.description.replace(/<[^>]*>?/gm, '').slice(0, 180) + '...</span>' : ''}
-            `;
-            list.appendChild(item);
-          });
-        })
-        .catch(() => {
-          document.getElementById('news-list').innerHTML = "<li>Unable to fetch news at this time. Visit BBC News for the latest UK updates.</li>";
-        });
-    });
-
-    // Historic prices chart
-    function toggleHistoric() {
-      let g = document.getElementById('historic-graph');
-      g.style.display = (g.style.display === 'none' || g.style.display === '') ? 'block' : 'none';
-      if (g.style.display === 'block' && !window._historicChartLoaded) {
-        drawPriceChart();
-        window._historicChartLoaded = true;
-      }
-    }
-    function drawPriceChart() {
-      const ctx = document.getElementById('pricesChart').getContext('2d');
-      const years = [
-        2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,
-        2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,
-        2020,2021,2022,2023,2024,2025
-      ];
-      const prices = [
-        7.0,7.3,7.2,7.1,7.4,8.2,10.0,10.6,13.3,13.9,
-        13.7,14.5,15.5,15.6,15.6,15.2,14.4,14.4,15.0,17.2,
-        17.2,19.0,28.0,30.0,28.5,27.5
-      ];
-      new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: years,
-          datasets: [{
-            label: 'UK Domestic Electricity Price (p/kWh)',
-            data: prices,
-            borderColor: '#338abf',
-            backgroundColor: 'rgba(51,138,191,0.15)',
-            tension: 0.25,
-            pointBackgroundColor: '#ffd700',
-            pointRadius: 5,
-            fill: true
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: { display: true },
-            tooltip: { enabled: true }
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              title: { display: true, text: 'pence per kWh' }
-            },
-            x: {
-              title: { display: true, text: 'Year' }
-            }
-          }
-        }
-      });
-    }
-  </script>
-</body>
-</html>
+          document.getElementById("calcResult").innerHTML =
+            `<p><stron
