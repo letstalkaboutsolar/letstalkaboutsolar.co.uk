@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ&libraries=places&callback=mapsApiLoaded" async defer></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ&libraries=places&callback=mapsApiLoaded" defer></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Let’s Talk About Solar</title>
@@ -168,21 +168,21 @@
       filter: blur(20px);
       border-radius: var(--radius);
     }
-    label, input, button {
+    label, input, button, select {
       display: block;
       width: 100%;
       font-size: 1rem;
       margin-top: 1rem;
       font-family: 'Patrick Hand', cursive;
     }
-    input {
+    input, select {
       padding: 0.6rem;
       border: 1px solid #ccc;
       border-radius: 10px;
       background: #f7fdff;
       box-shadow: 0 2px 8px #e3f0fc;
     }
-    input:focus {
+    input:focus, select:focus {
       outline: 2px solid var(--primary);
       border-color: var(--primary);
     }
@@ -391,7 +391,7 @@
       <h2>Check Your Roof Orientation</h2>
       <p>Enter your address to estimate your solar potential.</p>
       <input id="addressInput" type="text" placeholder="Enter your address" style="max-width:350px;margin:0 auto 1rem auto;display:block;" />
-      <button id="toggleMapBtn" onclick="toggleStreetView()" style="margin:1rem 0 1.2rem 0;padding:0.7rem 1.3rem;border-radius:999px;background:#338abf;color:#fff;font-weight:bold;font-size:1rem;border:none;box-shadow:0 2px 8px rgba(114,188,212,0.07);cursor:pointer;">
+      <button id="toggleMapBtn" type="button" style="margin:1rem 0 1.2rem 0;padding:0.7rem 1.3rem;border-radius:999px;background:#338abf;color:#fff;font-weight:bold;font-size:1rem;border:none;box-shadow:0 2px 8px rgba(114,188,212,0.07);cursor:pointer;">
         Show Street View
       </button>
       <div id="streetview-container" style="width:100%;max-width:400px;height:200px;display:none;border-radius:18px;overflow:hidden;margin:0 auto 1rem auto;background:#f4fbff;">
@@ -401,11 +401,11 @@
     </div>
     <div>
       <h2>Solar Savings Calculator</h2>
-      <form id="calcForm" class="calculator">
+      <form id="calcForm" class="calculator" autocomplete="off">
         <label for="rate">Electricity unit rate (p/kWh):</label>
-        <input type="number" id="rate" placeholder="e.g. 25" required>
+        <input type="number" id="rate" placeholder="e.g. 25" required step="any">
         <label for="usage">Annual electricity usage (kWh):</label>
-        <input type="number" id="usage" placeholder="e.g. 4000" required>
+        <input type="number" id="usage" placeholder="e.g. 4000" required step="any">
         <label><input type="checkbox" id="battery"> Include battery?</label>
         <button type="submit">Calculate</button>
       </form>
@@ -417,7 +417,7 @@
   </section>
 
   <section id="energy-news" class="section">
-    <h2>Latest UK Energy News</h2>
+    <h2>Latest UK News Headlines</h2>
     <ul id="news-list"><li>Loading news...</li></ul>
     <p style="font-size:0.9rem;color:gray;margin-top:0.5rem;">
       News provided by NewsAPI.org.<br>
@@ -477,7 +477,7 @@
   <!-- QUOTE FORM WITH ADDRESS AUTOCOMPLETE -->
   <section id="quote" class="section">
     <h2>Request a Free Quote</h2>
-    <form action="https://formspree.io/f/mldnarjp" method="POST" class="quote-form">
+    <form action="https://formspree.io/f/mldnarjp" method="POST" class="quote-form" autocomplete="off">
       <input type="text" name="name" placeholder="Full Name" required autocomplete="name">
       <input type="text" name="address" id="quote-address" placeholder="Start typing your address…" required autocomplete="street-address">
       <input type="email" name="email" placeholder="Email Address" required autocomplete="email">
@@ -611,56 +611,85 @@
     }
 
     // Robust Solar Savings Calculator
-    document.getElementById("calcForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-      const rate = parseFloat(document.getElementById("rate").value); // pence per kWh
-      const usage = parseFloat(document.getElementById("usage").value); // annual usage in kWh
-      const battery = document.getElementById("battery").checked;
+    document.addEventListener("DOMContentLoaded", function () {
+      var calcForm = document.getElementById("calcForm");
+      if (calcForm) {
+        calcForm.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const rate = parseFloat(document.getElementById("rate").value); // pence per kWh
+          const usage = parseFloat(document.getElementById("usage").value); // annual usage in kWh
+          const battery = document.getElementById("battery").checked;
 
-      // Validate input
-      if (isNaN(rate) || rate <= 0 || isNaN(usage) || usage <= 0) {
-        document.getElementById("calcResult").innerHTML =
-          "<p style='color:red'>Please enter valid numbers for your unit rate and annual usage.</p>";
-        return;
+          // Validate input
+          if (isNaN(rate) || rate <= 0 || isNaN(usage) || usage <= 0) {
+            document.getElementById("calcResult").innerHTML =
+              "<p style='color:red'>Please enter valid numbers for your unit rate and annual usage.</p>";
+            return;
+          }
+
+          // 9 x 460W panels = 4.14kWp, limited by 3.68kW inverter
+          const systemSizeKW = 3.68;
+          const panelSystemKW = 9 * 0.46; // 4.14kW, but limited by inverter
+          const kwhPerKWp = 1050;
+          // If orientationFactor is missing, use default
+          const orientation = typeof orientationFactor === "number" && orientationFactor > 0 ? orientationFactor : 0.9;
+          const estimatedAnnualGen = Math.min(systemSizeKW, panelSystemKW) * kwhPerKWp * orientation;
+
+          // Battery settings
+          let usableBatteryKWh = 0;
+          let batterySelfUse = 0;
+          if (battery) {
+            usableBatteryKWh = 5 * 0.9 * 0.9; // 4.05kWh
+            batterySelfUse = Math.min(estimatedAnnualGen, usableBatteryKWh * 365);
+          }
+
+          let selfConsumptionRatio = battery ? 0.90 : 0.65;
+          let selfUsedKWh = estimatedAnnualGen * selfConsumptionRatio;
+          if (battery) {
+            selfUsedKWh = Math.min(selfUsedKWh + batterySelfUse, estimatedAnnualGen, usage);
+          }
+          const savings = (selfUsedKWh * rate) / 100;
+          const breakEvenEstimate = battery ? 9500 : 7500;
+
+          if (isNaN(savings) || savings <= 0) {
+            document.getElementById("calcResult").innerHTML =
+              "<p style='color:red'>Unable to calculate savings. Please check your entries.</p>";
+            return;
+          }
+
+          document.getElementById("calcResult").innerHTML = `
+            <h3>Estimated Annual Savings: £${savings.toFixed(2)}</h3>
+            <p>Your system is estimated to generate <strong>${estimatedAnnualGen.toFixed(0)} kWh</strong> per year.</p>
+            <p>Annual self-used solar: <strong>${selfUsedKWh.toFixed(0)} kWh</strong> (${(100*selfUsedKWh/usage).toFixed(0)}% of your usage${battery ? ' with 5kWh battery' : ''}).</p>
+            <p>Typical installation: <strong>£${breakEvenEstimate.toLocaleString()}</strong></p>
+            <p style="font-size:0.95em;color:#888;">This calculation is based on a system with 9 solar panels – if your roof can fit more, your potential savings will be even higher. These are estimated figures and don’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.</p>
+          `;
+        });
       }
 
-      // 9 x 460W panels = 4.14kWp, limited by 3.68kW inverter
-      const systemSizeKW = 3.68;
-      const panelSystemKW = 9 * 0.46; // 4.14kW, but limited by inverter
-      const kwhPerKWp = 1050;
-      // If orientationFactor is missing, use default
-      const orientation = typeof orientationFactor === "number" && orientationFactor > 0 ? orientationFactor : 0.9;
-      const estimatedAnnualGen = Math.min(systemSizeKW, panelSystemKW) * kwhPerKWp * orientation;
-
-      // Battery settings
-      let usableBatteryKWh = 0;
-      let batterySelfUse = 0;
-      if (battery) {
-        usableBatteryKWh = 5 * 0.9 * 0.9; // 4.05kWh
-        batterySelfUse = Math.min(estimatedAnnualGen, usableBatteryKWh * 365);
-      }
-
-      let selfConsumptionRatio = battery ? 0.90 : 0.65;
-      let selfUsedKWh = estimatedAnnualGen * selfConsumptionRatio;
-      if (battery) {
-        selfUsedKWh = Math.min(selfUsedKWh + batterySelfUse, estimatedAnnualGen, usage);
-      }
-      const savings = (selfUsedKWh * rate) / 100;
-      const breakEvenEstimate = battery ? 9500 : 7500;
-
-      if (isNaN(savings) || savings <= 0) {
-        document.getElementById("calcResult").innerHTML =
-          "<p style='color:red'>Unable to calculate savings. Please check your entries.</p>";
-        return;
-      }
-
-      document.getElementById("calcResult").innerHTML = `
-        <h3>Estimated Annual Savings: £${savings.toFixed(2)}</h3>
-        <p>Your system is estimated to generate <strong>${estimatedAnnualGen.toFixed(0)} kWh</strong> per year.</p>
-        <p>Annual self-used solar: <strong>${selfUsedKWh.toFixed(0)} kWh</strong> (${(100*selfUsedKWh/usage).toFixed(0)}% of your usage${battery ? ' with 5kWh battery' : ''}).</p>
-        <p>Typical installation: <strong>£${breakEvenEstimate.toLocaleString()}</strong></p>
-        <p style="font-size:0.95em;color:#888;">This calculation is based on a system with 9 solar panels – if your roof can fit more, your potential savings will be even higher. These are estimated figures and don’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.</p>
-      `;
+      // UK News Headlines fetch
+      fetch('https://newsapi.org/v2/top-headlines?country=gb&apiKey=e90a1fafe3ef458baccf2e6ecf47ec13')
+        .then(res => res.json())
+        .then(data => {
+          const list = document.getElementById('news-list');
+          if (!data.articles || !data.articles.length) {
+            list.innerHTML = "<li>No news found right now. Try again later, or check BBC for the latest UK news.</li>";
+            return;
+          }
+          list.innerHTML = "";
+          data.articles.forEach(article => {
+            const item = document.createElement('li');
+            item.innerHTML = `
+              <a href="${article.url}" target="_blank">${article.title}</a>
+              <span> (${article.source && article.source.name ? article.source.name : "Unknown Source"})</span>
+              ${article.description ? '<br><span style="font-size:0.98em;">' + article.description + '</span>' : ''}
+            `;
+            list.appendChild(item);
+          });
+        })
+        .catch(() => {
+          document.getElementById('news-list').innerHTML = "<li>Unable to fetch news at this time. Visit BBC News for the latest UK updates.</li>";
+        });
     });
 
     // Historic prices chart
@@ -717,32 +746,6 @@
         }
       });
     }
-
-    // News API for gas and electricity price news (broader and friendlier)
-    fetch('https://newsapi.org/v2/everything?q=(energy OR electricity OR gas OR utility) UK prices OR bills OR market OR cap&language=en&sortBy=publishedAt&pageSize=6&apiKey=6c8d21b5a67a48bf8e1b5d7e20b6a6c5')
-      .then(res => res.json())
-      .then(data => {
-        const list = document.getElementById('news-list');
-        if (!data.articles || !data.articles.length) {
-          list.innerHTML = "<li>No news found right now. Try again later, or check Ofgem and BBC for the latest UK energy news.</li>";
-          return;
-        }
-        list.innerHTML = "";
-        data.articles.forEach(article => {
-          const item = document.createElement('li');
-          item.innerHTML = `
-            <a href="${article.url}" target="_blank">${article.title}</a>
-            <span> (${new Date(article.publishedAt).toLocaleDateString()})</span>
-            <br>
-            <span style="font-size:0.94em;color:#555;">${article.source && article.source.name ? article.source.name : ''}${article.author ? ' · ' + article.author : ''}</span>
-            ${article.description ? '<br><span style="font-size:0.98em;">' + article.description + '</span>' : ''}
-          `;
-          list.appendChild(item);
-        });
-      })
-      .catch(() => {
-        document.getElementById('news-list').innerHTML = "<li>Unable to fetch news at this time. Visit Ofgem or BBC News for the latest UK energy updates.</li>";
-      });
   </script>
 </body>
 </html>
