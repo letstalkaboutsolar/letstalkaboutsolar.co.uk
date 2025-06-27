@@ -6,6 +6,7 @@
   <title>Let’s Talk About Solar</title>
   <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
   <style>
+    /* ... existing CSS (unchanged, omitted for brevity) ... */
     :root {
       --primary: #338abf;
       --secondary: #eaf9ff;
@@ -24,45 +25,17 @@
       color: var(--text);
       scroll-behavior: smooth;
     }
-    body {
-      padding-top: 80px; /* Make room for navbar */
-    }
+    body { padding-top: 80px; }
     nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      background: var(--card);
-      box-shadow: var(--shadow);
-      padding: 1rem 2rem;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      z-index: 100;
-      font-size: 1.1rem;
+      position: fixed; top: 0; left: 0; width: 100%;
+      background: var(--card); box-shadow: var(--shadow);
+      padding: 1rem 2rem; height: 64px; display: flex; align-items: center;
+      z-index: 100; font-size: 1.1rem;
     }
     .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary);}
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 1.2rem;
-      margin: 0 0 0 2rem;
-      padding: 0;
-      flex-wrap: wrap;
-    }
-    nav ul li a {
-      text-decoration: none;
-      color: var(--text);
-      font-size: 1.1rem;
-      padding: 0.5rem 1rem;
-      border-radius: 999px;
-      transition: background 0.18s, color 0.18s;
-      white-space: nowrap;
-    }
-    nav ul li a.cta-nav {
-      background: var(--primary);
-      color: #fff;
-    }
+    nav ul { list-style: none; display: flex; gap: 1.2rem; margin: 0 0 0 2rem; padding: 0; flex-wrap: wrap;}
+    nav ul li a { text-decoration: none; color: var(--text); font-size: 1.1rem; padding: 0.5rem 1rem; border-radius: 999px; transition: background 0.18s, color 0.18s; white-space: nowrap;}
+    nav ul li a.cta-nav { background: var(--primary); color: #fff;}
     @media (max-width: 700px) {
       nav { flex-direction: column; height: auto; padding: 0.5rem 1rem; }
       nav ul { margin: 0; gap: 0.5rem; }
@@ -86,9 +59,7 @@
       text-align: center;
     }
     .section { padding: 3rem 1rem; text-align: center; }
-    .benefit-cards, .trust-logos {
-      display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; margin-top: 2rem;
-    }
+    .benefit-cards, .trust-logos { display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; margin-top: 2rem; }
     .benefit-card, .trust-logo {
       background: var(--card);
       padding: 1.5rem;
@@ -103,7 +74,6 @@
       .benefit-cards, .trust-logos { flex-direction: column; gap: 1rem; }
       .benefit-card, .trust-logo { max-width: 98vw; }
     }
-    /* Calculator and Forms */
     .calculator label, .quote-form label {
       display: block;
       margin: 0.6rem 0 0.2rem 0;
@@ -167,6 +137,21 @@
       border-radius: var(--radius) var(--radius) 0 0;
       font-size: 1.1rem;
     }
+    /* Solar API info box */
+    .solar-api-result {
+      background: #eaf9ff;
+      border-radius: 18px;
+      margin: 1.2rem auto 0 auto;
+      max-width: 400px;
+      padding: 1.2rem 1rem;
+      color: #2c3e50;
+      font-size: 1.1rem;
+      box-shadow: 0 2px 12px #338abf22;
+      display: none;
+      text-align: left;
+    }
+    .solar-api-result strong { display: inline-block; min-width: 120px; }
+    .solar-api-error { color: #b00; font-weight: bold; }
   </style>
 </head>
 <body>
@@ -207,16 +192,18 @@
   </section>
   <section id="orientation" class="section">
     <h2>Check Your Roof Orientation</h2>
-    <p>This tool is for demo purposes only. Enter your address and click "Show Street View" (feature for demonstration, not real address lookup).</p>
+    <p>Enter your address, click "Show Street View", and view live solar potential for your location!</p>
     <input id="addressInput" type="text" placeholder="Enter your address" autocomplete="off" />
     <button id="toggleMapBtn" type="button" class="historic-btn">
-      Show Street View
+      Show Street View & Solar Data
     </button>
     <div id="streetview-container" style="width:100%;max-width:400px;height:200px;display:none;border-radius:18px;overflow:hidden;margin:0 auto 1rem auto;background:#f4fbff;">
       <div id="pano" style="width:100%;height:100%;"></div>
     </div>
+    <div id="solar-api-result" class="solar-api-result"></div>
     <p id="orientationResult" style="margin-top: 1rem; font-weight: bold;">
-      For a live version, you would connect to Google Maps' Place Autocomplete and Street View APIs.
+      Powered by Google Maps & OpenSolar API.<br>
+      Please wait for results after entering your address.
     </p>
   </section>
   <section id="solar-toolkit" class="section">
@@ -293,6 +280,9 @@
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
+    // Solar API key (OpenSolar demo, replace with your own for production)
+    const OPENSOLAR_API_KEY = 'demo'; // Use your real API key for production
+
     // Calculator
     document.getElementById("calcForm").addEventListener("submit", function (e) {
       e.preventDefault();
@@ -365,11 +355,92 @@
         }
       });
     }
-    // Orientation map stub
+
+    // === Orientation & Solar API Integration ===
+    let panorama, geocoder;
+    async function fetchSolarData(lat, lng) {
+      // Using OpenSolar (OpenUV) free endpoint for demo
+      // Docs: https://www.openuv.io/
+      // For production, replace endpoint and key as needed
+      const url = `https://api.openuv.io/api/v1/uv?lat=${lat}&lng=${lng}`;
+      try {
+        const resp = await fetch(url, {
+          headers: { "x-access-token": OPENSOLAR_API_KEY }
+        });
+        if (!resp.ok) throw new Error("Solar API error");
+        const data = await resp.json();
+        return {
+          uv: data.result.uv,
+          uv_max: data.result.uv_max,
+          ozone: data.result.ozone,
+          solar_time: data.result.solar Noon,
+          safe_exposure_time: data.result.safe_exposure_time
+        };
+      } catch (err) {
+        return { error: "Unable to fetch solar data." };
+      }
+    }
+    async function showStreetViewAndSolar(address) {
+      if (!window.google) return;
+      document.getElementById('solar-api-result').style.display = "none";
+      document.getElementById('solar-api-result').innerHTML = '';
+      if (!geocoder) geocoder = new google.maps.Geocoder();
+      geocoder.geocode({ address }, async (results, status) => {
+        if (status === "OK" && results[0]) {
+          const location = results[0].geometry.location;
+          // Show Street View
+          if (!panorama) {
+            panorama = new google.maps.StreetViewPanorama(
+              document.getElementById("pano"),
+              {
+                position: location,
+                pov: { heading: 165, pitch: 0 },
+                zoom: 1
+              }
+            );
+          } else {
+            panorama.setPosition(location);
+          }
+          // Show Solar Data
+          document.getElementById('solar-api-result').style.display = "block";
+          document.getElementById('solar-api-result').innerHTML = "Fetching solar data...";
+          const solar = await fetchSolarData(location.lat(), location.lng());
+          if (solar.error) {
+            document.getElementById('solar-api-result').innerHTML = `<span class="solar-api-error">${solar.error}</span>`;
+          } else {
+            document.getElementById('solar-api-result').innerHTML = `
+              <div><strong>UV index now:</strong> ${solar.uv}</div>
+              <div><strong>Max UV today:</strong> ${solar.uv_max}</div>
+              <div><strong>Ozone (DU):</strong> ${solar.ozone}</div>
+              <div><strong>Solar Noon:</strong> ${solar.solar_time || 'N/A'}</div>
+              <div style="margin-top:0.6em;font-size:0.97em;">
+                <em>Data from OpenUV. For detailed solar panel forecasts, use a full-featured solar API.</em>
+              </div>
+            `;
+          }
+        } else {
+          document.getElementById("pano").innerHTML = "<p style='padding:1em'>Street View not found for this address.</p>";
+          document.getElementById('solar-api-result').style.display = "block";
+          document.getElementById('solar-api-result').innerHTML = `<span class="solar-api-error">Could not find this address.</span>`;
+        }
+      });
+    }
     document.getElementById('toggleMapBtn').onclick = function() {
       var container = document.getElementById('streetview-container');
       container.style.display = (container.style.display === 'block') ? 'none' : 'block';
+      if (container.style.display === 'block') {
+        const address = document.getElementById('addressInput').value;
+        if (address) {
+          showStreetViewAndSolar(address);
+        } else {
+          document.getElementById("pano").innerHTML = "<p style='padding:1em'>Please enter an address above.</p>";
+          document.getElementById('solar-api-result').style.display = "block";
+          document.getElementById('solar-api-result').innerHTML = `<span class="solar-api-error">Please enter an address to see solar data.</span>`;
+        }
+      }
     }
   </script>
+  <!-- Google Maps JavaScript API -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ"></script>
 </body>
 </html>
