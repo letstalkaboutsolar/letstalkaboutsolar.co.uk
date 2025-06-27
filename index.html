@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Only one Google Maps/Places script is needed, so we load it once, with a combined callback -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ&libraries=places&callback=mapsApiLoaded" async defer></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -190,11 +189,18 @@
     .trust-icons {
       display: flex;
       flex-wrap: wrap;
-      gap: 2rem;
+      gap: 2.3rem 2rem;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start;
       margin: 2rem auto 0 auto;
-      max-width: 900px;
+      max-width: 1020px;
+    }
+    .trust-icons > div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 150px;
+      min-height: 220px;
     }
     .trust-icons a {
       display: flex;
@@ -213,18 +219,44 @@
       background: white;
       border-radius: 12px;
       padding: 7px;
-      margin-bottom: 0.2rem;
+      margin-bottom: 0.4rem;
     }
-    @media (max-width: 700px) {
+    .trust-icons p {
+      margin: 0;
+      font-size: 0.97em;
+      text-align: center;
+    }
+    @media (max-width: 900px) {
       .trust-icons {
         gap: 1.1rem;
         max-width: 97vw;
+      }
+      .trust-icons > div {
+        width: 44vw;
+        min-width: 140px;
+        max-width: 180px;
+        min-height: unset;
       }
       .trust-icons img {
         width: 42px;
         height: 42px;
         padding: 4px;
         border-radius: 7px;
+      }
+    }
+    @media (max-width: 600px) {
+      .trust-icons {
+        gap: 0.6rem;
+      }
+      .trust-icons > div {
+        width: 98vw;
+        max-width: 99vw;
+      }
+      .trust-icons img {
+        width: 35px;
+        height: 35px;
+        padding: 2px;
+        border-radius: 6px;
       }
     }
     footer {
@@ -288,16 +320,6 @@
       #solar-toolkit > div {
         margin: 0 auto 2rem auto;
       }
-      .trust-icons {
-        gap: 1.1rem;
-        max-width: 97vw;
-      }
-      .trust-icons img {
-        width: 42px;
-        height: 42px;
-        padding: 4px;
-        border-radius: 7px;
-      }
     }
   </style>
 </head>
@@ -340,7 +362,6 @@
     </div>
   </section>
 
-  <!-- COMBINED ORIENTATION & CALCULATOR SECTION -->
   <section id="solar-toolkit" class="section">
     <div>
       <h2>Check Your Roof Orientation</h2>
@@ -387,27 +408,69 @@
   <section id="trust" class="section">
     <h2>Who Can You Trust?</h2>
     <div class="trust-icons">
-      <a href="https://mcscertified.com/" target="_blank" title="MCS: Quality guaranteed equipment and installers">
-        <img src="assets/mcs logo.png" alt="MCS Certified" />
-      </a>
-      <a href="https://www.epvs.co.uk/" target="_blank" title="EPVS: Verified energy savings and performance claims">
-        <img src="assets/epvs logi.jpeg" alt="EPVS" />
-      </a>
-      <a href="https://www.hiesscheme.org.uk/" target="_blank" title="HIES: Consumer protection from start to finish">
-        <img src="assets/hies-cc-logo-2.png" alt="HIES" />
-      </a>
-      <a href="https://www.napit.org.uk/" target="_blank" title="NAPIT: Government-approved installer certification">
-        <img src="assets/NAPIT-NEW-LOGO.jpg" alt="NAPIT" />
-      </a>
-      <a href="https://www.tradingstandards.uk/" target="_blank" title="Trading Standards: Ensuring legal and fair business practices">
-        <img src="assets/trading-standards-uk-logo.png" alt="Trading Standards" />
-      </a>
-      <a href="https://www.trustmark.org.uk/" target="_blank" title="Government TrustMark: The only government-endorsed quality scheme for trades in and around the home">
-        <img src="assets/tm_primary_logo_rgb.jpg" alt="TrustMark" />
-      </a>
-      <a href="https://register.fca.org.uk/" target="_blank" title="FCA: Regulated advice and consumer financial protection">
-        <img src="assets/Financial_Conduct_Authority_logo.svg.png" alt="FCA" />
-      </a>
+      <div>
+        <a href="https://mcscertified.com/" target="_blank" title="MCS: Quality guaranteed equipment and installers">
+          <img src="assets/mcs logo.png" alt="MCS Certified" />
+        </a>
+        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <strong>MCS (Microgeneration Certification Scheme):</strong><br>
+          Guarantees your installer and solar products meet strict UK quality and safety standards. MCS certification is required for eligibility for government incentives and ensures your installation is reliable and high performing.
+        </p>
+      </div>
+      <div>
+        <a href="https://www.epvs.co.uk/" target="_blank" title="EPVS: Verified energy savings and performance claims">
+          <img src="assets/epvs logi.jpeg" alt="EPVS" />
+        </a>
+        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <strong>EPVS (Energy Performance Validation Scheme):</strong><br>
+          Protects you from misleading sales claims by ensuring all performance figures and savings estimates from your installer are independently validated and accurate.
+        </p>
+      </div>
+      <div>
+        <a href="https://www.hiesscheme.org.uk/" target="_blank" title="HIES: Consumer protection from start to finish">
+          <img src="assets/hies-cc-logo-2.png" alt="HIES" />
+        </a>
+        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <strong>HIES (Home Insulation & Energy Systems):</strong><br>
+          Provides consumer protection including deposit and warranty insurance, dispute resolution, and ensures you’re covered if anything goes wrong with your solar purchase.
+        </p>
+      </div>
+      <div>
+        <a href="https://www.napit.org.uk/" target="_blank" title="NAPIT: Government-approved installer certification">
+          <img src="assets/NAPIT-NEW-LOGO.jpg" alt="NAPIT" />
+        </a>
+        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <strong>NAPIT (National Association of Professional Inspectors and Testers):</strong><br>
+          Certifies electrical safety and compliance of your installer, ensuring your solar system is installed to the latest regulations and standards.
+        </p>
+      </div>
+      <div>
+        <a href="https://www.tradingstandards.uk/" target="_blank" title="Trading Standards: Ensuring legal and fair business practices">
+          <img src="assets/trading-standards-uk-logo.png" alt="Trading Standards" />
+        </a>
+        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <strong>Trading Standards:</strong><br>
+          Ensures solar businesses comply with UK consumer laws and codes of practice, protecting you from unfair sales and poor business practices.
+        </p>
+      </div>
+      <div>
+        <a href="https://www.trustmark.org.uk/" target="_blank" title="Government TrustMark: The only government-endorsed quality scheme for trades in and around the home">
+          <img src="assets/tm_primary_logo_rgb.jpg" alt="TrustMark" />
+        </a>
+        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <strong>TrustMark:</strong><br>
+          Government-endorsed scheme ensuring your solar installer is thoroughly vetted for quality, customer service, and trading practices.
+        </p>
+      </div>
+      <div>
+        <a href="https://register.fca.org.uk/" target="_blank" title="FCA: Regulated advice and consumer financial protection">
+          <img src="assets/Financial_Conduct_Authority_logo.svg.png" alt="FCA" />
+        </a>
+        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <strong>FCA (Financial Conduct Authority):</strong><br>
+          Regulates finance providers and credit agreements, protecting you if you choose to finance your solar system, ensuring fair, clear, and legal financial products.
+        </p>
+      </div>
     </div>
   </section>
 
