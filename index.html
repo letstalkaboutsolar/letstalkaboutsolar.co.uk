@@ -75,17 +75,25 @@
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(to right, #e0f7ff, #ffffff);
+      /* Replace linear gradient with a solar panel photo background */
+      background: 
+        linear-gradient(to right, rgba(224,247,255,0.75), rgba(255,255,255,0.75)),
+        url('assets/solar-bg.jpg') center/cover no-repeat;
       margin-top: 72px;
+      min-height: 340px;
+      position: relative;
     }
     .hero-text {
       max-width: 480px;
       padding: 1rem;
+      z-index: 1;
     }
     .hero-text h1 {
       font-size: 2.2rem;
       color: var(--primary);
       margin: 0 0 1rem;
+      /* Optional text shadow for readability */
+      text-shadow: 2px 2px 12px rgba(0,0,0,0.17);
     }
     .hero-text p {
       font-size: 1.1rem;
@@ -181,34 +189,8 @@
         margin: 0 auto 2rem auto;
       }
     }
-    #news-list {
-      list-style: none;
-      max-width: 700px;
-      margin: 1.3rem auto 0 auto;
-      padding: 0 0.6em;
-      font-size: 1.05rem;
-      color: #2c3e50;
-    }
-    #news-list li {
-      margin-bottom: 1.1em;
-      line-height: 1.5;
-      border-bottom: 1px solid #e3f0fc;
-      padding-bottom: 0.6em;
-    }
-    #news-list a {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 600;
-      transition: color 0.14s;
-    }
-    #news-list a:hover {
-      color: #155a92;
-      text-decoration: underline;
-    }
-    #news-list span {
-      color: #888;
-      font-size: 0.93em;
-    }
+    /* Removed #news-list and related styles */
+
     footer {
       background: var(--primary);
       color: white;
@@ -245,6 +227,7 @@
       .hero {
         padding: 2.2rem 0.5rem 1rem 0.5rem;
         margin-top: 56px;
+        min-height: 160px;
       }
       .hero-text h1 {
         font-size: 1.2rem;
@@ -339,14 +322,7 @@
     </div>
   </section>
 
-  <section id="energy-news" class="section">
-    <h2>Latest UK Energy News</h2>
-    <ul id="news-list"><li>Loading news...</li></ul>
-    <p style="font-size:0.9rem;color:gray;margin-top:0.5rem;">
-      News provided by NewsAPI.org.<br>
-      For the most up-to-date information, check back here regularly.
-    </p>
-  </section>
+  <!-- REMOVED NEWS SECTION -->
 
   <section id="historic-prices" class="section">
     <button onclick="toggleHistoric()" style="font-size:1.1rem;padding:0.5rem 1.5rem;background:#72bcd4;color:#fff;border:none;border-radius:20px;cursor:pointer;">
@@ -639,25 +615,7 @@
       });
     }
 
-    // News API for gas, electricity, renewables, bills, price rises, tax free, etc
-    fetch('https://newsapi.org/v2/everything?q=(electricity+OR+energy+bills+OR+renewable+OR+solar+OR+tax+free+energy+OR+price+increases+OR+energy+prices+OR+energy+tax+OR+power+bills)+UK&language=en&sortBy=publishedAt&pageSize=5&apiKey=6c8d21b5a67a48bf8e1b5d7e20b6a6c5')
-      .then(res => res.json())
-      .then(data => {
-        const list = document.getElementById('news-list');
-        if (!data.articles || !data.articles.length) {
-          list.innerHTML = "<li>No news found right now.</li>";
-          return;
-        }
-        list.innerHTML = "";
-        data.articles.forEach(article => {
-          const item = document.createElement('li');
-          item.innerHTML = `<a href="${article.url}" target="_blank">${article.title}</a> <span>(${new Date(article.publishedAt).toLocaleDateString()})</span>`;
-          list.appendChild(item);
-        });
-      })
-      .catch(() => {
-        document.getElementById('news-list').innerHTML = "<li>Unable to fetch news at this time.</li>";
-      });
+    // News API code block removed because the news section is removed
   </script>
 </body>
 </html>
