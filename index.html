@@ -4,22 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Let’s Talk About Solar</title>
-  <meta name="description" content="Clear, friendly, and honest solar advice for UK homeowners. Discover real savings, trusted installers, and smart solar tools." />
   <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
   <style>
     :root {
       --primary: #338abf;
-      --secondary: #eaf9ff;
-      --accent: #ffd700;
       --background: #f4fbff;
       --card: #fff;
       --text: #2c3e50;
       --radius: 20px;
       --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-      --gradient-glow: radial-gradient(circle at 30% 70%, #ffe066 0%, #338abf 100%);
-      --hero-gradient: linear-gradient(120deg, #338abf 0%, #72bcd4 100%);
     }
-    * { box-sizing: border-box; }
     html, body {
       margin: 0;
       padding: 0;
@@ -31,151 +25,74 @@
     nav {
       position: fixed;
       top: 0;
+      left: 0;
       width: 100%;
       background: var(--card);
       box-shadow: var(--shadow);
       padding: 1rem 2rem;
+      height: 72px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
       z-index: 100;
-      transition: top 0.3s;
-      height: auto;
-      backdrop-filter: blur(7px);
     }
-    nav.hidden { top: -100px; }
-    .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary); letter-spacing: 0.02em;}
+    .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary);}
     nav ul {
       list-style: none;
       display: flex;
-      gap: 1.5rem;
-      margin: 0;
+      gap: 1.2rem;
+      margin: 0 0 0 2rem;
       padding: 0;
     }
     nav ul li a {
       text-decoration: none;
       color: var(--text);
       font-size: 1.1rem;
-      padding: 0.5rem 0.8rem;
+      padding: 0.5rem 1rem;
       border-radius: 999px;
-      transition: background 0.18s, color 0.18s, box-shadow 0.2s;
+      transition: background 0.18s, color 0.18s;
     }
     nav ul li a.cta-nav {
       background: var(--primary);
-      color: white;
-      box-shadow: 0 2px 10px #b9e3fa7e;
+      color: #fff;
     }
-    nav ul li a:hover,
-    nav ul li a.cta-nav:hover {
-      background: var(--secondary);
-      color: var(--primary);
-      box-shadow: 0 2px 10px #ffd7002c;
-    }
-
     .hero {
       padding: 4rem 2rem 2rem;
+      background: linear-gradient(120deg, #338abf 0%, #72bcd4 100%);
+      margin-top: 72px; /* matches nav height */
+      border-radius: 0 0 var(--radius) var(--radius);
+      min-height: 320px;
       display: flex;
-      flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      background: var(--hero-gradient);
-      margin-top: 72px;
-      border-radius: 0 0 var(--radius) var(--radius);
-      box-shadow: 0 6px 32px #b9e3fa38;
-      position: relative;
-      overflow: hidden;
-      min-height: 320px;
     }
     .hero-text {
-      max-width: 600px;
-      padding: 1rem 2rem;
-      background: rgba(255,255,255,0.67);
+      background: rgba(255,255,255,0.85);
       border-radius: var(--radius);
-      box-shadow: 0 4px 36px #338abf36;
-      z-index: 1;
-      backdrop-filter: blur(2px);
+      padding: 2rem;
+      max-width: 600px;
+      box-shadow: 0 4px 24px #338abf36;
     }
-    .hero-text h1 {
-      font-size: 2.4rem;
-      color: var(--primary);
-      margin: 0 0 1rem;
-      text-shadow: 0 2px 16px #ffe0663a;
+    .section { padding: 3rem 1rem; text-align: center; }
+    .benefit-cards {
+      display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; margin-top: 2rem;
     }
-    .hero-text p {
-      font-size: 1.2rem;
-      margin-bottom: 1rem;
-    }
-    .cta {
-      background: var(--primary);
-      color: white;
-      padding: 0.75rem 1.5rem;
-      text-decoration: none;
-      border-radius: 999px;
-      font-size: 1rem;
-      display: inline-block;
-      box-shadow: 0 2px 10px #b9e3fa7e;
-      transition: transform 0.13s;
-    }
-    .cta:hover { transform: scale(1.04);}
-    .section { padding: 3rem 1rem; text-align: center; position: relative; }
-    .benefit-cards, .trust-logos {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      justify-content: center;
-      margin-top: 2rem;
-    }
-    .benefit-card, .trust-logo {
+    .benefit-card {
       background: var(--card);
       padding: 1.5rem;
       border-radius: var(--radius);
-      box-shadow: var(--shadow), 0 8px 30px #b9e3fa14;
+      box-shadow: var(--shadow);
       max-width: 250px;
-      transition: transform 0.14s, box-shadow 0.18s, background 0.14s;
       width: 100%;
+      transition: transform 0.14s, box-shadow 0.18s;
     }
-    .benefit-card:hover, .trust-logo:hover {
-      transform: translateY(-7px) scale(1.03);
-      box-shadow: 0 8px 30px #ffd7002a, 0 2px 8px #b9e3fa3a;
-      background: #eaf9ff;
-    }
-    .benefit-card img, .trust-logo img {
-      width: 60px;
-      height: 60px;
-      object-fit: contain;
-      margin-bottom: 1rem;
-      filter: drop-shadow(0 4px 8px #ffe06648);
-      background: #fff;
-      border-radius: 15px;
-      border: 3px solid #eaf9ff;
-    }
-    /* Responsive improvements */
+    .benefit-card img { width: 60px; height: 60px; margin-bottom: 1rem; }
     @media (max-width: 700px) {
-      .benefit-cards, .trust-logos {
-        flex-direction: column;
-        gap: 1.2rem;
-        align-items: center;
-      }
-      .benefit-card, .trust-logo {
-        max-width: 98vw;
-      }
-      nav ul {
-        gap: 0.8rem;
-        font-size: 1rem;
-      }
-      .hero-text {
-        padding: 1rem;
-      }
+      .benefit-cards { flex-direction: column; gap: 1rem; }
+      .benefit-card { max-width: 98vw; }
+      nav ul { gap: 0.5rem; }
     }
-    /* Calculator and Forms */
-    .calculator label, .quote-form label {
-      display: block;
-      margin: 0.6rem 0 0.2rem 0;
-      text-align: left;
-      font-size: 1.1em;
-    }
-    .calculator input, .quote-form input, .quote-form button {
-      display: block;
+    .calculator label { display: block; margin: 0.7rem 0 0.2rem 0; text-align: left; }
+    .calculator input, .calculator button {
       width: 100%;
       max-width: 350px;
       margin: 0.5rem auto;
@@ -184,48 +101,17 @@
       border: 1px solid #b9e3fa;
       font-size: 1rem;
       font-family: inherit;
-      box-sizing: border-box;
+      display: block;
     }
-    .quote-form button {
+    .calculator button {
       background: var(--primary);
       color: #fff;
       font-weight: bold;
       border: none;
       border-radius: 999px;
       margin-top: 1.3rem;
-      box-shadow: 0 2px 10px #b9e3fa7e;
       cursor: pointer;
-      transition: background 0.18s, color 0.18s;
     }
-    .quote-form button:hover {
-      background: var(--accent);
-      color: var(--primary);
-    }
-    /* Historic prices button and container */
-    .historic-btn {
-      font-size:1.1rem;
-      padding:0.5rem 1.5rem;
-      background:#338abf;
-      color:#fff;
-      border:none;
-      border-radius:20px;
-      cursor:pointer;
-      margin-bottom: 1rem;
-      transition: background 0.18s, color 0.18s;
-    }
-    .historic-btn:hover, .historic-btn:focus {
-      background: var(--accent);
-      color: var(--primary);
-      outline: none;
-    }
-    #historic-graph {
-      display:none;
-      margin-top:2rem;
-      max-width: 480px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-    /* Footer styling */
     footer {
       background: var(--primary);
       color: #fff;
@@ -234,34 +120,28 @@
       margin-top: 3rem;
       border-radius: var(--radius) var(--radius) 0 0;
       font-size: 1.1rem;
-      letter-spacing: 0.03em;
     }
   </style>
 </head>
 <body>
-  <nav id="navbar">
+  <nav>
     <div class="logo">Let’s Talk About Solar</div>
     <ul>
       <li><a href="#hero">Home</a></li>
       <li><a href="#benefits">Why Solar?</a></li>
       <li><a href="#solar-toolkit">Orientation</a></li>
       <li><a href="#solar-toolkit">Savings</a></li>
-      <li><a href="#trust">Trust</a></li>
       <li><a href="#quote" class="cta-nav">Get Quote</a></li>
     </ul>
   </nav>
-
   <section class="hero" id="hero">
-    <span class="animated-accent" style="left:10%;top:60%;"></span>
     <div class="hero-text">
       <h1>Sunshine Meets Smart Savings</h1>
       <p>See how solar can protect your bills and power your future.</p>
-      <a href="#quote" class="cta">Get My Free Quote</a>
+      <a href="#quote" class="cta-nav" style="background: #338abf; color: #fff; text-decoration: none; padding: 0.7rem 1.5rem; border-radius: 999px;">Get My Free Quote</a>
     </div>
   </section>
-
   <section id="benefits" class="section">
-    <span class="animated-accent" style="left:70%;top:20%;"></span>
     <h2>Why Solar?</h2>
     <div class="benefit-cards">
       <div class="benefit-card">
@@ -278,216 +158,45 @@
       </div>
     </div>
   </section>
-
   <section id="solar-toolkit" class="section">
-    <div>
-      <h2>Check Your Roof Orientation</h2>
-      <p>Enter your address to estimate your solar potential.</p>
-      <label for="addressInput" style="display:none;">Your Address</label>
-      <input id="addressInput" type="text" placeholder="Enter your address" autocomplete="off" />
-      <button id="toggleMapBtn" type="button" class="historic-btn" disabled>
-        Show Street View
-      </button>
-      <div id="streetview-container" style="width:100%;max-width:400px;height:200px;display:none;border-radius:18px;overflow:hidden;margin:0 auto 1rem auto;background:#f4fbff;">
-        <div id="pano" style="width:100%;height:100%;"></div>
-      </div>
-      <p id="orientationResult" style="margin-top: 1rem; font-weight: bold;">
-        For live address autocomplete, <a href="https://developers.google.com/maps/documentation/javascript/place-autocomplete-element/overview" target="_blank" rel="noopener">migrate to PlaceAutocompleteElement</a> (Maps API v3 Autocomplete is now deprecated for new customers).
-      </p>
-    </div>
-    <div>
-      <h2>Solar Savings Calculator</h2>
-      <form id="calcForm" class="calculator" autocomplete="off">
-        <label for="rate">Electricity unit rate (p/kWh):</label>
-        <input type="number" id="rate" placeholder="e.g. 25" required step="any" />
-        <label for="usage">Annual electricity usage (kWh):</label>
-        <input type="number" id="usage" placeholder="e.g. 4000" required step="any" />
-        <label><input type="checkbox" id="battery" /> Include battery?</label>
-        <button type="submit" class="historic-btn">Calculate</button>
-      </form>
-      <div id="calcResult"></div>
-      <p style="font-size: 0.8rem; margin-top: 1rem; color: gray;">
-        This calculation is based on a system with be higher. These are estimated figures and don’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.
-      </p>
-    </div>
-  </section>
-
-  <section id="energy-news" class="section">
-    <h2>0–2025)
-    </button>
-    <div id="historic-graph">
-      <canvas id="pricesChart" width="400" height="200"></canvas>
-      <p style="font-size:0.9rem;color:gray;">
-        Sources: 
-        <a href="https://www.gov.uk/government/statistical-data-sets/annual-domestic-energy-price-statistics" target="_blank" rel="noopener">UK Government</a>, 
-        <a href="https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindices" target="_blank" rel="noopener">Office for National Statistics (ONS)</a>, 
-        <a href="https://wwwOfgem</a>
-      </p>
-    </div>
-  </section>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <section id="trust" class="section">
-    <h2>Who Can You Trust?</h2>
-    <div class="trust-logos">
-      <a class="trust-logo" href="https://mcscertified.com/" target="_blank" rel="noopener">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/MCS_Certification_logo.svg/320px-MCS_Certification_logo.svg.png" alt="MCS Certified" />
-        <p><strong>MCS</strong>: Quality guaranteed equipment and installers.</p>
-      </a>
-      <a class="trust-logo" href="https://www.epvs.co.uk/" target="_blank" rel="noopener">
-        <img src="https://www.epvs.co.uk/wp-content/themes/epvs/assets/img/logo.png" alt="EPVS" />
-        <p><strong>EPVS</strong>: Verified energy savings and performance claims.</p>
-      </a>
-      <a class="trust-logo" href="https://www.hiesscheme.org.uk/" target="_blank" rel="noopener">
-        <img src="https://www.hiesscheme.org.uk/wp-content/uploads/2018/10/hies-cc-logo-2.png" alt="HIES" />
-        <p><strong>HIES</strong>: Consumer protection from start to finish.</p>
-      </a>
-      <a class="trust-logo" href="https://www.napit.org.uk/" target="_blank" rel="noopener">
-        <img src="https://www.napit.org.uk/images/napit_logo.png" alt="NAPIT" />
-        <p><strong>NAPIT</strong>: Government-approved installer certification.</p>
-      </a>
-      <a class="trust-logo" href="https://www.tradingstandards.uk/" target="_blank" rel="noopener">
-        <img src="https://seeklogo.com/images/T/trading-standards-uk-logo-D8D8D8E1FE-seeklogo.com.png" alt="Trading Standards" />
-        <p><strong>Trading Standards</strong>: Ensuring legal and fair business practices.</p>
-      </a>
-      <a class="trust-logo" href="https://www.trustmark.org.uk/" target="_blank" rel="noopener">
-        <img src="https://www.trustmark.org.uk/images/default-source/default-album/tm_primary_logo_rgb.jpg?sfvrsn=2" alt="TrustMark" />
-        <p><strong>Government TrustMark</strong>: The only government-endorsed quality scheme for trades in and around the home.</p>
-      </a>
-      <a class="trustCA" />
-        <p><strong>FCA</strong>: Regulated advice and consumer financial protection.</p>
-      </a>
-    </div>
-  </section>
-
-  <section id="quote" class="section">
-    <h2>Request a Free Quote</h2>
-    <form action="https://formspree.io/f/mldnarjp" method="POST" class="quote-form" autocomplete="off">
-      <label for="name">Full Name</label>
-      <input type="text" name="name" id="name" placeholder="Full Name" required autocomplete="name" />
-      <label for="quote-address">Address</label>
-      <input type="text" name="address" id="quote-address" placeholder="Start typing your address…" required autocomplete="street-address" />
-      <label for="email">Email Address</label>
-      <input type="email" name="email" id="email" placeholder="Email Address" required autocomplete="email" />
-      <label for="phone">Phone Number</label>
-      <input type="tel" name="phone" id="phone" placeholder="Phone Number" required autocomplete="tel" />
-      <label for="unitrate">Electricity Unit Rate (p/kWh)</label>
-      <input type="text" name="unitrate" id="unitrate" placeholder="Electricity Unit Rate (p/kWh)" required />
-      <label for="annualspend">Annual Electricity Spend (£)</label>
-      <input type="text" name="annualspend" id="annualspend" placeholder="Annual Electricity Spend (£)" required />
-      <button type="submit">Send My Quote Request</button>
+    <h2>Solar Savings Calculator</h2>
+    <form id="calcForm" class="calculator" autocomplete="off">
+      <label for="rate">Electricity unit rate (p/kWh):</label>
+      <input type="number" id="rate" placeholder="e.g. 25" required step="any">
+      <label for="usage">Annual electricity usage (kWh):</label>
+      <input type="number" id="usage" placeholder="e.g. 4000" required step="any">
+      <label><input type="checkbox" id="battery"> Include battery?</label>
+      <button type="submit">Calculate</button>
     </form>
+    <div id="calcResult"></div>
   </section>
-
   <footer>
     <p>&copy; 2025 Let’s Talk About Solar. All rights reserved.</p>
   </footer>
-
-  <!-- MAIN SCRIPTS -->
   <script>
-    // Navbar hide on scroll (FIXED)
-    let orientationFactor = 0.9;
-    let lastScroll = 0;
-    const nav = document.getElementById("navbar");
-
-    window.addEventListener("scroll", () => {
-      const currentScroll = window.pageYOffset;
-      if (currentScroll > lastScroll) {
-        nav.classList.add("hidden");
-      } else {
-        nav.classList.remove("hidden");
+    document.getElementById("calcForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const rate = parseFloat(document.getElementById("rate").value);
+      const usage = parseFloat(document.getElementById("usage").value);
+      const battery = document.getElementById("battery").checked;
+      if (isNaN(rate) || rate <= 0 || isNaN(usage) || usage <= 0) {
+        document.getElementById("calcResult").innerHTML =
+          "<p style='color:red'>Please enter valid numbers for your unit rate and annual usage.</p>";
+        return;
       }
-      lastScroll = currentScroll;
+      // Simple savings calculation
+      const systemSizeKW = 3.68;
+      const kwhPerKWp = 1050;
+      const orientation = 0.9;
+      const estimatedAnnualGen = systemSizeKW * kwhPerKWp * orientation;
+      const selfConsumptionRatio = battery ? 0.90 : 0.65;
+      const selfUsedKWh = estimatedAnnualGen * selfConsumptionRatio;
+      const billReductionKWh = Math.min(selfUsedKWh, usage);
+      const savings = billReductionKWh * (rate / 100);
+      document.getElementById("calcResult").innerHTML =
+        `<p><strong>Estimated annual solar generation:</strong> ${estimatedAnnualGen.toFixed(0)} kWh<br>
+           <strong>Annual bill savings:</strong> £${savings.toFixed(2)}</p>`;
     });
-
-    document.addEventListener("DOMContentLoaded", function () {
-      // Solar Savings Calculator
-      const calcForm = document.getElementById("calcForm");
-      if (calcForm) {
-        calcForm.addEventListener("submit", function (e) {
-          e.preventDefault();
-          const rate = parseFloat(document.getElementById("rate").value);
-          const usage = parseFloat(document.getElementById("usage").value);
-          const battery = document.getElementById("battery").checked;
-
-          if (isNaN(rate) || rate <= 0 || isNaN(usage) || usage <= 0) {
-            document.getElementById("calcResult").innerHTML =
-              "<p style='color:red'>Please enter valid numbers for your unit rate and annual usage.</p>";
-            return;
-          }
-
-          const systemSizeKW = 3.68;
-          const panelSystemKW = 9 * 0.46;
-          const kwhPerKWp = 1050;
-          const orientation = typeof orientationFactor === "number" && orientationFactor > 0 ? orientationFactor : 0.9;
-          const estimatedAnnualGen = Math.min(systemSizeKW, panelSystemKW) * kwhPerKWp * orientation;
-
-          let usableBatteryKWh = 0;
-          if (battery) {
-            usableBatteryKWh = 5 * 0.9 * 0.9;
-          }
-
-          const selfConsumptionRatio = battery ? 0.90 : 0.65;
-          const selfUsedKWh = estimatedAnnualGen * selfConsumptionRatio;
-          const billReductionKWh = Math.min(selfUsedKWh, usage);
-          const savings = billReductionKWh * (rate / 100);
-
-          document.getElementById("calcResult").innerHTML =
-            `<p><strong>Estimated annual solar generation:</strong> ${estimatedAnnualGen.toFixed(0)} kWh<br>
-             <strong>Annual bill savings:</strong> £${savings.toFixed(2)}</p>
-             <p style="font-size:0.95em;color:gray;">Actual savings may vary based on roof, shading, and export earnings.</p>`;
-        });
-      }
-
-      // Static example headlines
-      const newsList = document.getElementById("news-list");
-      if (newsList) {
-        newsList.innerHTML = `<li><a href="https://www.bbc.co.uk/news/business-68901660" target="_blank">Solar power to lead UK renewables in 2025, says government</a> <span>BBC News</span></li>
-        <li><a href="https://www.theguardian.com/environment/2025/jun/20/uk-solar-energy-boom" target="_blank">UK sees solar energy boom as costs fall</a> <span>The Guardian</span></li>
-        <li><a href="https://www.ofgem.gov.uk/news-blog" target="_blank">Latest Ofgem energy market updates</a> <span>Ofgem</span></li>`;
-      }
-    });
-
-    // Historic Prices Graph Toggle
-    function toggleHistoric() {
-      const graphDiv = document.getElementById('historic-graph');
-      const btn = event?.target;
-      if (!graphDiv) return;
-      const expanded = graphDiv.style.display === 'block';
-      graphDiv.style.display = expanded ? 'none' : 'block';
-      if (btn) btn.setAttribute('aria-expanded', (!expanded).toString());
-      if (!expanded) drawHistoricChart();
-    }
-
-    // Draw Chart with Chart.js
-    function drawHistoricChart() {
-      const ctx = document.getElementById('pricesChart').getContext('2d');
-      if (window.pricesChart) {
-        window.pricesChart.destroy();
-      }
-      window.pricesChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: [2000,2002,2004,2006,2008,2010,2012,2014,2016,2018,2020,2022,2024,2025],
-          datasets: [{
-            label: 'Average UK Domestic Electricity Price (p/kWh, inc. VAT)',
-            data: [7.5, 8, 8.2, 9.1, 10.5, 12.5, 13, 13.8, 14.5, 16.5, 18.0, 28.0, 30.0, 25.0],
-            borderColor: '#338abf',
-            backgroundColor: 'rgba(51,138,191,0.12)',
-            tension: 0.22,
-            fill: true,
-            pointRadius: 3
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: { legend: { display: false } },
-          scales: {
-            y: { beginAtZero: false, title: { display: true, text: 'pence per kWh' } },
-            x: { title: { display: true, text: 'Year' } }
-          }
-        }
-      });
-    }
   </script>
 </body>
 </html>
