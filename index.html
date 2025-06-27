@@ -109,21 +109,21 @@
       display: inline-block;
     }
     .section { padding: 3rem 1rem; text-align: center; }
-    .benefit-cards, .trust-logos {
+    .benefit-cards {
       display: flex;
       flex-wrap: wrap;
       gap: 2rem;
       justify-content: center;
       margin-top: 2rem;
     }
-    .benefit-card, .trust-logo {
+    .benefit-card {
       background: var(--card);
       padding: 1.5rem;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       max-width: 250px;
     }
-    .benefit-card img, .trust-logo img {
+    .benefit-card img {
       width: 60px;
       height: 60px;
       object-fit: contain;
@@ -189,7 +189,28 @@
         margin: 0 auto 2rem auto;
       }
     }
-    /* Removed #news-list and related styles */
+
+    /* Clean trust widgets section */
+    .trust-widgets {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: flex-start;
+      margin: 1.5rem auto 0 auto;
+      max-width: 600px;
+    }
+    .trust-widgets p {
+      margin: 0;
+      font-size: 1.08rem;
+    }
+    .trust-widgets a {
+      color: var(--primary);
+      text-decoration: underline;
+      transition: color 0.15s;
+    }
+    .trust-widgets a:hover {
+      color: var(--accent);
+    }
 
     footer {
       background: var(--primary);
@@ -232,12 +253,12 @@
       .hero-text h1 {
         font-size: 1.2rem;
       }
-      .benefit-cards, .trust-logos {
+      .benefit-cards {
         flex-direction: column;
         align-items: center;
         gap: 1.2rem;
       }
-      .benefit-card, .trust-logo {
+      .benefit-card {
         max-width: 98vw;
         padding: 1.2rem 0.7rem;
       }
@@ -251,6 +272,9 @@
       }
       #solar-toolkit > div {
         margin: 0 auto 2rem auto;
+      }
+      .trust-widgets {
+        max-width: 97vw;
       }
     }
   </style>
@@ -339,37 +363,21 @@
     </div>
   </section>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
   <section id="trust" class="section">
     <h2>Who Can You Trust?</h2>
-    <div class="trust-logos">
-      <a class="trust-logo" href="https://mcscertified.com/" target="_blank">
-        <img src="assets/mcs logo.png" alt="MCS Certified" />
-        <p><strong>MCS</strong>: Quality guaranteed equipment and installers.</p>
-      </a>
-      <a class="trust-logo" href="https://www.epvs.co.uk/" target="_blank">
-        <img src="assets/epvs logi.jpeg" alt="EPVS" />
-        <p><strong>EPVS</strong>: Verified energy savings and performance claims.</p>
-      </a>
-      <a class="trust-logo" href="https://www.hiesscheme.org.uk/" target="_blank">
-        <img src="assets/hies-cc-logo-2.png" alt="HIES" />
-        <p><strong>HIES</strong>: Consumer protection from start to finish.</p>
-      </a>
-      <a class="trust-logo" href="https://www.napit.org.uk/" target="_blank">
-        <img src="assets/NAPIT-NEW-LOGO.jpg" alt="NAPIT" />
-        <p><strong>NAPIT</strong>: Government-approved installer certification.</p>
-      </a>
-      <a class="trust-logo" href="https://www.tradingstandards.uk/" target="_blank">
-        <img src="assets/trading-standards-uk-logo.png" alt="Trading Standards" />
-        <p><strong>Trading Standards</strong>: Ensuring legal and fair business practices.</p>
-      </a>
-      <a class="trust-logo" href="https://www.trustmark.org.uk/" target="_blank">
-        <img src="assets/tm_primary_logo_rgb.jpg" alt="TrustMark" />
-        <p><strong>Government TrustMark</strong>: The only government-endorsed quality scheme for trades in and around the home.</p>
-      </a>
-      <a class="trust-logo" href="https://register.fca.org.uk/" target="_blank">
-        <img src="assets/Financial_Conduct_Authority_logo.svg.png" alt="FCA" />
-        <p><strong>FCA</strong>: Regulated advice and consumer financial protection.</p>
-      </a>
+    <div class="trust-widgets">
+      <p><a href="https://mcscertified.com/" target="_blank">MCS: Quality guaranteed equipment and installers</a></p>
+      <p><a href="https://www.epvs.co.uk/" target="_blank">EPVS: Verified energy savings and performance claims</a></p>
+      <p><a href="https://www.hiesscheme.org.uk/" target="_blank">HIES: Consumer protection from start to finish</a></p>
+      <p><a href="https://www.napit.org.uk/" target="_blank">NAPIT: Government-approved installer certification</a></p>
+      <p><a href="https://www.tradingstandards.uk/" target="_blank">Trading Standards: Ensuring legal and fair business practices</a></p>
+      <p>
+        <a href="https://www.trustmark.org.uk/" target="_blank">
+          Government TrustMark: The only government-endorsed quality scheme for trades in and around the home
+        </a>
+      </p>
+      <p><a href="https://register.fca.org.uk/" target="_blank">FCA: Regulated advice and consumer financial protection</a></p>
     </div>
   </section>
 
