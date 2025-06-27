@@ -18,6 +18,8 @@
       --text: #2c3e50;
       --radius: 20px;
       --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      --glass-bg: rgba(255,255,255,0.72);
+      --gradient-glow: radial-gradient(circle at 30% 70%, #ffe066 0%, #72bcd4 100%);
     }
     * { box-sizing: border-box; }
     html, body {
@@ -41,9 +43,10 @@
       z-index: 100;
       transition: top 0.3s;
       height: auto;
+      backdrop-filter: blur(7px);
     }
     nav.hidden { top: -100px; }
-    .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary); }
+    .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary); letter-spacing: 0.02em;}
     nav ul {
       list-style: none;
       display: flex;
@@ -57,17 +60,18 @@
       font-size: 1.1rem;
       padding: 0.5rem 0.8rem;
       border-radius: 999px;
-      transition: background 0.18s;
+      transition: background 0.18s, color 0.18s, box-shadow 0.2s;
     }
     nav ul li a.cta-nav {
       background: var(--primary);
       color: white;
-      padding: 0.5rem 1rem;
+      box-shadow: 0 2px 10px #b9e3fa7e;
     }
     nav ul li a:hover,
     nav ul li a.cta-nav:hover {
       background: var(--secondary);
       color: var(--primary);
+      box-shadow: 0 2px 10px #ffd7002c;
     }
     .hero {
       padding: 4rem 2rem 2rem;
@@ -75,20 +79,41 @@
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      background: linear-gradient(to right, #e0f7ff, #ffffff);
+      background: linear-gradient(120deg, #e0f7ff 0%, #fffbe0 100%);
       margin-top: 72px;
+      border-radius: 0 0 var(--radius) var(--radius);
+      box-shadow: 0 6px 32px #b9e3fa38;
+      position: relative;
+      /* gradient glow effect */
+      overflow: hidden;
+      min-height: 320px;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0; right: 0; bottom: 0;
+      background: var(--gradient-glow);
+      opacity: 0.23;
+      filter: blur(30px);
+      z-index: 0;
     }
     .hero-text {
-      max-width: 480px;
-      padding: 1rem;
+      max-width: 600px;
+      padding: 1rem 2rem;
+      background: var(--glass-bg);
+      border-radius: var(--radius);
+      box-shadow: 0 4px 36px #b9e3fa36;
+      z-index: 1;
+      backdrop-filter: blur(3px);
     }
     .hero-text h1 {
-      font-size: 2.2rem;
+      font-size: 2.4rem;
       color: var(--primary);
       margin: 0 0 1rem;
+      text-shadow: 0 2px 16px #ffe0663a;
     }
     .hero-text p {
-      font-size: 1.1rem;
+      font-size: 1.2rem;
       margin-bottom: 1rem;
     }
     .cta {
@@ -99,22 +124,11 @@
       border-radius: 999px;
       font-size: 1rem;
       display: inline-block;
+      box-shadow: 0 2px 10px #b9e3fa7e;
+      transition: transform 0.13s;
     }
-    .hero-img {
-      max-width: 320px;
-      padding: 1rem;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .hero-img img {
-      width: 100%;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      object-fit: cover;
-      background: white;
-    }
-    .section { padding: 3rem 1rem; text-align: center; }
+    .cta:hover { transform: scale(1.04);}
+    .section { padding: 3rem 1rem; text-align: center; position: relative; }
     .benefit-cards, .trust-logos {
       display: flex;
       flex-wrap: wrap;
@@ -126,14 +140,21 @@
       background: var(--card);
       padding: 1.5rem;
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow), 0 8px 30px #b9e3fa14;
       max-width: 250px;
+      transition: transform 0.14s, box-shadow 0.18s;
+    }
+    .benefit-card:hover, .trust-logo:hover {
+      transform: translateY(-7px) scale(1.03);
+      box-shadow: 0 8px 30px #ffd7002a, 0 2px 8px #b9e3fa3a;
+      background: #fffbe0e7;
     }
     .benefit-card img, .trust-logo img {
       width: 60px;
       height: 60px;
       object-fit: contain;
       margin-bottom: 1rem;
+      filter: drop-shadow(0 4px 8px #ffe06648);
     }
     .calculator, .quote-form {
       max-width: 500px;
@@ -141,7 +162,19 @@
       background: var(--card);
       padding: 2rem;
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow), 0 8px 30px #b9e3fa14;
+      position: relative;
+      z-index: 1;
+    }
+    .calculator:before, .quote-form:before {
+      content: "";
+      position: absolute;
+      left: 0; top: 0; right: 0; bottom: 0;
+      background: var(--gradient-glow);
+      opacity: 0.10;
+      z-index: 0;
+      filter: blur(20px);
+      border-radius: var(--radius);
     }
     label, input, button {
       display: block;
@@ -154,6 +187,12 @@
       padding: 0.6rem;
       border: 1px solid #ccc;
       border-radius: 10px;
+      background: #f7fdff;
+      box-shadow: 0 2px 8px #e3f0fc;
+    }
+    input:focus {
+      outline: 2px solid var(--primary);
+      border-color: var(--primary);
     }
     #rate { box-shadow: 0 2px 8px #e3f0fc; }
     button {
@@ -163,7 +202,12 @@
       border: none;
       border-radius: 999px;
       cursor: pointer;
+      font-size: 1.05rem;
+      margin-top: 1.6rem;
+      box-shadow: 0 2px 10px #b9e3fa7e;
+      transition: background 0.13s, transform 0.12s;
     }
+    button:hover { background: var(--accent); color: var(--primary); transform: scale(1.04);}
     #solar-toolkit {
       display: flex;
       flex-wrap: wrap;
@@ -178,7 +222,7 @@
       max-width: 450px;
       background: var(--card);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
+      box-shadow: var(--shadow), 0 8px 30px #b9e3fa14;
       padding: 2rem;
       margin-bottom: 0;
     }
@@ -223,6 +267,36 @@
       color: #888;
       font-size: 0.93em;
     }
+    /* Animated accent background for hero and sections */
+    .animated-accent {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: linear-gradient(120deg, #ffe066 0%, #72bcd4 90%);
+      filter: blur(42px);
+      opacity: 0.18;
+      animation: accentMove 8s infinite alternate;
+      z-index: 0;
+    }
+    @keyframes accentMove {
+      from { left: 15%; top: 55%; }
+      to { left: 65%; top: 10%; }
+    }
+    /* Floating emoji sparkles */
+    .sparkle {
+      position: absolute;
+      font-size: 1.6rem;
+      pointer-events: none;
+      z-index: 9999;
+      user-select: none;
+      animation: sparkle-float 1.6s linear forwards;
+    }
+    @keyframes sparkle-float {
+      0% { opacity: 1; transform: scale(1) translateY(0);}
+      80% { opacity: 1; }
+      100% { opacity: 0; transform: scale(1.6) translateY(-80px);}
+    }
     footer {
       background: var(--primary);
       color: white;
@@ -231,6 +305,7 @@
       margin-top: 3rem;
       border-radius: var(--radius) var(--radius) 0 0;
       font-size: 0.9rem;
+      box-shadow: 0 -2px 24px #b9e3fa21;
     }
     @media (max-width: 600px) {
       nav {
@@ -263,11 +338,6 @@
       .hero-text h1 {
         font-size: 1.2rem;
       }
-      .hero-img {
-        max-width: 95vw;
-        margin: 0 auto;
-        padding: 0.3rem;
-      }
       .benefit-cards, .trust-logos {
         flex-direction: column;
         align-items: center;
@@ -288,6 +358,9 @@
       #solar-toolkit > div {
         margin: 0 auto 2rem auto;
       }
+      .animated-accent {
+        display: none; /* hide sparkle on small screens */
+      }
     }
   </style>
 </head>
@@ -305,17 +378,16 @@
   </nav>
 
   <section class="hero" id="hero">
+    <span class="animated-accent" style="left:10%;top:60%;"></span>
     <div class="hero-text">
       <h1>Sunshine Meets Smart Savings</h1>
       <p>See how solar can protect your bills and power your future.</p>
       <a href="#quote" class="cta">Get My Free Quote</a>
     </div>
-    <div class="hero-img">
-      <img src="https://cdn.pixabay.com/photo/2017/01/31/13/14/solar-panel-2029350_1280.png" alt="Cartoon solar panel" />
-    </div>
   </section>
 
   <section id="benefits" class="section">
+    <span class="animated-accent" style="left:70%;top:20%;"></span>
     <h2>Why Solar?</h2>
     <div class="benefit-cards">
       <div class="benefit-card">
@@ -450,6 +522,22 @@
       const currentScroll = window.pageYOffset;
       nav.classList.toggle("hidden", currentScroll > lastScroll);
       lastScroll = currentScroll;
+    });
+
+    // Floating sparkles effect on mousemove
+    function randomSparkleEmoji() {
+      const sparkles = ["✨", "☀️", "💡", "🔆", "🌞"];
+      return sparkles[Math.floor(Math.random() * sparkles.length)];
+    }
+    document.addEventListener("mousemove", function(e) {
+      if (Math.random() > 0.11) return; // limit sparkle frequency
+      const sparkle = document.createElement("span");
+      sparkle.className = "sparkle";
+      sparkle.textContent = randomSparkleEmoji();
+      sparkle.style.left = (e.pageX - 12) + "px";
+      sparkle.style.top = (e.pageY - 20) + "px";
+      document.body.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 1700);
     });
 
     // Orientation section logic (Street View only)
