@@ -75,7 +75,6 @@
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      /* Replace linear gradient with a solar panel photo background */
       background: 
         linear-gradient(to right, rgba(224,247,255,0.75), rgba(255,255,255,0.75)),
         url('assets/solar-bg.jpg') center/cover no-repeat;
@@ -92,7 +91,6 @@
       font-size: 2.2rem;
       color: var(--primary);
       margin: 0 0 1rem;
-      /* Optional text shadow for readability */
       text-shadow: 2px 2px 12px rgba(0,0,0,0.17);
     }
     .hero-text p {
@@ -189,29 +187,46 @@
         margin: 0 auto 2rem auto;
       }
     }
-
-    /* Clean trust widgets section */
-    .trust-widgets {
+    .trust-icons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      align-items: center;
+      margin: 2rem auto 0 auto;
+      max-width: 900px;
+    }
+    .trust-icons a {
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
-      align-items: flex-start;
-      margin: 1.5rem auto 0 auto;
-      max-width: 600px;
+      align-items: center;
+      transition: transform 0.13s;
     }
-    .trust-widgets p {
-      margin: 0;
-      font-size: 1.08rem;
+    .trust-icons a:hover {
+      transform: scale(1.14);
     }
-    .trust-widgets a {
-      color: var(--primary);
-      text-decoration: underline;
-      transition: color 0.15s;
+    .trust-icons img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 6px #e3f0fc);
+      background: white;
+      border-radius: 12px;
+      padding: 7px;
+      margin-bottom: 0.2rem;
     }
-    .trust-widgets a:hover {
-      color: var(--accent);
+    @media (max-width: 700px) {
+      .trust-icons {
+        gap: 1.1rem;
+        max-width: 97vw;
+      }
+      .trust-icons img {
+        width: 42px;
+        height: 42px;
+        padding: 4px;
+        border-radius: 7px;
+      }
     }
-
     footer {
       background: var(--primary);
       color: white;
@@ -273,8 +288,15 @@
       #solar-toolkit > div {
         margin: 0 auto 2rem auto;
       }
-      .trust-widgets {
+      .trust-icons {
+        gap: 1.1rem;
         max-width: 97vw;
+      }
+      .trust-icons img {
+        width: 42px;
+        height: 42px;
+        padding: 4px;
+        border-radius: 7px;
       }
     }
   </style>
@@ -346,8 +368,6 @@
     </div>
   </section>
 
-  <!-- REMOVED NEWS SECTION -->
-
   <section id="historic-prices" class="section">
     <button onclick="toggleHistoric()" style="font-size:1.1rem;padding:0.5rem 1.5rem;background:#72bcd4;color:#fff;border:none;border-radius:20px;cursor:pointer;">
       Show Historic Electricity Prices (2000-2025)
@@ -366,22 +386,31 @@
   
   <section id="trust" class="section">
     <h2>Who Can You Trust?</h2>
-    <div class="trust-widgets">
-      <p><a href="https://mcscertified.com/" target="_blank">MCS: Quality guaranteed equipment and installers</a></p>
-      <p><a href="https://www.epvs.co.uk/" target="_blank">EPVS: Verified energy savings and performance claims</a></p>
-      <p><a href="https://www.hiesscheme.org.uk/" target="_blank">HIES: Consumer protection from start to finish</a></p>
-      <p><a href="https://www.napit.org.uk/" target="_blank">NAPIT: Government-approved installer certification</a></p>
-      <p><a href="https://www.tradingstandards.uk/" target="_blank">Trading Standards: Ensuring legal and fair business practices</a></p>
-      <p>
-        <a href="https://www.trustmark.org.uk/" target="_blank">
-          Government TrustMark: The only government-endorsed quality scheme for trades in and around the home
-        </a>
-      </p>
-      <p><a href="https://register.fca.org.uk/" target="_blank">FCA: Regulated advice and consumer financial protection</a></p>
+    <div class="trust-icons">
+      <a href="https://mcscertified.com/" target="_blank" title="MCS: Quality guaranteed equipment and installers">
+        <img src="assets/mcs logo.png" alt="MCS Certified" />
+      </a>
+      <a href="https://www.epvs.co.uk/" target="_blank" title="EPVS: Verified energy savings and performance claims">
+        <img src="assets/epvs logi.jpeg" alt="EPVS" />
+      </a>
+      <a href="https://www.hiesscheme.org.uk/" target="_blank" title="HIES: Consumer protection from start to finish">
+        <img src="assets/hies-cc-logo-2.png" alt="HIES" />
+      </a>
+      <a href="https://www.napit.org.uk/" target="_blank" title="NAPIT: Government-approved installer certification">
+        <img src="assets/NAPIT-NEW-LOGO.jpg" alt="NAPIT" />
+      </a>
+      <a href="https://www.tradingstandards.uk/" target="_blank" title="Trading Standards: Ensuring legal and fair business practices">
+        <img src="assets/trading-standards-uk-logo.png" alt="Trading Standards" />
+      </a>
+      <a href="https://www.trustmark.org.uk/" target="_blank" title="Government TrustMark: The only government-endorsed quality scheme for trades in and around the home">
+        <img src="assets/tm_primary_logo_rgb.jpg" alt="TrustMark" />
+      </a>
+      <a href="https://register.fca.org.uk/" target="_blank" title="FCA: Regulated advice and consumer financial protection">
+        <img src="assets/Financial_Conduct_Authority_logo.svg.png" alt="FCA" />
+      </a>
     </div>
   </section>
 
-  <!-- QUOTE FORM WITH ADDRESS AUTOCOMPLETE -->
   <section id="quote" class="section">
     <h2>Request a Free Quote</h2>
     <form action="https://formspree.io/f/mldnarjp" method="POST" class="quote-form">
@@ -399,7 +428,6 @@
     <p>&copy; 2025 Let’s Talk About Solar. All rights reserved.</p>
   </footer>
 
-  <!-- MAIN SCRIPTS -->
   <script>
     let lastScroll = 0;
     const nav = document.getElementById("navbar");
@@ -471,7 +499,6 @@
       });
     }
 
-    // Autocomplete for the quote form address field (UK only, addresses only)
     function initQuoteAddressAutocomplete() {
       var input = document.getElementById('quote-address');
       if (!input) return;
@@ -481,14 +508,12 @@
         types: ["address"]
       };
       var autocomplete = new google.maps.places.Autocomplete(input, options);
-      // Optionally, bias to UK viewport
       autocomplete.setBounds(new google.maps.LatLngBounds(
         new google.maps.LatLng(49.9, -7.6),
         new google.maps.LatLng(58.7, 1.8)
       ));
     }
 
-    // Street View toggle
     function toggleStreetView() {
       const container = document.getElementById("streetview-container");
       const btn = document.getElementById("toggleMapBtn");
@@ -517,47 +542,31 @@
       }
     }
 
-    // Updated Solar Savings Calculator
     document.getElementById("calcForm").addEventListener("submit", function (e) {
       e.preventDefault();
-      const rate = parseFloat(document.getElementById("rate").value); // pence per kWh
-      const usage = parseFloat(document.getElementById("usage").value); // annual usage in kWh
+      const rate = parseFloat(document.getElementById("rate").value);
+      const usage = parseFloat(document.getElementById("usage").value);
       const battery = document.getElementById("battery").checked;
-
-      // 9 x 460W panels = 4.14kWp, limited by 3.68kW inverter
-      const systemSizeKW = 3.68; // kWp
-      const panelSystemKW = 9 * 0.46; // 4.14kW, but limited by inverter
+      const systemSizeKW = 3.68;
+      const panelSystemKW = 9 * 0.46;
       const pitchDeg = 35;
-
-      // UK avg irradiance for 35deg S: ~1050 kWh/kWp/year, adjust for orientation
       const kwhPerKWp = 1050;
       const estimatedAnnualGen = Math.min(systemSizeKW, panelSystemKW) * kwhPerKWp * orientationFactor;
-
-      // Battery settings
       let usableBatteryKWh = 0;
       let batteryCyclesPerYear = 0;
       let batterySelfUse = 0;
       if (battery) {
-        // 5kWh battery, 90% usable each way (charge/discharge)
-        usableBatteryKWh = 5 * 0.9 * 0.9; // 4.05kWh
+        usableBatteryKWh = 5 * 0.9 * 0.9;
         batteryCyclesPerYear = 365;
         batterySelfUse = Math.min(estimatedAnnualGen, usableBatteryKWh * batteryCyclesPerYear);
       }
-
-      // Self-consumption ratio
       let selfConsumptionRatio = battery ? 0.90 : 0.65;
-
-      // Calculate self-used solar kWh
       let selfUsedKWh = estimatedAnnualGen * selfConsumptionRatio;
       if (battery) {
         selfUsedKWh = Math.min(selfUsedKWh + batterySelfUse, estimatedAnnualGen, usage);
       }
-      // Savings = self-used solar x rate (converted to £)
       const savings = (selfUsedKWh * rate) / 100;
-
-      // Installation cost estimate (these may be refined as desired)
       const breakEvenEstimate = battery ? 9500 : 7500;
-
       const calcResult = document.getElementById("calcResult");
       calcResult.innerHTML = `
         <h3>Estimated Annual Savings: £${savings.toFixed(2)}</h3>
@@ -568,7 +577,6 @@
       `;
     });
 
-    // Historic prices chart
     function toggleHistoric() {
       let g = document.getElementById('historic-graph');
       g.style.display = (g.style.display === 'none' || g.style.display === '') ? 'block' : 'none';
@@ -622,8 +630,6 @@
         }
       });
     }
-
-    // News API code block removed because the news section is removed
   </script>
 </body>
 </html>
