@@ -291,7 +291,6 @@
       <p>See how solar can protect your bills and power your future.</p>
       <a href="#quote" class="cta">Get My Free Quote</a>
     </div>
-    <!-- No hero-img, as requested -->
   </section>
 
   <section id="benefits" class="section">
@@ -337,7 +336,6 @@
         <button type="submit">Calculate</button>
       </form>
       <div id="calcResult"></div>
-      <!-- The only version of the solar panel note will be injected by JS after calculation. -->
     </div>
   </section>
 
@@ -641,8 +639,8 @@
       });
     }
 
-    // News API for gas and electricity price news
-    fetch('https://newsapi.org/v2/everything?q=(energy+OR+electricity+OR+gas)+UK+prices&language=en&sortBy=publishedAt&pageSize=5&apiKey=6c8d21b5a67a48bf8e1b5d7e20b6a6c5')
+    // News API for gas, electricity, renewables, bills, price rises, tax free, etc
+    fetch('https://newsapi.org/v2/everything?q=(electricity+OR+energy+bills+OR+renewable+OR+solar+OR+tax+free+energy+OR+price+increases+OR+energy+prices+OR+energy+tax+OR+power+bills)+UK&language=en&sortBy=publishedAt&pageSize=5&apiKey=6c8d21b5a67a48bf8e1b5d7e20b6a6c5')
       .then(res => res.json())
       .then(data => {
         const list = document.getElementById('news-list');
