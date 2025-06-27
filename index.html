@@ -389,7 +389,6 @@
     <div>
       <h2>Check Your Roof Orientation</h2>
       <p>Enter your address to estimate your solar potential.</p>
-      <!-- Placeholder for address autocomplete -->
       <input id="addressInput" type="text" placeholder="Enter your address" style="max-width:350px;margin:0 auto 1rem auto;display:block;" autocomplete="off" />
       <button id="toggleMapBtn" type="button" style="margin:1rem 0 1.2rem 0;padding:0.7rem 1.3rem;border-radius:999px;background:#338abf;color:#fff;font-weight:bold;font-size:1rem;border:none;box-shadow:0 2px 8px rgba(114,188,212,0.07);cursor:pointer;" disabled>
         Show Street View
@@ -474,7 +473,6 @@
     </div>
   </section>
 
-  <!-- QUOTE FORM WITH ADDRESS AUTOCOMPLETE -->
   <section id="quote" class="section">
     <h2>Request a Free Quote</h2>
     <form action="https://formspree.io/f/mldnarjp" method="POST" class="quote-form" autocomplete="off">
@@ -543,4 +541,5 @@
           let savings = billReductionKWh * (rate / 100);
 
           document.getElementById("calcResult").innerHTML =
-            `<p><stron
+            `<p><strong>Estimated annual solar generation:</strong> ${estimatedAnnualGen.toFixed(0)} kWh<br>
+            <
