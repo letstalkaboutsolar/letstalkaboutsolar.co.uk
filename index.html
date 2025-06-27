@@ -8,6 +8,8 @@
   <style>
     :root {
       --primary: #338abf;
+      --secondary: #eaf9ff;
+      --accent: #ffd700;
       --background: #f4fbff;
       --card: #fff;
       --text: #2c3e50;
@@ -22,6 +24,9 @@
       color: var(--text);
       scroll-behavior: smooth;
     }
+    body {
+      padding-top: 80px; /* Make room for navbar */
+    }
     nav {
       position: fixed;
       top: 0;
@@ -30,10 +35,11 @@
       background: var(--card);
       box-shadow: var(--shadow);
       padding: 1rem 2rem;
-      height: 72px;
+      height: 64px;
       display: flex;
       align-items: center;
       z-index: 100;
+      font-size: 1.1rem;
     }
     .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary);}
     nav ul {
@@ -42,6 +48,7 @@
       gap: 1.2rem;
       margin: 0 0 0 2rem;
       padding: 0;
+      flex-wrap: wrap;
     }
     nav ul li a {
       text-decoration: none;
@@ -50,15 +57,20 @@
       padding: 0.5rem 1rem;
       border-radius: 999px;
       transition: background 0.18s, color 0.18s;
+      white-space: nowrap;
     }
     nav ul li a.cta-nav {
       background: var(--primary);
       color: #fff;
     }
+    @media (max-width: 700px) {
+      nav { flex-direction: column; height: auto; padding: 0.5rem 1rem; }
+      nav ul { margin: 0; gap: 0.5rem; }
+      .logo { margin-bottom: 0.5rem;}
+    }
     .hero {
-      padding: 4rem 2rem 2rem;
+      padding: 3.5rem 1.5rem 2rem;
       background: linear-gradient(120deg, #338abf 0%, #72bcd4 100%);
-      margin-top: 72px; /* matches nav height */
       border-radius: 0 0 var(--radius) var(--radius);
       min-height: 320px;
       display: flex;
@@ -71,12 +83,13 @@
       padding: 2rem;
       max-width: 600px;
       box-shadow: 0 4px 24px #338abf36;
+      text-align: center;
     }
     .section { padding: 3rem 1rem; text-align: center; }
-    .benefit-cards {
+    .benefit-cards, .trust-logos {
       display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center; margin-top: 2rem;
     }
-    .benefit-card {
+    .benefit-card, .trust-logo {
       background: var(--card);
       padding: 1.5rem;
       border-radius: var(--radius);
@@ -85,14 +98,20 @@
       width: 100%;
       transition: transform 0.14s, box-shadow 0.18s;
     }
-    .benefit-card img { width: 60px; height: 60px; margin-bottom: 1rem; }
+    .benefit-card img, .trust-logo img { width: 60px; height: 60px; margin-bottom: 1rem; }
     @media (max-width: 700px) {
-      .benefit-cards { flex-direction: column; gap: 1rem; }
-      .benefit-card { max-width: 98vw; }
-      nav ul { gap: 0.5rem; }
+      .benefit-cards, .trust-logos { flex-direction: column; gap: 1rem; }
+      .benefit-card, .trust-logo { max-width: 98vw; }
     }
-    .calculator label { display: block; margin: 0.7rem 0 0.2rem 0; text-align: left; }
-    .calculator input, .calculator button {
+    /* Calculator and Forms */
+    .calculator label, .quote-form label {
+      display: block;
+      margin: 0.6rem 0 0.2rem 0;
+      text-align: left;
+      font-size: 1.1em;
+    }
+    .calculator input, .quote-form input, .quote-form button {
+      display: block;
       width: 100%;
       max-width: 350px;
       margin: 0.5rem auto;
@@ -101,9 +120,9 @@
       border: 1px solid #b9e3fa;
       font-size: 1rem;
       font-family: inherit;
-      display: block;
+      box-sizing: border-box;
     }
-    .calculator button {
+    .quote-form button {
       background: var(--primary);
       color: #fff;
       font-weight: bold;
@@ -111,6 +130,33 @@
       border-radius: 999px;
       margin-top: 1.3rem;
       cursor: pointer;
+    }
+    .quote-form button:hover {
+      background: var(--accent);
+      color: var(--primary);
+    }
+    .historic-btn {
+      font-size:1.1rem;
+      padding:0.5rem 1.5rem;
+      background:#338abf;
+      color:#fff;
+      border:none;
+      border-radius:20px;
+      cursor:pointer;
+      margin-bottom: 1rem;
+      transition: background 0.18s, color 0.18s;
+    }
+    .historic-btn:hover, .historic-btn:focus {
+      background: var(--accent);
+      color: var(--primary);
+      outline: none;
+    }
+    #historic-graph {
+      display:none;
+      margin-top:2rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
     }
     footer {
       background: var(--primary);
@@ -129,8 +175,9 @@
     <ul>
       <li><a href="#hero">Home</a></li>
       <li><a href="#benefits">Why Solar?</a></li>
-      <li><a href="#solar-toolkit">Orientation</a></li>
+      <li><a href="#orientation">Orientation</a></li>
       <li><a href="#solar-toolkit">Savings</a></li>
+      <li><a href="#trust">Trust</a></li>
       <li><a href="#quote" class="cta-nav">Get Quote</a></li>
     </ul>
   </nav>
@@ -158,6 +205,20 @@
       </div>
     </div>
   </section>
+  <section id="orientation" class="section">
+    <h2>Check Your Roof Orientation</h2>
+    <p>This tool is for demo purposes only. Enter your address and click "Show Street View" (feature for demonstration, not real address lookup).</p>
+    <input id="addressInput" type="text" placeholder="Enter your address" autocomplete="off" />
+    <button id="toggleMapBtn" type="button" class="historic-btn">
+      Show Street View
+    </button>
+    <div id="streetview-container" style="width:100%;max-width:400px;height:200px;display:none;border-radius:18px;overflow:hidden;margin:0 auto 1rem auto;background:#f4fbff;">
+      <div id="pano" style="width:100%;height:100%;"></div>
+    </div>
+    <p id="orientationResult" style="margin-top: 1rem; font-weight: bold;">
+      For a live version, you would connect to Google Maps' Place Autocomplete and Street View APIs.
+    </p>
+  </section>
   <section id="solar-toolkit" class="section">
     <h2>Solar Savings Calculator</h2>
     <form id="calcForm" class="calculator" autocomplete="off">
@@ -170,10 +231,69 @@
     </form>
     <div id="calcResult"></div>
   </section>
+  <section id="energy-news" class="section">
+    <h2>Latest UK News Headlines</h2>
+    <ul id="news-list"><li>Loading news...</li></ul>
+    <p style="font-size:0.9rem;color:gray;margin-top:0.5rem;">
+      News is for demonstration—add your own news integration or update links manually.
+    </p>
+  </section>
+  <section id="historic-prices" class="section">
+    <button onclick="toggleHistoric()" class="historic-btn" aria-controls="historic-graph" aria-expanded="false">
+      Show Historic Electricity Prices (2000–2025)
+    </button>
+    <div id="historic-graph">
+      <canvas id="pricesChart" width="400" height="200"></canvas>
+      <p style="font-size:0.9rem;color:gray;">
+        Sources: UK Government, ONS, Ofgem
+      </p>
+    </div>
+  </section>
+  <section id="trust" class="section">
+    <h2>Who Can You Trust?</h2>
+    <div class="trust-logos">
+      <div class="trust-logo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/MCS_Certification_logo.svg/320px-MCS_Certification_logo.svg.png" alt="MCS Certified" />
+        <p><strong>MCS</strong>: Quality guaranteed equipment and installers.</p>
+      </div>
+      <div class="trust-logo">
+        <img src="https://www.epvs.co.uk/wp-content/themes/epvs/assets/img/logo.png" alt="EPVS" />
+        <p><strong>EPVS</strong>: Verified energy savings and performance claims.</p>
+      </div>
+      <div class="trust-logo">
+        <img src="https://www.hiesscheme.org.uk/wp-content/uploads/2018/10/hies-cc-logo-2.png" alt="HIES" />
+        <p><strong>HIES</strong>: Consumer protection from start to finish.</p>
+      </div>
+      <div class="trust-logo">
+        <img src="https://www.napit.org.uk/images/napit_logo.png" alt="NAPIT" />
+        <p><strong>NAPIT</strong>: Government-approved installer certification.</p>
+      </div>
+    </div>
+  </section>
+  <section id="quote" class="section">
+    <h2>Request a Free Quote</h2>
+    <form action="https://formspree.io/f/mldnarjp" method="POST" class="quote-form" autocomplete="off">
+      <label for="name">Full Name</label>
+      <input type="text" name="name" id="name" placeholder="Full Name" required autocomplete="name" />
+      <label for="quote-address">Address</label>
+      <input type="text" name="address" id="quote-address" placeholder="Start typing your address…" required autocomplete="street-address" />
+      <label for="email">Email Address</label>
+      <input type="email" name="email" id="email" placeholder="Email Address" required autocomplete="email" />
+      <label for="phone">Phone Number</label>
+      <input type="tel" name="phone" id="phone" placeholder="Phone Number" required autocomplete="tel" />
+      <label for="unitrate">Electricity Unit Rate (p/kWh)</label>
+      <input type="text" name="unitrate" id="unitrate" placeholder="Electricity Unit Rate (p/kWh)" required />
+      <label for="annualspend">Annual Electricity Spend (£)</label>
+      <input type="text" name="annualspend" id="annualspend" placeholder="Annual Electricity Spend (£)" required />
+      <button type="submit">Send My Quote Request</button>
+    </form>
+  </section>
   <footer>
     <p>&copy; 2025 Let’s Talk About Solar. All rights reserved.</p>
   </footer>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
+    // Calculator
     document.getElementById("calcForm").addEventListener("submit", function (e) {
       e.preventDefault();
       const rate = parseFloat(document.getElementById("rate").value);
@@ -184,7 +304,6 @@
           "<p style='color:red'>Please enter valid numbers for your unit rate and annual usage.</p>";
         return;
       }
-      // Simple savings calculation
       const systemSizeKW = 3.68;
       const kwhPerKWp = 1050;
       const orientation = 0.9;
@@ -197,6 +316,60 @@
         `<p><strong>Estimated annual solar generation:</strong> ${estimatedAnnualGen.toFixed(0)} kWh<br>
            <strong>Annual bill savings:</strong> £${savings.toFixed(2)}</p>`;
     });
+    // News demo
+    document.addEventListener("DOMContentLoaded", function () {
+      const newsList = document.getElementById("news-list");
+      if (newsList) {
+        newsList.innerHTML = `<li><a href="https://www.bbc.co.uk/news/business-68901660" target="_blank">Solar power to lead UK renewables in 2025, says government</a> <span>BBC News</span></li>
+        <li><a href="https://www.theguardian.com/environment/2025/jun/20/uk-solar-energy-boom" target="_blank">UK sees solar energy boom as costs fall</a> <span>The Guardian</span></li>
+        <li><a href="https://www.ofgem.gov.uk/news-blog" target="_blank">Latest Ofgem energy market updates</a> <span>Ofgem</span></li>`;
+      }
+    });
+    // Historic Prices Graph Toggle
+    function toggleHistoric() {
+      const graphDiv = document.getElementById('historic-graph');
+      const btn = event?.target;
+      if (!graphDiv) return;
+      const expanded = graphDiv.style.display === 'block';
+      graphDiv.style.display = expanded ? 'none' : 'block';
+      if (btn) btn.setAttribute('aria-expanded', (!expanded).toString());
+      if (!expanded) drawHistoricChart();
+    }
+    // Draw Chart with Chart.js
+    function drawHistoricChart() {
+      const ctx = document.getElementById('pricesChart').getContext('2d');
+      if (window.pricesChart) {
+        window.pricesChart.destroy();
+      }
+      window.pricesChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: [2000,2002,2004,2006,2008,2010,2012,2014,2016,2018,2020,2022,2024,2025],
+          datasets: [{
+            label: 'Average UK Domestic Electricity Price (p/kWh, inc. VAT)',
+            data: [7.5, 8, 8.2, 9.1, 10.5, 12.5, 13, 13.8, 14.5, 16.5, 18.0, 28.0, 30.0, 25.0],
+            borderColor: '#338abf',
+            backgroundColor: 'rgba(51,138,191,0.12)',
+            tension: 0.22,
+            fill: true,
+            pointRadius: 3
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false } },
+          scales: {
+            y: { beginAtZero: false, title: { display: true, text: 'pence per kWh' } },
+            x: { title: { display: true, text: 'Year' } }
+          }
+        }
+      });
+    }
+    // Orientation map stub
+    document.getElementById('toggleMapBtn').onclick = function() {
+      var container = document.getElementById('streetview-container');
+      container.style.display = (container.style.display === 'block') ? 'none' : 'block';
+    }
   </script>
 </body>
 </html>
