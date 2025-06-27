@@ -558,22 +558,19 @@
       }
     }
 
-    // New Solar Savings Calculator for 3.68kW inverter + 9x460W panels + 5kWh battery (if selected)
+    // Updated Solar Savings Calculator
     document.getElementById("calcForm").addEventListener("submit", function (e) {
       e.preventDefault();
       const rate = parseFloat(document.getElementById("rate").value); // pence per kWh
       const usage = parseFloat(document.getElementById("usage").value); // annual usage in kWh
       const battery = document.getElementById("battery").checked;
 
-      // 9 x 460W panels = 4140W peak (4.14kW) but limited by 3.68kW inverter
-      // We'll model max output as 3.68kW system
+      // 9 x 460W panels = 4.14kWp, limited by 3.68kW inverter
       const systemSizeKW = 3.68; // kWp
       const panelSystemKW = 9 * 0.46; // 4.14kW, but limited by inverter
-      const inverterCapKW = 3.68; // inverter limit
       const pitchDeg = 35;
 
-      // Assume UK average irradiance for south-facing, 35deg pitch: ~1050 kWh/kWp/year
-      // Adjust for orientation (already set via orientationFactor) and panel/inverter
+      // UK avg irradiance for 35deg S: ~1050 kWh/kWp/year, adjust for orientation
       const kwhPerKWp = 1050;
       const estimatedAnnualGen = Math.min(systemSizeKW, panelSystemKW) * kwhPerKWp * orientationFactor;
 
@@ -583,18 +580,16 @@
       let batterySelfUse = 0;
       if (battery) {
         // 5kWh battery, 90% usable each way (charge/discharge)
-        usableBatteryKWh = 5 * 0.9 * 0.9; // 5kWh * 90% charge * 90% discharge = 4.05kWh
-        // Assume one full battery cycle per day used optimally
+        usableBatteryKWh = 5 * 0.9 * 0.9; // 4.05kWh
         batteryCyclesPerYear = 365;
         batterySelfUse = Math.min(estimatedAnnualGen, usableBatteryKWh * batteryCyclesPerYear);
       }
 
-      // Self-consumption ratio (rough estimate): 65% without battery, 90% with battery
+      // Self-consumption ratio
       let selfConsumptionRatio = battery ? 0.90 : 0.65;
 
       // Calculate self-used solar kWh
       let selfUsedKWh = estimatedAnnualGen * selfConsumptionRatio;
-      // If battery present, increase self-use up to batterySelfUse but not more than total usage or generation
       if (battery) {
         selfUsedKWh = Math.min(selfUsedKWh + batterySelfUse, estimatedAnnualGen, usage);
       }
@@ -603,14 +598,13 @@
 
       // Installation cost estimate (these may be refined as desired)
       const breakEvenEstimate = battery ? 9500 : 7500;
-      const breakEvenYears = (breakEvenEstimate / savings);
 
       const calcResult = document.getElementById("calcResult");
       calcResult.innerHTML = `
         <h3>Estimated Annual Savings: £${savings.toFixed(2)}</h3>
         <p>Your system is estimated to generate <strong>${estimatedAnnualGen.toFixed(0)} kWh</strong> per year.</p>
         <p>Annual self-used solar: <strong>${selfUsedKWh.toFixed(0)} kWh</strong> (${(100*selfUsedKWh/usage).toFixed(0)}% of your usage${battery ? ' with 5kWh battery' : ''}).</p>
-        <p>Typical installation: <strong>£${breakEvenEstimate.toLocaleString()}</strong>, break even in <strong>${breakEvenYears.toFixed(1)} years</strong>.</p>
+        <p>Typical installation: <strong>£${breakEvenEstimate.toLocaleString()}</strong></p>
         <p style="font-size:0.95em;color:#888;">This calculation is based on a system with 9 solar panels – if your roof can fit more, your potential savings will be even higher. These are estimated figures and don’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.</p>
       `;
     });
@@ -670,8 +664,8 @@
       });
     }
 
-    // News API for energy news list
-    fetch('https://newsapi.org/v2/everything?q=solar+energy+UK&language=en&sortBy=publishedAt&pageSize=5&apiKey=6c8d21b5a67a48bf8e1b5d7e20b6a6c5')
+    // News API for gas and electricity price news
+    fetch('https://newsapi.org/v2/everything?q=(energy+OR+electricity+OR+gas)+UK+prices&language=en&sortBy=publishedAt&pageSize=5&apiKey=6c8d21b5a67a48bf8e1b5d7e20b6a6c5')
       .then(res => res.json())
       .then(data => {
         const list = document.getElementById('news-list');
