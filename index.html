@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ&libraries=places&callback=mapsApiLoaded" defer></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Let’s Talk About Solar</title>
@@ -390,14 +389,17 @@
     <div>
       <h2>Check Your Roof Orientation</h2>
       <p>Enter your address to estimate your solar potential.</p>
-      <input id="addressInput" type="text" placeholder="Enter your address" style="max-width:350px;margin:0 auto 1rem auto;display:block;" />
-      <button id="toggleMapBtn" type="button" style="margin:1rem 0 1.2rem 0;padding:0.7rem 1.3rem;border-radius:999px;background:#338abf;color:#fff;font-weight:bold;font-size:1rem;border:none;box-shadow:0 2px 8px rgba(114,188,212,0.07);cursor:pointer;">
+      <!-- Disabled/deprecated Google Maps Autocomplete for new customers.
+           To re-enable, use the PlaceAutocompleteElement as per Google documentation.
+           For now, this field is just a plain input. -->
+      <input id="addressInput" type="text" placeholder="Enter your address" style="max-width:350px;margin:0 auto 1rem auto;display:block;" autocomplete="off" />
+      <button id="toggleMapBtn" type="button" style="margin:1rem 0 1.2rem 0;padding:0.7rem 1.3rem;border-radius:999px;background:#338abf;color:#fff;font-weight:bold;font-size:1rem;border:none;box-shadow:0 2px 8px rgba(114,188,212,0.07);cursor:pointer;" disabled>
         Show Street View
       </button>
       <div id="streetview-container" style="width:100%;max-width:400px;height:200px;display:none;border-radius:18px;overflow:hidden;margin:0 auto 1rem auto;background:#f4fbff;">
         <div id="pano" style="width:100%;height:100%;"></div>
       </div>
-      <p id="orientationResult" style="margin-top: 1rem; font-weight: bold;"></p>
+      <p id="orientationResult" style="margin-top: 1rem; font-weight: bold;">For live address autocomplete, <a href="https://developers.google.com/maps/documentation/javascript/place-autocomplete-element/overview" target="_blank">migrate to PlaceAutocompleteElement</a> (Maps API v3 Autocomplete is now deprecated for new customers).</p>
     </div>
     <div>
       <h2>Solar Savings Calculator</h2>
@@ -444,19 +446,19 @@
     <h2>Who Can You Trust?</h2>
     <div class="trust-logos">
       <a class="trust-logo" href="https://mcscertified.com/" target="_blank">
-        <img src="assets/mcs-logo-black.png" alt="MCS Certified" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/MCS_Certification_logo.svg/320px-MCS_Certification_logo.svg.png" alt="MCS Certified" />
         <p><strong>MCS</strong>: Quality guaranteed equipment and installers.</p>
       </a>
       <a class="trust-logo" href="https://www.epvs.co.uk/" target="_blank">
-        <img src="assets/epvs logi.jpeg" alt="EPVS" />
+        <img src="https://www.epvs.co.uk/wp-content/themes/epvs/assets/img/logo.png" alt="EPVS" />
         <p><strong>EPVS</strong>: Verified energy savings and performance claims.</p>
       </a>
       <a class="trust-logo" href="https://www.hiesscheme.org.uk/" target="_blank">
-        <img src="assets/hies-cc-logo-2.png" alt="HIES" />
+        <img src="https://www.hiesscheme.org.uk/wp-content/uploads/2018/10/hies-cc-logo-2.png" alt="HIES" />
         <p><strong>HIES</strong>: Consumer protection from start to finish.</p>
       </a>
       <a class="trust-logo" href="https://www.napit.org.uk/" target="_blank">
-        <img src="assets/NAPIT-NEW-LOGO.jpg" alt="NAPIT" />
+        <img src="https://www.napit.org.uk/images/napit_logo.png" alt="NAPIT" />
         <p><strong>NAPIT</strong>: Government-approved installer certification.</p>
       </a>
       <a class="trust-logo" href="https://www.tradingstandards.uk/" target="_blank">
@@ -464,11 +466,11 @@
         <p><strong>Trading Standards</strong>: Ensuring legal and fair business practices.</p>
       </a>
       <a class="trust-logo" href="https://www.trustmark.org.uk/" target="_blank">
-        <img src="assets/trustmark-gloss-black.png" alt="TrustMark" />
+        <img src="https://www.trustmark.org.uk/images/default-source/default-album/tm_primary_logo_rgb.jpg?sfvrsn=2" alt="TrustMark" />
         <p><strong>Government TrustMark</strong>: The only government-endorsed quality scheme for trades in and around the home.</p>
       </a>
       <a class="trust-logo" href="https://register.fca.org.uk/" target="_blank">
-        <img src="assets/fca-gloss-black.png" alt="FCA" />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Financial_Conduct_Authority_logo.svg/320px-Financial_Conduct_Authority_logo.svg.png" alt="FCA" />
         <p><strong>FCA</strong>: Regulated advice and consumer financial protection.</p>
       </a>
     </div>
@@ -505,113 +507,8 @@
       lastScroll = currentScroll;
     });
 
-    // Orientation section logic (Street View only)
-    let autocomplete, lastPlaceLocation = null, panoMap = null;
-
-    // The callback for Google Maps JS API - sets up both orientation and quote form autocomplete
-    function mapsApiLoaded() {
-      if (typeof initMap === "function") initMap();
-      if (typeof initQuoteAddressAutocomplete === "function") initQuoteAddressAutocomplete();
-    }
-
-    function initMap() {
-      const input = document.getElementById("addressInput");
-      autocomplete = new google.maps.places.Autocomplete(input, {
-        componentRestrictions: { country: 'uk' },
-        fields: ["geometry", "formatted_address", "address_components"],
-        types: ["address"]
-      });
-
-      autocomplete.addListener("place_changed", () => {
-        const place = autocomplete.getPlace();
-        if (!place.geometry || !place.geometry.location) {
-          alert("No details available for input: '" + place.name + "'");
-          lastPlaceLocation = null;
-          return;
-        }
-        lastPlaceLocation = place.geometry.location;
-        // Orientation logic
-        const viewport = place.geometry.viewport;
-        let orientation = "Unknown";
-        let explanation = "";
-        orientationFactor = 0.9;
-
-        if (viewport) {
-          const ne = viewport.getNorthEast();
-          const sw = viewport.getSouthWest();
-          const angle = Math.atan2(ne.lat() - sw.lat(), ne.lng() - sw.lng()) * (180 / Math.PI);
-
-          if (angle > -45 && angle <= 45) {
-            orientation = "East";
-            orientationFactor = 0.85;
-            explanation = "Your front roof likely faces East and the rear West. A solar system can still work well with morning sunlight.";
-          } else if (angle > 45 && angle <= 135) {
-            orientation = "North";
-            orientationFactor = 0.75;
-            explanation = "Your front roof likely faces North and the rear South. South-facing roofs are ideal for solar.";
-          } else if (angle > -135 && angle <= -45) {
-            orientation = "South";
-            orientationFactor = 1.0;
-            explanation = "Your front roof likely faces South and the rear North. This is excellent for solar efficiency.";
-          } else {
-            orientation = "West";
-            orientationFactor = 0.8;
-            explanation = "Your front roof likely faces West and the rear East. Good for catching late afternoon sunlight.";
-          }
-        }
-
-        document.getElementById("orientationResult").innerHTML =
-          `<strong>Estimated Roof Orientation:</strong> ${orientation}<br><em>${explanation}</em>`;
-      });
-    }
-
-    // Autocomplete for the quote form address field (UK only, addresses only)
-    function initQuoteAddressAutocomplete() {
-      var input = document.getElementById('quote-address');
-      if (!input) return;
-      var options = {
-        componentRestrictions: { country: 'uk' },
-        fields: ["formatted_address", "geometry"],
-        types: ["address"]
-      };
-      var autocomplete = new google.maps.places.Autocomplete(input, options);
-      autocomplete.setBounds(new google.maps.LatLngBounds(
-        new google.maps.LatLng(49.9, -7.6),
-        new google.maps.LatLng(58.7, 1.8)
-      ));
-    }
-
-    // Street View toggle
-    function toggleStreetView() {
-      const container = document.getElementById("streetview-container");
-      const btn = document.getElementById("toggleMapBtn");
-      if (container.style.display === 'none' || container.style.display === '') {
-        if (!lastPlaceLocation) {
-          alert("Please enter your address and select it from the dropdown first.");
-          return;
-        }
-        container.style.display = "block";
-        if (!panoMap) {
-          panoMap = new google.maps.StreetViewPanorama(
-            document.getElementById("pano"),
-            {
-              position: lastPlaceLocation,
-              pov: { heading: 165, pitch: 0 },
-              zoom: 1
-            }
-          );
-        } else {
-          panoMap.setPosition(lastPlaceLocation);
-        }
-        btn.innerText = "Hide Street View";
-      } else {
-        container.style.display = "none";
-        btn.innerText = "Show Street View";
-      }
-    }
-
-    // Robust Solar Savings Calculator
     document.addEventListener("DOMContentLoaded", function () {
+      // CALCULATOR FORM
       var calcForm = document.getElementById("calcForm");
       if (calcForm) {
         calcForm.addEventListener("submit", function (e) {
@@ -667,22 +564,22 @@
         });
       }
 
-      // UK News Headlines fetch
-      fetch('https://newsapi.org/v2/top-headlines?country=gb&apiKey=e90a1fafe3ef458baccf2e6ecf47ec13')
+      // UK News Headlines fetch (uses rss2json for public RSS access)
+      fetch('https://api.rss2json.com/v1/api.json?rss_url=https://feeds.bbci.co.uk/news/rss.xml')
         .then(res => res.json())
         .then(data => {
           const list = document.getElementById('news-list');
-          if (!data.articles || !data.articles.length) {
+          if (!data.items || !data.items.length) {
             list.innerHTML = "<li>No news found right now. Try again later, or check BBC for the latest UK news.</li>";
             return;
           }
           list.innerHTML = "";
-          data.articles.forEach(article => {
+          data.items.slice(0, 7).forEach(article => {
             const item = document.createElement('li');
             item.innerHTML = `
-              <a href="${article.url}" target="_blank">${article.title}</a>
-              <span> (${article.source && article.source.name ? article.source.name : "Unknown Source"})</span>
-              ${article.description ? '<br><span style="font-size:0.98em;">' + article.description + '</span>' : ''}
+              <a href="${article.link}" target="_blank">${article.title}</a>
+              <span> (BBC News)</span>
+              ${article.description ? '<br><span style="font-size:0.98em;">' + article.description.replace(/<[^>]*>?/gm, '').slice(0, 180) + '...</span>' : ''}
             `;
             list.appendChild(item);
           });
