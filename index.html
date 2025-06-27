@@ -291,7 +291,7 @@
       <p>See how solar can protect your bills and power your future.</p>
       <a href="#quote" class="cta">Get My Free Quote</a>
     </div>
-    <!-- Removed the hero-img with cartoon solar panel -->
+    <!-- No hero-img, as requested -->
   </section>
 
   <section id="benefits" class="section">
@@ -337,9 +337,7 @@
         <button type="submit">Calculate</button>
       </form>
       <div id="calcResult"></div>
-      <p style="font-size: 0.8rem; margin-top: 1rem; color: gray;">
-        This calculation is based on a system with 9 solar panels – if your roof can fit more, your potential savings will be even higher. These are estimated figures and don’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.
-     
+      <!-- The only version of the solar panel note will be injected by JS after calculation. -->
     </div>
   </section>
 
@@ -584,7 +582,7 @@
         <p>Your system is estimated to generate <strong>${estimatedAnnualGen.toFixed(0)} kWh</strong> per year.</p>
         <p>Annual self-used solar: <strong>${selfUsedKWh.toFixed(0)} kWh</strong> (${(100*selfUsedKWh/usage).toFixed(0)}% of your usage${battery ? ' with 5kWh battery' : ''}).</p>
         <p>Typical installation: <strong>£${breakEvenEstimate.toLocaleString()}</strong></p>
-        <p style="font-size:0.95em;color:#888;">This calculation is based on a system with 9 solar panels – if your roof can fit more, your potential savings will be even higher. These are estimated figures and don’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.
+        <p style="font-size:0.95em;color:#888;">This calculation is based on a system with 9 solar panels – if your roof can fit more, your potential savings will be even higher. These are estimated figures and don’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.</p>
       `;
     });
 
