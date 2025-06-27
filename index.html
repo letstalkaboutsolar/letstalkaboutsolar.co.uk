@@ -1,435 +1,688 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Only one Google Maps/Places script is needed, so we load it once, with a combined callback -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ&libraries=places&callback=mapsApiLoaded" async defer></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Let’s Talk About Solar – Honest Solar for Your Home</title>
-  <meta name="description" content="Honest, expert advice for UK homeowners considering solar. Discover the real savings, benefits, and peace of mind of solar energy.">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Let’s Talk About Solar</title>
+  <meta name="description" content="Clear, friendly, and honest solar advice for UK homeowners. Discover real savings, trusted installers, and smart solar tools." />
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #1769aa;
-      --secondary: #e3f0fc;
+      --primary: #72bcd4;
+      --secondary: #eaf9ff;
       --accent: #ffd700;
-      --background: #f7fafc;
+      --background: #f4fbff;
       --card: #fff;
-      --shadow: 0 4px 24px rgba(34,56,92,0.08);
-      --radius: 18px;
-      --text: #253858;
+      --text: #2c3e50;
+      --radius: 20px;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     }
+    * { box-sizing: border-box; }
     html, body {
-      margin: 0; padding: 0; background: var(--background);
-      font-family: 'Poppins', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--background);
+      font-family: 'Patrick Hand', cursive;
       color: var(--text);
-      min-height: 100vh;
-      box-sizing: border-box;
+      scroll-behavior: smooth;
     }
     nav {
-      background: #fff;
-      box-shadow: 0 2px 16px #e3f0fc;
-      display: flex; justify-content: space-between; align-items: center;
-      padding: 0 2rem; height: 72px; position: sticky; top: 0; z-index: 10;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: var(--card);
+      box-shadow: var(--shadow);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      transition: top 0.3s;
+      height: auto;
     }
-    .logo {
-      display: flex; align-items: center; gap: 1rem; font-size: 1.3rem; font-weight: 700;
-      color: var(--primary);
-    }
-    .logo img {
-      height: 40px; width: 40px; border-radius: 8px; background: #e3f0fc;
-      object-fit: cover; box-shadow: 0 2px 7px #e3f0fc;
-    }
+    nav.hidden { top: -100px; }
+    .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary); }
     nav ul {
-      display: flex; gap: 2rem; list-style: none; margin: 0; padding: 0;
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      margin: 0;
+      padding: 0;
     }
     nav ul li a {
-      text-decoration: none; color: var(--text); font-weight: 500;
-      padding: 0.6em 1.2em; border-radius: 999px; transition: background 0.18s;
+      text-decoration: none;
+      color: var(--text);
+      font-size: 1.1rem;
+      padding: 0.5rem 0.8rem;
+      border-radius: 999px;
+      transition: background 0.18s;
     }
     nav ul li a.cta-nav {
-      background: var(--primary); color: #fff; font-weight: 600;
-      box-shadow: 0 2px 8px #e3f0fc;
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem 1rem;
     }
-    nav ul li a:hover { background: var(--secondary); color: var(--primary);}
-    nav ul li a.cta-nav:hover { background: #155a92; color: #fff;}
-    @media (max-width: 900px) {
-      nav ul { gap: 1rem; }
-      .logo { font-size: 1rem; }
+    nav ul li a:hover,
+    nav ul li a.cta-nav:hover {
+      background: var(--secondary);
+      color: var(--primary);
     }
-
     .hero {
-      background: linear-gradient(120deg, #e3f0fc 0%, #fff 100%);
-      padding: 4.5rem 1.5rem 2rem 1.5rem;
+      padding: 4rem 2rem 2rem;
       display: flex;
-      align-items: center;
-      justify-content: center;
       flex-wrap: wrap;
-      gap: 3rem;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(to right, #e0f7ff, #ffffff);
+      margin-top: 72px;
     }
     .hero-text {
       max-width: 480px;
+      padding: 1rem;
     }
     .hero-text h1 {
-      font-size: 2.5rem; color: var(--primary); font-weight: 700;
-      margin-bottom: 1.1rem; line-height: 1.1;
+      font-size: 2.2rem;
+      color: var(--primary);
+      margin: 0 0 1rem;
     }
     .hero-text p {
-      font-size: 1.13rem; margin-bottom: 2rem; color: #3d5a80;
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
     }
     .cta {
-      background: var(--primary); color: #fff; font-weight: 600;
-      font-size: 1.15rem; padding: 0.9rem 2.2rem; border: none;
-      border-radius: 999px; cursor: pointer; text-decoration: none;
-      transition: background 0.17s;
-      box-shadow: 0 3px 16px #e3f0fc;
+      background: var(--primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      border-radius: 999px;
+      font-size: 1rem;
       display: inline-block;
     }
-    .cta:hover { background: #155a92;}
     .hero-img {
-      max-width: 340px;
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      background: #e3f0fc;
+      max-width: 320px;
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .hero-img img {
-      width: 100%; border-radius: var(--radius);
+      width: 100%;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      object-fit: cover;
+      background: white;
+    }
+    .section { padding: 3rem 1rem; text-align: center; }
+    .benefit-cards, .trust-logos {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    .benefit-card, .trust-logo {
+      background: var(--card);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      max-width: 250px;
+    }
+    .benefit-card img, .trust-logo img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      margin-bottom: 1rem;
+    }
+    .calculator, .quote-form {
+      max-width: 500px;
+      margin: 0 auto;
+      background: var(--card);
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    label, input, button {
       display: block;
+      width: 100%;
+      font-size: 1rem;
+      margin-top: 1rem;
+      font-family: 'Patrick Hand', cursive;
     }
-
-    .section {
-      max-width: 980px; margin: 4rem auto 0 auto;
-      background: var(--card); border-radius: var(--radius);
-      box-shadow: var(--shadow); padding: 2.5rem 2rem;
+    input {
+      padding: 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
     }
-    .section h2 {
-      font-size: 2rem; margin-bottom: 1.6rem; color: var(--primary);
-      font-weight: 600; text-align: center;
+    #rate { box-shadow: 0 2px 8px #e3f0fc; }
+    button {
+      background: var(--primary);
+      color: white;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
     }
-    .benefit-cards {
-      display: flex; flex-wrap: wrap; gap: 2rem; justify-content: center;
-      margin-bottom: 1.2rem;
+    #solar-toolkit {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      align-items: flex-start;
+      text-align: left;
     }
-    .benefit-card {
-      flex: 1 1 220px; min-width: 220px; max-width: 300px;
-      padding: 1.6rem 1.3rem 1rem 1.3rem;
-      background: var(--secondary); border-radius: var(--radius);
-      box-shadow: 0 2px 12px #e3f0fc;
-      text-align: center; transition: box-shadow 0.17s;
+    #solar-toolkit > div {
+      flex: 1 1 320px;
+      min-width: 280px;
+      max-width: 450px;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2rem;
+      margin-bottom: 0;
     }
-    .benefit-card:hover { box-shadow: 0 6px 34px #b3d2f5; }
-    .benefit-card img {
-      width: 60px; height: 60px; object-fit: cover;
-      border-radius: 10px; margin-bottom: 1.1rem;
-      background: #fff;
+    #solar-toolkit h2 {
+      text-align: center;
     }
-    .benefit-card h3 { font-size: 1.15rem; color: var(--primary); margin-bottom: 0.5rem;}
-    .benefit-card p { color: #355a78; font-size: 1.01rem; margin-bottom: 0;}
-    .features-list {
-      list-style: none; max-width: 650px; margin: 1.7rem auto 0 auto; padding: 0;
-      font-size: 1.09rem; color: #2d4059;
+    @media (max-width: 950px) {
+      #solar-toolkit {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+      }
+      #solar-toolkit > div {
+        margin: 0 auto 2rem auto;
+      }
     }
-    .features-list li {
-      margin-bottom: 1rem; display: flex; align-items: center; gap: 0.7rem;
+    #news-list {
+      list-style: none;
+      max-width: 700px;
+      margin: 1.3rem auto 0 auto;
+      padding: 0 0.6em;
+      font-size: 1.05rem;
+      color: #2c3e50;
     }
-    .features-list li:before {
-      content: "•";
+    #news-list li {
+      margin-bottom: 1.1em;
+      line-height: 1.5;
+      border-bottom: 1px solid #e3f0fc;
+      padding-bottom: 0.6em;
+    }
+    #news-list a {
       color: var(--primary);
-      font-weight: bold;
-      font-size: 1.2em;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.14s;
     }
-
-    .trust-logos {
-      display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap;
-      margin-top: 1.7rem;
+    #news-list a:hover {
+      color: #155a92;
+      text-decoration: underline;
     }
-    .trust-logo {
-      text-align: center; background: #f7fafc; border-radius: 12px; padding: 1rem 1.5rem;
-      box-shadow: 0 2px 10px #e3f0fc;
-      min-width: 140px;
+    #news-list span {
+      color: #888;
+      font-size: 0.93em;
     }
-    .trust-logo img { height: 40px; margin-bottom: 0.7rem;}
-    .trust-logo strong { color: var(--primary);}
-    .trust-logo p { font-size: 0.97rem; color: #355a78; margin: 0; }
-
-    #calculator .glass {
-      max-width: 420px; margin: 2rem auto; padding: 2.2rem 1.5rem;
-      background: #f7fafc; border-radius: var(--radius);
-      box-shadow: 0 2px 10px #e3f0fc;
-    }
-    #calculator label { display: block; font-weight: 600; margin-bottom: 0.3rem;}
-    #calculator input[type="number"], #calculator input[type="text"], #calculator input[type="email"], #calculator input[type="tel"] {
-      width: 100%; padding: 0.7rem 1rem; margin-bottom: 1.1rem; border: 1.3px solid #e3f0fc; border-radius: 10px;
-      font-size: 1.07rem; background: #fff; font-family: inherit;
-    }
-    #calculator button[type="submit"] { margin-top: 0.7rem;}
-    #result { text-align: center; margin-top: 2rem; min-height: 60px; font-size: 1.12rem; color: var(--primary);}
-    .result-animated h3 { font-size: 1.21rem; color: var(--primary); margin-bottom: 0.7rem;}
-
-    #contact .quote-form {
-      max-width: 410px; margin: 1.5rem auto 0 auto; display: flex; flex-direction: column; gap: 1.1rem;
-    }
-    .quote-form input, .quote-form button, .quote-form select {
-      font-size: 1.07rem; padding: 0.7rem 1rem; border-radius: 10px;
-      border: 1.3px solid #e3f0fc; background: #fff; font-family: inherit;
-      margin-bottom: 0.7rem;
-    }
-    .quote-form label {
-      font-size: 1.01rem;
-      font-weight: 500;
-      color: #355a78;
-      margin-top: 0.3em;
-    }
-    .quote-form button {
-      background: var(--primary); color: #fff; font-weight: 600; border: none; margin-top: 0.5rem; border-radius: 999px;
-      transition: background 0.16s;
-    }
-    .quote-form button:hover { background: #155a92; }
     footer {
-      background: #1769aa; color: #fff;
-      margin-top: 3.2rem; padding: 2.3rem 0; border-radius: var(--radius) var(--radius) 0 0; box-shadow: 0 -2px 12px #e3f0fc;
+      background: var(--primary);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      margin-top: 3rem;
+      border-radius: var(--radius) var(--radius) 0 0;
+      font-size: 0.9rem;
     }
-    .footer-content { display: flex; justify-content: space-between; align-items: center; max-width: 980px; margin: 0 auto; padding: 0 2rem; flex-wrap: wrap;}
-    .footer-links { display: flex; gap: 2rem;}
-    .footer-links a {
-      color: #fffde7; text-decoration: none; font-weight: 600; font-family: 'Poppins', sans-serif; transition: color 0.13s;
+    @media (max-width: 600px) {
+      nav {
+        padding: 0.4rem 0.7rem;
+        background: rgba(255,255,255,0.97);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        height: auto;
+      }
+      .logo {
+        font-size: 1rem;
+        padding: 0.2rem 0;
+      }
+      nav ul {
+        gap: 0.8rem;
+        overflow-x: auto;
+        white-space: nowrap;
+        flex-wrap: nowrap;
+      }
+      nav ul li a {
+        font-size: 0.95rem;
+        padding: 0.3rem 0.7rem;
+      }
+      nav ul li a.cta-nav {
+        padding: 0.35rem 0.8rem;
+      }
+      .hero {
+        padding: 2.2rem 0.5rem 1rem 0.5rem;
+        margin-top: 56px;
+      }
+      .hero-text h1 {
+        font-size: 1.2rem;
+      }
+      .hero-img {
+        max-width: 95vw;
+        margin: 0 auto;
+        padding: 0.3rem;
+      }
+      .benefit-cards, .trust-logos {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.2rem;
+      }
+      .benefit-card, .trust-logo {
+        max-width: 98vw;
+        padding: 1.2rem 0.7rem;
+      }
+      .section {
+        padding: 1.6rem 0.2rem;
+      }
+      #solar-toolkit {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+      }
+      #solar-toolkit > div {
+        margin: 0 auto 2rem auto;
+      }
     }
-    .footer-links a:hover { color: var(--accent);}
-    @media (max-width: 1000px) { .section, .footer-content { max-width: 97vw;} .hero {flex-direction: column;} .hero-img { margin-top:2rem;}}
-    @media (max-width: 700px) {
-      nav { flex-direction: column; height: auto; padding: 0.5rem 0.7rem;}
-      nav ul { flex-direction: column; gap: 0.7rem; width: 100%; margin-top: 0.4rem;}
-      .logo { font-size: 1.05rem; padding-bottom: 0.4rem; justify-content: center; width: 100%;}
-      .hero { flex-direction: column; gap: 2rem; padding: 2rem 0.3rem 1.2rem 0.3rem;}
-      .hero-text { max-width: 100vw; text-align: center;}
-      .hero-text h1 { font-size: 1.3rem;}
-      .hero-img { max-width: 97vw; margin-top: 1.1rem;}
-      .section { padding: 1.1rem 0.3rem; margin: 2rem 0 0 0; max-width: 100vw;}
-      .benefit-cards, .trust-logos { flex-direction: column; gap: 1rem; align-items: stretch;}
-      .benefit-card, .trust-logo { max-width: 100%; min-width: 0;}
-      .features-list { font-size: 0.99rem;}
-      #calculator .glass, #contact .quote-form { padding: 1rem 0.2rem; max-width: 100vw;}
-      input, button, .cta { font-size: 1rem !important; width: 100% !important; box-sizing: border-box;}
-      footer .footer-content { flex-direction: column; gap: 0.7rem; text-align: center; padding: 0 0.4rem;}
-      .footer-links { gap: 1rem; width: 100%; justify-content: center;}
-    }
-    ::-webkit-scrollbar { width: 10px; background: #e3f0fc;}
-    ::-webkit-scrollbar-thumb { background: #bfc8e2; border-radius: 6px;}
   </style>
 </head>
 <body>
-  <nav>
-    <div class="logo">
-      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=80&q=80" alt="Solar Logo" />
-      Let’s Talk About Solar
-    </div>
+  <nav id="navbar">
+    <div class="logo">Let’s Talk About Solar</div>
     <ul>
       <li><a href="#hero">Home</a></li>
       <li><a href="#benefits">Why Solar?</a></li>
-      <li><a href="#features">Features</a></li>
-      <li><a href="#trust">Trust</a></li>
+      <li><a href="#orientation">Orientation</a></li>
       <li><a href="#calculator">Savings</a></li>
-      <li><a href="#contact" class="cta-nav">Get Quote</a></li>
+      <li><a href="#trust">Trust</a></li>
+      <li><a href="#quote" class="cta-nav">Get Quote</a></li>
     </ul>
   </nav>
 
   <section class="hero" id="hero">
     <div class="hero-text">
-      <h1>Solar for Your Home, Backed by Real Numbers</h1>
-      <p>Clear, honest advice for UK homeowners looking to invest in a brighter, more secure energy future. No jargon, no sales tricks—just facts and guidance.</p>
-      <a href="#contact" class="cta">Get My Free Quote</a>
+      <h1>Sunshine Meets Smart Savings</h1>
+      <p>See how solar can protect your bills and power your future.</p>
+      <a href="#quote" class="cta">Get My Free Quote</a>
     </div>
     <div class="hero-img">
-      <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=600&q=80" alt="Modern solar panels on a house" />
+      <img src="https://cdn.pixabay.com/photo/2017/01/31/13/14/solar-panel-2029350_1280.png" alt="Cartoon solar panel" />
     </div>
   </section>
 
   <section id="benefits" class="section">
-    <h2>Why Choose Solar?</h2>
+    <h2>Why Solar?</h2>
     <div class="benefit-cards">
       <div class="benefit-card">
-        <img src="https://images.unsplash.com/photo-1509395176047-4a66953fd231?auto=format&fit=crop&w=80&q=80" alt="Solar Panels" />
-        <h3>Cut Your Electricity Bills</h3>
-        <p>Generate your own clean energy and lower your monthly expenses from day one.</p>
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Money saving GBP icon">
+        <p>Save money on your bills from day one.</p>
       </div>
       <div class="benefit-card">
-        <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=80&q=80" alt="Battery storage" />
-        <h3>Store Energy for Later</h3>
-        <p>Smart battery storage means you use your own power, even after sunset.</p>
+        <img src="https://cdn-icons-png.flaticon.com/512/3103/3103446.png" alt="Battery storage icon">
+        <p>Store your sunshine with battery technology.</p>
       </div>
       <div class="benefit-card">
-        <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=80&q=80" alt="Protected from price hikes" />
-        <h3>Protection from Price Hikes</h3>
-        <p>Shield yourself from rising grid prices and future-proof your energy costs.</p>
-      </div>
-      <div class="benefit-card">
-        <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=80&q=80" alt="Eco friendly" />
-        <h3>Value & Sustainability</h3>
-        <p>Boost your home’s value and help the environment with every sunny day.</p>
+        <img src="https://cdn-icons-png.flaticon.com/512/2422/2422625.png" alt="Pylon selling to grid icon">
+        <p>Sell your surplus energy back to the grid.</p>
       </div>
     </div>
   </section>
 
-  <section id="features" class="section">
-    <h2>What Makes Us Different?</h2>
-    <ul class="features-list">
-      <li><span>Save up to <strong>70% on electricity</strong></span></li>
-      <li><span>Earn money back with the <strong>Smart Export Guarantee (SEG)</strong></span></li>
-      <li><span>Clear, pressure-free advice from real experts</span></li>
-      <li><span>Fast, professional installation</span></li>
-      <li><span>25-year product and performance warranties</span></li>
-    </ul>
+  <!-- COMBINED ORIENTATION & CALCULATOR SECTION -->
+  <section id="solar-toolkit" class="section">
+    <div>
+      <h2>Check Your Roof Orientation</h2>
+      <p>Enter your address to estimate your solar potential.</p>
+      <input id="addressInput" type="text" placeholder="Enter your address" style="max-width:350px;margin:0 auto 1rem auto;display:block;" />
+      <button id="toggleMapBtn" onclick="toggleStreetView()" style="margin:1rem 0 1.2rem 0;padding:0.7rem 1.3rem;border-radius:999px;background:#72bcd4;color:#fff;font-weight:bold;font-size:1rem;border:none;box-shadow:0 2px 8px rgba(114,188,212,0.07);cursor:pointer;">
+        Show Street View
+      </button>
+      <div id="streetview-container" style="width:100%;max-width:400px;height:200px;display:none;border-radius:18px;overflow:hidden;margin:0 auto 1rem auto;background:#f4fbff;">
+        <div id="pano" style="width:100%;height:100%;"></div>
+      </div>
+      <p id="orientationResult" style="margin-top: 1rem; font-weight: bold;"></p>
+    </div>
+    <div>
+      <h2>Solar Savings Calculator</h2>
+      <form id="calcForm" class="calculator">
+        <label for="rate">Electricity unit rate (p/kWh):</label>
+        <input type="number" id="rate" placeholder="e.g. 25" required>
+        <label for="usage">Annual electricity usage (kWh):</label>
+        <input type="number" id="usage" placeholder="e.g. 4000" required>
+        <label><input type="checkbox" id="battery"> Include battery?</label>
+        <button type="submit">Calculate</button>
+      </form>
+      <div id="calcResult"></div>
+      <p style="font-size: 0.8rem; margin-top: 1rem; color: gray;">
+        This calculation is based on a system with 9 solar panels – if your roof can fit more, your potential savings will be even higher. These are estimated figures and don’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.
+      </p>
+    </div>
   </section>
 
+  <section id="energy-news" class="section">
+    <h2>Latest UK Energy News</h2>
+    <ul id="news-list"><li>Loading news...</li></ul>
+    <p style="font-size:0.9rem;color:gray;margin-top:0.5rem;">
+      News provided by NewsAPI.org.<br>
+      For the most up-to-date information, check back here regularly.
+    </p>
+  </section>
+
+  <section id="historic-prices" class="section">
+    <button onclick="toggleHistoric()" style="font-size:1.1rem;padding:0.5rem 1.5rem;background:#72bcd4;color:#fff;border:none;border-radius:20px;cursor:pointer;">
+      Show Historic Electricity Prices (2000-2025)
+    </button>
+    <div id="historic-graph" style="display:none;margin-top:2rem;">
+      <canvas id="pricesChart" width="400" height="200"></canvas>
+      <p style="font-size:0.9rem;color:gray;">
+        Sources: 
+        <a href="https://www.gov.uk/government/statistical-data-sets/annual-domestic-energy-price-statistics" target="_blank">UK Government</a>, 
+        <a href="https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindices" target="_blank">Office for National Statistics (ONS)</a>, 
+        <a href="https://www.ofgem.gov.uk/energy-data-and-research/data-portal/retail-market-indicators" target="_blank">Ofgem</a>
+      </p>
+    </div>
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <section id="trust" class="section">
-    <h2>Accreditations & Trust</h2>
+    <h2>Who Can You Trust?</h2>
     <div class="trust-logos">
-      <div class="trust-logo">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/7/79/MCS_Logo.png" alt="MCS Certified" />
-        <strong>MCS Certified</strong>
-        <p>Your installer and equipment meet strict UK standards for safety and performance.</p>
-      </div>
-      <div class="trust-logo">
-        <img src="https://www.epvs.co.uk/assets/images/logo.svg" alt="EPVS Member" />
-        <strong>EPVS Member</strong>
-        <p>Your savings and system performance are independently verified.</p>
-      </div>
-      <div class="trust-logo">
-        <img src="https://www.hiesscheme.org.uk/wp-content/uploads/2022/04/HIES-Logo.svg" alt="HIES Consumer Code" />
-        <strong>HIES Consumer Code</strong>
-        <p>Deposit, warranty and aftercare protection for total peace of mind.</p>
-      </div>
-      <div class="trust-logo">
-        <img src="https://www.napit.org.uk/images/napit/logo.svg" alt="NAPIT Registered" />
-        <strong>NAPIT Registered</strong>
-        <p>Fully qualified, independently audited installers.</p>
-      </div>
+      <a class="trust-logo" href="https://mcscertified.com/" target="_blank">
+        <img src="assets/mcs logo.png" alt="MCS Certified" />
+        <p><strong>MCS</strong>: Quality guaranteed equipment and installers.</p>
+      </a>
+      <a class="trust-logo" href="https://www.epvs.co.uk/" target="_blank">
+        <img src="assets/epvs logi.jpeg" alt="EPVS" />
+        <p><strong>EPVS</strong>: Verified energy savings and performance claims.</p>
+      </a>
+      <a class="trust-logo" href="https://www.hiesscheme.org.uk/" target="_blank">
+        <img src="assets/hies-cc-logo-2.png" alt="HIES" />
+        <p><strong>HIES</strong>: Consumer protection from start to finish.</p>
+      </a>
+      <a class="trust-logo" href="https://www.napit.org.uk/" target="_blank">
+        <img src="assets/NAPIT-NEW-LOGO.jpg" alt="NAPIT" />
+        <p><strong>NAPIT</strong>: Government-approved installer certification.</p>
+      </a>
+      <a class="trust-logo" href="https://www.tradingstandards.uk/" target="_blank">
+        <img src="https://seeklogo.com/images/T/trading-standards-uk-logo-D8D8D8E1FE-seeklogo.com.png" alt="Trading Standards" />
+        <p><strong>Trading Standards</strong>: Ensuring legal and fair business practices.</p>
+      </a>
+      <a class="trust-logo" href="https://www.trustmark.org.uk/" target="_blank">
+        <img src="https://www.trustmark.org.uk/images/default-source/default-album/tm_primary_logo_rgb.jpg?sfvrsn=2" alt="TrustMark" />
+        <p><strong>Government TrustMark</strong>: The only government-endorsed quality scheme for trades in and around the home.</p>
+      </a>
+      <a class="trust-logo" href="https://register.fca.org.uk/" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Financial_Conduct_Authority_logo.svg/320px-Financial_Conduct_Authority_logo.svg.png" alt="FCA" />
+        <p><strong>FCA</strong>: Regulated advice and consumer financial protection.</p>
+      </a>
     </div>
   </section>
 
-  <section id="calculator" class="section">
-    <h2>Solar Savings Calculator</h2>
-    <p>Estimate your annual savings with solar for your home.</p>
-    <form id="savingsForm" class="glass">
-      <label for="rate">Your electricity unit rate (p/kWh):</label>
-      <input type="number" id="rate" placeholder="e.g. 24.99" required>
-      <label for="usage">Your yearly electricity usage (kWh):</label>
-      <input type="number" id="usage" placeholder="e.g. 4000" required>
-      <label style="font-weight:400;">
-        <input type="checkbox" id="battery"> Include battery storage?
-      </label>
-      <button type="submit" class="cta">Calculate Savings</button>
-    </form>
-    <div id="result" class="result-animated"></div>
-  </section>
-
-  <section id="contact" class="section">
-    <h2>Get Your Free Solar Quote</h2>
-    <p>Send us your details for a tailored quote—no pressure, just real numbers and honest answers.</p>
-    <form action="https://bit.ly/letstalksolarsavings" method="POST" class="quote-form" autocomplete="off">
-      <input type="text" name="name" placeholder="Full Name" required>
-      
-      <label for="postcode">Postcode:</label>
-      <input type="text" id="postcode" name="postcode" placeholder="e.g. SW1A 1AA" required autocomplete="postal-code">
-      
-      <label for="address-select" style="margin-top:0.5em;">Select your address:</label>
-      <select id="address-select" style="display:none;"></select>
-      
-      <input type="text" name="address" id="address" placeholder="Full Address" required>
-    
-      <input type="email" name="email" placeholder="Email Address" required>
-      <input type="tel" name="phone" placeholder="Phone Number" required>
+  <!-- QUOTE FORM WITH ADDRESS AUTOCOMPLETE -->
+  <section id="quote" class="section">
+    <h2>Request a Free Quote</h2>
+    <form action="https://formspree.io/f/mldnarjp" method="POST" class="quote-form">
+      <input type="text" name="name" placeholder="Full Name" required autocomplete="name">
+      <input type="text" name="address" id="quote-address" placeholder="Start typing your address…" required autocomplete="street-address">
+      <input type="email" name="email" placeholder="Email Address" required autocomplete="email">
+      <input type="tel" name="phone" placeholder="Phone Number" required autocomplete="tel">
       <input type="text" name="unitrate" placeholder="Electricity Unit Rate (p/kWh)" required>
       <input type="text" name="annualspend" placeholder="Annual Electricity Spend (£)" required>
-      <button type="submit" class="cta">Send My Quote Request</button>
+      <button type="submit">Send My Quote Request</button>
     </form>
   </section>
 
   <footer>
-    <div class="footer-content">
-      <div>&copy; 2025 Let’s Talk About Solar</div>
-      <div class="footer-links">
-        <a href="#features">Features</a>
-        <a href="#trust">Trust</a>
-        <a href="#calculator">Savings</a>
-        <a href="#contact">Contact</a>
-      </div>
-    </div>
+    <p>&copy; 2025 Let’s Talk About Solar. All rights reserved.</p>
   </footer>
+
+  <!-- MAIN SCRIPTS -->
   <script>
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        const targetId = this.getAttribute('href');
-        if (targetId.length > 1 && document.querySelector(targetId)) {
-          e.preventDefault();
-          document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
-        }
-      });
+    let lastScroll = 0;
+    const nav = document.getElementById("navbar");
+    let orientationFactor = 1;
+
+    window.addEventListener("scroll", () => {
+      const currentScroll = window.pageYOffset;
+      nav.classList.toggle("hidden", currentScroll > lastScroll);
+      lastScroll = currentScroll;
     });
-    // Savings calculator animated count up
-    document.getElementById("savingsForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-      const rate = parseFloat(document.getElementById("rate").value);
-      const usage = parseFloat(document.getElementById("usage").value);
-      const battery = document.getElementById("battery").checked;
-      const systemSize = 4;
-      const outputPerKW = 850;
-      const yearlyGen = systemSize * outputPerKW;
-      const selfUse = battery ? 0.95 : 0.70;
-      const usedSolar = Math.min(usage, yearlyGen * selfUse);
-      const savings = (usedSolar * rate) / 100;
-      const breakEvenEstimate = battery ? 9500 : 6000;
-      const breakEvenYears = (breakEvenEstimate / savings);
-      // Animated count-up effect for the savings value
-      const resultEl = document.getElementById("result");
-      resultEl.innerHTML = '';
-      let current = 0;
-      let final = savings;
-      let duration = 1250;
-      let stepTime = Math.abs(Math.floor(duration / final));
-      if (isNaN(stepTime) || !isFinite(stepTime) || stepTime < 12) stepTime = 12;
-      function animateCount() {
-        current += final / (duration / stepTime);
-        if (current >= final) {
-          current = final;
-          resultEl.innerHTML = `
-            <h3>Estimated Annual Savings: £${final.toFixed(2)}</h3>
-            <p>With a ${battery ? 'battery' : 'standard'} system, you’ll use about ${(selfUse * 100).toFixed(0)}% of your solar energy.</p>
-            <p>Typical installation: <strong>£${breakEvenEstimate.toLocaleString()}</strong>, break even in <strong>${breakEvenYears.toFixed(1)} years</strong>.</p>
-            <p><strong>Want a bespoke quote? Message us now — we’ll do the rest.</strong></p>
-          `;
+
+    // Orientation section logic (Street View only)
+    let autocomplete, lastPlaceLocation = null, panoMap = null;
+
+    // The callback for Google Maps JS API - sets up both orientation and quote form autocomplete
+    function mapsApiLoaded() {
+      if (typeof initMap === "function") initMap();
+      if (typeof initQuoteAddressAutocomplete === "function") initQuoteAddressAutocomplete();
+    }
+
+    function initMap() {
+      const input = document.getElementById("addressInput");
+      autocomplete = new google.maps.places.Autocomplete(input, {
+        componentRestrictions: { country: 'uk' },
+        fields: ["geometry", "formatted_address", "address_components"],
+        types: ["address"]
+      });
+
+      autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+        if (!place.geometry || !place.geometry.location) {
+          alert("No details available for input: '" + place.name + "'");
+          lastPlaceLocation = null;
           return;
         }
-        resultEl.innerHTML = `<h3>Estimated Annual Savings: £${current.toFixed(0)}</h3>`;
-        setTimeout(animateCount, stepTime);
+        lastPlaceLocation = place.geometry.location;
+        // Orientation logic
+        const viewport = place.geometry.viewport;
+        let orientation = "Unknown";
+        let explanation = "";
+        orientationFactor = 0.9;
+
+        if (viewport) {
+          const ne = viewport.getNorthEast();
+          const sw = viewport.getSouthWest();
+          const angle = Math.atan2(ne.lat() - sw.lat(), ne.lng() - sw.lng()) * (180 / Math.PI);
+
+          if (angle > -45 && angle <= 45) {
+            orientation = "East";
+            orientationFactor = 0.85;
+            explanation = "Your front roof likely faces East and the rear West. A solar system can still work well with morning sunlight.";
+          } else if (angle > 45 && angle <= 135) {
+            orientation = "North";
+            orientationFactor = 0.75;
+            explanation = "Your front roof likely faces North and the rear South. South-facing roofs are ideal for solar.";
+          } else if (angle > -135 && angle <= -45) {
+            orientation = "South";
+            orientationFactor = 1.0;
+            explanation = "Your front roof likely faces South and the rear North. This is excellent for solar efficiency.";
+          } else {
+            orientation = "West";
+            orientationFactor = 0.8;
+            explanation = "Your front roof likely faces West and the rear East. Good for catching late afternoon sunlight.";
+          }
+        }
+
+        document.getElementById("orientationResult").innerHTML =
+          `<strong>Estimated Roof Orientation:</strong> ${orientation}<br><em>${explanation}</em>`;
+      });
+    }
+
+    // Autocomplete for the quote form address field (UK only, addresses only)
+    function initQuoteAddressAutocomplete() {
+      var input = document.getElementById('quote-address');
+      if (!input) return;
+      var options = {
+        componentRestrictions: { country: 'uk' },
+        fields: ["formatted_address", "geometry"],
+        types: ["address"]
+      };
+      var autocomplete = new google.maps.places.Autocomplete(input, options);
+      // Optionally, bias to UK viewport
+      autocomplete.setBounds(new google.maps.LatLngBounds(
+        new google.maps.LatLng(49.9, -7.6),
+        new google.maps.LatLng(58.7, 1.8)
+      ));
+    }
+
+    // Street View toggle
+    function toggleStreetView() {
+      const container = document.getElementById("streetview-container");
+      const btn = document.getElementById("toggleMapBtn");
+      if (container.style.display === 'none' || container.style.display === '') {
+        if (!lastPlaceLocation) {
+          alert("Please enter your address and select it from the dropdown first.");
+          return;
+        }
+        container.style.display = "block";
+        if (!panoMap) {
+          panoMap = new google.maps.StreetViewPanorama(
+            document.getElementById("pano"),
+            {
+              position: lastPlaceLocation,
+              pov: { heading: 165, pitch: 0 },
+              zoom: 1
+            }
+          );
+        } else {
+          panoMap.setPosition(lastPlaceLocation);
+        }
+        btn.innerText = "Hide Street View";
+      } else {
+        container.style.display = "none";
+        btn.innerText = "Show Street View";
       }
-      animateCount();
+    }
+
+    // Updated Solar Savings Calculator
+    document.getElementById("calcForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const rate = parseFloat(document.getElementById("rate").value); // pence per kWh
+      const usage = parseFloat(document.getElementById("usage").value); // annual usage in kWh
+      const battery = document.getElementById("battery").checked;
+
+      // 9 x 460W panels = 4.14kWp, limited by 3.68kW inverter
+      const systemSizeKW = 3.68; // kWp
+      const panelSystemKW = 9 * 0.46; // 4.14kW, but limited by inverter
+      const pitchDeg = 35;
+
+      // UK avg irradiance for 35deg S: ~1050 kWh/kWp/year, adjust for orientation
+      const kwhPerKWp = 1050;
+      const estimatedAnnualGen = Math.min(systemSizeKW, panelSystemKW) * kwhPerKWp * orientationFactor;
+
+      // Battery settings
+      let usableBatteryKWh = 0;
+      let batteryCyclesPerYear = 0;
+      let batterySelfUse = 0;
+      if (battery) {
+        // 5kWh battery, 90% usable each way (charge/discharge)
+        usableBatteryKWh = 5 * 0.9 * 0.9; // 4.05kWh
+        batteryCyclesPerYear = 365;
+        batterySelfUse = Math.min(estimatedAnnualGen, usableBatteryKWh * batteryCyclesPerYear);
+      }
+
+      // Self-consumption ratio
+      let selfConsumptionRatio = battery ? 0.90 : 0.65;
+
+      // Calculate self-used solar kWh
+      let selfUsedKWh = estimatedAnnualGen * selfConsumptionRatio;
+      if (battery) {
+        selfUsedKWh = Math.min(selfUsedKWh + batterySelfUse, estimatedAnnualGen, usage);
+      }
+      // Savings = self-used solar x rate (converted to £)
+      const savings = (selfUsedKWh * rate) / 100;
+
+      // Installation cost estimate (these may be refined as desired)
+      const breakEvenEstimate = battery ? 9500 : 7500;
+
+      const calcResult = document.getElementById("calcResult");
+      calcResult.innerHTML = `
+        <h3>Estimated Annual Savings: £${savings.toFixed(2)}</h3>
+        <p>Your system is estimated to generate <strong>${estimatedAnnualGen.toFixed(0)} kWh</strong> per year.</p>
+        <p>Annual self-used solar: <strong>${selfUsedKWh.toFixed(0)} kWh</strong> (${(100*selfUsedKWh/usage).toFixed(0)}% of your usage${battery ? ' with 5kWh battery' : ''}).</p>
+        <p>Typical installation: <strong>£${breakEvenEstimate.toLocaleString()}</strong></p>
+        <p style="font-size:0.95em;color:#888;">This calculation is based on a system with 9 solar panels – if your roof can fit more, your potential savings will be even higher. These are estimated figures and don’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.</p>
+      `;
     });
 
-    // Address lookup for UK postcode using getaddress.io API
-    document.getElementById('postcode').addEventListener('blur', function() {
-      const postcode = this.value.trim();
-      const select = document.getElementById('address-select');
-      if (!postcode.match(/^[A-Z0-9 ]{5,8}$/i)) return;
-      select.style.display = 'none';
-      select.innerHTML = '';
-      // REPLACE 'YOUR_API_KEY' below with your actual getaddress.io API key
-      fetch(`https://api.getaddress.io/find/${encodeURIComponent(postcode)}?api-key=YOUR_API_KEY`)
-        .then(res => res.json())
-        .then(data => {
-          if (!data.addresses || !data.addresses.length) return;
-          select.innerHTML = '<option value="">Select your address</option>';
-          data.addresses.forEach(addr => {
-            const clean = addr.replace(/,\s*$/, '').replace(/\s+/g, ' ');
-            select.innerHTML += `<option value="${clean}">${clean}</option>`;
-          });
-          select.style.display = '';
+    // Historic prices chart
+    function toggleHistoric() {
+      let g = document.getElementById('historic-graph');
+      g.style.display = (g.style.display === 'none' || g.style.display === '') ? 'block' : 'none';
+      if (g.style.display === 'block' && !window._historicChartLoaded) {
+        drawPriceChart();
+        window._historicChartLoaded = true;
+      }
+    }
+    function drawPriceChart() {
+      const ctx = document.getElementById('pricesChart').getContext('2d');
+      const years = [
+        2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,
+        2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,
+        2020,2021,2022,2023,2024,2025
+      ];
+      const prices = [
+        7.0,7.3,7.2,7.1,7.4,8.2,10.0,10.6,13.3,13.9,
+        13.7,14.5,15.5,15.6,15.6,15.2,14.4,14.4,15.0,17.2,
+        17.2,19.0,28.0,30.0,28.5,27.5
+      ];
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: years,
+          datasets: [{
+            label: 'UK Domestic Electricity Price (p/kWh)',
+            data: prices,
+            borderColor: '#72bcd4',
+            backgroundColor: 'rgba(114,188,212,0.15)',
+            tension: 0.25,
+            pointBackgroundColor: '#ffd700',
+            pointRadius: 5,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: true },
+            tooltip: { enabled: true }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: { display: true, text: 'pence per kWh' }
+            },
+            x: {
+              title: { display: true, text: 'Year' }
+            }
+          }
+        }
+      });
+    }
+
+    // News API for gas and electricity price news
+    fetch('https://newsapi.org/v2/everything?q=(energy+OR+electricity+OR+gas)+UK+prices&language=en&sortBy=publishedAt&pageSize=5&apiKey=6c8d21b5a67a48bf8e1b5d7e20b6a6c5')
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById('news-list');
+        if (!data.articles || !data.articles.length) {
+          list.innerHTML = "<li>No news found right now.</li>";
+          return;
+        }
+        list.innerHTML = "";
+        data.articles.forEach(article => {
+          const item = document.createElement('li');
+          item.innerHTML = `<a href="${article.url}" target="_blank">${article.title}</a> <span>(${new Date(article.publishedAt).toLocaleDateString()})</span>`;
+          list.appendChild(item);
         });
-    });
-
-    document.getElementById('address-select').addEventListener('change', function() {
-      const val = this.value;
-      if(val) document.getElementById('address').value = val;
-    });
+      })
+      .catch(() => {
+        document.getElementById('news-list').innerHTML = "<li>Unable to fetch news at this time.</li>";
+      });
   </script>
 </body>
 </html>
