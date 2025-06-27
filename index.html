@@ -70,7 +70,9 @@
       background: var(--secondary);
       color: var(--primary);
       box-shadow: 0 2px 10px #ffd7002c;
-    }.hero {
+    }
+
+    .hero {
       padding: 4rem 2rem 2rem;
       display: flex;
       flex-wrap: wrap;
@@ -130,6 +132,7 @@
       box-shadow: var(--shadow), 0 8px 30px #b9e3fa14;
       max-width: 250px;
       transition: transform 0.14s, box-shadow 0.18s, background 0.14s;
+      width: 100%;
     }
     .benefit-card:hover, .trust-logo:hover {
       transform: translateY(-7px) scale(1.03);
@@ -146,9 +149,94 @@
       border-radius: 15px;
       border: 3px solid #eaf9ff;
     }
-    /* More styles continue... */
-    /* For brevity, let's skip directly to start of <body> */
-</style>
+    /* Responsive improvements */
+    @media (max-width: 700px) {
+      .benefit-cards, .trust-logos {
+        flex-direction: column;
+        gap: 1.2rem;
+        align-items: center;
+      }
+      .benefit-card, .trust-logo {
+        max-width: 98vw;
+      }
+      nav ul {
+        gap: 0.8rem;
+        font-size: 1rem;
+      }
+      .hero-text {
+        padding: 1rem;
+      }
+    }
+    /* Calculator and Forms */
+    .calculator label, .quote-form label {
+      display: block;
+      margin: 0.6rem 0 0.2rem 0;
+      text-align: left;
+      font-size: 1.1em;
+    }
+    .calculator input, .quote-form input, .quote-form button {
+      display: block;
+      width: 100%;
+      max-width: 350px;
+      margin: 0.5rem auto;
+      padding: 0.7rem;
+      border-radius: 8px;
+      border: 1px solid #b9e3fa;
+      font-size: 1rem;
+      font-family: inherit;
+      box-sizing: border-box;
+    }
+    .quote-form button {
+      background: var(--primary);
+      color: #fff;
+      font-weight: bold;
+      border: none;
+      border-radius: 999px;
+      margin-top: 1.3rem;
+      box-shadow: 0 2px 10px #b9e3fa7e;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+    }
+    .quote-form button:hover {
+      background: var(--accent);
+      color: var(--primary);
+    }
+    /* Historic prices button and container */
+    .historic-btn {
+      font-size:1.1rem;
+      padding:0.5rem 1.5rem;
+      background:#338abf;
+      color:#fff;
+      border:none;
+      border-radius:20px;
+      cursor:pointer;
+      margin-bottom: 1rem;
+      transition: background 0.18s, color 0.18s;
+    }
+    .historic-btn:hover, .historic-btn:focus {
+      background: var(--accent);
+      color: var(--primary);
+      outline: none;
+    }
+    #historic-graph {
+      display:none;
+      margin-top:2rem;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    /* Footer styling */
+    footer {
+      background: var(--primary);
+      color: #fff;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      margin-top: 3rem;
+      border-radius: var(--radius) var(--radius) 0 0;
+      font-size: 1.1rem;
+      letter-spacing: 0.03em;
+    }
+  </style>
 </head>
 <body>
   <nav id="navbar">
@@ -162,7 +250,8 @@
       <li><a href="#quote" class="cta-nav">Get Quote</a></li>
     </ul>
   </nav>
-<section class="hero" id="hero">
+
+  <section class="hero" id="hero">
     <span class="animated-accent" style="left:10%;top:60%;"></span>
     <div class="hero-text">
       <h1>Sunshine Meets Smart Savings</h1>
@@ -170,7 +259,8 @@
       <a href="#quote" class="cta">Get My Free Quote</a>
     </div>
   </section>
-<section id="benefits" class="section">
+
+  <section id="benefits" class="section">
     <span class="animated-accent" style="left:70%;top:20%;"></span>
     <h2>Why Solar?</h2>
     <div class="benefit-cards">
@@ -188,54 +278,50 @@
       </div>
     </div>
   </section>
-<section id="solar-toolkit" class="section">
+
+  <section id="solar-toolkit" class="section">
     <div>
       <h2>Check Your Roof Orientation</h2>
       <p>Enter your address to estimate your solar potential.</p>
-      <input id="addressInput" type="text" placeholder="Enter your address" style="max-width:350px;margin:0 auto 1rem auto;display:block;" autocomplete="off" />
-      <button id="toggleMapBtn" type="button" style="margin:1rem 0 1.2rem 0;padding:0.7rem 1.3rem;border-radius:999px;background:#338abf;color:#fff;font-weight:bold;font-size:1rem;border:none;box-shadow:0 2px 8px rgba(114,188,212,0.07);cursor:pointer;" disabled>
+      <label for="addressInput" style="display:none;">Your Address</label>
+      <input id="addressInput" type="text" placeholder="Enter your address" autocomplete="off" />
+      <button id="toggleMapBtn" type="button" class="historic-btn" disabled>
         Show Street View
       </button>
       <div id="streetview-container" style="width:100%;max-width:400px;height:200px;display:none;border-radius:18px;overflow:hidden;margin:0 auto 1rem auto;background:#f4fbff;">
         <div id="pano" style="width:100%;height:100%;"></div>
       </div>
-      <p id="orientationResult" style="margin-top: 1rem; font-weight: bold;">For live address autocomplete, <a href="https://developers.google.com/maps/documentation/javascript/place-autocomplete-element/overview" target="_blank">migrate to PlaceAutocompleteElement</a> (Maps API v3 Autocomplete is now deprecated for new customers).</p>
+      <p id="orientationResult" style="margin-top: 1rem; font-weight: bold;">
+        For live address autocomplete, <a href="https://developers.google.com/maps/documentation/javascript/place-autocomplete-element/overview" target="_blank" rel="noopener">migrate to PlaceAutocompleteElement</a> (Maps API v3 Autocomplete is now deprecated for new customers).
+      </p>
     </div>
     <div>
       <h2>Solar Savings Calculator</h2>
       <form id="calcForm" class="calculator" autocomplete="off">
         <label for="rate">Electricity unit rate (p/kWh):</label>
-        <input type="number" id="rate" placeholder="e.g. 25" required step="any">
+        <input type="number" id="rate" placeholder="e.g. 25" required step="any" />
         <label for="usage">Annual electricity usage (kWh):</label>
-        <input type="number" id="usage" placeholder="e.g. 4000" required step="any">
-        <label><input type="checkbox" id="battery"> Include battery?</label>
-        <button type="submit">Calculate</button>
+        <input type="number" id="usage" placeholder="e.g. 4000" required step="any" />
+        <label><input type="checkbox" id="battery" /> Include battery?</label>
+        <button type="submit" class="historic-btn">Calculate</button>
       </form>
       <div id="calcResult"></div>
       <p style="font-size: 0.8rem; margin-top: 1rem; color: gray;">
-        This calculation is based on a system with 9 solar panels – if your roof can fit more, your potential savings will be even higher. These are estimated figures and don’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.
+        This calculation is based on a system with be higher. These are estimated figures and don’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.
       </p>
     </div>
   </section>
-<section id="energy-news" class="section">
-    <h2>Latest UK News Headlines</h2>
-    <ul id="news-list"><li>Loading news...</li></ul>
-    <p style="font-size:0.9rem;color:gray;margin-top:0.5rem;">
-      News provided by NewsAPI.org.<br>
-      For the most up-to-date information, check back here regularly.
-    </p>
-  </section>
-  <section id="historic-prices" class="section">
-    <button onclick="toggleHistoric()" style="font-size:1.1rem;padding:0.5rem 1.5rem;background:#338abf;color:#fff;border:none;border-radius:20px;cursor:pointer;">
-      Show Historic Electricity Prices (2000–2025)
+
+  <section id="energy-news" class="section">
+    <h2>0–2025)
     </button>
-    <div id="historic-graph" style="display:none;margin-top:2rem;">
+    <div id="historic-graph">
       <canvas id="pricesChart" width="400" height="200"></canvas>
       <p style="font-size:0.9rem;color:gray;">
         Sources: 
-        <a href="https://www.gov.uk/government/statistical-data-sets/annual-domestic-energy-price-statistics" target="_blank">UK Government</a>, 
-        <a href="https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindices" target="_blank">Office for National Statistics (ONS)</a>, 
-        <a href="https://www.ofgem.gov.uk/energy-data-and-research/data-portal/retail-market-indicators" target="_blank">Ofgem</a>
+        <a href="https://www.gov.uk/government/statistical-data-sets/annual-domestic-energy-price-statistics" target="_blank" rel="noopener">UK Government</a>, 
+        <a href="https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindices" target="_blank" rel="noopener">Office for National Statistics (ONS)</a>, 
+        <a href="https://wwwOfgem</a>
       </p>
     </div>
   </section>
@@ -243,52 +329,60 @@
   <section id="trust" class="section">
     <h2>Who Can You Trust?</h2>
     <div class="trust-logos">
-      <a class="trust-logo" href="https://mcscertified.com/" target="_blank">
+      <a class="trust-logo" href="https://mcscertified.com/" target="_blank" rel="noopener">
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/MCS_Certification_logo.svg/320px-MCS_Certification_logo.svg.png" alt="MCS Certified" />
         <p><strong>MCS</strong>: Quality guaranteed equipment and installers.</p>
       </a>
-      <a class="trust-logo" href="https://www.epvs.co.uk/" target="_blank">
+      <a class="trust-logo" href="https://www.epvs.co.uk/" target="_blank" rel="noopener">
         <img src="https://www.epvs.co.uk/wp-content/themes/epvs/assets/img/logo.png" alt="EPVS" />
         <p><strong>EPVS</strong>: Verified energy savings and performance claims.</p>
       </a>
-      <a class="trust-logo" href="https://www.hiesscheme.org.uk/" target="_blank">
+      <a class="trust-logo" href="https://www.hiesscheme.org.uk/" target="_blank" rel="noopener">
         <img src="https://www.hiesscheme.org.uk/wp-content/uploads/2018/10/hies-cc-logo-2.png" alt="HIES" />
         <p><strong>HIES</strong>: Consumer protection from start to finish.</p>
       </a>
-      <a class="trust-logo" href="https://www.napit.org.uk/" target="_blank">
+      <a class="trust-logo" href="https://www.napit.org.uk/" target="_blank" rel="noopener">
         <img src="https://www.napit.org.uk/images/napit_logo.png" alt="NAPIT" />
         <p><strong>NAPIT</strong>: Government-approved installer certification.</p>
       </a>
-      <a class="trust-logo" href="https://www.tradingstandards.uk/" target="_blank">
+      <a class="trust-logo" href="https://www.tradingstandards.uk/" target="_blank" rel="noopener">
         <img src="https://seeklogo.com/images/T/trading-standards-uk-logo-D8D8D8E1FE-seeklogo.com.png" alt="Trading Standards" />
         <p><strong>Trading Standards</strong>: Ensuring legal and fair business practices.</p>
       </a>
-      <a class="trust-logo" href="https://www.trustmark.org.uk/" target="_blank">
+      <a class="trust-logo" href="https://www.trustmark.org.uk/" target="_blank" rel="noopener">
         <img src="https://www.trustmark.org.uk/images/default-source/default-album/tm_primary_logo_rgb.jpg?sfvrsn=2" alt="TrustMark" />
         <p><strong>Government TrustMark</strong>: The only government-endorsed quality scheme for trades in and around the home.</p>
       </a>
-      <a class="trust-logo" href="https://register.fca.org.uk/" target="_blank">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Financial_Conduct_Authority_logo.svg/320px-Financial_Conduct_Authority_logo.svg.png" alt="FCA" />
+      <a class="trustCA" />
         <p><strong>FCA</strong>: Regulated advice and consumer financial protection.</p>
       </a>
     </div>
   </section>
+
   <section id="quote" class="section">
     <h2>Request a Free Quote</h2>
     <form action="https://formspree.io/f/mldnarjp" method="POST" class="quote-form" autocomplete="off">
-      <input type="text" name="name" placeholder="Full Name" required autocomplete="name">
-      <input type="text" name="address" id="quote-address" placeholder="Start typing your address…" required autocomplete="street-address">
-      <input type="email" name="email" placeholder="Email Address" required autocomplete="email">
-      <input type="tel" name="phone" placeholder="Phone Number" required autocomplete="tel">
-      <input type="text" name="unitrate" placeholder="Electricity Unit Rate (p/kWh)" required>
-      <input type="text" name="annualspend" placeholder="Annual Electricity Spend (£)" required>
+      <label for="name">Full Name</label>
+      <input type="text" name="name" id="name" placeholder="Full Name" required autocomplete="name" />
+      <label for="quote-address">Address</label>
+      <input type="text" name="address" id="quote-address" placeholder="Start typing your address…" required autocomplete="street-address" />
+      <label for="email">Email Address</label>
+      <input type="email" name="email" id="email" placeholder="Email Address" required autocomplete="email" />
+      <label for="phone">Phone Number</label>
+      <input type="tel" name="phone" id="phone" placeholder="Phone Number" required autocomplete="tel" />
+      <label for="unitrate">Electricity Unit Rate (p/kWh)</label>
+      <input type="text" name="unitrate" id="unitrate" placeholder="Electricity Unit Rate (p/kWh)" required />
+      <label for="annualspend">Annual Electricity Spend (£)</label>
+      <input type="text" name="annualspend" id="annualspend" placeholder="Annual Electricity Spend (£)" required />
       <button type="submit">Send My Quote Request</button>
     </form>
   </section>
+
   <footer>
     <p>&copy; 2025 Let’s Talk About Solar. All rights reserved.</p>
   </footer>
-<!-- MAIN SCRIPTS -->
+
+  <!-- MAIN SCRIPTS -->
   <script>
     // Navbar hide on scroll (FIXED)
     let orientationFactor = 0.9;
@@ -356,13 +450,12 @@
     // Historic Prices Graph Toggle
     function toggleHistoric() {
       const graphDiv = document.getElementById('historic-graph');
+      const btn = event?.target;
       if (!graphDiv) return;
-      if (graphDiv.style.display === 'none' || graphDiv.style.display === '') {
-        graphDiv.style.display = 'block';
-        drawHistoricChart();
-      } else {
-        graphDiv.style.display = 'none';
-      }
+      const expanded = graphDiv.style.display === 'block';
+      graphDiv.style.display = expanded ? 'none' : 'block';
+      if (btn) btn.setAttribute('aria-expanded', (!expanded).toString());
+      if (!expanded) drawHistoricChart();
     }
 
     // Draw Chart with Chart.js
