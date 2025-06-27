@@ -494,9 +494,10 @@
 
   <!-- MAIN SCRIPTS -->
   <script>
+    // Default orientationFactor
+    let orientationFactor = 0.9;
     let lastScroll = 0;
     const nav = document.getElementById("navbar");
-    let orientationFactor = 1;
 
     window.addEventListener("scroll", () => {
       const currentScroll = window.pageYOffset;
@@ -609,34 +610,36 @@
       }
     }
 
-    // Updated Solar Savings Calculator
+    // Robust Solar Savings Calculator
     document.getElementById("calcForm").addEventListener("submit", function (e) {
       e.preventDefault();
       const rate = parseFloat(document.getElementById("rate").value); // pence per kWh
       const usage = parseFloat(document.getElementById("usage").value); // annual usage in kWh
       const battery = document.getElementById("battery").checked;
 
-      // 9 x 460W panels = 4.14kWp, limited by 3.68kW inverter
-      const systemSizeKW = 3.68; // kWp
-      const panelSystemKW = 9 * 0.46; // 4.14kW, but limited by inverter
-      const pitchDeg = 35;
+      // Validate input
+      if (isNaN(rate) || rate <= 0 || isNaN(usage) || usage <= 0) {
+        document.getElementById("calcResult").innerHTML =
+          "<p style='color:red'>Please enter valid numbers for your unit rate and annual usage.</p>";
+        return;
+      }
 
-      // UK avg irradiance for 35deg S: ~1050 kWh/kWp/year, adjust for orientation
+      // 9 x 460W panels = 4.14kWp, limited by 3.68kW inverter
+      const systemSizeKW = 3.68;
+      const panelSystemKW = 9 * 0.46; // 4.14kW, but limited by inverter
       const kwhPerKWp = 1050;
-      const estimatedAnnualGen = Math.min(systemSizeKW, panelSystemKW) * kwhPerKWp * orientationFactor;
+      // If orientationFactor is missing, use default
+      const orientation = typeof orientationFactor === "number" && orientationFactor > 0 ? orientationFactor : 0.9;
+      const estimatedAnnualGen = Math.min(systemSizeKW, panelSystemKW) * kwhPerKWp * orientation;
 
       // Battery settings
       let usableBatteryKWh = 0;
-      let batteryCyclesPerYear = 0;
       let batterySelfUse = 0;
       if (battery) {
-        // 5kWh battery, 90% usable each way (charge/discharge)
         usableBatteryKWh = 5 * 0.9 * 0.9; // 4.05kWh
-        batteryCyclesPerYear = 365;
-        batterySelfUse = Math.min(estimatedAnnualGen, usableBatteryKWh * batteryCyclesPerYear);
+        batterySelfUse = Math.min(estimatedAnnualGen, usableBatteryKWh * 365);
       }
 
-      // Self-consumption ratio
       let selfConsumptionRatio = battery ? 0.90 : 0.65;
       let selfUsedKWh = estimatedAnnualGen * selfConsumptionRatio;
       if (battery) {
@@ -645,8 +648,13 @@
       const savings = (selfUsedKWh * rate) / 100;
       const breakEvenEstimate = battery ? 9500 : 7500;
 
-      const calcResult = document.getElementById("calcResult");
-      calcResult.innerHTML = `
+      if (isNaN(savings) || savings <= 0) {
+        document.getElementById("calcResult").innerHTML =
+          "<p style='color:red'>Unable to calculate savings. Please check your entries.</p>";
+        return;
+      }
+
+      document.getElementById("calcResult").innerHTML = `
         <h3>Estimated Annual Savings: £${savings.toFixed(2)}</h3>
         <p>Your system is estimated to generate <strong>${estimatedAnnualGen.toFixed(0)} kWh</strong> per year.</p>
         <p>Annual self-used solar: <strong>${selfUsedKWh.toFixed(0)} kWh</strong> (${(100*selfUsedKWh/usage).toFixed(0)}% of your usage${battery ? ' with 5kWh battery' : ''}).</p>
