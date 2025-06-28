@@ -74,7 +74,7 @@
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      background:
+      background: 
         linear-gradient(to right, rgba(224,247,255,0.75), rgba(255,255,255,0.75)),
         url('assets/solar-bg.jpg') center/cover no-repeat;
       margin-top: 72px;
@@ -176,6 +176,7 @@
     #solar-toolkit h2 {
       text-align: center;
     }
+    /* Facebook Feed Section */
     .facebook-feed-section {
       max-width: 700px;
       margin: 3rem auto;
@@ -374,6 +375,7 @@
       <li><a href="#quote" class="cta-nav">Get Quote</a></li>
     </ul>
   </nav>
+
   <section class="hero" id="hero">
     <div class="hero-text">
       <h1>Sunshine Meets Smart Savings</h1>
@@ -381,6 +383,7 @@
       <a href="#quote" class="cta">Get My Free Quote</a>
     </div>
   </section>
+
   <section id="benefits" class="section">
     <h2>Why Solar?</h2>
     <div class="benefit-cards">
@@ -398,12 +401,13 @@
       </div>
     </div>
   </section>
+
   <section id="solar-toolkit" class="section">
     <div>
       <h2>Check Your Roof Orientation</h2>
       <p>Enter your address to estimate your solar potential.</p>
       <input id="addressInput" type="text" placeholder="Enter your address" style="max-width:350px;margin:0 auto 1rem auto;display:block;" />
-      <button id="toggleMapBtn" type="button" onclick="toggleStreetView()" style="margin:1rem 0 1.2rem 0;padding:0.7rem 1.3rem;border-radius:999px;background:#72bcd4;color:#fff;font-weight:bold;font-size:1rem;border:none;box-shadow:0 2px 8px rgba(114,188,212,0.07);cursor:pointer;">
+      <button id="toggleMapBtn" onclick="toggleStreetView()" style="margin:1rem 0 1.2rem 0;padding:0.7rem 1.3rem;border-radius:999px;background:#72bcd4;color:#fff;font-weight:bold;font-size:1rem;border:none;box-shadow:0 2px 8px rgba(114,188,212,0.07);cursor:pointer;">
         Show Street View
       </button>
       <div id="streetview-container" style="width:100%;max-width:400px;height:200px;display:none;border-radius:18px;overflow:hidden;margin:0 auto 1rem auto;background:#f4fbff;">
@@ -413,42 +417,18 @@
     </div>
     <div>
       <h2>Solar Savings Calculator</h2>
-      <form id="calcForm" class="calculator" autocomplete="off">
+      <form id="calcForm" class="calculator">
         <label for="rate">Electricity unit rate (p/kWh):</label>
         <input type="number" id="rate" placeholder="e.g. 25" required>
         <label for="usage">Annual electricity usage (kWh):</label>
         <input type="number" id="usage" placeholder="e.g. 4000" required>
         <label><input type="checkbox" id="battery"> Include battery?</label>
-        <button type="submit" id="calcBtn">Calculate</button>
+        <button type="submit">Calculate</button>
       </form>
       <div id="calcResult"></div>
     </div>
   </section>
-  <!-- BEGIN: Solar Finance Monthly Payment Example -->
-  <section id="solar-finance" class="section">
-    <h2>Solar System Monthly Payment Example</h2>
-    <div class="calculator" style="margin-bottom:1.5rem;">
-      <p>
-        <strong>Example:</strong> A £9,500 solar system over 10 years at 9.9% APR.<br>
-        <span style="font-size:0.97em;color:#666;">
-          Enter your estimated monthly electricity bill savings to see your net cost.
-        </span>
-      </p>
-      <form id="finance-calc-form">
-        <label for="bill-saving">Estimated monthly bill saving (£):</label>
-        <input type="number" id="bill-saving" min="0" step="1" placeholder="e.g. 70" required>
-        <button type="submit" style="margin-top:1rem;">Calculate Offset</button>
-      </form>
-      <div id="finance-result" style="margin-top:1.2em;font-size:1.15em;"></div>
-    </div>
-    <div style="font-size:0.92em;color:gray;">
-      <em>
-        This example is for illustration purposes only and does not constitute financial advice or an offer of credit. Actual terms and savings will vary.<br>
-        We do not offer or arrange finance. Please seek professional advice before making any financial commitment.
-      </em>
-    </div>
-  </section>
-  <!-- END: Solar Finance Monthly Payment Example -->
+
   <section id="historic-prices" class="section">
     <button onclick="toggleHistoric()" style="font-size:1.1rem;padding:0.5rem 1.5rem;background:#72bcd4;color:#fff;border:none;border-radius:20px;cursor:pointer;">
       Show Historic Electricity Prices (2000-2025)
@@ -464,13 +444,82 @@
     </div>
   </section>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
   <section id="trust" class="section">
-    <!-- ...your trust section here... -->
+    <h2>Who Can You Trust?</h2>
+    <div class="trust-icons">
+      <div>
+        <a href="https://mcscertified.com/" target="_blank" title="MCS: Quality guaranteed equipment and installers">
+          <img src="assets/mcs logo.png" alt="MCS Certified" />
+        </a>
+        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <strong>MCS (Microgeneration Certification Scheme):</strong><br>
+          Guarantees your installer and solar products meet strict UK quality and safety standards. MCS certification is required for eligibility for government incentives and ensures your installation is reliable and high performing.
+        </p>
+      </div>
+      <div>
+        <a href="https://www.epvs.co.uk/" target="_blank" title="EPVS: Verified energy savings and performance claims">
+          <img src="assets/epvs logi.jpeg" alt="EPVS" />
+        </a>
+        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <strong>EPVS (Energy Performance Validation Scheme):</strong><br>
+          Protects you from misleading sales claims by ensuring all performance figures and savings estimates from your installer are independently validated and accurate.
+        </p>
+      </div>
+      <div>
+        <a href="https://www.hiesscheme.org.uk/" target="_blank" title="HIES: Consumer protection from start to finish">
+          <img src="assets/hies-cc-logo-2.png" alt="HIES" />
+        </a>
+        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <strong>HIES (Home Insulation & Energy Systems):</strong><br>
+          Provides consumer protection including deposit and warranty insurance, dispute resolution, and ensures you’re covered if anything goes wrong with your solar purchase.
+        </p>
+      </div>
+      <div>
+        <a href="https://www.napit.org.uk/" target="_blank" title="NAPIT: Government-approved installer certification">
+          <img src="assets/NAPIT-NEW-LOGO.jpg" alt="NAPIT" />
+        </a>
+        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <strong>NAPIT (National Association of Professional Inspectors and Testers):</strong><br>
+          Certifies electrical safety and compliance of your installer, ensuring your solar system is installed to the latest regulations and standards.
+        </p>
+      </div>
+      <div>
+        <a href="https://www.tradingstandards.uk/" target="_blank" title="Trading Standards: Ensuring legal and fair business practices">
+          <img src="assets/trading-standards-uk-logo.png" alt="Trading Standards" />
+        </a>
+        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <strong>Trading Standards:</strong><br>
+          Ensures solar businesses comply with UK consumer laws and codes of practice, protecting you from unfair sales and poor business practices.
+        </p>
+      </div>
+      <div>
+        <a href="https://www.trustmark.org.uk/" target="_blank" title="Government TrustMark: The only government-endorsed quality scheme for trades in and around the home">
+          <img src="assets/tm_primary_logo_rgb.jpg" alt="TrustMark" />
+        </a>
+        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <strong>TrustMark:</strong><br>
+          Government-endorsed scheme ensuring your solar installer is thoroughly vetted for quality, customer service, and trading practices.
+        </p>
+      </div>
+      <div>
+        <a href="https://register.fca.org.uk/" target="_blank" title="FCA: Regulated advice and consumer financial protection">
+          <img src="assets/Financial_Conduct_Authority_logo.svg.png" alt="FCA" />
+        </a>
+        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <strong>FCA (Financial Conduct Authority):</strong><br>
+          Regulates finance providers and credit agreements, protecting you if you choose to finance your solar system, ensuring fair, clear, and legal financial products.
+        </p>
+      </div>
+    </div>
   </section>
+
+  <!-- Facebook Feed Section -->
   <section id="facebook-feed" class="facebook-feed-section">
     <h2>Latest from Our Facebook Page</h2>
     <div id="fb-feed">Loading posts…</div>
   </section>
+
   <section id="quote" class="section">
     <h2>Request a Free Quote</h2>
     <form action="https://formspree.io/f/mldnarjp" method="POST" class="quote-form">
@@ -483,108 +532,16 @@
       <button type="submit">Send My Quote Request</button>
     </form>
   </section>
+
   <footer>
     <p>&copy; 2025 Let’s Talk About Solar. All rights reserved.</p>
   </footer>
+
   <script>
-    // --- Orientation Calculator ---
-    let autocomplete, panorama, geocoder;
-    let lastLatLng = null;
-    function mapsApiLoaded() {
-      geocoder = new google.maps.Geocoder();
-      autocomplete = new google.maps.places.Autocomplete(
-        document.getElementById('addressInput'),
-        { types: ['geocode'], componentRestrictions: { country: 'gb' } }
-      );
-      autocomplete.addListener('place_changed', onPlaceSelected);
-    }
-    function onPlaceSelected() {
-      const place = autocomplete.getPlace();
-      if (place.geometry && place.geometry.location) {
-        const latLng = place.geometry.location;
-        lastLatLng = latLng;
-        showOrientation(latLng);
-      }
-    }
-    function showOrientation(latLng) {
-      document.getElementById('orientationResult').innerText =
-        'Selected location: ' + latLng.lat().toFixed(5) + ', ' + latLng.lng().toFixed(5) +
-        '\n(Orientation estimation coming soon)';
-    }
-    function toggleStreetView() {
-      const container = document.getElementById('streetview-container');
-      if (!container) return;
-      if (container.style.display === 'none' || !container.style.display) {
-        container.style.display = 'block';
-        if (lastLatLng) {
-          if (!panorama) {
-            panorama = new google.maps.StreetViewPanorama(
-              document.getElementById('pano'),
-              {
-                position: lastLatLng,
-                pov: { heading: 165, pitch: 0 },
-                zoom: 1
-              }
-            );
-          } else {
-            panorama.setPosition(lastLatLng);
-          }
-        }
-      } else {
-        container.style.display = 'none';
-      }
-    }
-
-    // --- Solar Savings Calculator ---
-    document.addEventListener('DOMContentLoaded', function() {
-      // Savings Calculator
-      const calcForm = document.getElementById('calcForm');
-      if (calcForm) {
-        calcForm.addEventListener('submit', function(e) {
-          e.preventDefault();
-          const rate = parseFloat(document.getElementById('rate').value) || 0;
-          const usage = parseFloat(document.getElementById('usage').value) || 0;
-          const battery = document.getElementById('battery').checked;
-          if (!rate || !usage) {
-            document.getElementById('calcResult').innerText = 'Please enter valid numbers.';
-            return;
-          }
-          // Example calculation: 45% offset without battery, 65% with battery.
-          const offset = battery ? 0.65 : 0.45;
-          const annualSaving = usage * offset * (rate / 100);
-          document.getElementById('calcResult').innerHTML =
-            `Estimated first-year savings: <strong>£${annualSaving.toFixed(2)}</strong> (${(offset*100).toFixed(0)}% bill offset${battery ? ' (with battery)' : ''})`;
-        });
-      }
-
-      // --- Finance Calculator ---
-      const form = document.getElementById('finance-calc-form');
-      const loanAmount = 9500;
-      const years = 10;
-      const apr = 9.9;
-      const months = years * 12;
-      const monthlyRate = apr / 100 / 12;
-      function calculateMonthlyPayment(P, r, n) {
-        return (P * r) / (1 - Math.pow(1 + r, -n));
-      }
-      const monthlyPayment = calculateMonthlyPayment(loanAmount, monthlyRate, months);
-      if (form) {
-        form.addEventListener('submit', function(e){
-          e.preventDefault();
-          const saving = parseFloat(document.getElementById('bill-saving').value || '0');
-          const offset = monthlyPayment - saving;
-          const resultDiv = document.getElementById('finance-result');
-          resultDiv.innerHTML =
-            `<strong>Estimated monthly payment: £${monthlyPayment.toFixed(2)}</strong><br>
-            If you save £${saving.toFixed(2)}/month on bills, your net extra cost could be <strong>£${offset.toFixed(2)}/month</strong>.`;
-        });
-      }
-    });
-
-    // --- Facebook Feed Fetcher (existing, unchanged) ---
+    // Facebook Feed Fetcher (using the new access token)
     (function() {
       const PAGE_ID = "1065220185700265";
-      const PAGE_ACCESS_TOKEN = "EAAPIzZBbGt6kBOZBSOCOOuBKIZC3E8yAp8LZALPDrD4VB9KdSnhRCjZCYhFoREmst5lpermalink_url,full_picture&access_token=${PAGE_ACCESS_TOKEN}";
+      const PAGE_ACCESS_TOKEN = "EAAPIzZBbGt6kBOZBSOCOOuBKIZC3E8yAp8LZALPDrD4VB9KdSnhRCjZCYhFoREmst5lL78Jg4ZCd4Xab1uBOpIrnb2796AbNJEEWGfqa4WGjGghQA7AcfPOohnwNfgupUAt15JFTiQvd55RLoFlpsyJIjRxZBtKGg8GNUCe2Th4v0eW8Maexul6MbDdeYbtSdiyrW50aoA6DzM3WQngob9CDwCuFW40QU7umJSYzoIZB2NsZD";
       const url = `https://graph.facebook.com/v19.0/${PAGE_ID}/posts?fields=message,created_time,permalink_url,full_picture&access_token=${PAGE_ACCESS_TOKEN}`;
       fetch(url)
         .then(r => r.json())
@@ -594,4 +551,250 @@
             container.innerHTML = data.data.map(post => `
               <div class="fb-post">
                 <div class="fb-date">${new Date(post.created_time).toLocaleString()}</div>
-                <div cla
+                <div class="fb-message">${post.message ? post.message.replace(/\n/g, "<br>") : "<em>No text content</em>"}</div>
+                ${post.full_picture ? `<img src="${post.full_picture}" alt="Post image" style="max-width:100%;border-radius:8px;margin:0.6em 0;">` : ""}
+                <a class="fb-link" href="${post.permalink_url}" target="_blank">View on Facebook</a>
+              </div>
+            `).join('');
+          } else {
+            container.innerHTML = "<p>No posts found, or token expired/insufficient permissions.</p>";
+          }
+        })
+        .catch(err => {
+          document.getElementById('fb-feed').innerHTML = "<p>Error fetching posts.</p>";
+          console.error(err);
+        });
+    })();
+
+    let lastScroll = 0;
+    const nav = document.getElementById("navbar");
+    let orientationFactor = 1;
+
+    window.addEventListener("scroll", () => {
+      const currentScroll = window.pageYOffset;
+      nav.classList.toggle("hidden", currentScroll > lastScroll);
+      lastScroll = currentScroll;
+    });
+
+    // Orientation section logic (Street View only)
+    let autocomplete, lastPlaceLocation = null, panoMap = null;
+
+    // The callback for Google Maps JS API - sets up both orientation and quote form autocomplete
+    function mapsApiLoaded() {
+      if (typeof initMap === "function") initMap();
+      if (typeof initQuoteAddressAutocomplete === "function") initQuoteAddressAutocomplete();
+    }
+
+    function initMap() {
+      const input = document.getElementById("addressInput");
+      autocomplete = new google.maps.places.Autocomplete(input, {
+        componentRestrictions: { country: 'uk' },
+        fields: ["geometry", "formatted_address", "address_components"],
+        types: ["address"]
+      });
+
+      autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+        if (!place.geometry || !place.geometry.location) {
+          alert("No details available for input: '" + place.name + "'");
+          lastPlaceLocation = null;
+          return;
+        }
+        lastPlaceLocation = place.geometry.location;
+        // Orientation logic
+        const viewport = place.geometry.viewport;
+        let orientation = "Unknown";
+        let explanation = "";
+        orientationFactor = 0.9;
+
+        if (viewport) {
+          const ne = viewport.getNorthEast();
+          const sw = viewport.getSouthWest();
+          const angle = Math.atan2(ne.lat() - sw.lat(), ne.lng() - sw.lng()) * (180 / Math.PI);
+
+          if (angle > -45 && angle <= 45) {
+            orientation = "East";
+            orientationFactor = 0.85;
+            explanation = "Your front roof likely faces East and the rear West. A solar system can still work well with morning sunlight.";
+          } else if (angle > 45 && angle <= 135) {
+            orientation = "North";
+            orientationFactor = 0.75;
+            explanation = "Your front roof likely faces North and the rear South. South-facing roofs are ideal for solar.";
+          } else if (angle > -135 && angle <= -45) {
+            orientation = "South";
+            orientationFactor = 1.0;
+            explanation = "Your front roof likely faces South and the rear North. This is excellent for solar efficiency.";
+          } else {
+            orientation = "West";
+            orientationFactor = 0.8;
+            explanation = "Your front roof likely faces West and the rear East. Good for catching late afternoon sunlight.";
+          }
+        }
+
+        document.getElementById("orientationResult").innerHTML =
+          `<strong>Estimated Roof Orientation:</strong> ${orientation}<br><em>${explanation}</em>`;
+      });
+    }
+
+    function initQuoteAddressAutocomplete() {
+      var input = document.getElementById('quote-address');
+      if (!input) return;
+      var options = {
+        componentRestrictions: { country: 'uk' },
+        fields: ["formatted_address", "geometry"],
+        types: ["address"]
+      };
+      var autocomplete = new google.maps.places.Autocomplete(input, options);
+      autocomplete.setBounds(new google.maps.LatLngBounds(
+        new google.maps.LatLng(49.9, -7.6),
+        new google.maps.LatLng(58.7, 1.8)
+      ));
+    }
+
+    function toggleStreetView() {
+      const container = document.getElementById("streetview-container");
+      const btn = document.getElementById("toggleMapBtn");
+      if (container.style.display === 'none' || container.style.display === '') {
+        if (!lastPlaceLocation) {
+          alert("Please enter your address and select it from the dropdown first.");
+          return;
+        }
+        container.style.display = "block";
+        if (!panoMap) {
+          panoMap = new google.maps.StreetViewPanorama(
+            document.getElementById("pano"),
+            {
+              position: lastPlaceLocation,
+              pov: { heading: 165, pitch: 0 },
+              zoom: 1
+            }
+          );
+        } else {
+          panoMap.setPosition(lastPlaceLocation);
+        }
+        btn.innerText = "Hide Street View";
+      } else {
+        container.style.display = "none";
+        btn.innerText = "Show Street View";
+      }
+    }
+
+    // --- SOLAR CALCULATOR (with 10 year projection and 7.04% annual price increase) ---
+    document.getElementById("calcForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const rate = parseFloat(document.getElementById("rate").value);
+      const usage = parseFloat(document.getElementById("usage").value);
+      const battery = document.getElementById("battery").checked;
+      const systemSizeKW = 3.68;
+      const panelSystemKW = 9 * 0.46;
+      const pitchDeg = 35;
+      const kwhPerKWp = 1050;
+      const estimatedAnnualGen = Math.min(systemSizeKW, panelSystemKW) * kwhPerKWp * orientationFactor;
+      let usableBatteryKWh = 0;
+      let batteryCyclesPerYear = 0;
+      let batterySelfUse = 0;
+      if (battery) {
+        usableBatteryKWh = 5 * 0.9 * 0.9;
+        batteryCyclesPerYear = 365;
+        batterySelfUse = Math.min(estimatedAnnualGen, usableBatteryKWh * batteryCyclesPerYear);
+      }
+      let selfConsumptionRatio = battery ? 0.90 : 0.65;
+      let selfUsedKWh = estimatedAnnualGen * selfConsumptionRatio;
+      if (battery) {
+        selfUsedKWh = Math.min(selfUsedKWh + batterySelfUse, estimatedAnnualGen, usage);
+      }
+      // 10-year savings projection
+      let annualSavingsArr = [];
+      let price = rate;
+      let cumulative = 0;
+      for (let year = 1; year <= 10; year++) {
+        let yearSavings = (selfUsedKWh * price) / 100;
+        cumulative += yearSavings;
+        annualSavingsArr.push({
+          year,
+          price: price.toFixed(2),
+          savings: yearSavings.toFixed(2),
+          cumulative: cumulative.toFixed(2)
+        });
+        price *= 1.0704; // Increase by 7.04% each year
+      }
+      const breakEvenEstimate = battery ? 9500 : 7500;
+      let tableRows = annualSavingsArr.map(row => 
+        `<tr><td>Year ${row.year}</td><td>£${row.savings}</td><td>${row.price}p/kWh</td><td>£${row.cumulative}</td></tr>`
+      ).join('');
+      const calcResult = document.getElementById("calcResult");
+      calcResult.innerHTML = `
+        <h3>Estimated Annual Savings (Year 1): £${annualSavingsArr[0].savings}</h3>
+        <p>Your system is estimated to generate <strong>${estimatedAnnualGen.toFixed(0)} kWh</strong> per year.</p>
+        <p>Annual self-used solar: <strong>${selfUsedKWh.toFixed(0)} kWh</strong> (${(100*selfUsedKWh/usage).toFixed(0)}% of your usage${battery ? ' with 5kWh battery' : ''}).</p>
+        <p>Typical installation: <strong>£${breakEvenEstimate.toLocaleString()}</strong></p>
+        <h4>Projected Savings Over 10 Years (with 7.04% price increase per year):</h4>
+        <table style="margin:auto;border-collapse:collapse;">
+          <tr>
+            <th>Year</th>
+            <th>Annual Savings</th>
+            <th>Price per kWh</th>
+            <th>Cumulative Savings</th>
+          </tr>
+          ${tableRows}
+        </table>
+        <p style="font-size:0.95em;color:#888;">This calculation is based on a system with 9 solar panels – if your roof can fit more, your potential savings will be even higher. These are estimated figures and don’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.</p>
+      `;
+    });
+
+    function toggleHistoric() {
+      let g = document.getElementById('historic-graph');
+      g.style.display = (g.style.display === 'none' || g.style.display === '') ? 'block' : 'none';
+      if (g.style.display === 'block' && !window._historicChartLoaded) {
+        drawPriceChart();
+        window._historicChartLoaded = true;
+      }
+    }
+    function drawPriceChart() {
+      const ctx = document.getElementById('pricesChart').getContext('2d');
+      const years = [
+        2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,
+        2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,
+        2020,2021,2022,2023,2024,2025
+      ];
+      const prices = [
+        7.0,7.3,7.2,7.1,7.4,8.2,10.0,10.6,13.3,13.9,
+        13.7,14.5,15.5,15.6,15.6,15.2,14.4,14.4,15.0,17.2,
+        17.2,19.0,28.0,30.0,28.5,27.5
+      ];
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: years,
+          datasets: [{
+            label: 'UK Domestic Electricity Price (p/kWh)',
+            data: prices,
+            borderColor: '#72bcd4',
+            backgroundColor: 'rgba(114,188,212,0.15)',
+            tension: 0.25,
+            pointBackgroundColor: '#ffd700',
+            pointRadius: 5,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: true },
+            tooltip: { enabled: true }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: { display: true, text: 'pence per kWh' }
+            },
+            x: {
+              title: { display: true, text: 'Year' }
+            }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
