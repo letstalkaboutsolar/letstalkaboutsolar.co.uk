@@ -366,6 +366,53 @@
     .accredit-card:focus-within .accredit-card-desc {
       display: block;
     }
+    /* About Us Section */
+    .about-section {
+      max-width: 750px;
+      margin: 3rem auto 2.5rem auto;
+      background: rgba(25,38,50,0.98);
+      color: #ffd700;
+      border-radius: 24px;
+      box-shadow: 0 4px 18px #397a9440;
+      padding: 2.5rem 1.2rem;
+      text-align: left;
+    }
+    .about-section h2 {
+      color: #ffd700;
+      font-size: 2.1rem;
+      margin-top: 0;
+      margin-bottom: 1.1rem;
+      text-align: center;
+    }
+    .about-section p {
+      color: #fffbe7;
+      font-size: 1.13rem;
+      line-height: 1.7;
+      margin-bottom: 1.2em;
+    }
+    .about-section .about-highlight {
+      color: #ffd700;
+      font-size: 1.15rem;
+      font-weight: bold;
+      margin-bottom: 0.4em;
+      display: block;
+      text-align: center;
+    }
+    .about-section .about-contact {
+      text-align: center;
+      margin-top: 1.5em;
+    }
+    .about-section .about-contact a {
+      color: #ffd700;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+    .about-section hr {
+      border: none;
+      border-top: 1px solid #ffd70055;
+      margin: 2em auto 1.2em auto;
+      width: 65%;
+    }
     @media (max-width: 900px) {
       #solar-toolkit {
         flex-direction: column;
@@ -391,6 +438,9 @@
         width: 99%;
         max-width: 99vw;
       }
+      .about-section {
+        padding: 1.4rem 0.6rem;
+      }
     }
     @keyframes fadeIn {
       from { opacity: 0; transform: translate(-50%, 1.5em);}
@@ -414,6 +464,7 @@
     <div class="logo">Let’s Talk About Solar</div>
     <ul>
       <li><a href="#hero">Home</a></li>
+      <li><a href="#about">About Us</a></li>
       <li><a href="#benefits">Why Solar?</a></li>
       <li><a href="#orientation">Orientation</a></li>
       <li><a href="#calculator">Savings</a></li>
@@ -430,6 +481,32 @@
       <a href="#quote" class="cta">Get My Free Quote</a>
     </div>
   </section>
+
+  <!-- ABOUT US SECTION -->
+  <section id="about" class="about-section">
+    <h2>About Us</h2>
+    <p>
+      At <strong>Let’s Talk About Solar</strong>, we believe that solar power should be simple, affordable, and transparent for every UK homeowner. We're not here to push products — we're here to provide real, honest advice that helps you make the best decision for your home and your future.
+    </p>
+    <p>
+      We’re passionate about helping families reduce their energy bills, protect themselves from rising prices, and generate clean energy using trusted technologies. Our mission is to remove confusion from the solar process by offering clear tools, free advice, and access to certified local installers you can rely on.
+    </p>
+    <p>
+      Whether you’re just starting to explore solar or you’re ready to get a quote, we’re here to support you every step of the way.
+    </p>
+    <span class="about-highlight">
+      No jargon. No pressure. Just solar made simple.
+    </span>
+    <hr>
+    <div class="about-contact">
+      <span style="font-size:1.45rem;">💬</span>
+      <span style="font-size:1.07rem; color:#fffbe7; display:inline-block; margin-left:0.5em;">
+        <b>Have questions?</b> Reach us anytime at
+        <a href="mailto:info@letstalkaboutsolar.co.uk">info@letstalkaboutsolar.co.uk</a> — we’re happy to help.
+      </span>
+    </div>
+  </section>
+  <!-- END ABOUT US SECTION -->
 
   <section id="benefits" class="section">
     <h2>Why Solar?</h2>
