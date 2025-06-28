@@ -292,6 +292,52 @@
         margin: 0 auto 2rem auto;
       }
     }
+    /* --- TRUST ACCREDITATIONS --- */
+    .accredit-desc {
+      display: none;
+      background: #17384a;
+      color: #ffc700;
+      border-radius: 12px;
+      box-shadow: 0 2px 16px #20455b44;
+      margin-top: 0.6em;
+      padding: 0.8em 1em;
+      font-size: 0.99em;
+      text-align: left;
+      max-width: 300px;
+    }
+    .accredit-item.active .accredit-desc {
+      display: block;
+    }
+    .accredit-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #ffc700;
+      font: inherit;
+    }
+    .accredit-btn img {
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 6px #e3f0fc);
+      background: #11202b;
+      border-radius: 12px;
+      padding: 7px;
+      margin-bottom: 0.4rem;
+      border: 1px solid #397a94;
+    }
+    .accredit-btn span {
+      margin-top: 0.2em;
+      font-size: 1.07em;
+      color: #ffc700;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+    /* --- END TRUST ACCREDITATIONS --- */
     .trust-icons {
       display: flex;
       flex-wrap: wrap;
@@ -510,7 +556,6 @@
         <label for="usage">Annual electricity usage (kWh):</label>
         <input type="number" id="usage" placeholder="e.g. 4000" required>
         <label><input type="checkbox" id="battery"> Include battery?</label>
-        <!-- Added "I'm home during the day" checkbox -->
         <label><input type="checkbox" id="homeDay"> I'm home during the day</label>
         <button type="submit">Calculate</button>
       </form>
@@ -549,74 +594,83 @@
   </section>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
+  <!-- TRUST ACCREDITATION SECTION WITH CLICK-TO-REVEAL -->
   <section id="trust" class="section">
     <h2>Who Can You Trust?</h2>
     <div class="trust-icons">
-      <div>
-        <a href="https://mcscertified.com/" target="_blank" title="MCS: Quality guaranteed equipment and installers">
+      <div class="accredit-item">
+        <button class="accredit-btn" type="button" title="Show details for MCS">
           <img src="assets/mcs logo.png" alt="MCS Certified" />
-        </a>
-        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <span>MCS</span>
+        </button>
+        <div class="accredit-desc">
           <strong>MCS (Microgeneration Certification Scheme):</strong><br>
           Guarantees your installer and solar products meet strict UK quality and safety standards. MCS certification is required for eligibility for government incentives and ensures your installation is reliable and high performing.
-        </p>
+        </div>
       </div>
-      <div>
-        <a href="https://www.epvs.co.uk/" target="_blank" title="EPVS: Verified energy savings and performance claims">
+      <div class="accredit-item">
+        <button class="accredit-btn" type="button" title="Show details for EPVS">
           <img src="assets/epvs logi.jpeg" alt="EPVS" />
-        </a>
-        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <span>EPVS</span>
+        </button>
+        <div class="accredit-desc">
           <strong>EPVS (Energy Performance Validation Scheme):</strong><br>
           Protects you from misleading sales claims by ensuring all performance figures and savings estimates from your installer are independently validated and accurate.
-        </p>
+        </div>
       </div>
-      <div>
-        <a href="https://www.hiesscheme.org.uk/" target="_blank" title="HIES: Consumer protection from start to finish">
+      <div class="accredit-item">
+        <button class="accredit-btn" type="button" title="Show details for HIES">
           <img src="assets/hies-cc-logo-2.png" alt="HIES" />
-        </a>
-        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <span>HIES</span>
+        </button>
+        <div class="accredit-desc">
           <strong>HIES (Home Insulation & Energy Systems):</strong><br>
           Provides consumer protection including deposit and warranty insurance, dispute resolution, and ensures you’re covered if anything goes wrong with your solar purchase.
-        </p>
+        </div>
       </div>
-      <div>
-        <a href="https://www.napit.org.uk/" target="_blank" title="NAPIT: Government-approved installer certification">
+      <div class="accredit-item">
+        <button class="accredit-btn" type="button" title="Show details for NAPIT">
           <img src="assets/NAPIT-NEW-LOGO.jpg" alt="NAPIT" />
-        </a>
-        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <span>NAPIT</span>
+        </button>
+        <div class="accredit-desc">
           <strong>NAPIT (National Association of Professional Inspectors and Testers):</strong><br>
           Certifies electrical safety and compliance of your installer, ensuring your solar system is installed to the latest regulations and standards.
-        </p>
+        </div>
       </div>
-      <div>
-        <a href="https://www.tradingstandards.uk/" target="_blank" title="Trading Standards: Ensuring legal and fair business practices">
+      <div class="accredit-item">
+        <button class="accredit-btn" type="button" title="Show details for Trading Standards">
           <img src="assets/trading-standards-uk-logo.png" alt="Trading Standards" />
-        </a>
-        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <span>Trading Standards</span>
+        </button>
+        <div class="accredit-desc">
           <strong>Trading Standards:</strong><br>
           Ensures solar businesses comply with UK consumer laws and codes of practice, protecting you from unfair sales and poor business practices.
-        </p>
+        </div>
       </div>
-      <div>
-        <a href="https://www.trustmark.org.uk/" target="_blank" title="Government TrustMark: The only government-endorsed quality scheme for trades in and around the home">
+      <div class="accredit-item">
+        <button class="accredit-btn" type="button" title="Show details for TrustMark">
           <img src="assets/tm_primary_logo_rgb.jpg" alt="TrustMark" />
-        </a>
-        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <span>TrustMark</span>
+        </button>
+        <div class="accredit-desc">
           <strong>TrustMark:</strong><br>
           Government-endorsed scheme ensuring your solar installer is thoroughly vetted for quality, customer service, and trading practices.
-        </p>
+        </div>
       </div>
-      <div>
-        <a href="https://register.fca.org.uk/" target="_blank" title="FCA: Regulated advice and consumer financial protection">
+      <div class="accredit-item">
+        <button class="accredit-btn" type="button" title="Show details for FCA">
           <img src="assets/Financial_Conduct_Authority_logo.svg.png" alt="FCA" />
-        </a>
-        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <span>FCA</span>
+        </button>
+        <div class="accredit-desc">
           <strong>FCA (Financial Conduct Authority):</strong><br>
           Regulates finance providers and credit agreements, protecting you if you choose to finance your solar system, ensuring fair, clear, and legal financial products.
-        </p>
+        </div>
       </div>
     </div>
   </section>
+  <!-- END TRUST ACCREDITATION SECTION -->
 
   <!-- Facebook Feed Section -->
   <section id="facebook-feed" class="facebook-feed-section">
@@ -979,6 +1033,20 @@
         }
       });
     }
+
+    // --- TRUST ACCREDITATIONS: Click-to-show descriptions ---
+    document.querySelectorAll('.accredit-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.accredit-item').forEach(item => {
+          if (item.contains(btn)) {
+            item.classList.toggle('active');
+          } else {
+            item.classList.remove('active');
+          }
+        });
+      });
+    });
+    // --- END TRUST ACCREDITATIONS ---
   </script>
 </body>
 </html>
