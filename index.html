@@ -510,6 +510,8 @@
         <label for="usage">Annual electricity usage (kWh):</label>
         <input type="number" id="usage" placeholder="e.g. 4000" required>
         <label><input type="checkbox" id="battery"> Include battery?</label>
+        <!-- Added "I'm home during the day" checkbox -->
+        <label><input type="checkbox" id="homeDay"> I'm home during the day</label>
         <button type="submit">Calculate</button>
       </form>
       <div id="calcResult"></div>
@@ -781,7 +783,7 @@
       }
     }
 
-    // --- SOLAR CALCULATOR (with standing charge and finance offset) ---
+    // --- SOLAR CALCULATOR (with standing charge and finance offset, UPDATED for homeDay checkbox) ---
     let latestSavingsPerYear = 0;
     let latestAnnualSpend = 0;
     document.getElementById("calcForm").addEventListener("submit", function (e) {
@@ -790,6 +792,10 @@
       const standing = parseFloat(document.getElementById("standing").value);
       const usage = parseFloat(document.getElementById("usage").value);
       const battery = document.getElementById("battery").checked;
+      // ADDED: get homeDay checkbox value
+      const homeAllDay = document.getElementById("homeDay")?.checked;
+      // END ADDED
+
       const systemSizeKW = 3.68;
       const panelSystemKW = 9 * 0.46;
       const kwhPerKWp = 1050;
@@ -802,13 +808,21 @@
         batteryCyclesPerYear = 365;
         batterySelfUse = Math.min(estimatedAnnualGen, usableBatteryKWh * batteryCyclesPerYear);
       }
-      let selfConsumptionRatio = battery ? 0.90 : 0.65;
+
+      // UPDATED: self-consumption logic to include homeDay
+      let selfConsumptionRatio;
+      if (battery) {
+        selfConsumptionRatio = homeAllDay ? 0.8 : 0.7;
+      } else {
+        selfConsumptionRatio = homeAllDay ? 0.65 : 0.5;
+      }
       let selfUsedKWh = estimatedAnnualGen * selfConsumptionRatio;
       if (battery) {
         selfUsedKWh = Math.min(selfUsedKWh + batterySelfUse, estimatedAnnualGen, usage);
       }
+      // END UPDATED
 
-      // Annual spend calculation (unit rate and standing charge)
+      // ... rest of your calculator logic unchanged ...
       const annualStanding = standing * 365 / 100; // convert p/day to £/year
       const billUsage = rate * usage / 100; // convert p/kWh to £/year
       const annualSpend = billUsage + annualStanding;
@@ -839,7 +853,7 @@
         <div style="margin-bottom:1.1em;">
           <h3>Estimated Annual Savings (Year 1): £${annualSavingsArr[0].savings}</h3>
           <p>Your system is estimated to generate <strong>${estimatedAnnualGen.toFixed(0)} kWh</strong> per year.</p>
-          <p>Annual self-used solar: <strong>${selfUsedKWh.toFixed(0)} kWh</strong> (${(100*selfUsedKWh/usage).toFixed(0)}% of your usage${battery ? ' with 5kWh battery' : ''}).</p>
+          <p>Annual self-used solar: <strong>${selfUsedKWh.toFixed(0)} kWh</strong> (${(100*selfUsedKWh/usage).toFixed(0)}% of your usage${battery ? ' with 5kWh battery' : ''}${homeAllDay ? ', and you\'re home during the day' : ''}).</p>
           <p><b>Your annual energy spend (inc. standing charge): £${annualSpend.toFixed(2)}</b></p>
           <p>Typical installation: <strong>£${breakEvenEstimate.toLocaleString()}</strong></p>
         </div>
