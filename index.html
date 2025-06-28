@@ -6,276 +6,325 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Let’s Talk About Solar</title>
   <meta name="description" content="Clear, friendly, and honest solar advice for UK homeowners. Discover real savings, trusted installers, and smart solar tools." />
-  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #397a94;
-      --secondary: #133c4a;
-      --accent: #ffd700;
-      --background: #f7fafb;
-      --card: #fffde4;
-      --text: #1a232b;
-      --radius: 24px;
-      --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-      --shadow-soft: 0 4px 18px rgba(0,0,0,0.10);
+      --green: #11998e;
+      --green-dark: #064e3b;
+      --green-light: #38ef7d;
+      --blue: #1866e6;
+      --blue-dark: #1c2e4a;
+      --blue-light: #b3d8fd;
+      --accent: #fffbe7;
+      --text: #132c1d;
+      --bg: #f5fcfa;
+      --card: #fff;
+      --radius: 20px;
+      --shadow: 0 6px 32px rgba(24,102,230,0.09), 0 1.5px 0 0 #11998e10;
     }
-    * { box-sizing: border-box; }
     html, body {
       margin: 0;
       padding: 0;
-      background: var(--background);
-      font-family: 'Patrick Hand', cursive;
+      background: var(--bg);
+      font-family: 'Nunito', Arial, sans-serif;
       color: var(--text);
-      scroll-behavior: smooth;
+      min-height: 100vh;
     }
     nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: #ffffffee;
+      background: linear-gradient(90deg, var(--green) 0%, var(--blue) 100%);
+      color: #fff;
       box-shadow: var(--shadow);
-      padding: 1rem 2rem;
+      padding: 0.7rem 0;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-bottom-left-radius: var(--radius);
+      border-bottom-right-radius: var(--radius);
+      font-size: 1.08rem;
+    }
+    .nav-inner {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      z-index: 100;
-      transition: top 0.3s;
-      height: auto;
-      border-bottom: 1.5px solid #20455b11;
+      width: 100%;
+      max-width: 1200px;
+      padding: 0 1.5rem;
     }
-    nav.hidden { top: -100px; }
-    .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary); letter-spacing: 1px; }
+    .logo {
+      font-size: 1.45rem;
+      font-weight: bold;
+      color: #fff;
+      letter-spacing: 1px;
+      margin-right: 2rem;
+      text-shadow: 0 2px 12px #11998e33;
+    }
     nav ul {
       list-style: none;
       display: flex;
-      gap: 1.5rem;
+      gap: 1.1rem;
       margin: 0;
       padding: 0;
+      align-items: center;
     }
     nav ul li a {
       text-decoration: none;
-      color: var(--text);
-      font-size: 1.08rem;
-      padding: 0.5rem 1rem;
-      border-radius: 999px;
-      transition: background 0.18s, color 0.18s;
-      background: #fff8e9;
+      color: #eafef7;
+      font-weight: 600;
+      padding: 0.4em 1.1em;
+      border-radius: 99px;
+      transition: background 0.15s, color 0.15s;
+      background: none;
+      font-size: 1.02em;
     }
     nav ul li a.cta-nav {
       background: var(--accent);
-      color: #2d2d2d;
-      font-weight: bold;
-      box-shadow: 0 2px 9px rgba(255,199,0,0.08);
+      color: var(--green-dark);
+      box-shadow: 0 2px 8px #38ef7d22;
     }
     nav ul li a:hover,
     nav ul li a.cta-nav:hover {
-      background: var(--primary);
-      color: var(--accent);
+      background: var(--green-light);
+      color: var(--blue-dark);
     }
-    .hero {
-      padding: 5.5rem 2rem 2.5rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      background: 
-        linear-gradient(120deg, #f9f7e6 0%, #fffde4 100%);
-      margin-top: 73px;
-      min-height: 360px;
-      position: relative;
-      border-bottom: 2px solid #f9e17d;
+    @media (max-width: 800px) {
+      .nav-inner {
+        flex-direction: column;
+        gap: 0.7em;
+      }
+      nav ul {
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
     }
-    .hero-text {
-      max-width: 520px;
-      padding: 1.5rem;
-      z-index: 1;
-      background: #fffbe7dd;
-      border-radius: 20px;
-      box-shadow: var(--shadow-soft);
-      backdrop-filter: blur(2.5px);
+    header.hero {
+      background: linear-gradient(90deg, var(--green) 0%, var(--blue) 100%);
+      color: #fff;
+      padding: 3.3rem 1.5rem 2.3rem 1.5rem;
+      text-align: center;
+      border-bottom-left-radius: var(--radius);
+      border-bottom-right-radius: var(--radius);
+      box-shadow: 0 6px 32px #11998e22;
+      margin-bottom: 1rem;
     }
-    .hero-text h1 {
-      font-size: 2.35rem;
-      color: var(--accent);
-      margin: 0 0 1rem;
-      text-shadow: 2px 2px 18px rgba(20,20,40,0.10);
-      letter-spacing: 1px;
-    }
-    .hero-text p {
-      font-size: 1.22rem;
-      margin-bottom: 1.2rem;
-      color: #397a94;
-    }
-    .cta {
-      background: var(--primary);
-      color: var(--accent);
-      padding: 0.9rem 2rem;
-      text-decoration: none;
-      border-radius: 999px;
-      font-size: 1.08rem;
-      display: inline-block;
-      margin-top: 1rem;
-      box-shadow: 0 2px 18px #28546d44;
-      font-weight: bold;
+    header.hero h1 {
+      font-size: 2.7rem;
+      font-weight: 700;
+      margin: 0 0 1.2rem 0;
       letter-spacing: .5px;
+      text-shadow: 0 2px 10px #11998e30;
+    }
+    header.hero p {
+      font-size: 1.35rem;
+      margin: 1.2rem auto 2.2rem auto;
+      max-width: 500px;
+      color: #e0f7ee;
+    }
+    .cta-main {
+      background: linear-gradient(90deg, var(--green-light) 0%, var(--blue-light) 100%);
+      color: var(--green-dark);
+      padding: 1rem 2.5rem;
+      border-radius: 999px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-decoration: none;
       border: none;
-      transition: background .17s, color .2s;
+      cursor: pointer;
+      box-shadow: 0 2px 16px #11998e33;
+      margin-top: 1.2rem;
+      transition: background .16s, color .16s;
+      display:inline-block;
     }
-    .cta:hover {
-      background: var(--accent);
-      color: var(--primary);
+    .cta-main:hover {
+      background: linear-gradient(90deg, var(--blue) 0%, var(--green-light) 100%);
+      color: #fff;
     }
-    .section { padding: 3.5rem 1rem 2.5rem 1rem; text-align: center; }
+    .section {
+      max-width: 1200px;
+      margin: 2.5rem auto;
+      padding: 1.6rem 1.2rem 1.8rem 1.2rem;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    /* Benefits Section */
     .benefit-cards {
       display: flex;
       flex-wrap: wrap;
-      gap: 2.3rem;
+      gap: 2rem;
       justify-content: center;
-      margin-top: 2.4rem;
+      margin-top: 2rem;
     }
     .benefit-card {
-      background: var(--card);
-      padding: 2rem 1.2rem 1.6rem 1.2rem;
+      background: linear-gradient(120deg, #eafef7 70%, #b3d8fd 100%);
+      padding: 1.3rem 1.1rem 1.1rem 1.1rem;
       border-radius: var(--radius);
-      box-shadow: var(--shadow-soft);
-      max-width: 250px;
-      min-width: 180px;
-      border: 1.5px solid #ffd70033;
-      backdrop-filter: blur(7px);
+      box-shadow: 0 2px 10px #11998e15;
+      min-width: 165px;
+      max-width: 220px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      transition: transform 0.16s, box-shadow 0.18s;
+      border: 1.2px solid #38ef7d60;
+      transition: box-shadow .15s, border .15s;
+      margin-bottom: 0.8em;
     }
     .benefit-card:hover {
-      transform: translateY(-8px) scale(1.032);
-      box-shadow: 0 8px 32px 0 #ffd70044;
-      border-color: var(--accent);
+      box-shadow: 0 8px 32px 0 #38ef7d44;
+      border-color: var(--blue);
+      transform: translateY(-4px) scale(1.03);
     }
     .benefit-card img {
-      width: 60px;
-      height: 60px;
+      width: 48px;
+      height: 48px;
       object-fit: contain;
-      margin-bottom: 1.1rem;
-      filter: drop-shadow(0 1px 8px #2d3e4855);
+      margin-bottom: 0.8rem;
+      filter: drop-shadow(0 1px 8px #38ef7d33);
     }
     .benefit-card p {
-      color: #397a94;
-      font-size: 1.08rem;
+      color: var(--green-dark);
+      font-size: 1.09rem;
+      margin: 0;
+      text-align: center;
+      font-weight: 500;
     }
-    .calculator, .quote-form, .finance-offset-section {
-      max-width: 520px;
-      margin: 0 auto 2.2rem auto;
+    /* Toolkit and Calculator */
+    .toolkit {
+      display: flex;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: center;
+      margin-top:2.5em;
+      margin-bottom:1em;
+    }
+    .toolkit > div {
       background: var(--card);
-      padding: 2.1rem 1.1rem 1.6rem 1.1rem;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      border: 1.5px solid #ffd70033;
-      backdrop-filter: blur(7px);
+      padding: 2rem 1.6rem 2rem 1.6rem;
+      min-width: 300px;
+      max-width: 430px;
+      flex: 1 1 320px;
+      margin-bottom: 2rem;
     }
-    label, input, button {
+    .toolkit h2 {
+      color: var(--blue);
+      font-size: 1.35rem;
+      margin-top:0;
+      margin-bottom:.7em;
+      letter-spacing: .2px;
+    }
+    /* Calculator UI */
+    .calculator-form label {
       display: block;
+      margin-bottom: 0.5em;
+      margin-top: 1.1em;
+      font-weight: 600;
+      color: var(--blue-dark);
+    }
+    .calculator-form input[type="number"], 
+    .calculator-form input[type="text"] {
       width: 100%;
-      font-size: 1.05rem;
-      margin-top: 1rem;
-      font-family: 'Patrick Hand', cursive;
-      color: var(--text);
+      padding: 0.6em;
+      border: 1.2px solid var(--blue-light);
+      border-radius: 7px;
+      font-size: 1.05em;
+      background: #f4fafd;
+      color: #17384a;
+      margin-bottom: 0.2em;
+      transition: border .15s;
     }
-    input[type="number"], input[type="text"], input[type="email"], input[type="tel"] {
-      padding: 0.7rem;
-      border: 1.3px solid #ffd70088;
-      background: #fffde4;
-      color: #2d2d2d;
-      border-radius: 12px;
-      margin-bottom: 0.4rem;
-      transition: border 0.16s;
-    }
-    input:focus {
-      border: 1.7px solid var(--primary);
+    .calculator-form input[type="number"]:focus,
+    .calculator-form input[type="text"]:focus {
+      border: 1.4px solid var(--green);
       outline: none;
-      background: #fffbe7;
+      background: #e9fef6;
     }
-    /* Calculator radio buttons */
-    .presence-radio-group {
+    .calc-radio-group {
       display: flex;
-      gap: 1.3em;
+      gap: 1.2em;
+      margin: 1.3em 0 0.5em 0;
       align-items: center;
-      justify-content: space-between;
-      margin: 1em 0 .7em 0;
-      font-size: 1.09em;
+      justify-content: flex-start;
     }
-    .presence-radio-group label {
-      margin-top: 0;
-      margin-bottom: 0;
-      width: auto;
+    .calc-radio-group label {
+      font-weight: 600;
+      color: var(--green-dark);
+      margin-top:0;
+      margin-bottom:0;
       display: flex;
       align-items: center;
       gap: 0.3em;
-      font-weight: bold;
-      color: #397a94;
       cursor: pointer;
     }
-    .presence-radio-group input[type="radio"] {
-      accent-color: #ffd700;
+    .calculator-form input[type="radio"] {
+      accent-color: var(--green);
       margin-right: .3em;
     }
-    .presence-radio-group label.out {
-      color: #a49139;
-      font-weight: normal;
+    .calculator-form input[type="checkbox"] {
+      accent-color: var(--blue);
+      margin-right: .5em;
     }
-    .presence-radio-group label.home {
-      color: #397a94;
-      font-weight: bold;
-    }
-    #rate, #standing { box-shadow: 0 2px 8px #ffd70022; }
-    button {
-      background: var(--primary);
-      color: var(--accent);
-      padding: 0.8rem;
+    .calculator-form button {
+      background: linear-gradient(90deg, var(--blue-light) 0%, var(--green-light) 100%);
+      color: var(--green-dark);
+      padding: 0.8rem 2.6rem;
       border: none;
       border-radius: 999px;
       cursor: pointer;
-      font-weight: bold;
-      margin-top: 1.5rem;
-      letter-spacing: .2px;
-      transition: background .18s, color .17s;
-      box-shadow: 0 2px 12px #397a9440;
+      font-weight: 700;
+      font-size: 1.15rem;
+      margin-top: 1.2em;
+      box-shadow: 0 2px 14px #11998e22;
+      letter-spacing: .1px;
+      transition: background .16s, color .16s;
     }
-    button:hover {
-      background: var(--accent);
-      color: var(--primary);
+    .calculator-form button:hover {
+      background: linear-gradient(90deg, var(--green-light) 0%, var(--blue) 100%);
+      color: #fff;
     }
-
-    /* Trust section styles */
+    #calcResult {
+      margin-top: 1.2em;
+      background: #eafef7;
+      border-radius: 12px;
+      padding: 1.1em 1em;
+      color: var(--green-dark);
+      font-size: 1.11em;
+      box-shadow: 0 1px 7px #11998e15;
+    }
+    /* Trust Section */
     .trust-cards {
       display: flex;
       flex-wrap: wrap;
       gap: 2rem 1.5rem;
       justify-content: center;
       align-items: stretch;
-      margin: 2.5rem auto 0 auto;
-      max-width: 1200px;
+      margin: 1.5rem auto 0 auto;
+      max-width: 900px;
     }
     .accredit-card {
-      background: linear-gradient(120deg,#fffbe9 50%,#ffe97a 100%);
-      box-shadow: 0 2px 20px #397a9444, 0 1.5px 0 0 #ffd700;
-      border-radius: 18px;
-      border: 1.5px solid #ffd700;
-      padding: 1.3em 1em 0.7em 1em;
-      min-width: 170px;
-      max-width: 220px;
+      background: linear-gradient(130deg, #e6fdf6 60%, #b3d8fd 100%);
+      box-shadow: 0 4px 16px #38ef7d33;
+      border-radius: 15px;
+      border: 1.2px solid #38ef7d80;
+      padding: 1.2em 1em 0.8em 1em;
+      min-width: 130px;
+      max-width: 210px;
       display: flex;
       flex-direction: column;
       align-items: center;
       margin-bottom: 1.5em;
       position: relative;
-      transition: box-shadow .18s, transform .18s, border .18s;
+      transition: box-shadow .15s, border .15s;
       cursor: pointer;
     }
     .accredit-card:focus-within, .accredit-card:hover {
-      box-shadow: 0 8px 40px #ffd70099, 0 1.5px 0 0 #ffd700;
-      border-color: #397a94;
-      transform: translateY(-4px) scale(1.025);
+      box-shadow: 0 8px 34px #1866e677;
+      border-color: var(--blue);
+      transform: translateY(-4px) scale(1.04);
       z-index: 2;
     }
     .accredit-card-btn {
@@ -290,70 +339,128 @@
       transition: transform .13s;
     }
     .accredit-card-btn:focus {
-      outline: 2.5px solid #397a94;
+      outline: 2.5px solid var(--blue);
       outline-offset: 3px;
     }
     .accredit-card img {
-      width: 60px;
-      height: 60px;
+      width: 50px;
+      height: 50px;
       object-fit: contain;
-      background: #fffde4;
-      border-radius: 15px;
-      box-shadow: 0 2px 14px #397a9440;
+      background: #f5fcfa;
+      border-radius: 11px;
+      box-shadow: 0 2px 9px #38ef7d44;
       margin-bottom: 0.7em;
-      border: 1.5px solid #ffd700;
-      padding: 8px;
-      transition: border .17s;
+      border: 1.5px solid #38ef7d;
+      padding: 6px;
+      transition: border .13s;
     }
     .accredit-card:hover img, .accredit-card:focus-within img {
-      border-color: #397a94;
+      border-color: var(--blue);
     }
     .accredit-card span {
-      font-weight: bold;
-      color: #397a94;
-      font-size: 1.13em;
+      font-weight: 700;
+      color: var(--green-dark);
+      font-size: 1.1em;
       letter-spacing: .6px;
       margin-bottom: .2em;
     }
     .accredit-card-desc {
       display: none;
       margin-top: 0.7em;
-      background: #fffde4;
-      color: #133c4a;
-      border-radius: 12px;
-      box-shadow: 0 2px 18px #ffd70044;
-      padding: 1em 1em 1.2em 1em;
-      font-size: 1.01em;
+      background: #f4fafd;
+      color: var(--blue-dark);
+      border-radius: 11px;
+      box-shadow: 0 2px 12px #38ef7d33;
+      padding: 0.82em 0.8em 1.1em 0.8em;
+      font-size: 1em;
       text-align: left;
-      max-width: 320px;
-      min-height: 80px;
-      border: 1.2px solid #ffe97a;
+      max-width: 270px;
+      min-height: 64px;
+      border: 1.2px solid #b3d8fd;
       position: absolute;
       top: 100%;
       left: 50%;
       transform: translate(-50%, .5em);
       z-index: 3;
-      animation: fadeIn .35s;
+      animation: fadeIn .32s;
     }
     .accredit-card.active .accredit-card-desc,
     .accredit-card:focus-within .accredit-card-desc {
       display: block;
     }
+    /* Facebook Feed Section */
+    .facebook-feed-section {
+      max-width: 700px;
+      margin: 3rem auto;
+      padding: 2.3rem 1rem;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      text-align: center;
+      border: 1.5px solid #b3d8fd;
+      backdrop-filter: blur(8px);
+    }
+    #fb-feed {
+      margin-top: 1.2em;
+      text-align: left;
+    }
+    .fb-post {
+      background: #eafef7;
+      border-radius: 14px;
+      box-shadow: 0 2px 14px #38ef7d33;
+      margin-bottom: 2rem;
+      padding: 1.3rem;
+      border: 1.2px solid #b3d8fd;
+    }
+    .fb-date {
+      color: #1866e6;
+      font-size: 0.98em;
+      margin-bottom: 0.6em;
+    }
+    .fb-message {
+      font-size: 1.11em;
+      margin-bottom: 0.7em;
+      color: #11998e;
+    }
+    .fb-link {
+      color: var(--green);
+      text-decoration: underline;
+      font-size: 0.97em;
+      font-weight: bold;
+    }
+    footer {
+      background: linear-gradient(90deg, #1866e6 0%, #11998e 100%);
+      color: #eafef7;
+      padding: 2.2rem;
+      text-align: center;
+      margin-top: 3rem;
+      border-radius: var(--radius) var(--radius) 0 0;
+      font-size: 1.01rem;
+      letter-spacing: 0.2px;
+      box-shadow: 0 -2px 22px #38ef7d22;
+    }
     @media (max-width: 900px) {
+      .container, .toolkit {
+        flex-direction: column;
+        align-items: center;
+      }
+      .section, .card, .toolkit > div {
+        max-width: 97vw;
+      }
       .trust-cards {
         flex-direction: column;
         align-items: center;
         gap: 1.3rem;
       }
       .accredit-card {
-        max-width: 94vw;
-        min-width: 180px;
+        max-width: 95vw;
+        min-width: 160px;
       }
       .accredit-card-desc {
         position: static;
         transform: none;
         margin-top: .7em;
-        width: 98%;
+        width: 99%;
         max-width: 99vw;
       }
     }
@@ -361,45 +468,32 @@
       from { opacity: 0; transform: translate(-50%, 1.5em);}
       to { opacity: 1; transform: translate(-50%, .5em);}
     }
-    /* End trust section styles */
-    footer {
-      background: linear-gradient(90deg, #f9e17d 0%, #ffd700 100%);
-      color: #397a94;
-      padding: 2.2rem;
-      text-align: center;
-      margin-top: 3rem;
-      border-radius: var(--radius) var(--radius) 0 0;
-      font-size: 0.96rem;
-      letter-spacing: 0.2px;
-      box-shadow: 0 -2px 22px #ffd70033;
-    }
-    /* ...other existing media queries remain unchanged... */
   </style>
 </head>
 <body>
-  <nav id="navbar">
-    <div class="logo">Let’s Talk About Solar</div>
-    <ul>
-      <li><a href="#hero">Home</a></li>
-      <li><a href="#benefits">Why Solar?</a></li>
-      <li><a href="#orientation">Orientation</a></li>
-      <li><a href="#calculator">Savings</a></li>
-      <li><a href="#trust">Trust</a></li>
-      <li><a href="#facebook-feed" class="cta-nav">FB Feed</a></li>
-      <li><a href="#quote" class="cta-nav">Get Quote</a></li>
-    </ul>
+  <nav>
+    <div class="nav-inner">
+      <div class="logo">Let’s Talk About Solar</div>
+      <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#benefits">Why Solar?</a></li>
+        <li><a href="#orientation-card">Orientation</a></li>
+        <li><a href="#calculator">Savings</a></li>
+        <li><a href="#trust">Trust</a></li>
+        <li><a href="#facebook-feed" class="cta-nav">FB Feed</a></li>
+        <li><a href="#quote" class="cta-nav">Get Quote</a></li>
+      </ul>
+    </div>
   </nav>
 
-  <section class="hero" id="hero">
-    <div class="hero-text">
-      <h1>Sunshine Meets Smart Savings</h1>
-      <p>See how solar can protect your bills and power your future.</p>
-      <a href="#quote" class="cta">Get My Free Quote</a>
-    </div>
-  </section>
+  <header class="hero" id="hero">
+    <h1>Sunshine Meets Smart Savings</h1>
+    <p>See how solar can protect your bills and power your future.</p>
+    <a href="#quote" class="cta-main">Get My Free Quote</a>
+  </header>
 
   <section id="benefits" class="section">
-    <h2>Why Solar?</h2>
+    <h2 style="color:var(--green);font-size:2rem;">Why Solar?</h2>
     <div class="benefit-cards">
       <div class="benefit-card">
         <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Money saving GBP icon">
@@ -416,62 +510,64 @@
     </div>
   </section>
 
-  <section id="solar-toolkit" class="section">
+  <div class="toolkit" id="solar-toolkit">
     <div>
       <h2>Check Your Roof Orientation</h2>
-      <p>Enter your address to estimate your solar potential.</p>
-      <input id="addressInput" type="text" placeholder="Enter your address" style="max-width:350px;margin:0 auto 1rem auto;display:block;" />
-      <button id="toggleMapBtn" onclick="toggleStreetView()" style="margin:1rem 0 1.2rem 0;padding:0.7rem 1.3rem;border-radius:999px;background:#397a94;color:#ffd700;font-weight:bold;font-size:1rem;border:none;box-shadow:0 2px 8px #397a9440;cursor:pointer;">
+      <input id="addressInput" type="text" placeholder="Enter your address" style="max-width:320px;margin:0 auto 1.2rem auto;display:block;" />
+      <button id="toggleMapBtn" onclick="toggleStreetView()" style="margin:0.7rem 0 1.1rem 0;padding:0.7rem 1.3rem;border-radius:999px;background:var(--green);color:#fff;font-weight:bold;font-size:1rem;border:none;box-shadow:0 2px 8px #11998e40;cursor:pointer;">
         Show Street View
       </button>
-      <div id="streetview-container" style="width:100%;max-width:400px;height:200px;display:none;border-radius:18px;overflow:hidden;margin:0 auto 1rem auto;background:#f9e17d;">
+      <div id="streetview-container" style="width:100%;max-width:340px;height:145px;display:none;border-radius:13px;overflow:hidden;margin:0 auto 1rem auto;background:#b3d8fd;">
         <div id="pano" style="width:100%;height:100%;"></div>
       </div>
-      <p id="orientationResult" style="margin-top: 1rem; font-weight: bold;"></p>
+      <p id="orientationResult" style="margin-top: 0.8rem; font-weight: bold;color:var(--blue);text-align:center;"></p>
     </div>
-    <div>
+
+    <div id="calculator">
       <h2>Solar Savings Calculator</h2>
-      <form id="calcForm" class="calculator">
+      <form id="calcForm" class="calculator-form">
         <label for="rate">Electricity unit rate (p/kWh):</label>
         <input type="number" id="rate" placeholder="e.g. 25" required>
         <label for="standing">Standing charge (p/day):</label>
         <input type="number" id="standing" placeholder="e.g. 60" required>
         <label for="usage">Annual electricity usage (kWh):</label>
         <input type="number" id="usage" placeholder="e.g. 4000" required>
-        <label><input type="checkbox" id="battery"> Include battery?</label>
-        <div class="presence-radio-group">
-          <label class="home">
+        <label style="margin-top:1.2em;">
+          <input type="checkbox" id="battery"> Include battery?
+        </label>
+        <div class="calc-radio-group">
+          <label>
             <input type="radio" name="dayPresence" id="homeDay" value="home" checked>
-            I'm home during the day
+            <span>I'm home during the day</span>
           </label>
-          <label class="out">
+          <label>
             <input type="radio" name="dayPresence" id="outDay" value="out">
-            I'm out during the day
+            <span>I'm out during the day</span>
           </label>
         </div>
-        <button type="submit">Calculate</button>
+        <button type="submit">Calculate My Savings</button>
       </form>
       <div id="calcResult"></div>
     </div>
-  </section>
+  </div>
 
-  <!-- Finance Offset Section (replaces old finance calculator) -->
-  <section id="finance-offset-section" class="finance-offset-section" style="display:none;">
+  <!-- Finance Offset Section -->
+  <section id="finance-offset-section" class="section" style="display:none;">
     <h2 style="text-align:center;">Finance & Bill Offset Illustration</h2>
     <form id="depositForm" class="inline-form" autocomplete="off" style="text-align:center;margin-bottom:1.2em;">
       <label for="deposit-amount">Deposit (£):</label>
       <input type="number" id="deposit-amount" value="0" min="0" max="9500" step="100">
-      <button type="submit" style="background:#397a94;color:#ffd700;padding:0.4em 1.3em;border-radius:999px;border:none;cursor:pointer;">Recalculate</button>
+      <button type="submit" style="background:var(--green);color:#fffbe7;padding:0.4em 1.3em;border-radius:999px;border:none;cursor:pointer;">Recalculate</button>
     </form>
     <div id="finance-offset-summary" class="finance-summary"></div>
-    <div class="disclaimer">
+    <div class="disclaimer" style="color:#1c2e4a;">
       <strong>Disclaimer:</strong> This illustration uses typical finance terms and current savings estimates for guidance only.
       Actual bills, savings, and finance rates may vary. Please consult a financial adviser for tailored advice.
     </div>
   </section>
 
   <section id="historic-prices" class="section">
-    <button onclick="toggleHistoric()" style="font-size:1.1rem;padding:0.5rem 1.5rem;background:#397a94;color:#ffd700;border:none;border-radius:20px;cursor:pointer;">
+    <button onclick="toggleHistoric()" style="font-size:1.1rem;padding:0.5rem 1.5rem;background:var(--blue);color:#fffbe7;border:none;border-radius:20px;cursor:pointer;">
       Show Historic Electricity Prices (2000-2025)
     </button>
     <div id="historic-graph" style="display:none;margin-top:2rem;">
@@ -486,9 +582,8 @@
   </section>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
-  <!-- Sleek Trust Accreditation Section -->
   <section id="trust" class="section">
-    <h2 style="color:#ffd700;font-size:2.1rem;text-shadow:0 2px 14px #397a9480;">Who Can You Trust?</h2>
+    <h2 style="color:var(--green);font-size:2rem;">Who Can You Trust?</h2>
     <div class="trust-cards">
       <div class="accredit-card" tabindex="0">
         <button class="accredit-card-btn" type="button" aria-expanded="false">
@@ -562,7 +657,6 @@
       </div>
     </div>
   </section>
-  <!-- End Trust Accreditation Section -->
 
   <section id="facebook-feed" class="facebook-feed-section">
     <h2>Latest from Our Facebook Page</h2>
@@ -616,17 +710,16 @@
     })();
 
     let lastScroll = 0;
-    const nav = document.getElementById("navbar");
-    let orientationFactor = 1;
-
+    const nav = document.querySelector("nav");
     window.addEventListener("scroll", () => {
       const currentScroll = window.pageYOffset;
-      nav.classList.toggle("hidden", currentScroll > lastScroll);
+      nav.classList.toggle("hidden", currentScroll > lastScroll && currentScroll > 100);
       lastScroll = currentScroll;
     });
 
     // Orientation section logic (Street View only)
     let autocomplete, lastPlaceLocation = null, panoMap = null;
+    let orientationFactor = 1;
 
     function mapsApiLoaded() {
       if (typeof initMap === "function") initMap();
@@ -700,30 +793,7 @@
 
     function toggleStreetView() {
       const container = document.getElementById("streetview-container");
-      const btn = document.getElementById("toggleMapBtn");
-      if (container.style.display === 'none' || container.style.display === '') {
-        if (!lastPlaceLocation) {
-          alert("Please enter your address and select it from the dropdown first.");
-          return;
-        }
-        container.style.display = "block";
-        if (!panoMap) {
-          panoMap = new google.maps.StreetViewPanorama(
-            document.getElementById("pano"),
-            {
-              position: lastPlaceLocation,
-              pov: { heading: 165, pitch: 0 },
-              zoom: 1
-            }
-          );
-        } else {
-          panoMap.setPosition(lastPlaceLocation);
-        }
-        btn.innerText = "Hide Street View";
-      } else {
-        container.style.display = "none";
-        btn.innerText = "Show Street View";
-      }
+      container.style.display = (container.style.display === "none" || container.style.display === "") ? "block" : "none";
     }
 
     // --- SOLAR CALCULATOR (with standing charge and finance offset, UPDATED for homeDay/outDay radio) ---
@@ -736,10 +806,14 @@
       const usage = parseFloat(document.getElementById("usage").value);
       const battery = document.getElementById("battery").checked;
 
-      // Day presence logic
+      // Radio logic
       const homeAllDay = document.getElementById("homeDay").checked;
-      const outAllDay = document.getElementById("outDay").checked;
-
+      let selfConsumptionRatio;
+      if (battery) {
+        selfConsumptionRatio = homeAllDay ? 0.8 : 0.6;
+      } else {
+        selfConsumptionRatio = homeAllDay ? 0.65 : 0.4;
+      }
       const systemSizeKW = 3.68;
       const panelSystemKW = 9 * 0.46;
       const kwhPerKWp = 1050;
@@ -752,25 +826,16 @@
         batteryCyclesPerYear = 365;
         batterySelfUse = Math.min(estimatedAnnualGen, usableBatteryKWh * batteryCyclesPerYear);
       }
-
-      // Self-consumption logic based on presence radios
-      let selfConsumptionRatio;
-      if (battery) {
-        selfConsumptionRatio = homeAllDay ? 0.8 : 0.6;
-      } else {
-        selfConsumptionRatio = homeAllDay ? 0.65 : 0.4;
-      }
       let selfUsedKWh = estimatedAnnualGen * selfConsumptionRatio;
       if (battery) {
         selfUsedKWh = Math.min(selfUsedKWh + batterySelfUse, estimatedAnnualGen, usage);
       }
 
-      const annualStanding = standing * 365 / 100; // convert p/day to £/year
-      const billUsage = rate * usage / 100; // convert p/kWh to £/year
+      const annualStanding = standing * 365 / 100;
+      const billUsage = rate * usage / 100;
       const annualSpend = billUsage + annualStanding;
       latestAnnualSpend = annualSpend;
 
-      // 10-year savings projection
       let annualSavingsArr = [];
       let price = rate;
       let cumulative = 0;
@@ -783,9 +848,8 @@
           savings: yearSavings.toFixed(2),
           cumulative: cumulative.toFixed(2)
         });
-        price *= 1.0704; // Increase by 7.04% each year
+        price *= 1.0704;
       }
-      const breakEvenEstimate = 9500;
       let tableRows = annualSavingsArr.map(row =>
         `<tr><td>Year ${row.year}</td><td>£${row.savings}</td><td>${row.price}p/kWh</td><td>£${row.cumulative}</td></tr>`
       ).join('');
@@ -793,14 +857,13 @@
         ? "You're home during the day"
         : "You're out during the day";
       const calcResult = document.getElementById("calcResult");
-      latestSavingsPerYear = parseFloat(annualSavingsArr[0].savings); // For finance offset
+      latestSavingsPerYear = parseFloat(annualSavingsArr[0].savings);
       calcResult.innerHTML = `
         <div style="margin-bottom:1.1em;">
           <h3>Estimated Annual Savings (Year 1): £${annualSavingsArr[0].savings}</h3>
           <p>Your system is estimated to generate <strong>${estimatedAnnualGen.toFixed(0)} kWh</strong> per year.</p>
           <p>Annual self-used solar: <strong>${selfUsedKWh.toFixed(0)} kWh</strong> (${(100*selfUsedKWh/usage).toFixed(0)}% of your usage${battery ? ' with 5kWh battery' : ''}, ${presenceText})</p>
           <p><b>Your annual energy spend (inc. standing charge): £${annualSpend.toFixed(2)}</b></p>
-          <p>Typical installation: <strong>£${breakEvenEstimate.toLocaleString()}</strong></p>
         </div>
         <h4>Projected Savings Over 10 Years (with 7.04% price increase per year):</h4>
         <table style="margin:auto;border-collapse:collapse;">
@@ -812,7 +875,7 @@
           </tr>
           ${tableRows}
         </table>
-        <p style="font-size:0.95em;color:#888;">This calculation is based on a system with 9 solar panels – if your roof can fit more, your potential savings will be even higher. These are estimated figures and don’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.</p>
+        <p style="font-size:0.95em;color:#5a9;">These are estimated figures. Fill in the free quote form for a full breakdown.</p>
       `;
 
       showFinanceOffset();
@@ -897,11 +960,11 @@
           datasets: [{
             label: 'UK Domestic Electricity Price (p/kWh)',
             data: prices,
-            borderColor: '#397a94',
-            backgroundColor: 'rgba(57,122,148,0.13)',
-            tension: 0.25,
-            pointBackgroundColor: '#ffd700',
-            pointRadius: 5,
+            borderColor: '#11998e',
+            backgroundColor: 'rgba(17,153,142,0.14)',
+            tension: 0.22,
+            pointBackgroundColor: '#1866e6',
+            pointRadius: 4,
             fill: true
           }]
         },
