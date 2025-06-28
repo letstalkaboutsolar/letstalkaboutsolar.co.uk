@@ -6,125 +6,141 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Let’s Talk About Solar</title>
   <meta name="description" content="Clear, friendly, and honest solar advice for UK homeowners. Discover real savings, trusted installers, and smart solar tools." />
-  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+  <!-- Updated to Roboto for a more professional look -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --primary: #397a94;
-      --secondary: #133c4a;
+      --primary: #6ec6ff;
+      --primary-dark: #2196f3;
+      --secondary: #18475f;
       --accent: #ffd700;
-      --background: #10222b;
-      --card: rgba(25,38,50,0.97);
-      --text: #edf3f6;
+      --white: #ffffff;
+      --gray-bg: #f5faff;
+      --card: rgba(255,255,255,0.97);
+      --soft-shadow: 0 2px 14px 0 #97cdfd33;
       --radius: 24px;
-      --shadow: 0 8px 32px rgba(0, 0, 0, 0.22);
-      --shadow-soft: 0 4px 18px rgba(0,0,0,0.13);
+      --premium-gloss: linear-gradient(120deg, #eaf7ff 0%, #d7edff 50%, #fff 100%);
     }
     * { box-sizing: border-box; }
     html, body {
       margin: 0;
       padding: 0;
-      background: var(--background);
-      font-family: 'Patrick Hand', cursive;
-      color: var(--text);
+      background: var(--gray-bg);
+      font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+      color: var(--secondary);
       scroll-behavior: smooth;
     }
     nav {
       position: fixed;
       top: 0;
       width: 100%;
-      background: rgba(16,34,43,0.98);
-      box-shadow: var(--shadow);
-      padding: 1rem 2rem;
+      background: var(--premium-gloss);
+      box-shadow: 0 3px 22px 0 #aac5e855, 0 1px 0 #6ec6ff;
+      padding: 1.15rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       z-index: 100;
       transition: top 0.3s;
-      height: auto;
-      border-bottom: 1.5px solid #20455b;
+      border-bottom: 2.5px solid #b2daff;
     }
     nav.hidden { top: -100px; }
-    .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary); letter-spacing: 1px; }
+    .logo {
+      font-size: 1.7rem;
+      font-weight: bold;
+      color: var(--primary-dark);
+      letter-spacing: 1px;
+      filter: drop-shadow(0 2px 8px #b2daff55);
+      text-shadow: 0 2px 16px #b2daff44;
+      font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(90deg, #2196f3 0%, #6ec6ff 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
     nav ul {
       list-style: none;
       display: flex;
-      gap: 1.5rem;
+      gap: 1.4rem;
       margin: 0;
       padding: 0;
     }
     nav ul li a {
       text-decoration: none;
-      color: var(--text);
+      color: var(--secondary);
       font-size: 1.08rem;
-      padding: 0.5rem 1rem;
+      padding: 0.5rem 1.1rem;
       border-radius: 999px;
       transition: background 0.18s, color 0.18s;
-      background: rgba(37,67,75,0.13);
+      background: rgba(110,198,255,0.08);
+      font-weight: 500;
     }
     nav ul li a.cta-nav {
-      background: var(--accent);
-      color: #2d2d2d;
-      font-weight: bold;
-      box-shadow: 0 2px 9px rgba(255,199,0,0.08);
+      background: var(--primary-dark);
+      color: var(--white);
+      font-weight: 700;
+      box-shadow: 0 2px 9px #2196f333;
     }
     nav ul li a:hover,
     nav ul li a.cta-nav:hover {
-      background: var(--primary);
-      color: var(--accent);
+      background: var(--accent);
+      color: var(--primary-dark);
     }
     .hero {
-      padding: 5.5rem 2rem 2.5rem;
+      padding: 6.2rem 2rem 2.5rem;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      background: 
-        linear-gradient(120deg, rgba(16,34,43,0.92) 0%, rgba(36,54,64,0.87) 100%),
+      background:
+        linear-gradient(120deg, rgba(110,198,255,0.16) 0%, rgba(255,255,255,0.85) 100%),
         url('assets/solar-bg.jpg') center/cover no-repeat;
-      margin-top: 73px;
-      min-height: 360px;
+      margin-top: 83px;
+      min-height: 400px;
       position: relative;
-      border-bottom: 2px solid #20455b;
+      border-bottom: 2px solid #b2daff;
     }
     .hero-text {
-      max-width: 520px;
-      padding: 1.5rem;
+      max-width: 540px;
+      padding: 2.1rem 2rem;
       z-index: 1;
-      background: rgba(31, 52, 68, 0.56);
-      border-radius: 20px;
-      box-shadow: var(--shadow-soft);
-      backdrop-filter: blur(2.5px);
+      background: var(--premium-gloss);
+      border-radius: 30px;
+      box-shadow: 0 8px 40px #6ec6ff33, var(--soft-shadow);
+      backdrop-filter: blur(8px);
     }
     .hero-text h1 {
-      font-size: 2.35rem;
-      color: var(--accent);
+      font-size: 2.7rem;
+      color: var(--primary-dark);
       margin: 0 0 1rem;
-      text-shadow: 2px 2px 18px rgba(20,20,40,0.25);
       letter-spacing: 1px;
+      font-weight: 700;
+      text-shadow: 0 2px 18px #b2daff66;
     }
     .hero-text p {
       font-size: 1.22rem;
-      margin-bottom: 1.2rem;
-      color: #e0ecf3;
+      color: #2a4050;
+      margin-bottom: 1.4rem;
+      font-weight: 500;
     }
     .cta {
-      background: var(--primary);
-      color: var(--accent);
-      padding: 0.9rem 2rem;
+      background: linear-gradient(90deg, #6ec6ff 0%, #2196f3 100%);
+      color: var(--white);
+      padding: 1rem 2.3rem;
       text-decoration: none;
       border-radius: 999px;
-      font-size: 1.08rem;
+      font-size: 1.13rem;
       display: inline-block;
-      margin-top: 1rem;
-      box-shadow: 0 2px 18px #28546d44;
-      font-weight: bold;
-      letter-spacing: .5px;
+      margin-top: 1.1rem;
+      box-shadow: 0 2px 28px #6ec6ff44;
+      font-weight: 700;
       border: none;
-      transition: background .17s, color .2s;
+      transition: background .17s, color .2s, box-shadow .18s;
+      text-shadow: 0 2px 15px #fff8;
     }
     .cta:hover {
       background: var(--accent);
-      color: var(--primary);
+      color: var(--primary-dark);
+      box-shadow: 0 6px 28px #ffd70044;
     }
     .section { padding: 3.5rem 1rem 2.5rem 1rem; text-align: center; }
     .benefit-cards {
@@ -138,19 +154,30 @@
       background: var(--card);
       padding: 2rem 1.2rem 1.6rem 1.2rem;
       border-radius: var(--radius);
-      box-shadow: var(--shadow-soft);
-      max-width: 250px;
+      box-shadow: var(--soft-shadow);
+      max-width: 260px;
       min-width: 180px;
-      border: 1.5px solid #22455b;
+      border: 2px solid #ccecff;
       backdrop-filter: blur(7px);
       display: flex;
       flex-direction: column;
       align-items: center;
-      transition: transform 0.16s, box-shadow 0.18s;
+      transition: transform 0.16s, box-shadow 0.18s, border 0.14s;
+      position: relative;
+      overflow: hidden;
+    }
+    .benefit-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 28px;
+      background: linear-gradient(90deg, #e3f5ff 20%, #b3e3ff22 70%, #fff0 100%);
+      border-radius: 21px 21px 0 0;
+      z-index: 1;
+      opacity: 0.9;
     }
     .benefit-card:hover {
       transform: translateY(-8px) scale(1.032);
-      box-shadow: 0 8px 32px 0 #1a2936cc;
+      box-shadow: 0 8px 32px 0 #b2daff99, 0 4px 14px #ffd70033;
       border-color: var(--accent);
     }
     .benefit-card img {
@@ -158,61 +185,68 @@
       height: 60px;
       object-fit: contain;
       margin-bottom: 1.1rem;
-      filter: drop-shadow(0 1px 8px #2d3e4855);
+      filter: drop-shadow(0 1px 8px #6ec6ff44);
+      z-index: 2;
     }
     .benefit-card p {
-      color: #e9e9e9;
-      font-size: 1.08rem;
+      color: #285075;
+      font-size: 1.1rem;
+      font-weight: 500;
+      z-index: 2;
     }
     .calculator, .quote-form, .finance-offset-section {
       max-width: 520px;
       margin: 0 auto 2.2rem auto;
-      background: var(--card);
+      background: var(--premium-gloss);
       padding: 2.1rem 1.1rem 1.6rem 1.1rem;
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      border: 1.5px solid #20455b;
+      box-shadow: var(--soft-shadow);
+      border: 2px solid #b2daff;
       backdrop-filter: blur(7px);
     }
     label, input, button {
       display: block;
       width: 100%;
-      font-size: 1.05rem;
+      font-size: 1.07rem;
       margin-top: 1rem;
-      font-family: 'Patrick Hand', cursive;
-      color: var(--text);
+      font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+      color: var(--secondary);
     }
     input {
       padding: 0.7rem;
-      border: 1.3px solid #35597a;
-      background: #11202b;
-      color: #eaf0f6;
+      border: 1.8px solid #6ec6ff;
+      background: #f4fbff;
+      color: #285075;
       border-radius: 12px;
       margin-bottom: 0.4rem;
-      transition: border 0.16s;
+      transition: border 0.16s, box-shadow 0.15s;
+      font-size: 1.08rem;
     }
     input:focus {
-      border: 1.7px solid var(--primary);
+      border: 2.5px solid var(--primary-dark);
       outline: none;
-      background: #17384a;
+      background: #eaf7ff;
+      box-shadow: 0 2px 16px #6ec6ff22;
     }
-    #rate, #standing { box-shadow: 0 2px 8px #18405f22; }
+    #rate, #standing { box-shadow: 0 2px 8px #18405f12; }
     button {
-      background: var(--primary);
-      color: var(--accent);
-      padding: 0.8rem;
+      background: linear-gradient(90deg, #6ec6ff 0%, #2196f3 100%);
+      color: var(--white);
+      padding: 0.9rem;
       border: none;
       border-radius: 999px;
       cursor: pointer;
       font-weight: bold;
       margin-top: 1.5rem;
       letter-spacing: .2px;
-      transition: background .18s, color .17s;
-      box-shadow: 0 2px 12px #397a9440;
+      font-size: 1.07rem;
+      transition: background .18s, color .17s, box-shadow .15s;
+      box-shadow: 0 2px 12px #6ec6ff33;
     }
     button:hover {
       background: var(--accent);
-      color: var(--primary);
+      color: var(--primary-dark);
+      box-shadow: 0 2px 18px #ffd70044;
     }
     .presence-radio-group {
       display: flex;
@@ -229,21 +263,21 @@
       display: flex;
       align-items: center;
       gap: 0.3em;
-      font-weight: bold;
-      color: #397a94;
+      font-weight: 700;
+      color: var(--primary-dark);
       cursor: pointer;
     }
     .presence-radio-group input[type="radio"] {
-      accent-color: #ffd700;
+      accent-color: var(--accent);
       margin-right: .3em;
     }
     .presence-radio-group label.out {
-      color: #a49139;
-      font-weight: normal;
+      color: #b7a23a;
+      font-weight: 500;
     }
     .presence-radio-group label.home {
-      color: #397a94;
-      font-weight: bold;
+      color: var(--primary-dark);
+      font-weight: 700;
     }
     #solar-toolkit {
       display: flex;
@@ -257,20 +291,21 @@
       flex: 1 1 330px;
       min-width: 280px;
       max-width: 480px;
-      background: var(--card);
+      background: var(--premium-gloss);
       border-radius: var(--radius);
-      box-shadow: var(--shadow-soft);
+      box-shadow: var(--soft-shadow);
       padding: 2rem 1.2rem 2.2rem 1.2rem;
       margin-bottom: 0;
-      border: 1.5px solid #20455b;
+      border: 2px solid #b2daff;
       backdrop-filter: blur(7px);
     }
     #solar-toolkit h2 {
       text-align: center;
-      color: var(--accent);
+      color: var(--primary-dark);
       font-size: 1.17em;
       letter-spacing: .5px;
       margin-bottom: .8em;
+      font-weight: 700;
     }
     .trust-cards {
       display: flex;
@@ -282,10 +317,10 @@
       max-width: 900px;
     }
     .accredit-card {
-      background: linear-gradient(130deg, #233a48 60%, #183646 100%);
-      box-shadow: 0 4px 16px #397a9444;
+      background: linear-gradient(130deg, #e3f5ff 60%, #b6e0ff 100%);
+      box-shadow: 0 4px 16px #6ec6ff44;
       border-radius: 15px;
-      border: 1.2px solid #397a9480;
+      border: 2px solid #b2daff;
       padding: 1.2em 1em 0.8em 1em;
       min-width: 130px;
       max-width: 210px;
@@ -294,12 +329,13 @@
       align-items: center;
       margin-bottom: 1.5em;
       position: relative;
-      transition: box-shadow .15s, border .15s;
+      transition: box-shadow .15s, border .15s, background .15s;
       cursor: pointer;
     }
     .accredit-card:focus-within, .accredit-card:hover {
-      box-shadow: 0 8px 34px #ffd70077;
+      box-shadow: 0 8px 34px #ffd70066, 0 4px 16px #6ec6ff44;
       border-color: var(--accent);
+      background: linear-gradient(120deg, #fffde1 0%, #e8f4ff 80%);
       transform: translateY(-4px) scale(1.04);
       z-index: 2;
     }
@@ -322,11 +358,11 @@
       width: 50px;
       height: 50px;
       object-fit: contain;
-      background: #10222b;
+      background: #f4fbff;
       border-radius: 11px;
-      box-shadow: 0 2px 9px #397a9444;
+      box-shadow: 0 2px 9px #6ec6ff44;
       margin-bottom: 0.7em;
-      border: 1.5px solid #397a94;
+      border: 2px solid #6ec6ff;
       padding: 6px;
       transition: border .13s;
     }
@@ -335,7 +371,7 @@
     }
     .accredit-card span {
       font-weight: 700;
-      color: var(--accent);
+      color: var(--primary-dark);
       font-size: 1.1em;
       letter-spacing: .6px;
       margin-bottom: .2em;
@@ -343,16 +379,16 @@
     .accredit-card-desc {
       display: none;
       margin-top: 0.7em;
-      background: #183646;
-      color: var(--accent);
+      background: #e8f4ff;
+      color: var(--primary-dark);
       border-radius: 11px;
-      box-shadow: 0 2px 12px #397a9444;
+      box-shadow: 0 2px 12px #6ec6ff44;
       padding: 0.82em 0.8em 1.1em 0.8em;
       font-size: 1em;
       text-align: left;
       max-width: 270px;
       min-height: 64px;
-      border: 1.2px solid #397a94;
+      border: 2px solid #6ec6ff;
       position: absolute;
       top: 100%;
       left: 50%;
@@ -367,30 +403,33 @@
     .about-section {
       max-width: 750px;
       margin: 3rem auto 2.5rem auto;
-      background: rgba(25,38,50,0.98);
-      color: #ffd700;
+      background: var(--premium-gloss);
+      color: var(--primary-dark);
       border-radius: 24px;
-      box-shadow: 0 4px 18px #397a9440;
+      box-shadow: var(--soft-shadow);
       padding: 2.5rem 1.2rem;
       text-align: left;
+      border: 2px solid #b2daff;
     }
     .about-section h2 {
-      color: #ffd700;
+      color: var(--primary-dark);
       font-size: 2.1rem;
       margin-top: 0;
       margin-bottom: 1.1rem;
       text-align: center;
+      font-weight: 700;
     }
     .about-section p {
-      color: #fffbe7;
+      color: #24485a;
       font-size: 1.13rem;
       line-height: 1.7;
       margin-bottom: 1.2em;
+      font-weight: 400;
     }
     .about-section .about-highlight {
-      color: #ffd700;
+      color: var(--accent);
       font-size: 1.15rem;
-      font-weight: bold;
+      font-weight: 700;
       margin-bottom: 0.4em;
       display: block;
       text-align: center;
@@ -400,21 +439,20 @@
       margin-top: 1.5em;
     }
     .about-section .about-contact a {
-      color: #ffd700;
+      color: var(--primary-dark);
       text-decoration: underline;
       font-weight: bold;
     }
     .about-section hr {
       border: none;
-      border-top: 1px solid #ffd70055;
+      border-top: 1px solid #b2daff55;
       margin: 2em auto 1.2em auto;
       width: 65%;
     }
-    /* Facebook Page Plugin Style */
     .fb-page, .fb-page * {
       border-radius: 18px !important;
-      box-shadow: 0 4px 18px #397a9440 !important;
-      background: #183646 !important;
+      box-shadow: 0 4px 18px #6ec6ff44 !important;
+      background: #f5faff !important;
       margin: 0 auto 2em auto;
       max-width: 400px;
     }
@@ -455,15 +493,17 @@
       to { opacity: 1; transform: translate(-50%, .5em);}
     }
     footer {
-      background: linear-gradient(90deg, #183646 0%, #20455b 100%);
-      color: var(--accent);
+      background: linear-gradient(90deg, #eaf7ff 0%, #ccecff 100%);
+      color: var(--primary-dark);
       padding: 2.2rem;
       text-align: center;
       margin-top: 3rem;
       border-radius: var(--radius) var(--radius) 0 0;
       font-size: 0.96rem;
       letter-spacing: 0.2px;
-      box-shadow: 0 -2px 22px #18364633;
+      box-shadow: 0 -2px 22px #b2daff33;
+      border-top: 2px solid #b2daff;
+      font-weight: 500;
     }
   </style>
 </head>
@@ -507,12 +547,11 @@
     </span>
     <hr>
     <div style="text-align:center; margin-top:1.5em;">
-      For a comprehensive quotation directly from us, fill out the <a href="#quote" style="color:#ffd700;font-weight:bold;text-decoration:underline;">free quotation form</a>.
+      For a comprehensive quotation directly from us, fill out the <a href="#quote" style="color:#2196f3;font-weight:bold;text-decoration:underline;">free quotation form</a>.
     </div>
   </section>
   <!-- END ABOUT US SECTION -->
 
-  <!-- Benefits Section -->
   <section id="benefits" class="section">
     <h2>Why Solar?</h2>
     <div class="benefit-cards">
@@ -536,10 +575,10 @@
     <div>
       <h2>Check Your Roof Orientation</h2>
       <input id="addressInput" type="text" placeholder="Enter your address" style="max-width:350px;margin:0 auto 1rem auto;display:block;" />
-      <button id="toggleMapBtn" onclick="toggleStreetView()" style="margin:1rem 0 1.2rem 0;padding:0.7rem 1.3rem;border-radius:999px;background:#397a94;color:#ffd700;font-weight:bold;font-size:1rem;border:none;box-shadow:0 2px 8px #397a9440;cursor:pointer;">
+      <button id="toggleMapBtn" onclick="toggleStreetView()" style="margin:1rem 0 1.2rem 0;padding:0.7rem 1.3rem;border-radius:999px;background:linear-gradient(90deg,#6ec6ff,#2196f3);color:#fff;font-weight:700;font-size:1rem;border:none;box-shadow:0 2px 8px #6ec6ff40;cursor:pointer;">
         Show Street View
       </button>
-      <div id="streetview-container" style="width:100%;max-width:400px;height:200px;display:none;border-radius:18px;overflow:hidden;margin:0 auto 1rem auto;background:#133c4a;">
+      <div id="streetview-container" style="width:100%;max-width:400px;height:200px;display:none;border-radius:18px;overflow:hidden;margin:0 auto 1rem auto;background:#eaf7ff;">
         <div id="pano" style="width:100%;height:100%;"></div>
       </div>
       <p id="orientationResult" style="margin-top: 1rem; font-weight: bold;"></p>
@@ -570,24 +609,22 @@
     </div>
   </section>
 
-  <!-- Finance Offset Section -->
   <section id="finance-offset-section" class="finance-offset-section" style="display:none;">
     <h2 style="text-align:center;">Finance & Bill Offset Illustration</h2>
     <form id="depositForm" class="inline-form" autocomplete="off" style="text-align:center;margin-bottom:1.2em;">
       <label for="deposit-amount">Deposit (£):</label>
       <input type="number" id="deposit-amount" value="0" min="0" max="9500" step="100">
-      <button type="submit" style="background:#397a94;color:#ffd700;padding:0.4em 1.3em;border-radius:999px;border:none;cursor:pointer;">Recalculate</button>
+      <button type="submit" style="background:linear-gradient(90deg,#6ec6ff,#2196f3);color:#fff;padding:0.4em 1.3em;border-radius:999px;border:none;cursor:pointer;">Recalculate</button>
     </form>
     <div id="finance-offset-summary" class="finance-summary"></div>
-    <div class="disclaimer">
+    <div class="disclaimer" style="margin-top:1.4em;color:#b7a23a;">
       <strong>Disclaimer:</strong> This illustration uses typical finance terms and current savings estimates for guidance only.
       Actual bills, savings, and finance rates may vary. Please consult a financial adviser for tailored advice.
     </div>
   </section>
 
-  <!-- Historic Prices Section -->
   <section id="historic-prices" class="section">
-    <button onclick="toggleHistoric()" style="font-size:1.1rem;padding:0.5rem 1.5rem;background:#397a94;color:#ffd700;border:none;border-radius:20px;cursor:pointer;">
+    <button onclick="toggleHistoric()" style="font-size:1.1rem;padding:0.5rem 1.5rem;background:linear-gradient(90deg,#6ec6ff,#2196f3);color:#fff;border:none;border-radius:20px;cursor:pointer;">
       Show Historic Electricity Prices (2000-2025)
     </button>
     <div id="historic-graph" style="display:none;margin-top:2rem;">
@@ -602,9 +639,8 @@
   </section>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
-  <!-- Trust Section -->
   <section id="trust" class="section">
-    <h2 style="color:var(--accent);font-size:2rem;">Who Can You Trust?</h2>
+    <h2 style="color:var(--primary-dark);font-size:2rem;font-weight:700;">Who Can You Trust?</h2>
     <div class="trust-cards">
       <div class="accredit-card" tabindex="0">
         <button class="accredit-card-btn" type="button" aria-expanded="false">
@@ -679,12 +715,12 @@
     </div>
   </section>
 
-  <!-- Facebook Profile Thread Section (Widget replaces API feed) -->
+  <!-- Facebook Profile Thread Section -->
   <section id="facebook-profile-thread" class="section">
-    <h2 style="color:var(--accent);text-align:center;">Our Latest on Facebook</h2>
+    <h2 style="color:var(--primary-dark);text-align:center;">Our Latest on Facebook</h2>
     <div style="display:flex;justify-content:center;">
       <div class="fb-page"
-        data-href="https://www.facebook.com/letstalkaboutsolar"
+        data-href="https://www.facebook.com/profile.php?id=61576873361260"
         data-tabs="timeline"
         data-width="400"
         data-height="600"
@@ -692,14 +728,13 @@
         data-adapt-container-width="true"
         data-hide-cover="false"
         data-show-facepile="true">
-        <blockquote cite="https://www.facebook.com/letstalkaboutsolar" class="fb-xfbml-parse-ignore">
-          <a href="https://www.facebook.com/letstalkaboutsolar">Let’s Talk About Solar</a>
+        <blockquote cite="https://www.facebook.com/profile.php?id=61576873361260" class="fb-xfbml-parse-ignore">
+          <a href="https://www.facebook.com/profile.php?id=61576873361260">Let’s Talk About Solar</a>
         </blockquote>
       </div>
     </div>
   </section>
 
-  <!-- Quote Form Section -->
   <section id="quote" class="section">
     <h2>Request a Free Quote</h2>
     <form action="https://formspree.io/f/mldnarjp" method="POST" class="quote-form">
@@ -722,8 +757,6 @@
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v19.0" nonce="letstalksolar"></script>
 
   <script>
-    // Remove previous Facebook API feed JS entirely!
-
     let lastScroll = 0;
     const nav = document.getElementById("navbar");
     let orientationFactor = 1;
@@ -737,7 +770,6 @@
     // Orientation section logic (Street View only)
     let autocomplete, lastPlaceLocation = null, panoMap = null;
 
-    // The callback for Google Maps JS API - sets up both orientation and quote form autocomplete
     function mapsApiLoaded() {
       if (typeof initMap === "function") initMap();
       if (typeof initQuoteAddressAutocomplete === "function") initQuoteAddressAutocomplete();
