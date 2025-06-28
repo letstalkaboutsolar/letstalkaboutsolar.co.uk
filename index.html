@@ -1,43 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ&libraries=places&callback=mapsApiLoaded" async defer>
-// -- BEGIN UPDATED EXPORT & FINANCE INTEGRATION --
-function updateGeneration(kWh) {
-  estimatedGeneration = kWh;
-}
-let estimatedGeneration = 0;
-document.getElementById("calcForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-  const rate = parseFloat(document.getElementById("rate").value);
-  const standing = parseFloat(document.getElementById("standing").value);
-  const usage = parseFloat(document.getElementById("usage").value);
-  const battery = document.getElementById("battery").checked;
-  const homeAllDay = document.getElementById("homeDay")?.checked;
-  if (!estimatedGeneration || estimatedGeneration <= 0) {
-    alert("Please use the orientation tool first so we can estimate your solar generation.");
-    return;
-  }
-
-  const annualStanding = standing * 365 / 100;
-  const selfUseFactor = battery ? (homeAllDay ? 0.8 : 0.7) : (homeAllDay ? 0.65 : 0.5);
-  const consumed = estimatedGeneration * selfUseFactor;
-  const exported = estimatedGeneration - consumed;
-  const savings = consumed * rate / 100;
-  const exportIncome = exported * 0.165;
-  const totalAnnualBenefit = savings + exportIncome;
-
-  document.getElementById("calcResult").innerHTML = `
-    <p><strong>Estimated Generation:</strong> ${estimatedGeneration.toFixed(0)} kWh<br>
-    <strong>Used at Home:</strong> ${consumed.toFixed(0)} kWh<br>
-    <strong>Exported:</strong> ${exported.toFixed(0)} kWh<br>
-    <strong>Annual Bill Savings:</strong> £${savings.toFixed(2)}<br>
-    <strong>SEG Export Income:</strong> £${exportIncome.toFixed(2)}<br>
-    <strong>Total Annual Benefit:</strong> £${totalAnnualBenefit.toFixed(2)}</p>
-  `;
-});
-
-</script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ&libraries=places&callback=mapsApiLoaded" async defer></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Let’s Talk About Solar</title>
@@ -581,25 +545,426 @@ document.getElementById("calcForm").addEventListener("submit", function(e) {
       </p>
     </div>
   </section>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js">
-// -- BEGIN UPDATED EXPORT & FINANCE INTEGRATION --
-function updateGeneration(kWh) {
-  estimatedGeneration = kWh;
-}
-let estimatedGeneration = 0;
-document.getElementById("calcForm").addEventListener("submit", function(e) {
-  e.preventDefault();
-  const rate = parseFloat(document.getElementById("rate").value);
-  const standing = parseFloat(document.getElementById("standing").value);
-  const usage = parseFloat(document.getElementById("usage").value);
-  const battery = document.getElementById("battery").checked;
-  const homeAllDay = document.getElementById("homeDay")?.checked;
-  if (!estimatedGeneration || estimatedGeneration <= 0) {
-    alert("Please use the orientation tool first so we can estimate your solar generation.");
-    return;
-  }
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <section id="trust" class="section">
+    <h2>Who Can You Trust?</h2>
+    <div class="trust-icons">
+      <div>
+        <a href="https://mcscertified.com/" target="_blank" title="MCS: Quality guaranteed equipment and installers">
+          <img src="assets/mcs logo.png" alt="MCS Certified" />
+        </a>
+        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <strong>MCS (Microgeneration Certification Scheme):</strong><br>
+          Guarantees your installer and solar products meet strict UK quality and safety standards. MCS certification is required for eligibility for government incentives and ensures your installation is reliable and high performing.
+        </p>
+      </div>
+      <div>
+        <a href="https://www.epvs.co.uk/" target="_blank" title="EPVS: Verified energy savings and performance claims">
+          <img src="assets/epvs logi.jpeg" alt="EPVS" />
+        </a>
+        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <strong>EPVS (Energy Performance Validation Scheme):</strong><br>
+          Protects you from misleading sales claims by ensuring all performance figures and savings estimates from your installer are independently validated and accurate.
+        </p>
+      </div>
+      <div>
+        <a href="https://www.hiesscheme.org.uk/" target="_blank" title="HIES: Consumer protection from start to finish">
+          <img src="assets/hies-cc-logo-2.png" alt="HIES" />
+        </a>
+        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <strong>HIES (Home Insulation & Energy Systems):</strong><br>
+          Provides consumer protection including deposit and warranty insurance, dispute resolution, and ensures you’re covered if anything goes wrong with your solar purchase.
+        </p>
+      </div>
+      <div>
+        <a href="https://www.napit.org.uk/" target="_blank" title="NAPIT: Government-approved installer certification">
+          <img src="assets/NAPIT-NEW-LOGO.jpg" alt="NAPIT" />
+        </a>
+        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <strong>NAPIT (National Association of Professional Inspectors and Testers):</strong><br>
+          Certifies electrical safety and compliance of your installer, ensuring your solar system is installed to the latest regulations and standards.
+        </p>
+      </div>
+      <div>
+        <a href="https://www.tradingstandards.uk/" target="_blank" title="Trading Standards: Ensuring legal and fair business practices">
+          <img src="assets/trading-standards-uk-logo.png" alt="Trading Standards" />
+        </a>
+        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <strong>Trading Standards:</strong><br>
+          Ensures solar businesses comply with UK consumer laws and codes of practice, protecting you from unfair sales and poor business practices.
+        </p>
+      </div>
+      <div>
+        <a href="https://www.trustmark.org.uk/" target="_blank" title="Government TrustMark: The only government-endorsed quality scheme for trades in and around the home">
+          <img src="assets/tm_primary_logo_rgb.jpg" alt="TrustMark" />
+        </a>
+        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <strong>TrustMark:</strong><br>
+          Government-endorsed scheme ensuring your solar installer is thoroughly vetted for quality, customer service, and trading practices.
+        </p>
+      </div>
+      <div>
+        <a href="https://register.fca.org.uk/" target="_blank" title="FCA: Regulated advice and consumer financial protection">
+          <img src="assets/Financial_Conduct_Authority_logo.svg.png" alt="FCA" />
+        </a>
+        <p style="max-width:140px;margin:0 auto;font-size:0.97em">
+          <strong>FCA (Financial Conduct Authority):</strong><br>
+          Regulates finance providers and credit agreements, protecting you if you choose to finance your solar system, ensuring fair, clear, and legal financial products.
+        </p>
+      </div>
+    </div>
+  </section>
 
-  const annualStanding = standing * 365 / 100;
-  const selfUseFactor = battery ? (homeAllDay ? 0.8 : 0.7) : (homeAllDay ? 0.65 : 0.5);
-  const consumed = estimatedGeneration * selfUseFactor;
-  const 
+  <!-- Facebook Feed Section -->
+  <section id="facebook-feed" class="facebook-feed-section">
+    <h2>Latest from Our Facebook Page</h2>
+    <div id="fb-feed">Loading posts…</div>
+  </section>
+
+  <section id="quote" class="section">
+    <h2>Request a Free Quote</h2>
+    <form action="https://formspree.io/f/mldnarjp" method="POST" class="quote-form">
+      <input type="text" name="name" placeholder="Full Name" required autocomplete="name">
+      <input type="text" name="address" id="quote-address" placeholder="Start typing your address…" required autocomplete="street-address">
+      <input type="email" name="email" placeholder="Email Address" required autocomplete="email">
+      <input type="tel" name="phone" placeholder="Phone Number" required autocomplete="tel">
+      <input type="text" name="unitrate" placeholder="Electricity Unit Rate (p/kWh)" required>
+      <input type="text" name="annualspend" placeholder="Annual Electricity Spend (£)" required>
+      <button type="submit">Send My Quote Request</button>
+    </form>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Let’s Talk About Solar. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Facebook Feed Fetcher (using the new access token)
+    (function() {
+      const PAGE_ID = "1065220185700265";
+      const PAGE_ACCESS_TOKEN = "EAAPIzZBbGt6kBOZBSOCOOuBKIZC3E8yAp8LZALPDrD4VB9KdSnhRCjZCYhFoREmst5lL78Jg4ZCd4Xab1uBOpIrnb2796AbNJEEWGfqa4WGjGghQA7AcfPOohnwNfgupUAt15JFTiQvd55RLoFlpsyJIjRxZBtKGg8GNUCe2Th4v0eW8Maexul6MbDdeYbtSdiyrW50aoA6DzM3WQngob9CDwCuFW40QU7umJSYzoIZB2NsZD";
+      const url = `https://graph.facebook.com/v19.0/${PAGE_ID}/posts?fields=message,created_time,permalink_url,full_picture&access_token=${PAGE_ACCESS_TOKEN}`;
+      fetch(url)
+        .then(r => r.json())
+        .then(data => {
+          const container = document.getElementById('fb-feed');
+          if (data && data.data && data.data.length > 0) {
+            container.innerHTML = data.data.map(post => `
+              <div class="fb-post">
+                <div class="fb-date">${new Date(post.created_time).toLocaleString()}</div>
+                <div class="fb-message">${post.message ? post.message.replace(/\n/g, "<br>") : "<em>No text content</em>"}</div>
+                ${post.full_picture ? `<img src="${post.full_picture}" alt="Post image" style="max-width:100%;border-radius:8px;margin:0.6em 0;">` : ""}
+                <a class="fb-link" href="${post.permalink_url}" target="_blank">View on Facebook</a>
+              </div>
+            `).join('');
+          } else {
+            container.innerHTML = "<p>No posts found, or token expired/insufficient permissions.</p>";
+          }
+        })
+        .catch(err => {
+          document.getElementById('fb-feed').innerHTML = "<p>Error fetching posts.</p>";
+          console.error(err);
+        });
+    })();
+
+    let lastScroll = 0;
+    const nav = document.getElementById("navbar");
+    let orientationFactor = 1;
+
+    window.addEventListener("scroll", () => {
+      const currentScroll = window.pageYOffset;
+      nav.classList.toggle("hidden", currentScroll > lastScroll);
+      lastScroll = currentScroll;
+    });
+
+    // Orientation section logic (Street View only)
+    let autocomplete, lastPlaceLocation = null, panoMap = null;
+
+    // The callback for Google Maps JS API - sets up both orientation and quote form autocomplete
+    function mapsApiLoaded() {
+      if (typeof initMap === "function") initMap();
+      if (typeof initQuoteAddressAutocomplete === "function") initQuoteAddressAutocomplete();
+    }
+
+    function initMap() {
+      const input = document.getElementById("addressInput");
+      autocomplete = new google.maps.places.Autocomplete(input, {
+        componentRestrictions: { country: 'uk' },
+        fields: ["geometry", "formatted_address", "address_components"],
+        types: ["address"]
+      });
+
+      autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+        if (!place.geometry || !place.geometry.location) {
+          alert("No details available for input: '" + place.name + "'");
+          lastPlaceLocation = null;
+          return;
+        }
+        lastPlaceLocation = place.geometry.location;
+        // Orientation logic
+        const viewport = place.geometry.viewport;
+        let orientation = "Unknown";
+        let explanation = "";
+        orientationFactor = 0.9;
+
+        if (viewport) {
+          const ne = viewport.getNorthEast();
+          const sw = viewport.getSouthWest();
+          const angle = Math.atan2(ne.lat() - sw.lat(), ne.lng() - sw.lng()) * (180 / Math.PI);
+
+          if (angle > -45 && angle <= 45) {
+            orientation = "East";
+            orientationFactor = 0.85;
+            explanation = "Your front roof likely faces East and the rear West. A solar system can still work well with morning sunlight.";
+          } else if (angle > 45 && angle <= 135) {
+            orientation = "North";
+            orientationFactor = 0.75;
+            explanation = "Your front roof likely faces North and the rear South. South-facing roofs are ideal for solar.";
+          } else if (angle > -135 && angle <= -45) {
+            orientation = "South";
+            orientationFactor = 1.0;
+            explanation = "Your front roof likely faces South and the rear North. This is excellent for solar efficiency.";
+          } else {
+            orientation = "West";
+            orientationFactor = 0.8;
+            explanation = "Your front roof likely faces West and the rear East. Good for catching late afternoon sunlight.";
+          }
+        }
+
+        document.getElementById("orientationResult").innerHTML =
+          `<strong>Estimated Roof Orientation:</strong> ${orientation}<br><em>${explanation}</em>`;
+      });
+    }
+
+    function initQuoteAddressAutocomplete() {
+      var input = document.getElementById('quote-address');
+      if (!input) return;
+      var options = {
+        componentRestrictions: { country: 'uk' },
+        fields: ["formatted_address", "geometry"],
+        types: ["address"]
+      };
+      var autocomplete = new google.maps.places.Autocomplete(input, options);
+      autocomplete.setBounds(new google.maps.LatLngBounds(
+        new google.maps.LatLng(49.9, -7.6),
+        new google.maps.LatLng(58.7, 1.8)
+      ));
+    }
+
+    function toggleStreetView() {
+      const container = document.getElementById("streetview-container");
+      const btn = document.getElementById("toggleMapBtn");
+      if (container.style.display === 'none' || container.style.display === '') {
+        if (!lastPlaceLocation) {
+          alert("Please enter your address and select it from the dropdown first.");
+          return;
+        }
+        container.style.display = "block";
+        if (!panoMap) {
+          panoMap = new google.maps.StreetViewPanorama(
+            document.getElementById("pano"),
+            {
+              position: lastPlaceLocation,
+              pov: { heading: 165, pitch: 0 },
+              zoom: 1
+            }
+          );
+        } else {
+          panoMap.setPosition(lastPlaceLocation);
+        }
+        btn.innerText = "Hide Street View";
+      } else {
+        container.style.display = "none";
+        btn.innerText = "Show Street View";
+      }
+    }
+
+    // --- SOLAR CALCULATOR (with standing charge and finance offset) ---
+    let latestSavingsPerYear = 0;
+    let latestAnnualSpend = 0;
+    document.getElementById("calcForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const rate = parseFloat(document.getElementById("rate").value);
+      const standing = parseFloat(document.getElementById("standing").value);
+      const usage = parseFloat(document.getElementById("usage").value);
+      const battery = document.getElementById("battery").checked;
+      const systemSizeKW = 3.68;
+      const panelSystemKW = 9 * 0.46;
+      const kwhPerKWp = 1050;
+      const estimatedAnnualGen = Math.min(systemSizeKW, panelSystemKW) * kwhPerKWp * orientationFactor;
+      let usableBatteryKWh = 0;
+      let batteryCyclesPerYear = 0;
+      let batterySelfUse = 0;
+      if (battery) {
+        usableBatteryKWh = 5 * 0.9 * 0.9;
+        batteryCyclesPerYear = 365;
+        batterySelfUse = Math.min(estimatedAnnualGen, usableBatteryKWh * batteryCyclesPerYear);
+      }
+      let selfConsumptionRatio = battery ? 0.90 : 0.65;
+      let selfUsedKWh = estimatedAnnualGen * selfConsumptionRatio;
+      if (battery) {
+        selfUsedKWh = Math.min(selfUsedKWh + batterySelfUse, estimatedAnnualGen, usage);
+      }
+
+      // Annual spend calculation (unit rate and standing charge)
+      const annualStanding = standing * 365 / 100; // convert p/day to £/year
+      const billUsage = rate * usage / 100; // convert p/kWh to £/year
+      const annualSpend = billUsage + annualStanding;
+      latestAnnualSpend = annualSpend;
+
+      // 10-year savings projection
+      let annualSavingsArr = [];
+      let price = rate;
+      let cumulative = 0;
+      for (let year = 1; year <= 10; year++) {
+        let yearSavings = (selfUsedKWh * price) / 100;
+        cumulative += yearSavings;
+        annualSavingsArr.push({
+          year,
+          price: price.toFixed(2),
+          savings: yearSavings.toFixed(2),
+          cumulative: cumulative.toFixed(2)
+        });
+        price *= 1.0704; // Increase by 7.04% each year
+      }
+      const breakEvenEstimate = 9500;
+      let tableRows = annualSavingsArr.map(row =>
+        `<tr><td>Year ${row.year}</td><td>£${row.savings}</td><td>${row.price}p/kWh</td><td>£${row.cumulative}</td></tr>`
+      ).join('');
+      const calcResult = document.getElementById("calcResult");
+      latestSavingsPerYear = parseFloat(annualSavingsArr[0].savings); // For finance offset
+      calcResult.innerHTML = `
+        <div style="margin-bottom:1.1em;">
+          <h3>Estimated Annual Savings (Year 1): £${annualSavingsArr[0].savings}</h3>
+          <p>Your system is estimated to generate <strong>${estimatedAnnualGen.toFixed(0)} kWh</strong> per year.</p>
+          <p>Annual self-used solar: <strong>${selfUsedKWh.toFixed(0)} kWh</strong> (${(100*selfUsedKWh/usage).toFixed(0)}% of your usage${battery ? ' with 5kWh battery' : ''}).</p>
+          <p><b>Your annual energy spend (inc. standing charge): £${annualSpend.toFixed(2)}</b></p>
+          <p>Typical installation: <strong>£${breakEvenEstimate.toLocaleString()}</strong></p>
+        </div>
+        <h4>Projected Savings Over 10 Years (with 7.04% price increase per year):</h4>
+        <table style="margin:auto;border-collapse:collapse;">
+          <tr>
+            <th>Year</th>
+            <th>Annual Savings</th>
+            <th>Price per kWh</th>
+            <th>Cumulative Savings</th>
+          </tr>
+          ${tableRows}
+        </table>
+        <p style="font-size:0.95em;color:#888;">This calculation is based on a system with 9 solar panels – if your roof can fit more, your potential savings will be even higher. These are estimated figures and don’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.</p>
+      `;
+
+      // Show finance offset section after calculation
+      showFinanceOffset();
+    });
+
+    function showFinanceOffset() {
+      const section = document.getElementById("finance-offset-section");
+      section.style.display = "block";
+      updateFinanceOffset();
+    }
+
+    function updateFinanceOffset() {
+      const installCost = 9500;
+      const deposit = parseFloat(document.getElementById("deposit-amount")?.value) || 0;
+      const loanAmount = installCost - deposit;
+      const years = 10;
+      const n = years * 12;
+      const rate = 0.099;
+      const monthlyRate = rate / 12;
+      let monthly = (loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -n));
+      const totalFinance = (monthly * n) + deposit;
+
+      const savingsPerYear = latestSavingsPerYear || 800;
+      const savingsPerMonth = savingsPerYear / 12;
+      const totalSavings10y = savingsPerYear * years;
+      const annualSpend = latestAnnualSpend || 1200;
+      const totalElec10y = annualSpend * years;
+
+      const netMonthly = monthly - savingsPerMonth;
+      const net10y = (monthly * n) - totalSavings10y + deposit;
+      const diff = totalElec10y - net10y;
+
+      const summary = `
+        <p>
+          <b>Typical system cost:</b> £${installCost.toLocaleString()}
+          &nbsp; <b>Deposit:</b> £${deposit.toLocaleString()}<br>
+          <b>Monthly finance payment:</b> £${monthly.toFixed(2)}<br>
+          <b>Estimated average monthly savings:</b> £${savingsPerMonth.toFixed(2)}
+        </p>
+        <p>
+          <b>Net outgoing (finance payment minus savings):</b> <span>${netMonthly > 0 ? "£"+netMonthly.toFixed(2)+"/month" : "<span class='diff-positive'>£"+netMonthly.toFixed(2)+"/month</span>"}</span>
+        </p>
+        <hr>
+        <p>
+          <b>Total cost with solar & finance over 10 years:</b> £${net10y.toFixed(2)}<br>
+          <b>Total paid for electricity (no solar) over 10 years:</b> £${totalElec10y.toFixed(2)}<br>
+          <b>Difference:</b> <span class="${diff > 0 ? 'diff-positive' : 'diff-negative'}">${diff > 0 ? "You save £"+diff.toFixed(2) : "Solar+finance costs £"+Math.abs(diff).toFixed(2)+" more"}</span>
+        </p>
+      `;
+      document.getElementById("finance-offset-summary").innerHTML = summary;
+    }
+
+    document.getElementById("depositForm").addEventListener("submit", function(e){
+      e.preventDefault();
+      updateFinanceOffset();
+    });
+
+    function toggleHistoric() {
+      let g = document.getElementById('historic-graph');
+      g.style.display = (g.style.display === 'none' || g.style.display === '') ? 'block' : 'none';
+      if (g.style.display === 'block' && !window._historicChartLoaded) {
+        drawPriceChart();
+        window._historicChartLoaded = true;
+      }
+    }
+    function drawPriceChart() {
+      const ctx = document.getElementById('pricesChart').getContext('2d');
+      const years = [
+        2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,
+        2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,
+        2020,2021,2022,2023,2024,2025
+      ];
+      const prices = [
+        7.0,7.3,7.2,7.1,7.4,8.2,10.0,10.6,13.3,13.9,
+        13.7,14.5,15.5,15.6,15.6,15.2,14.4,14.4,15.0,17.2,
+        17.2,19.0,28.0,30.0,28.5,27.5
+      ];
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: years,
+          datasets: [{
+            label: 'UK Domestic Electricity Price (p/kWh)',
+            data: prices,
+            borderColor: '#397a94',
+            backgroundColor: 'rgba(57,122,148,0.13)',
+            tension: 0.25,
+            pointBackgroundColor: '#ffc700',
+            pointRadius: 5,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: true },
+            tooltip: { enabled: true }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: { display: true, text: 'pence per kWh' }
+            },
+            x: {
+              title: { display: true, text: 'Year' }
+            }
+          }
+        }
+      });
+    }
+  </script>
+</body>
+</html>
