@@ -1,430 +1,428 @@
-<!DOCTYPE html>  
-<html lang="en">  
-<head>  
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ&libraries=places&callback=mapsApiLoaded" async defer></script>  
-  <meta charset="UTF-8" />  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
-  <title>Let’s Talk About Solar</title>  
-  <meta name="description" content="Clear, friendly, and honest solar advice for UK homeowners. Discover real savings, trusted installers, and smart solar tools." />  
-  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">  
-  <style>  
-    :root {  
-      --primary: #72bcd4;  
-      --secondary: #eaf9ff;  
-      --accent: #ffd700;  
-      --background: #f4fbff;  
-      --card: #fff;  
-      --text: #2c3e50;  
-      --radius: 20px;  
-      --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);  
-    }  
-    * { box-sizing: border-box; }  
-    html, body {  
-      margin: 0;  
-      padding: 0;  
-      background: var(--background);  
-      font-family: 'Patrick Hand', cursive;  
-      color: var(--text);  
-      scroll-behavior: smooth;  
-    }  
-    nav {  
-      position: fixed;  
-      top: 0;  
-      width: 100%;  
-      background: var(--card);  
-      box-shadow: var(--shadow);  
-      padding: 1rem 2rem;  
-      display: flex;  
-      justify-content: space-between;  
-      align-items: center;  
-      z-index: 100;  
-      transition: top 0.3s;  
-      height: auto;  
-    }  
-    nav.hidden { top: -100px; }  
-    .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary); }  
-    nav ul {  
-      list-style: none;  
-      display: flex;  
-      gap: 1.5rem;  
-      margin: 0;  
-      padding: 0;  
-    }  
-    nav ul li a {  
-      text-decoration: none;  
-      color: var(--text);  
-      font-size: 1.1rem;  
-      padding: 0.5rem 0.8rem;  
-      border-radius: 999px;  
-      transition: background 0.18s;  
-    }  
-    nav ul li a.cta-nav {  
-      background: var(--primary);  
-      color: white;  
-      padding: 0.5rem 1rem;  
-    }  
-    nav ul li a:hover,  
-    nav ul li a.cta-nav:hover {  
-      background: var(--secondary);  
-      color: var(--primary);  
-    }  
-    .hero {  
-      padding: 4rem 2rem 2rem;  
-      display: flex;  
-      flex-wrap: wrap;  
-      justify-content: center;  
-      align-items: center;  
-      background:   
-        linear-gradient(to right, rgba(224,247,255,0.75), rgba(255,255,255,0.75)),  
-        url('assets/solar-bg.jpg') center/cover no-repeat;  
-      margin-top: 72px;  
-      min-height: 340px;  
-      position: relative;  
-    }  
-    .hero-text {  
-      max-width: 480px;  
-      padding: 1rem;  
-      z-index: 1;  
-    }  
-    .hero-text h1 {  
-      font-size: 2.2rem;  
-      color: var(--primary);  
-      margin: 0 0 1rem;  
-      text-shadow: 2px 2px 12px rgba(0,0,0,0.17);  
-    }  
-    .hero-text p {  
-      font-size: 1.1rem;  
-      margin-bottom: 1rem;  
-    }  
-    .cta {  
-      background: var(--primary);  
-      color: white;  
-      padding: 0.75rem 1.5rem;  
-      text-decoration: none;  
-      border-radius: 999px;  
-      font-size: 1rem;  
-      display: inline-block;  
-    }  
-    .section { padding: 3rem 1rem; text-align: center; }  
-    .benefit-cards {  
-      display: flex;  
-      flex-wrap: wrap;  
-      gap: 2rem;  
-      justify-content: center;  
-      margin-top: 2rem;  
-    }  
-    .benefit-card {  
-      background: var(--card);  
-      padding: 1.5rem;  
-      border-radius: var(--radius);  
-      box-shadow: var(--shadow);  
-      max-width: 250px;  
-    }  
-    .benefit-card img {  
-      width: 60px;  
-      height: 60px;  
-      object-fit: contain;  
-      margin-bottom: 1rem;  
-    }  
-    .calculator, .quote-form {  
-      max-width: 500px;  
-      margin: 0 auto;  
-      background: var(--card);  
-      padding: 2rem;  
-      border-radius: var(--radius);  
-      box-shadow: var(--shadow);  
-    }  
-    label, input, button {  
-      display: block;  
-      width: 100%;  
-      font-size: 1rem;  
-      margin-top: 1rem;  
-      font-family: 'Patrick Hand', cursive;  
-    }  
-    input {  
-      padding: 0.6rem;  
-      border: 1px solid #ccc;  
-      border-radius: 10px;  
-    }  
-    #rate { box-shadow: 0 2px 8px #e3f0fc; }  
-    button {  
-      background: var(--primary);  
-      color: white;  
-      padding: 0.75rem;  
-      border: none;  
-      border-radius: 999px;  
-      cursor: pointer;  
-    }  
-    #solar-toolkit {  
-      display: flex;  
-      flex-wrap: wrap;  
-      gap: 2rem;  
-      justify-content: center;  
-      align-items: flex-start;  
-      text-align: left;  
-    }  
-    #solar-toolkit > div {  
-      flex: 1 1 320px;  
-      min-width: 280px;  
-      max-width: 450px;  
-      background: var(--card);  
-      border-radius: var(--radius);  
-      box-shadow: var(--shadow);  
-      padding: 2rem;  
-      margin-bottom: 0;  
-    }  
-    #solar-toolkit h2 {  
-      text-align: center;  
-    }  
-    /* Facebook Feed Section */  
-    .facebook-feed-section {  
-      max-width: 700px;  
-      margin: 3rem auto;  
-      padding: 2rem 1rem;  
-      background: var(--card);  
-      border-radius: var(--radius);  
-      box-shadow: var(--shadow);  
-      text-align: center;  
-    }  
-    #fb-feed {  
-      margin-top: 1.2em;  
-      text-align: left;  
-    }  
-    .fb-post {  
-      background: #f9fbff;  
-      border-radius: 12px;  
-      box-shadow: 0 2px 12px #e3f0fc;  
-      margin-bottom: 1.5rem;  
-      padding: 1.3rem;  
-    }  
-    .fb-date {  
-      color: #888;  
-      font-size: 0.93em;  
-      margin-bottom: 0.6em;  
-    }  
-    .fb-message {  
-      font-size: 1.05em;  
-      margin-bottom: 0.7em;  
-    }  
-    .fb-link {  
-      color: #1877f2;  
-      text-decoration: underline;  
-      font-size: 0.93em;  
-    }  
-    @media (max-width: 950px) {  
-      #solar-toolkit {  
-        flex-direction: column;  
-        align-items: stretch;  
-        text-align: center;  
-      }  
-      #solar-toolkit > div {  
-        margin: 0 auto 2rem auto;  
-      }  
-    }  
-    .trust-icons {  
-      display: flex;  
-      flex-wrap: wrap;  
-      gap: 2.3rem 2rem;  
-      justify-content: center;  
-      align-items: flex-start;  
-      margin: 2rem auto 0 auto;  
-      max-width: 1020px;  
-    }  
-    .trust-icons > div {  
-      display: flex;  
-      flex-direction: column;  
-      align-items: center;  
-      width: 150px;  
-      min-height: 220px;  
-    }  
-    .trust-icons a {  
-      display: flex;  
-      flex-direction: column;  
-      align-items: center;  
-      transition: transform 0.13s;  
-    }  
-    .trust-icons a:hover {  
-      transform: scale(1.14);  
-    }  
-    .trust-icons img {  
-      width: 60px;  
-      height: 60px;  
-      object-fit: contain;  
-      filter: drop-shadow(0 2px 6px #e3f0fc);  
-      background: white;  
-      border-radius: 12px;  
-      padding: 7px;  
-      margin-bottom: 0.4rem;  
-    }  
-    .trust-icons p {  
-      margin: 0;  
-      font-size: 0.97em;  
-      text-align: center;  
-    }  
-    @media (max-width: 900px) {  
-      .trust-icons {  
-        gap: 1.1rem;  
-        max-width: 97vw;  
-      }  
-      .trust-icons > div {  
-        width: 44vw;  
-        min-width: 140px;  
-        max-width: 180px;  
-        min-height: unset;  
-      }  
-      .trust-icons img {  
-        width: 42px;  
-        height: 42px;  
-        padding: 4px;  
-        border-radius: 7px;  
-      }  
-    }  
-    @media (max-width: 600px) {  
-      .trust-icons {  
-        gap: 0.6rem;  
-      }  
-      .trust-icons > div {  
-        width: 98vw;  
-        max-width: 99vw;  
-      }  
-      .trust-icons img {  
-        width: 35px;  
-        height: 35px;  
-        padding: 2px;  
-        border-radius: 6px;  
-      }  
-      .facebook-feed-section {  
-        margin: 2rem auto;  
-        padding: 1.2rem 0.3rem;  
-      }  
-    }  
-    footer {  
-      background: var(--primary);  
-      color: white;  
-      padding: 2rem;  
-      text-align: center;  
-      margin-top: 3rem;  
-      border-radius: var(--radius) var(--radius) 0 0;  
-      font-size: 0.9rem;  
-    }  
-    @media (max-width: 600px) {  
-      nav {  
-        padding: 0.4rem 0.7rem;  
-        background: rgba(255,255,255,0.97);  
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);  
-        height: auto;  
-      }  
-      .logo {  
-        font-size: 1rem;  
-        padding: 0.2rem 0;  
-      }  
-      nav ul {  
-        gap: 0.8rem;  
-        overflow-x: auto;  
-        white-space: nowrap;  
-        flex-wrap: nowrap;  
-      }  
-      nav ul li a {  
-        font-size: 0.95rem;  
-        padding: 0.3rem 0.7rem;  
-      }  
-      nav ul li a.cta-nav {  
-        padding: 0.35rem 0.8rem;  
-      }  
-      .hero {  
-        padding: 2.2rem 0.5rem 1rem 0.5rem;  
-        margin-top: 56px;  
-        min-height: 160px;  
-      }  
-      .hero-text h1 {  
-        font-size: 1.2rem;  
-      }  
-      .benefit-cards {  
-        flex-direction: column;  
-        align-items: center;  
-        gap: 1.2rem;  
-      }  
-      .benefit-card {  
-        max-width: 98vw;  
-        padding: 1.2rem 0.7rem;  
-      }  
-      .section {  
-        padding: 1.6rem 0.2rem;  
-      }  
-      #solar-toolkit {  
-        flex-direction: column;  
-        align-items: stretch;  
-        text-align: center;  
-      }  
-      #solar-toolkit > div {  
-        margin: 0 auto 2rem auto;  
-      }  
-    }  
-  </style>  
-</head>  
-<body>  
-  <nav id="navbar">  
-    <div class="logo">Let’s Talk About Solar</div>  
-    <ul>  
-      <li><a href="#hero">Home</a></li>  
-      <li><a href="#benefits">Why Solar?</a></li>  
-      <li><a href="#orientation">Orientation</a></li>  
-      <li><a href="#calculator">Savings</a></li>  
-      <li><a href="#trust">Trust</a></li>  
-      <!-- Add FB Feed to navbar for quick jump -->  
-      <li><a href="#facebook-feed" class="cta-nav">FB Feed</a></li>  
-      <li><a href="#quote" class="cta-nav">Get Quote</a></li>  
-    </ul>  
-  </nav>  
-  <section class="hero" id="hero">  
-    <div class="hero-text">  
-      <h1>Sunshine Meets Smart Savings</h1>  
-      <p>See how solar can protect your bills and power your future.</p>  
-      <a href="#quote" class="cta">Get My Free Quote</a>  
-    </div>  
-  </section>  
-  <section id="benefits" class="section">  
-    <h2>Why Solar?</h2>  
-    <div class="benefit-cards">  
-      <div class="benefit-card">  
-        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Money saving GBP icon">  
-        <p>Save money on your bills from day one.</p>  
-      </div>  
-      <div class="benefit-card">  
-        <img src="https://cdn-icons-png.flaticon.com/512/3103/3103446.png" alt="Battery storage icon">  
-        <p>Store your sunshine with battery technology.</p>  
-      </div>  
-      <div class="benefit-card">  
-        <img src="https://cdn-icons-png.flaticon.com/512/2422/2422625.png" alt="Pylon selling to grid icon">  
-        <p>Sell your surplus energy back to the grid.</p>  
-      </div>  
-    </div>  
-  </section>  
-  <section id="solar-toolkit" class="section">  
-    <div>  
-      <h2>Check Your Roof Orientation</h2>  
-      <p>Enter your address to estimate your solar potential.</p>  
-      <input id="addressInput" type="text" placeholder="Enter your address" style="max-width:350px;margin:0 auto 1rem auto;display:block;" />  
-      <button id="toggleMapBtn" onclick="toggleStreetView()" style="margin:1rem 0 1.2rem 0;padding:0.7rem 1.3rem;border-radius:999px;background:#72bcd4;color:#fff;font-weight:bold;font-size:1rem;border:none;box-shadow:0 2px 8px rgba(114,188,212,0.07);cursor:pointer;">  
-        Show Street View  
-      </button>  
-      <div id="streetview-container" style="width:100%;max-width:400px;height:200px;display:none;border-radius:18px;overflow:hidden;margin:0 auto 1rem auto;background:#f4fbff;">  
-        <div id="pano" style="width:100%;height:100%;"></div>  
-      </div>  
-      <p id="orientationResult" style="margin-top: 1rem; font-weight: bold;"></p>  
-    </div>  
-    <div>  
-      <h2>Solar Savings Calculator</h2>  
-      <form id="calcForm" class="calculator">  
-        <label for="rate">Electricity unit rate (p/kWh):</label>  
-        <input type="number" id="rate" placeholder="e.g. 25" required>  
-        <label for="usage">Annual electricity usage (kWh):</label>  
-        <input type="number" id="usage" placeholder="e.g. 4000" required>  
-        <label><input type="checkbox" id="battery"> Include battery?</label>  
-        <button type="submit">Calculate</button>  
-      </form>  
-      <div id="calcResult"></div>  
-    </div>  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ&libraries=places&callback=mapsApiLoaded" async defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Let’s Talk About Solar</title>
+  <meta name="description" content="Clear, friendly, and honest solar advice for UK homeowners. Discover real savings, trusted installers, and smart solar tools." />
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #72bcd4;
+      --secondary: #eaf9ff;
+      --accent: #ffd700;
+      --background: #f4fbff;
+      --card: #fff;
+      --text: #2c3e50;
+      --radius: 20px;
+      --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--background);
+      font-family: 'Patrick Hand', cursive;
+      color: var(--text);
+      scroll-behavior: smooth;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: var(--card);
+      box-shadow: var(--shadow);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+      transition: top 0.3s;
+      height: auto;
+    }
+    nav.hidden { top: -100px; }
+    .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary); }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      margin: 0;
+      padding: 0;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: var(--text);
+      font-size: 1.1rem;
+      padding: 0.5rem 0.8rem;
+      border-radius: 999px;
+      transition: background 0.18s;
+    }
+    nav ul li a.cta-nav {
+      background: var(--primary);
+      color: white;
+      padding: 0.5rem 1rem;
+    }
+    nav ul li a:hover,
+    nav ul li a.cta-nav:hover {
+      background: var(--secondary);
+      color: var(--primary);
+    }
+    .hero {
+      padding: 4rem 2rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      background:
+        linear-gradient(to right, rgba(224,247,255,0.75), rgba(255,255,255,0.75)),
+        url('assets/solar-bg.jpg') center/cover no-repeat;
+      margin-top: 72px;
+      min-height: 340px;
+      position: relative;
+    }
+    .hero-text {
+      max-width: 480px;
+      padding: 1rem;
+      z-index: 1;
+    }
+    .hero-text h1 {
+      font-size: 2.2rem;
+      color: var(--primary);
+      margin: 0 0 1rem;
+      text-shadow: 2px 2px 12px rgba(0,0,0,0.17);
+    }
+    .hero-text p {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+    }
+    .cta {
+      background: var(--primary);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      text-decoration: none;
+      border-radius: 999px;
+      font-size: 1rem;
+      display: inline-block;
+    }
+    .section { padding: 3rem 1rem; text-align: center; }
+    .benefit-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+    .benefit-card {
+      background: var(--card);
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      max-width: 250px;
+    }
+    .benefit-card img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      margin-bottom: 1rem;
+    }
+    .calculator, .quote-form {
+      max-width: 500px;
+      margin: 0 auto;
+      background: var(--card);
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    label, input, button {
+      display: block;
+      width: 100%;
+      font-size: 1rem;
+      margin-top: 1rem;
+      font-family: 'Patrick Hand', cursive;
+    }
+    input {
+      padding: 0.6rem;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    #rate { box-shadow: 0 2px 8px #e3f0fc; }
+    button {
+      background: var(--primary);
+      color: white;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    #solar-toolkit {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+      align-items: flex-start;
+      text-align: left;
+    }
+    #solar-toolkit > div {
+      flex: 1 1 320px;
+      min-width: 280px;
+      max-width: 450px;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2rem;
+      margin-bottom: 0;
+    }
+    #solar-toolkit h2 {
+      text-align: center;
+    }
+    .facebook-feed-section {
+      max-width: 700px;
+      margin: 3rem auto;
+      padding: 2rem 1rem;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+    #fb-feed {
+      margin-top: 1.2em;
+      text-align: left;
+    }
+    .fb-post {
+      background: #f9fbff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px #e3f0fc;
+      margin-bottom: 1.5rem;
+      padding: 1.3rem;
+    }
+    .fb-date {
+      color: #888;
+      font-size: 0.93em;
+      margin-bottom: 0.6em;
+    }
+    .fb-message {
+      font-size: 1.05em;
+      margin-bottom: 0.7em;
+    }
+    .fb-link {
+      color: #1877f2;
+      text-decoration: underline;
+      font-size: 0.93em;
+    }
+    @media (max-width: 950px) {
+      #solar-toolkit {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+      }
+      #solar-toolkit > div {
+        margin: 0 auto 2rem auto;
+      }
+    }
+    .trust-icons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.3rem 2rem;
+      justify-content: center;
+      align-items: flex-start;
+      margin: 2rem auto 0 auto;
+      max-width: 1020px;
+    }
+    .trust-icons > div {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 150px;
+      min-height: 220px;
+    }
+    .trust-icons a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.13s;
+    }
+    .trust-icons a:hover {
+      transform: scale(1.14);
+    }
+    .trust-icons img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      filter: drop-shadow(0 2px 6px #e3f0fc);
+      background: white;
+      border-radius: 12px;
+      padding: 7px;
+      margin-bottom: 0.4rem;
+    }
+    .trust-icons p {
+      margin: 0;
+      font-size: 0.97em;
+      text-align: center;
+    }
+    @media (max-width: 900px) {
+      .trust-icons {
+        gap: 1.1rem;
+        max-width: 97vw;
+      }
+      .trust-icons > div {
+        width: 44vw;
+        min-width: 140px;
+        max-width: 180px;
+        min-height: unset;
+      }
+      .trust-icons img {
+        width: 42px;
+        height: 42px;
+        padding: 4px;
+        border-radius: 7px;
+      }
+    }
+    @media (max-width: 600px) {
+      .trust-icons {
+        gap: 0.6rem;
+      }
+      .trust-icons > div {
+        width: 98vw;
+        max-width: 99vw;
+      }
+      .trust-icons img {
+        width: 35px;
+        height: 35px;
+        padding: 2px;
+        border-radius: 6px;
+      }
+      .facebook-feed-section {
+        margin: 2rem auto;
+        padding: 1.2rem 0.3rem;
+      }
+    }
+    footer {
+      background: var(--primary);
+      color: white;
+      padding: 2rem;
+      text-align: center;
+      margin-top: 3rem;
+      border-radius: var(--radius) var(--radius) 0 0;
+      font-size: 0.9rem;
+    }
+    @media (max-width: 600px) {
+      nav {
+        padding: 0.4rem 0.7rem;
+        background: rgba(255,255,255,0.97);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        height: auto;
+      }
+      .logo {
+        font-size: 1rem;
+        padding: 0.2rem 0;
+      }
+      nav ul {
+        gap: 0.8rem;
+        overflow-x: auto;
+        white-space: nowrap;
+        flex-wrap: nowrap;
+      }
+      nav ul li a {
+        font-size: 0.95rem;
+        padding: 0.3rem 0.7rem;
+      }
+      nav ul li a.cta-nav {
+        padding: 0.35rem 0.8rem;
+      }
+      .hero {
+        padding: 2.2rem 0.5rem 1rem 0.5rem;
+        margin-top: 56px;
+        min-height: 160px;
+      }
+      .hero-text h1 {
+        font-size: 1.2rem;
+      }
+      .benefit-cards {
+        flex-direction: column;
+        align-items: center;
+        gap: 1.2rem;
+      }
+      .benefit-card {
+        max-width: 98vw;
+        padding: 1.2rem 0.7rem;
+      }
+      .section {
+        padding: 1.6rem 0.2rem;
+      }
+      #solar-toolkit {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+      }
+      #solar-toolkit > div {
+        margin: 0 auto 2rem auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav id="navbar">
+    <div class="logo">Let’s Talk About Solar</div>
+    <ul>
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#benefits">Why Solar?</a></li>
+      <li><a href="#orientation">Orientation</a></li>
+      <li><a href="#calculator">Savings</a></li>
+      <li><a href="#trust">Trust</a></li>
+      <li><a href="#facebook-feed" class="cta-nav">FB Feed</a></li>
+      <li><a href="#quote" class="cta-nav">Get Quote</a></li>
+    </ul>
+  </nav>
+  <section class="hero" id="hero">
+    <div class="hero-text">
+      <h1>Sunshine Meets Smart Savings</h1>
+      <p>See how solar can protect your bills and power your future.</p>
+      <a href="#quote" class="cta">Get My Free Quote</a>
+    </div>
+  </section>
+  <section id="benefits" class="section">
+    <h2>Why Solar?</h2>
+    <div class="benefit-cards">
+      <div class="benefit-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="Money saving GBP icon">
+        <p>Save money on your bills from day one.</p>
+      </div>
+      <div class="benefit-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/3103/3103446.png" alt="Battery storage icon">
+        <p>Store your sunshine with battery technology.</p>
+      </div>
+      <div class="benefit-card">
+        <img src="https://cdn-icons-png.flaticon.com/512/2422/2422625.png" alt="Pylon selling to grid icon">
+        <p>Sell your surplus energy back to the grid.</p>
+      </div>
+    </div>
+  </section>
+  <section id="solar-toolkit" class="section">
+    <div>
+      <h2>Check Your Roof Orientation</h2>
+      <p>Enter your address to estimate your solar potential.</p>
+      <input id="addressInput" type="text" placeholder="Enter your address" style="max-width:350px;margin:0 auto 1rem auto;display:block;" />
+      <button id="toggleMapBtn" type="button" onclick="toggleStreetView()" style="margin:1rem 0 1.2rem 0;padding:0.7rem 1.3rem;border-radius:999px;background:#72bcd4;color:#fff;font-weight:bold;font-size:1rem;border:none;box-shadow:0 2px 8px rgba(114,188,212,0.07);cursor:pointer;">
+        Show Street View
+      </button>
+      <div id="streetview-container" style="width:100%;max-width:400px;height:200px;display:none;border-radius:18px;overflow:hidden;margin:0 auto 1rem auto;background:#f4fbff;">
+        <div id="pano" style="width:100%;height:100%;"></div>
+      </div>
+      <p id="orientationResult" style="margin-top: 1rem; font-weight: bold;"></p>
+    </div>
+    <div>
+      <h2>Solar Savings Calculator</h2>
+      <form id="calcForm" class="calculator" autocomplete="off">
+        <label for="rate">Electricity unit rate (p/kWh):</label>
+        <input type="number" id="rate" placeholder="e.g. 25" required>
+        <label for="usage">Annual electricity usage (kWh):</label>
+        <input type="number" id="usage" placeholder="e.g. 4000" required>
+        <label><input type="checkbox" id="battery"> Include battery?</label>
+        <button type="submit" id="calcBtn">Calculate</button>
+      </form>
+      <div id="calcResult"></div>
+    </div>
   </section>
   <!-- BEGIN: Solar Finance Monthly Payment Example -->
   <section id="solar-finance" class="section">
@@ -451,48 +449,47 @@
     </div>
   </section>
   <!-- END: Solar Finance Monthly Payment Example -->
-  <section id="historic-prices" class="section">  
-    <button onclick="toggleHistoric()" style="font-size:1.1rem;padding:0.5rem 1.5rem;background:#72bcd4;color:#fff;border:none;border-radius:20px;cursor:pointer;">  
-      Show Historic Electricity Prices (2000-2025)  
-    </button>  
-    <div id="historic-graph" style="display:none;margin-top:2rem;">  
-      <canvas id="pricesChart" width="400" height="200"></canvas>  
-      <p style="font-size:0.9rem;color:gray;">  
-        Sources:   
-        <a href="https://www.gov.uk/government/statistical-data-sets/annual-domestic-energy-price-statistics" target="_blank">UK Government</a>,   
-        <a href="https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindices" target="_blank">Office for National Statistics (ONS)</a>,   
-        <a href="https://www.ofgem.gov.uk/energy-data-and-research/data-portal/retail-market-indicators" target="_blank">Ofgem</a>  
-      </p>  
-    </div>  
-  </section>  
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
-  <section id="trust" class="section">  
-    <!-- ...your full trust section here... -->  
-  </section>  
-  <section id="facebook-feed" class="facebook-feed-section">  
-    <h2>Latest from Our Facebook Page</h2>  
-    <div id="fb-feed">Loading posts…</div>  
-  </section>  
-  <section id="quote" class="section">  
-    <h2>Request a Free Quote</h2>  
-    <form action="https://formspree.io/f/mldnarjp" method="POST" class="quote-form">  
-      <input type="text" name="name" placeholder="Full Name" required autocomplete="name">  
-      <input type="text" name="address" id="quote-address" placeholder="Start typing your address…" required autocomplete="street-address">  
-      <input type="email" name="email" placeholder="Email Address" required autocomplete="email">  
-      <input type="tel" name="phone" placeholder="Phone Number" required autocomplete="tel">  
-      <input type="text" name="unitrate" placeholder="Electricity Unit Rate (p/kWh)" required>  
-      <input type="text" name="annualspend" placeholder="Annual Electricity Spend (£)" required>  
-      <button type="submit">Send My Quote Request</button>  
-    </form>  
-  </section>  
-  <footer>  
-    <p>&copy; 2025 Let’s Talk About Solar. All rights reserved.</p>  
-  </footer>  
+  <section id="historic-prices" class="section">
+    <button onclick="toggleHistoric()" style="font-size:1.1rem;padding:0.5rem 1.5rem;background:#72bcd4;color:#fff;border:none;border-radius:20px;cursor:pointer;">
+      Show Historic Electricity Prices (2000-2025)
+    </button>
+    <div id="historic-graph" style="display:none;margin-top:2rem;">
+      <canvas id="pricesChart" width="400" height="200"></canvas>
+      <p style="font-size:0.9rem;color:gray;">
+        Sources: 
+        <a href="https://www.gov.uk/government/statistical-data-sets/annual-domestic-energy-price-statistics" target="_blank">UK Government</a>, 
+        <a href="https://www.ons.gov.uk/economy/inflationandpriceindices/datasets/consumerpriceindices" target="_blank">Office for National Statistics (ONS)</a>, 
+        <a href="https://www.ofgem.gov.uk/energy-data-and-research/data-portal/retail-market-indicators" target="_blank">Ofgem</a>
+      </p>
+    </div>
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <section id="trust" class="section">
+    <!-- ...your trust section here... -->
+  </section>
+  <section id="facebook-feed" class="facebook-feed-section">
+    <h2>Latest from Our Facebook Page</h2>
+    <div id="fb-feed">Loading posts…</div>
+  </section>
+  <section id="quote" class="section">
+    <h2>Request a Free Quote</h2>
+    <form action="https://formspree.io/f/mldnarjp" method="POST" class="quote-form">
+      <input type="text" name="name" placeholder="Full Name" required autocomplete="name">
+      <input type="text" name="address" id="quote-address" placeholder="Start typing your address…" required autocomplete="street-address">
+      <input type="email" name="email" placeholder="Email Address" required autocomplete="email">
+      <input type="tel" name="phone" placeholder="Phone Number" required autocomplete="tel">
+      <input type="text" name="unitrate" placeholder="Electricity Unit Rate (p/kWh)" required>
+      <input type="text" name="annualspend" placeholder="Annual Electricity Spend (£)" required>
+      <button type="submit">Send My Quote Request</button>
+    </form>
+  </section>
+  <footer>
+    <p>&copy; 2025 Let’s Talk About Solar. All rights reserved.</p>
+  </footer>
   <script>
     // --- Orientation Calculator ---
     let autocomplete, panorama, geocoder;
     let lastLatLng = null;
-
     function mapsApiLoaded() {
       geocoder = new google.maps.Geocoder();
       autocomplete = new google.maps.places.Autocomplete(
@@ -501,7 +498,6 @@
       );
       autocomplete.addListener('place_changed', onPlaceSelected);
     }
-
     function onPlaceSelected() {
       const place = autocomplete.getPlace();
       if (place.geometry && place.geometry.location) {
@@ -510,14 +506,11 @@
         showOrientation(latLng);
       }
     }
-
     function showOrientation(latLng) {
-      // Placeholder: Show coordinates and message
       document.getElementById('orientationResult').innerText =
         'Selected location: ' + latLng.lat().toFixed(5) + ', ' + latLng.lng().toFixed(5) +
         '\n(Orientation estimation coming soon)';
     }
-
     function toggleStreetView() {
       const container = document.getElementById('streetview-container');
       if (!container) return;
@@ -542,7 +535,7 @@
       }
     }
 
-    // --- Savings Calculator ---
+    // --- Solar Savings Calculator ---
     document.addEventListener('DOMContentLoaded', function() {
       // Savings Calculator
       const calcForm = document.getElementById('calcForm');
@@ -566,7 +559,6 @@
 
       // --- Finance Calculator ---
       const form = document.getElementById('finance-calc-form');
-      // Finance calculation constants
       const loanAmount = 9500;
       const years = 10;
       const apr = 9.9;
@@ -583,4 +575,23 @@
           const offset = monthlyPayment - saving;
           const resultDiv = document.getElementById('finance-result');
           resultDiv.innerHTML =
-            `<strong>Estimated monthly payme
+            `<strong>Estimated monthly payment: £${monthlyPayment.toFixed(2)}</strong><br>
+            If you save £${saving.toFixed(2)}/month on bills, your net extra cost could be <strong>£${offset.toFixed(2)}/month</strong>.`;
+        });
+      }
+    });
+
+    // --- Facebook Feed Fetcher (existing, unchanged) ---
+    (function() {
+      const PAGE_ID = "1065220185700265";
+      const PAGE_ACCESS_TOKEN = "EAAPIzZBbGt6kBOZBSOCOOuBKIZC3E8yAp8LZALPDrD4VB9KdSnhRCjZCYhFoREmst5lpermalink_url,full_picture&access_token=${PAGE_ACCESS_TOKEN}";
+      const url = `https://graph.facebook.com/v19.0/${PAGE_ID}/posts?fields=message,created_time,permalink_url,full_picture&access_token=${PAGE_ACCESS_TOKEN}`;
+      fetch(url)
+        .then(r => r.json())
+        .then(data => {
+          const container = document.getElementById('fb-feed');
+          if (data && data.data && data.data.length > 0) {
+            container.innerHTML = data.data.map(post => `
+              <div class="fb-post">
+                <div class="fb-date">${new Date(post.created_time).toLocaleString()}</div>
+                <div cla
