@@ -176,41 +176,56 @@
     #solar-toolkit h2 {
       text-align: center;
     }
-    /* Facebook Feed Section */
-    .facebook-feed-section {
-      max-width: 700px;
-      margin: 3rem auto;
-      padding: 2rem 1rem;
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      text-align: center;
-    }
-    #fb-feed {
-      margin-top: 1.2em;
+    /* --- New Finance Offset Section Styles --- */
+    .finance-offset-section {
+      max-width: 540px;
+      margin: 2.5rem auto 0 auto;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      padding: 2rem 1rem 1.6rem 1rem;
       text-align: left;
     }
-    .fb-post {
-      background: #f9fbff;
+    .finance-offset-section input[type="number"] {
+      width: 160px;
+      display: inline-block;
+      margin: 0 0.5em 0 0;
+      font-size: 1.03rem;
+    }
+    .finance-offset-section label {
+      font-size: 1.07rem;
+      margin-right: 1em;
+      display: inline-block;
+    }
+    .finance-offset-section .inline-form {
+      margin-bottom: 1.2em;
+    }
+    .finance-offset-section .diff-positive {
+      color: #1a7a1e;
+      font-weight: bold;
+    }
+    .finance-offset-section .diff-negative {
+      color: #c0392b;
+      font-weight: bold;
+    }
+    .finance-offset-section .finance-summary {
+      margin-top: .7em;
+      line-height: 1.7;
+    }
+    .finance-offset-section .disclaimer {
+      background: #fffbe7;
       border-radius: 12px;
-      box-shadow: 0 2px 12px #e3f0fc;
-      margin-bottom: 1.5rem;
-      padding: 1.3rem;
+      box-shadow: 0 2px 8px #ffe9ad;
+      padding: 1em 1.3em;
+      margin-top: 1em;
+      font-size: 0.98em;
     }
-    .fb-date {
-      color: #888;
-      font-size: 0.93em;
-      margin-bottom: 0.6em;
+    @media (max-width: 600px) {
+      .finance-offset-section { padding: 1.2em 0.3em 1em 0.3em; }
+      .finance-offset-section input[type="number"] { width: 90px; }
     }
-    .fb-message {
-      font-size: 1.05em;
-      margin-bottom: 0.7em;
-    }
-    .fb-link {
-      color: #1877f2;
-      text-decoration: underline;
-      font-size: 0.93em;
-    }
+    /* --- End new finance offset section styles --- */
+    /* ...rest of your CSS remains unchanged... */
     @media (max-width: 950px) {
       #solar-toolkit {
         flex-direction: column;
@@ -420,6 +435,8 @@
       <form id="calcForm" class="calculator">
         <label for="rate">Electricity unit rate (p/kWh):</label>
         <input type="number" id="rate" placeholder="e.g. 25" required>
+        <label for="standing">Standing charge (p/day):</label>
+        <input type="number" id="standing" placeholder="e.g. 60" required>
         <label for="usage">Annual electricity usage (kWh):</label>
         <input type="number" id="usage" placeholder="e.g. 4000" required>
         <label><input type="checkbox" id="battery"> Include battery?</label>
@@ -429,26 +446,22 @@
     </div>
   </section>
 
-  <!-- Finance Calculator Section: appears immediately after the savings calculator -->
-  <section id="finance-calculator" class="section">
-    <h2>Solar Finance & Savings Illustration</h2>
-    <form id="financeCalcForm" class="calculator" autocomplete="off">
-      <label>
-        System Price (£):
-        <input type="number" id="fc-price" placeholder="e.g. 8000" min="1000" value="8000" required>
-      </label>
-      <label>
-        Deposit (£):
-        <input type="number" id="fc-deposit" placeholder="e.g. 0" min="0" value="0" required>
-      </label>
-      <button type="submit">Calculate My Finance & Outgoings</button>
+  <!-- Finance Offset Section (replaces old finance calculator) -->
+  <section id="finance-offset-section" class="finance-offset-section" style="display:none;">
+    <h2 style="text-align:center;">Finance & Bill Offset Illustration</h2>
+    <form id="depositForm" class="inline-form" autocomplete="off" style="text-align:center;margin-bottom:1.2em;">
+      <label for="deposit-amount">Deposit (£):</label>
+      <input type="number" id="deposit-amount" value="0" min="0" max="9500" step="100">
+      <button type="submit" style="background:#72bcd4;color:#fff;padding:0.4em 1.3em;border-radius:999px;border:none;cursor:pointer;">Recalculate</button>
     </form>
-    <div id="financeCalcResult"></div>
-    <div style="margin-top:1.5em; background:#fffbe7; border-radius:12px; box-shadow:0 2px 8px #ffe9ad; padding:1em 1.3em;">
-      <strong>Disclaimer:</strong> This calculator is for illustration purposes only. Actual savings, finance rates, eligibility, and offers may vary. Always consult a qualified financial adviser and your lender before making any financial decisions.
+    <div id="finance-offset-summary" class="finance-summary"></div>
+    <div class="disclaimer">
+      <strong>Disclaimer:</strong> This illustration uses typical finance terms and current savings estimates for guidance only.
+      Actual bills, savings, and finance rates may vary. Please consult a financial adviser for tailored advice.
     </div>
   </section>
 
+  <!-- ...everything after (historic prices, trust, facebook-feed, quote, footer, and scripts) is unchanged... -->
   <section id="historic-prices" class="section">
     <button onclick="toggleHistoric()" style="font-size:1.1rem;padding:0.5rem 1.5rem;background:#72bcd4;color:#fff;border:none;border-radius:20px;cursor:pointer;">
       Show Historic Electricity Prices (2000-2025)
@@ -468,6 +481,7 @@
   <section id="trust" class="section">
     <h2>Who Can You Trust?</h2>
     <div class="trust-icons">
+      <!-- ...trust icons unchanged... -->
       <div>
         <a href="https://mcscertified.com/" target="_blank" title="MCS: Quality guaranteed equipment and installers">
           <img src="assets/mcs logo.png" alt="MCS Certified" />
@@ -699,15 +713,17 @@
       }
     }
 
-    // --- SOLAR CALCULATOR (with 10 year projection and 7.04% annual price increase) ---
+    // --- SOLAR CALCULATOR (with standing charge and finance offset) ---
+    let latestSavingsPerYear = 0;
+    let latestAnnualSpend = 0;
     document.getElementById("calcForm").addEventListener("submit", function (e) {
       e.preventDefault();
       const rate = parseFloat(document.getElementById("rate").value);
+      const standing = parseFloat(document.getElementById("standing").value);
       const usage = parseFloat(document.getElementById("usage").value);
       const battery = document.getElementById("battery").checked;
       const systemSizeKW = 3.68;
       const panelSystemKW = 9 * 0.46;
-      const pitchDeg = 35;
       const kwhPerKWp = 1050;
       const estimatedAnnualGen = Math.min(systemSizeKW, panelSystemKW) * kwhPerKWp * orientationFactor;
       let usableBatteryKWh = 0;
@@ -723,6 +739,13 @@
       if (battery) {
         selfUsedKWh = Math.min(selfUsedKWh + batterySelfUse, estimatedAnnualGen, usage);
       }
+
+      // Annual spend calculation (unit rate and standing charge)
+      const annualStanding = standing * 365 / 100; // convert p/day to £/year
+      const billUsage = rate * usage / 100; // convert p/kWh to £/year
+      const annualSpend = billUsage + annualStanding;
+      latestAnnualSpend = annualSpend;
+
       // 10-year savings projection
       let annualSavingsArr = [];
       let price = rate;
@@ -738,16 +761,20 @@
         });
         price *= 1.0704; // Increase by 7.04% each year
       }
-      const breakEvenEstimate = battery ? 9500 : 7500;
-      let tableRows = annualSavingsArr.map(row => 
+      const breakEvenEstimate = 9500;
+      let tableRows = annualSavingsArr.map(row =>
         `<tr><td>Year ${row.year}</td><td>£${row.savings}</td><td>${row.price}p/kWh</td><td>£${row.cumulative}</td></tr>`
       ).join('');
       const calcResult = document.getElementById("calcResult");
+      latestSavingsPerYear = parseFloat(annualSavingsArr[0].savings); // For finance offset
       calcResult.innerHTML = `
-        <h3>Estimated Annual Savings (Year 1): £${annualSavingsArr[0].savings}</h3>
-        <p>Your system is estimated to generate <strong>${estimatedAnnualGen.toFixed(0)} kWh</strong> per year.</p>
-        <p>Annual self-used solar: <strong>${selfUsedKWh.toFixed(0)} kWh</strong> (${(100*selfUsedKWh/usage).toFixed(0)}% of your usage${battery ? ' with 5kWh battery' : ''}).</p>
-        <p>Typical installation: <strong>£${breakEvenEstimate.toLocaleString()}</strong></p>
+        <div style="margin-bottom:1.1em;">
+          <h3>Estimated Annual Savings (Year 1): £${annualSavingsArr[0].savings}</h3>
+          <p>Your system is estimated to generate <strong>${estimatedAnnualGen.toFixed(0)} kWh</strong> per year.</p>
+          <p>Annual self-used solar: <strong>${selfUsedKWh.toFixed(0)} kWh</strong> (${(100*selfUsedKWh/usage).toFixed(0)}% of your usage${battery ? ' with 5kWh battery' : ''}).</p>
+          <p><b>Your annual energy spend (inc. standing charge): £${annualSpend.toFixed(2)}</b></p>
+          <p>Typical installation: <strong>£${breakEvenEstimate.toLocaleString()}</strong></p>
+        </div>
         <h4>Projected Savings Over 10 Years (with 7.04% price increase per year):</h4>
         <table style="margin:auto;border-collapse:collapse;">
           <tr>
@@ -760,77 +787,61 @@
         </table>
         <p style="font-size:0.95em;color:#888;">This calculation is based on a system with 9 solar panels – if your roof can fit more, your potential savings will be even higher. These are estimated figures and don’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.</p>
       `;
+
+      // Show finance offset section after calculation
+      showFinanceOffset();
     });
 
-    // --- Finance Calculator Logic (fixed 9.9% APR, 10 years, but hides the APR from user) ---
-    document.getElementById("financeCalcForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const price = parseFloat(document.getElementById("fc-price").value);
-      const deposit = parseFloat(document.getElementById("fc-deposit").value);
-      const rate = 0.099; // 9.9% APR fixed, hidden from UI
+    function showFinanceOffset() {
+      const section = document.getElementById("finance-offset-section");
+      section.style.display = "block";
+      updateFinanceOffset();
+    }
+
+    function updateFinanceOffset() {
+      const installCost = 9500;
+      const deposit = parseFloat(document.getElementById("deposit-amount")?.value) || 0;
+      const loanAmount = installCost - deposit;
       const years = 10;
       const n = years * 12;
-      const loanAmount = price - deposit;
+      const rate = 0.099;
       const monthlyRate = rate / 12;
-
-      // Finance calculation
-      let monthly = 0;
-      if (rate > 0) {
-        monthly = (loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -n));
-      } else {
-        monthly = loanAmount / n;
-      }
+      let monthly = (loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -n));
       const totalFinance = (monthly * n) + deposit;
 
-      // Get annual savings from solar calculator if available
-      let savingsPerYear = 0;
-      let annualSpend = 0;
-      // Try to get from calculator if filled
-      try {
-        const calcResult = document.getElementById("calcResult");
-        const match = /Estimated Annual Savings \(Year 1\): £([0-9.,]+)/.exec(calcResult.innerHTML);
-        if (match) {
-          savingsPerYear = parseFloat(match[1].replace(/,/g,""));
-        }
-        // Try to get annual electricity spend from form
-        const usageInput = document.getElementById("usage");
-        const rateInput = document.getElementById("rate");
-        if (usageInput && rateInput) {
-          const usageVal = parseFloat(usageInput.value) || 0;
-          const rateVal = parseFloat(rateInput.value) || 0;
-          annualSpend = usageVal * rateVal / 100;
-        }
-      } catch(e) {}
-
-      // If not available, set default for illustration
-      if (!savingsPerYear || isNaN(savingsPerYear)) savingsPerYear = 800;
-      if (!annualSpend || isNaN(annualSpend)) annualSpend = 1200;
-
+      const savingsPerYear = latestSavingsPerYear || 800;
       const savingsPerMonth = savingsPerYear / 12;
       const totalSavings10y = savingsPerYear * years;
-
-      // Net outgoing per month (finance - savings)
-      const netMonthly = monthly - savingsPerMonth;
-      // Total outgoings for solar + finance over 10 years (all payments minus all savings)
-      const net10y = (monthly * n) - totalSavings10y + deposit;
-
-      // What if just paying for electricity (no solar)
+      const annualSpend = latestAnnualSpend || 1200;
       const totalElec10y = annualSpend * years;
-      const cheaperOrNot = net10y < totalElec10y 
-        ? "Over 10 years, going solar works out <b>cheaper</b> than paying your electricity bills as usual."
-        : "Over 10 years, you would pay more than just paying electricity bills – check your figures or get a free quote for personalised savings.";
 
-      document.getElementById("financeCalcResult").innerHTML = `
-        <h3>Finance & Savings Illustration</h3>
-        <p><b>Estimated monthly finance payment:</b> £${monthly.toFixed(2)}</p>
-        <p><b>Estimated average monthly savings on your bill:</b> £${savingsPerMonth.toFixed(2)}</p>
-        <p><b>Net outgoing (finance minus savings):</b> £${netMonthly.toFixed(2)}/month</p>
+      const netMonthly = monthly - savingsPerMonth;
+      const net10y = (monthly * n) - totalSavings10y + deposit;
+      const diff = totalElec10y - net10y;
+
+      const summary = `
+        <p>
+          <b>Typical system cost:</b> £${installCost.toLocaleString()}
+          &nbsp; <b>Deposit:</b> £${deposit.toLocaleString()}<br>
+          <b>Monthly finance payment:</b> £${monthly.toFixed(2)}<br>
+          <b>Estimated average monthly savings:</b> £${savingsPerMonth.toFixed(2)}
+        </p>
+        <p>
+          <b>Net outgoing (finance payment minus savings):</b> <span>${netMonthly > 0 ? "£"+netMonthly.toFixed(2)+"/month" : "<span class='diff-positive'>£"+netMonthly.toFixed(2)+"/month</span>"}</span>
+        </p>
         <hr>
-        <p><b>Total cost with solar & finance over 10 years:</b> £${net10y.toFixed(2)}</p>
-        <p><b>Estimated total paid for electricity (no solar) over 10 years:</b> £${totalElec10y.toFixed(2)}</p>
-        <p style="font-weight:bold;color:#1a7a1e;margin-top:1em;">${cheaperOrNot}</p>
-        <p style="font-size:0.95em;color:#888;">This is for illustration only. Actual savings and finance offers may differ. For your true figures, use your numbers above or request a free quote.</p>
+        <p>
+          <b>Total cost with solar & finance over 10 years:</b> £${net10y.toFixed(2)}<br>
+          <b>Total paid for electricity (no solar) over 10 years:</b> £${totalElec10y.toFixed(2)}<br>
+          <b>Difference:</b> <span class="${diff > 0 ? 'diff-positive' : 'diff-negative'}">${diff > 0 ? "You save £"+diff.toFixed(2) : "Solar+finance costs £"+Math.abs(diff).toFixed(2)+" more"}</span>
+        </p>
       `;
+      document.getElementById("finance-offset-summary").innerHTML = summary;
+    }
+
+    document.getElementById("depositForm").addEventListener("submit", function(e){
+      e.preventDefault();
+      updateFinanceOffset();
     });
 
     function toggleHistoric() {
