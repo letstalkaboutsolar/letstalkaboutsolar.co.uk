@@ -1,4 +1,5 @@
-<!DOCTYPE html>  <html lang="en">  
+<!DOCTYPE html>  
+<html lang="en">  
 <head>  
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ&libraries=places&callback=mapsApiLoaded" async defer></script>  
   <meta charset="UTF-8" />  
@@ -370,7 +371,6 @@
       <li><a href="#orientation">Orientation</a></li>  
       <li><a href="#calculator">Savings</a></li>  
       <li><a href="#trust">Trust</a></li>  
-      <!-- Add FB Feed to navbar for quick jump -->  
       <li><a href="#facebook-feed" class="cta-nav">FB Feed</a></li>  
       <li><a href="#quote" class="cta-nav">Get Quote</a></li>  
     </ul>  
@@ -468,21 +468,28 @@
   </section>  
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
   <section id="trust" class="section">  
-    <!-- (TRUST section unchanged) -->
-    ...  
+    <!-- ...TRUST section as in your original HTML... -->  
   </section>  
-  <!-- Facebook Feed Section -->  
-  <!-- (Facebook Feed Section unchanged) -->
-  ...  
+  <section id="facebook-feed" class="facebook-feed-section">  
+    <h2>Latest from Our Facebook Page</h2>  
+    <div id="fb-feed">Loading posts…</div>  
+  </section>  
   <section id="quote" class="section">  
-    <!-- (Quote section unchanged) -->
-    ...  
+    <h2>Request a Free Quote</h2>  
+    <form action="https://formspree.io/f/mldnarjp" method="POST" class="quote-form">  
+      <input type="text" name="name" placeholder="Full Name" required autocomplete="name">  
+      <input type="text" name="address" id="quote-address" placeholder="Start typing your address…" required autocomplete="street-address">  
+      <input type="email" name="email" placeholder="Email Address" required autocomplete="email">  
+      <input type="tel" name="phone" placeholder="Phone Number" required autocomplete="tel">  
+      <input type="text" name="unitrate" placeholder="Electricity Unit Rate (p/kWh)" required>  
+      <input type="text" name="annualspend" placeholder="Annual Electricity Spend (£)" required>  
+      <button type="submit">Send My Quote Request</button>  
+    </form>  
   </section>  
   <footer>  
     <p>&copy; 2025 Let’s Talk About Solar. All rights reserved.</p>  
   </footer>  
   <script>
-    // (your existing scripts above remain unchanged)
     // --- Solar Finance Calculator Script ---
     // Finance calculation constants
     const loanAmount = 9500;
@@ -498,7 +505,6 @@
 
     const monthlyPayment = calculateMonthlyPayment(loanAmount, monthlyRate, months);
 
-    // Only add the event if the element exists
     document.addEventListener('DOMContentLoaded', function() {
       const form = document.getElementById('finance-calc-form');
       if (form) {
@@ -513,7 +519,7 @@
         });
       }
     });
-    // (your existing scripts below remain unchanged)
+    // ...your other scripts (Facebook feed, calculator, etc.)...
   </script>
-</body>
+</body>  
 </html>
