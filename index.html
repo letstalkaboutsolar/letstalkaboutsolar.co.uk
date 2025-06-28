@@ -31,7 +31,8 @@
     }
     nav {
       background: var(--whiteboard-bg);
-      border-bottom: 3px dashed var(--marker-blue);
+      border-bottom: 8px solid transparent;
+      border-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="4" width="32" height="32" rx="12" stroke="%2338a1db" stroke-width="5" stroke-dasharray="19 5 5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>') 8;
       font-family: 'Permanent Marker', cursive;
       padding: 1.1em 2em 1.1em 2em;
       display: flex;
@@ -66,7 +67,7 @@
       padding: 0.4em 1.1em;
       border-radius: 999px;
       background: #fff;
-      border: 2px dashed transparent;
+      border: 2px solid transparent;
       transition: background 0.18s, color 0.18s, border 0.15s;
       font-weight: 500;
     }
@@ -83,6 +84,13 @@
       color: #222;
       border-color: var(--marker-blue);
     }
+    .section, .about-section, .calculator, .quote-form, .finance-offset-section, .benefit-card, .accredit-card, #solar-toolkit > div {
+      border: 8px solid transparent;
+      border-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="4" width="32" height="32" rx="12" stroke="%2338a1db" stroke-width="5" stroke-dasharray="19 5 5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>') 8;
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: var(--shadow);
+    }
     .hero {
       padding: 6.2rem 2rem 2.5rem;
       display: flex;
@@ -92,7 +100,8 @@
       background: var(--whiteboard-bg);
       margin-top: 83px;
       min-height: 340px;
-      border-bottom: 3px dashed var(--marker-blue);
+      border-bottom: 8px solid transparent;
+      border-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="4" width="32" height="32" rx="12" stroke="%2338a1db" stroke-width="5" stroke-dasharray="19 5 5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>') 8;
     }
     .hero-text {
       max-width: 540px;
@@ -100,7 +109,6 @@
       background: var(--whiteboard-bg);
       border-radius: var(--border-radius);
       box-shadow: var(--shadow);
-      border: 2px dashed var(--marker-blue);
       font-family: 'Patrick Hand', cursive;
       text-align: center;
     }
@@ -137,16 +145,6 @@
       color: #222;
       border-color: var(--marker-blue);
     }
-    .section, .about-section, .calculator, .quote-form, .finance-offset-section {
-      background: var(--whiteboard-bg);
-      border: 2px dashed var(--marker-blue);
-      margin: 2em auto;
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow);
-      padding: 2.5rem 1.2rem;
-      font-family: 'Patrick Hand', cursive;
-      max-width: 900px;
-    }
     .benefit-cards {
       display: flex;
       flex-wrap: wrap;
@@ -155,7 +153,6 @@
       margin-top: 2.4rem;
     }
     .benefit-card {
-      border: 2px dashed var(--marker-yellow);
       background: var(--card-bg);
       font-family: 'Patrick Hand', cursive;
       border-radius: var(--border-radius);
@@ -179,7 +176,7 @@
       filter: drop-shadow(0 1px 8px #38a1db33);
       background: #fff;
       border-radius: 10px;
-      border: 2px dashed var(--marker-blue);
+      border: 2px solid var(--marker-blue);
       padding: 0.3em;
     }
     .benefit-card p {
@@ -197,7 +194,7 @@
     }
     input {
       padding: 0.7rem;
-      border: 2px dashed var(--marker-blue);
+      border: 2px solid var(--marker-blue);
       background: #fff;
       color: #222;
       border-radius: 12px;
@@ -206,7 +203,7 @@
       font-size: 1.08rem;
     }
     input:focus {
-      border: 2px dashed var(--marker-green);
+      border: 2px solid var(--marker-green);
       outline: none;
       background: #fffde7;
     }
@@ -273,7 +270,6 @@
       border-radius: var(--border-radius);
       box-shadow: var(--shadow);
       padding: 2rem 1.2rem 2.2rem 1.2rem;
-      border: 2px dashed var(--marker-blue);
     }
     #solar-toolkit h2 {
       text-align: center;
@@ -296,7 +292,6 @@
       background: #fff;
       box-shadow: 0 4px 16px #38a1db18;
       border-radius: 15px;
-      border: 2px dashed var(--marker-green);
       padding: 1.2em 1em 0.8em 1em;
       min-width: 130px;
       max-width: 210px;
@@ -311,7 +306,6 @@
     }
     .accredit-card:focus-within, .accredit-card:hover {
       box-shadow: var(--shadow-hover);
-      border-color: var(--marker-yellow);
       background: #fffbe7;
       transform: translateY(-4px) scale(1.04);
       z-index: 2;
@@ -339,7 +333,7 @@
       border-radius: 11px;
       box-shadow: 0 2px 9px #38a1db22;
       margin-bottom: 0.7em;
-      border: 2px dashed var(--marker-blue);
+      border: 2px solid var(--marker-blue);
       padding: 6px;
       transition: border .13s;
     }
@@ -366,7 +360,7 @@
       text-align: left;
       max-width: 270px;
       min-height: 64px;
-      border: 2px dashed var(--marker-blue);
+      border: 2px solid var(--marker-blue);
       position: absolute;
       top: 100%;
       left: 50%;
@@ -414,7 +408,8 @@
     }
     .about-section hr {
       border: none;
-      border-top: 2px dashed var(--marker-blue);
+      border-top: 8px solid transparent;
+      border-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="4" width="32" height="32" rx="12" stroke="%2338a1db" stroke-width="5" stroke-dasharray="19 5 5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>') 8;
       margin: 2em auto 1.2em auto;
       width: 65%;
     }
@@ -471,7 +466,8 @@
       font-size: 0.96rem;
       letter-spacing: 0.2px;
       box-shadow: 0 -2px 22px #38a1db11;
-      border-top: 3px dashed var(--marker-blue);
+      border-top: 8px solid transparent;
+      border-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="4" width="32" height="32" rx="12" stroke="%2338a1db" stroke-width="5" stroke-dasharray="19 5 5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>') 8;
       font-family: 'Patrick Hand', cursive;
       font-weight: 500;
     }
@@ -520,7 +516,6 @@
       For a comprehensive quotation directly from us, fill out the <a href="#quote" style="color:#38a1db;font-weight:bold;text-decoration:underline;">free quotation form</a>.
     </div>
   </section>
-  <!-- END ABOUT US SECTION -->
 
   <section id="benefits" class="section">
     <h2>Why Solar?</h2>
@@ -692,21 +687,6 @@
       <a href="https://www.facebook.com/profile.php?id=61576873361260" target="_blank" rel="noopener" style="display:inline-block;background:#38a1db;color:#fff;padding:1em 2em;border-radius:10px;font-weight:700;text-decoration:none;font-family:'Permanent Marker',cursive;font-size:1.2em;border:2px solid #222;box-shadow:1px 2px 0 #222;">
         Visit us on Facebook
       </a>
-      <!--
-      <div class="fb-page"
-        data-href="https://www.facebook.com/profile.php?id=61576873361260"
-        data-tabs="timeline"
-        data-width="400"
-        data-height="600"
-        data-small-header="false"
-        data-adapt-container-width="true"
-        data-hide-cover="false"
-        data-show-facepile="true">
-        <blockquote cite="https://www.facebook.com/profile.php?id=61576873361260" class="fb-xfbml-parse-ignore">
-          <a href="https://www.facebook.com/profile.php?id=61576873361260">Let’s Talk About Solar</a>
-        </blockquote>
-      </div>
-      -->
     </div>
     <p style="text-align:center;margin-top:0.7em;color:#ef5350;font-family:'Patrick Hand',cursive;">Interactive feed requires a Facebook Page, not a personal profile.</p>
   </section>
