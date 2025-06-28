@@ -429,6 +429,26 @@
     </div>
   </section>
 
+  <!-- Finance Calculator Section: appears immediately after the savings calculator -->
+  <section id="finance-calculator" class="section">
+    <h2>Solar Finance & Savings Illustration</h2>
+    <form id="financeCalcForm" class="calculator" autocomplete="off">
+      <label>
+        System Price (£):
+        <input type="number" id="fc-price" placeholder="e.g. 8000" min="1000" value="8000" required>
+      </label>
+      <label>
+        Deposit (£):
+        <input type="number" id="fc-deposit" placeholder="e.g. 0" min="0" value="0" required>
+      </label>
+      <button type="submit">Calculate My Finance & Outgoings</button>
+    </form>
+    <div id="financeCalcResult"></div>
+    <div style="margin-top:1.5em; background:#fffbe7; border-radius:12px; box-shadow:0 2px 8px #ffe9ad; padding:1em 1.3em;">
+      <strong>Disclaimer:</strong> This calculator is for illustration purposes only. Actual savings, finance rates, eligibility, and offers may vary. Always consult a qualified financial adviser and your lender before making any financial decisions.
+    </div>
+  </section>
+
   <section id="historic-prices" class="section">
     <button onclick="toggleHistoric()" style="font-size:1.1rem;padding:0.5rem 1.5rem;background:#72bcd4;color:#fff;border:none;border-radius:20px;cursor:pointer;">
       Show Historic Electricity Prices (2000-2025)
@@ -739,6 +759,77 @@
           ${tableRows}
         </table>
         <p style="font-size:0.95em;color:#888;">This calculation is based on a system with 9 solar panels – if your roof can fit more, your potential savings will be even higher. These are estimated figures and don’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.</p>
+      `;
+    });
+
+    // --- Finance Calculator Logic (fixed 9.9% APR, 10 years, but hides the APR from user) ---
+    document.getElementById("financeCalcForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const price = parseFloat(document.getElementById("fc-price").value);
+      const deposit = parseFloat(document.getElementById("fc-deposit").value);
+      const rate = 0.099; // 9.9% APR fixed, hidden from UI
+      const years = 10;
+      const n = years * 12;
+      const loanAmount = price - deposit;
+      const monthlyRate = rate / 12;
+
+      // Finance calculation
+      let monthly = 0;
+      if (rate > 0) {
+        monthly = (loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -n));
+      } else {
+        monthly = loanAmount / n;
+      }
+      const totalFinance = (monthly * n) + deposit;
+
+      // Get annual savings from solar calculator if available
+      let savingsPerYear = 0;
+      let annualSpend = 0;
+      // Try to get from calculator if filled
+      try {
+        const calcResult = document.getElementById("calcResult");
+        const match = /Estimated Annual Savings \(Year 1\): £([0-9.,]+)/.exec(calcResult.innerHTML);
+        if (match) {
+          savingsPerYear = parseFloat(match[1].replace(/,/g,""));
+        }
+        // Try to get annual electricity spend from form
+        const usageInput = document.getElementById("usage");
+        const rateInput = document.getElementById("rate");
+        if (usageInput && rateInput) {
+          const usageVal = parseFloat(usageInput.value) || 0;
+          const rateVal = parseFloat(rateInput.value) || 0;
+          annualSpend = usageVal * rateVal / 100;
+        }
+      } catch(e) {}
+
+      // If not available, set default for illustration
+      if (!savingsPerYear || isNaN(savingsPerYear)) savingsPerYear = 800;
+      if (!annualSpend || isNaN(annualSpend)) annualSpend = 1200;
+
+      const savingsPerMonth = savingsPerYear / 12;
+      const totalSavings10y = savingsPerYear * years;
+
+      // Net outgoing per month (finance - savings)
+      const netMonthly = monthly - savingsPerMonth;
+      // Total outgoings for solar + finance over 10 years (all payments minus all savings)
+      const net10y = (monthly * n) - totalSavings10y + deposit;
+
+      // What if just paying for electricity (no solar)
+      const totalElec10y = annualSpend * years;
+      const cheaperOrNot = net10y < totalElec10y 
+        ? "Over 10 years, going solar works out <b>cheaper</b> than paying your electricity bills as usual."
+        : "Over 10 years, you would pay more than just paying electricity bills – check your figures or get a free quote for personalised savings.";
+
+      document.getElementById("financeCalcResult").innerHTML = `
+        <h3>Finance & Savings Illustration</h3>
+        <p><b>Estimated monthly finance payment:</b> £${monthly.toFixed(2)}</p>
+        <p><b>Estimated average monthly savings on your bill:</b> £${savingsPerMonth.toFixed(2)}</p>
+        <p><b>Net outgoing (finance minus savings):</b> £${netMonthly.toFixed(2)}/month</p>
+        <hr>
+        <p><b>Total cost with solar & finance over 10 years:</b> £${net10y.toFixed(2)}</p>
+        <p><b>Estimated total paid for electricity (no solar) over 10 years:</b> £${totalElec10y.toFixed(2)}</p>
+        <p style="font-weight:bold;color:#1a7a1e;margin-top:1em;">${cheaperOrNot}</p>
+        <p style="font-size:0.95em;color:#888;">This is for illustration only. Actual savings and finance offers may differ. For your true figures, use your numbers above or request a free quote.</p>
       `;
     });
 
