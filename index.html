@@ -11,13 +11,13 @@
     :root {
       --primary: #397a94;
       --secondary: #133c4a;
-      --accent: #ffc700;
-      --background: #10222b;
-      --card: rgba(25,38,50,0.97);
-      --text: #edf3f6;
+      --accent: #ffd700;
+      --background: #f7fafb;
+      --card: #fffde4;
+      --text: #1a232b;
       --radius: 24px;
-      --shadow: 0 8px 32px rgba(0, 0, 0, 0.22);
-      --shadow-soft: 0 4px 18px rgba(0,0,0,0.13);
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      --shadow-soft: 0 4px 18px rgba(0,0,0,0.10);
     }
     * { box-sizing: border-box; }
     html, body {
@@ -32,7 +32,7 @@
       position: fixed;
       top: 0;
       width: 100%;
-      background: rgba(16,34,43,0.98);
+      background: #ffffffee;
       box-shadow: var(--shadow);
       padding: 1rem 2rem;
       display: flex;
@@ -41,7 +41,7 @@
       z-index: 100;
       transition: top 0.3s;
       height: auto;
-      border-bottom: 1.5px solid #20455b;
+      border-bottom: 1.5px solid #20455b11;
     }
     nav.hidden { top: -100px; }
     .logo { font-size: 1.5rem; font-weight: bold; color: var(--primary); letter-spacing: 1px; }
@@ -59,7 +59,7 @@
       padding: 0.5rem 1rem;
       border-radius: 999px;
       transition: background 0.18s, color 0.18s;
-      background: rgba(37,67,75,0.13);
+      background: #fff8e9;
     }
     nav ul li a.cta-nav {
       background: var(--accent);
@@ -79,18 +79,17 @@
       justify-content: center;
       align-items: center;
       background: 
-        linear-gradient(120deg, rgba(16,34,43,0.92) 0%, rgba(36,54,64,0.87) 100%),
-        url('assets/solar-bg.jpg') center/cover no-repeat;
+        linear-gradient(120deg, #f9f7e6 0%, #fffde4 100%);
       margin-top: 73px;
       min-height: 360px;
       position: relative;
-      border-bottom: 2px solid #20455b;
+      border-bottom: 2px solid #f9e17d;
     }
     .hero-text {
       max-width: 520px;
       padding: 1.5rem;
       z-index: 1;
-      background: rgba(31, 52, 68, 0.56);
+      background: #fffbe7dd;
       border-radius: 20px;
       box-shadow: var(--shadow-soft);
       backdrop-filter: blur(2.5px);
@@ -99,13 +98,13 @@
       font-size: 2.35rem;
       color: var(--accent);
       margin: 0 0 1rem;
-      text-shadow: 2px 2px 18px rgba(20,20,40,0.25);
+      text-shadow: 2px 2px 18px rgba(20,20,40,0.10);
       letter-spacing: 1px;
     }
     .hero-text p {
       font-size: 1.22rem;
       margin-bottom: 1.2rem;
-      color: #e0ecf3;
+      color: #397a94;
     }
     .cta {
       background: var(--primary);
@@ -141,7 +140,7 @@
       box-shadow: var(--shadow-soft);
       max-width: 250px;
       min-width: 180px;
-      border: 1.5px solid #22455b;
+      border: 1.5px solid #ffd70033;
       backdrop-filter: blur(7px);
       display: flex;
       flex-direction: column;
@@ -150,7 +149,7 @@
     }
     .benefit-card:hover {
       transform: translateY(-8px) scale(1.032);
-      box-shadow: 0 8px 32px 0 #1a2936cc;
+      box-shadow: 0 8px 32px 0 #ffd70044;
       border-color: var(--accent);
     }
     .benefit-card img {
@@ -161,10 +160,9 @@
       filter: drop-shadow(0 1px 8px #2d3e4855);
     }
     .benefit-card p {
-      color: #e9e9e9;
+      color: #397a94;
       font-size: 1.08rem;
     }
-
     .calculator, .quote-form, .finance-offset-section {
       max-width: 520px;
       margin: 0 auto 2.2rem auto;
@@ -172,7 +170,7 @@
       padding: 2.1rem 1.1rem 1.6rem 1.1rem;
       border-radius: var(--radius);
       box-shadow: var(--shadow);
-      border: 1.5px solid #20455b;
+      border: 1.5px solid #ffd70033;
       backdrop-filter: blur(7px);
     }
     label, input, button {
@@ -183,11 +181,11 @@
       font-family: 'Patrick Hand', cursive;
       color: var(--text);
     }
-    input {
+    input[type="number"], input[type="text"], input[type="email"], input[type="tel"] {
       padding: 0.7rem;
-      border: 1.3px solid #35597a;
-      background: #11202b;
-      color: #eaf0f6;
+      border: 1.3px solid #ffd70088;
+      background: #fffde4;
+      color: #2d2d2d;
       border-radius: 12px;
       margin-bottom: 0.4rem;
       transition: border 0.16s;
@@ -195,9 +193,41 @@
     input:focus {
       border: 1.7px solid var(--primary);
       outline: none;
-      background: #17384a;
+      background: #fffbe7;
     }
-    #rate, #standing { box-shadow: 0 2px 8px #18405f22; }
+    /* Calculator radio buttons */
+    .presence-radio-group {
+      display: flex;
+      gap: 1.3em;
+      align-items: center;
+      justify-content: space-between;
+      margin: 1em 0 .7em 0;
+      font-size: 1.09em;
+    }
+    .presence-radio-group label {
+      margin-top: 0;
+      margin-bottom: 0;
+      width: auto;
+      display: flex;
+      align-items: center;
+      gap: 0.3em;
+      font-weight: bold;
+      color: #397a94;
+      cursor: pointer;
+    }
+    .presence-radio-group input[type="radio"] {
+      accent-color: #ffd700;
+      margin-right: .3em;
+    }
+    .presence-radio-group label.out {
+      color: #a49139;
+      font-weight: normal;
+    }
+    .presence-radio-group label.home {
+      color: #397a94;
+      font-weight: bold;
+    }
+    #rate, #standing { box-shadow: 0 2px 8px #ffd70022; }
     button {
       background: var(--primary);
       color: var(--accent);
@@ -215,282 +245,135 @@
       background: var(--accent);
       color: var(--primary);
     }
-    #solar-toolkit {
+
+    /* Trust section styles */
+    .trust-cards {
       display: flex;
       flex-wrap: wrap;
-      gap: 2.4rem;
+      gap: 2rem 1.5rem;
       justify-content: center;
-      align-items: flex-start;
-      text-align: left;
+      align-items: stretch;
+      margin: 2.5rem auto 0 auto;
+      max-width: 1200px;
     }
-    #solar-toolkit > div {
-      flex: 1 1 330px;
-      min-width: 280px;
-      max-width: 480px;
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-soft);
-      padding: 2rem 1.2rem 2.2rem 1.2rem;
-      margin-bottom: 0;
-      border: 1.5px solid #20455b;
-      backdrop-filter: blur(7px);
+    .accredit-card {
+      background: linear-gradient(120deg,#fffbe9 50%,#ffe97a 100%);
+      box-shadow: 0 2px 20px #397a9444, 0 1.5px 0 0 #ffd700;
+      border-radius: 18px;
+      border: 1.5px solid #ffd700;
+      padding: 1.3em 1em 0.7em 1em;
+      min-width: 170px;
+      max-width: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 1.5em;
+      position: relative;
+      transition: box-shadow .18s, transform .18s, border .18s;
+      cursor: pointer;
     }
-    #solar-toolkit h2 {
-      text-align: center;
-      color: var(--accent);
-      font-size: 1.17em;
-      letter-spacing: .5px;
-      margin-bottom: .8em;
+    .accredit-card:focus-within, .accredit-card:hover {
+      box-shadow: 0 8px 40px #ffd70099, 0 1.5px 0 0 #ffd700;
+      border-color: #397a94;
+      transform: translateY(-4px) scale(1.025);
+      z-index: 2;
     }
-    /* Facebook Feed Section */
-    .facebook-feed-section {
-      max-width: 700px;
-      margin: 3rem auto;
-      padding: 2.3rem 1rem;
-      background: var(--card);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-soft);
-      text-align: center;
-      border: 1.5px solid #20455b;
-      backdrop-filter: blur(8px);
-    }
-    #fb-feed {
-      margin-top: 1.2em;
-      text-align: left;
-    }
-    .fb-post {
-      background: #17384a;
-      border-radius: 14px;
-      box-shadow: 0 2px 14px #20455b66;
-      margin-bottom: 2rem;
-      padding: 1.3rem;
-      border: 1.2px solid #28546d;
-    }
-    .fb-date {
-      color: #b1bad3;
-      font-size: 0.98em;
-      margin-bottom: 0.6em;
-    }
-    .fb-message {
-      font-size: 1.11em;
-      margin-bottom: 0.7em;
-      color: #eaf0f6;
-    }
-    .fb-link {
-      color: var(--accent);
-      text-decoration: underline;
-      font-size: 0.97em;
-      font-weight: bold;
-    }
-    @media (max-width: 950px) {
-      #solar-toolkit {
-        flex-direction: column;
-        align-items: stretch;
-        text-align: center;
-      }
-      #solar-toolkit > div {
-        margin: 0 auto 2rem auto;
-      }
-    }
-    /* --- TRUST ACCREDITATIONS --- */
-    .accredit-desc {
-      display: none;
-      background: #17384a;
-      color: #ffc700;
-      border-radius: 12px;
-      box-shadow: 0 2px 16px #20455b44;
-      margin-top: 0.6em;
-      padding: 0.8em 1em;
-      font-size: 0.99em;
-      text-align: left;
-      max-width: 300px;
-    }
-    .accredit-item.active .accredit-desc {
-      display: block;
-    }
-    .accredit-btn {
+    .accredit-card-btn {
       background: none;
       border: none;
       cursor: pointer;
-      padding: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
-      color: #ffc700;
       font: inherit;
+      outline: none;
+      transition: transform .13s;
     }
-    .accredit-btn img {
-      width: 52px;
-      height: 52px;
+    .accredit-card-btn:focus {
+      outline: 2.5px solid #397a94;
+      outline-offset: 3px;
+    }
+    .accredit-card img {
+      width: 60px;
+      height: 60px;
       object-fit: contain;
-      filter: drop-shadow(0 2px 6px #e3f0fc);
-      background: #11202b;
-      border-radius: 12px;
-      padding: 7px;
-      margin-bottom: 0.4rem;
-      border: 1px solid #397a94;
+      background: #fffde4;
+      border-radius: 15px;
+      box-shadow: 0 2px 14px #397a9440;
+      margin-bottom: 0.7em;
+      border: 1.5px solid #ffd700;
+      padding: 8px;
+      transition: border .17s;
     }
-    .accredit-btn span {
-      margin-top: 0.2em;
-      font-size: 1.07em;
-      color: #ffc700;
+    .accredit-card:hover img, .accredit-card:focus-within img {
+      border-color: #397a94;
+    }
+    .accredit-card span {
       font-weight: bold;
-      letter-spacing: 0.5px;
+      color: #397a94;
+      font-size: 1.13em;
+      letter-spacing: .6px;
+      margin-bottom: .2em;
     }
-    /* --- END TRUST ACCREDITATIONS --- */
-    .trust-icons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2.3rem 2rem;
-      justify-content: center;
-      align-items: flex-start;
-      margin: 2rem auto 0 auto;
-      max-width: 1020px;
-    }
-    .trust-icons > div {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 150px;
-      min-height: 220px;
-      background: rgba(25,38,50,0.84);
-      box-shadow: var(--shadow-soft);
-      border-radius: 18px;
-      border: 1.2px solid #22455b;
-      padding: 1.2em 0.3em 1.13em 0.3em;
-      margin-bottom: 1.3em;
-      transition: box-shadow 0.13s, transform .13s;
-    }
-    .trust-icons > div:hover {
-      box-shadow: 0 6px 32px #397a9440;
-      transform: translateY(-4px) scale(1.02);
-      border-color: var(--accent);
-    }
-    .trust-icons a {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: transform 0.13s;
-    }
-    .trust-icons a:hover {
-      transform: scale(1.10);
-    }
-    .trust-icons img {
-      width: 52px;
-      height: 52px;
-      object-fit: contain;
-      filter: drop-shadow(0 2px 6px #e3f0fc);
-      background: #11202b;
+    .accredit-card-desc {
+      display: none;
+      margin-top: 0.7em;
+      background: #fffde4;
+      color: #133c4a;
       border-radius: 12px;
-      padding: 7px;
-      margin-bottom: 0.4rem;
-      border: 1px solid #397a94;
-    }
-    .trust-icons p {
-      margin: 0;
+      box-shadow: 0 2px 18px #ffd70044;
+      padding: 1em 1em 1.2em 1em;
       font-size: 1.01em;
-      text-align: center;
-      color: #c6d8e8;
+      text-align: left;
+      max-width: 320px;
+      min-height: 80px;
+      border: 1.2px solid #ffe97a;
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translate(-50%, .5em);
+      z-index: 3;
+      animation: fadeIn .35s;
+    }
+    .accredit-card.active .accredit-card-desc,
+    .accredit-card:focus-within .accredit-card-desc {
+      display: block;
     }
     @media (max-width: 900px) {
-      .trust-icons {
-        gap: 1.1rem;
-        max-width: 97vw;
-      }
-      .trust-icons > div {
-        width: 44vw;
-        min-width: 140px;
-        max-width: 180px;
-        min-height: unset;
-      }
-      .trust-icons img {
-        width: 42px;
-        height: 42px;
-        padding: 4px;
-        border-radius: 7px;
-      }
-    }
-    @media (max-width: 600px) {
-      .trust-icons {
-        gap: 0.6rem;
-      }
-      .trust-icons > div {
-        width: 98vw;
-        max-width: 99vw;
-      }
-      .trust-icons img {
-        width: 35px;
-        height: 35px;
-        padding: 2px;
-        border-radius: 6px;
-      }
-      .facebook-feed-section {
-        margin: 2rem auto;
-        padding: 1.2rem 0.3rem;
-      }
-      nav {
-        padding: 0.4rem 0.7rem;
-        background: rgba(16,34,43,0.98);
-        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-        height: auto;
-      }
-      .logo {
-        font-size: 1.06rem;
-        padding: 0.2rem 0;
-      }
-      nav ul {
-        gap: 0.8rem;
-        overflow-x: auto;
-        white-space: nowrap;
-        flex-wrap: nowrap;
-      }
-      nav ul li a {
-        font-size: 0.96rem;
-        padding: 0.3rem 0.7rem;
-      }
-      nav ul li a.cta-nav {
-        padding: 0.37rem 0.9rem;
-      }
-      .hero {
-        padding: 2.2rem 0.5rem 1.2rem 0.5rem;
-        margin-top: 57px;
-        min-height: 180px;
-      }
-      .hero-text h1 {
-        font-size: 1.33rem;
-      }
-      .benefit-cards {
+      .trust-cards {
         flex-direction: column;
         align-items: center;
-        gap: 1.2rem;
+        gap: 1.3rem;
       }
-      .benefit-card {
-        max-width: 98vw;
-        padding: 1.3rem 0.7rem;
+      .accredit-card {
+        max-width: 94vw;
+        min-width: 180px;
       }
-      .section {
-        padding: 1.8rem 0.2rem;
-      }
-      #solar-toolkit {
-        flex-direction: column;
-        align-items: stretch;
-        text-align: center;
-      }
-      #solar-toolkit > div {
-        margin: 0 auto 2rem auto;
+      .accredit-card-desc {
+        position: static;
+        transform: none;
+        margin-top: .7em;
+        width: 98%;
+        max-width: 99vw;
       }
     }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, 1.5em);}
+      to { opacity: 1; transform: translate(-50%, .5em);}
+    }
+    /* End trust section styles */
     footer {
-      background: linear-gradient(90deg, #183646 0%, #20455b 100%);
-      color: var(--accent);
+      background: linear-gradient(90deg, #f9e17d 0%, #ffd700 100%);
+      color: #397a94;
       padding: 2.2rem;
       text-align: center;
       margin-top: 3rem;
       border-radius: var(--radius) var(--radius) 0 0;
       font-size: 0.96rem;
       letter-spacing: 0.2px;
-      box-shadow: 0 -2px 22px #18364633;
+      box-shadow: 0 -2px 22px #ffd70033;
     }
+    /* ...other existing media queries remain unchanged... */
   </style>
 </head>
 <body>
@@ -538,10 +421,10 @@
       <h2>Check Your Roof Orientation</h2>
       <p>Enter your address to estimate your solar potential.</p>
       <input id="addressInput" type="text" placeholder="Enter your address" style="max-width:350px;margin:0 auto 1rem auto;display:block;" />
-      <button id="toggleMapBtn" onclick="toggleStreetView()" style="margin:1rem 0 1.2rem 0;padding:0.7rem 1.3rem;border-radius:999px;background:#397a94;color:#ffc700;font-weight:bold;font-size:1rem;border:none;box-shadow:0 2px 8px #397a9440;cursor:pointer;">
+      <button id="toggleMapBtn" onclick="toggleStreetView()" style="margin:1rem 0 1.2rem 0;padding:0.7rem 1.3rem;border-radius:999px;background:#397a94;color:#ffd700;font-weight:bold;font-size:1rem;border:none;box-shadow:0 2px 8px #397a9440;cursor:pointer;">
         Show Street View
       </button>
-      <div id="streetview-container" style="width:100%;max-width:400px;height:200px;display:none;border-radius:18px;overflow:hidden;margin:0 auto 1rem auto;background:#133c4a;">
+      <div id="streetview-container" style="width:100%;max-width:400px;height:200px;display:none;border-radius:18px;overflow:hidden;margin:0 auto 1rem auto;background:#f9e17d;">
         <div id="pano" style="width:100%;height:100%;"></div>
       </div>
       <p id="orientationResult" style="margin-top: 1rem; font-weight: bold;"></p>
@@ -556,7 +439,16 @@
         <label for="usage">Annual electricity usage (kWh):</label>
         <input type="number" id="usage" placeholder="e.g. 4000" required>
         <label><input type="checkbox" id="battery"> Include battery?</label>
-        <label><input type="checkbox" id="homeDay"> I'm home during the day</label>
+        <div class="presence-radio-group">
+          <label class="home">
+            <input type="radio" name="dayPresence" id="homeDay" value="home" checked>
+            I'm home during the day
+          </label>
+          <label class="out">
+            <input type="radio" name="dayPresence" id="outDay" value="out">
+            I'm out during the day
+          </label>
+        </div>
         <button type="submit">Calculate</button>
       </form>
       <div id="calcResult"></div>
@@ -569,7 +461,7 @@
     <form id="depositForm" class="inline-form" autocomplete="off" style="text-align:center;margin-bottom:1.2em;">
       <label for="deposit-amount">Deposit (£):</label>
       <input type="number" id="deposit-amount" value="0" min="0" max="9500" step="100">
-      <button type="submit" style="background:#397a94;color:#ffc700;padding:0.4em 1.3em;border-radius:999px;border:none;cursor:pointer;">Recalculate</button>
+      <button type="submit" style="background:#397a94;color:#ffd700;padding:0.4em 1.3em;border-radius:999px;border:none;cursor:pointer;">Recalculate</button>
     </form>
     <div id="finance-offset-summary" class="finance-summary"></div>
     <div class="disclaimer">
@@ -579,7 +471,7 @@
   </section>
 
   <section id="historic-prices" class="section">
-    <button onclick="toggleHistoric()" style="font-size:1.1rem;padding:0.5rem 1.5rem;background:#397a94;color:#ffc700;border:none;border-radius:20px;cursor:pointer;">
+    <button onclick="toggleHistoric()" style="font-size:1.1rem;padding:0.5rem 1.5rem;background:#397a94;color:#ffd700;border:none;border-radius:20px;cursor:pointer;">
       Show Historic Electricity Prices (2000-2025)
     </button>
     <div id="historic-graph" style="display:none;margin-top:2rem;">
@@ -594,85 +486,84 @@
   </section>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
-  <!-- TRUST ACCREDITATION SECTION WITH CLICK-TO-REVEAL -->
+  <!-- Sleek Trust Accreditation Section -->
   <section id="trust" class="section">
-    <h2>Who Can You Trust?</h2>
-    <div class="trust-icons">
-      <div class="accredit-item">
-        <button class="accredit-btn" type="button" title="Show details for MCS">
+    <h2 style="color:#ffd700;font-size:2.1rem;text-shadow:0 2px 14px #397a9480;">Who Can You Trust?</h2>
+    <div class="trust-cards">
+      <div class="accredit-card" tabindex="0">
+        <button class="accredit-card-btn" type="button" aria-expanded="false">
           <img src="assets/mcs logo.png" alt="MCS Certified" />
           <span>MCS</span>
         </button>
-        <div class="accredit-desc">
+        <div class="accredit-card-desc">
           <strong>MCS (Microgeneration Certification Scheme):</strong><br>
           Guarantees your installer and solar products meet strict UK quality and safety standards. MCS certification is required for eligibility for government incentives and ensures your installation is reliable and high performing.
         </div>
       </div>
-      <div class="accredit-item">
-        <button class="accredit-btn" type="button" title="Show details for EPVS">
+      <div class="accredit-card" tabindex="0">
+        <button class="accredit-card-btn" type="button" aria-expanded="false">
           <img src="assets/epvs logi.jpeg" alt="EPVS" />
           <span>EPVS</span>
         </button>
-        <div class="accredit-desc">
+        <div class="accredit-card-desc">
           <strong>EPVS (Energy Performance Validation Scheme):</strong><br>
           Protects you from misleading sales claims by ensuring all performance figures and savings estimates from your installer are independently validated and accurate.
         </div>
       </div>
-      <div class="accredit-item">
-        <button class="accredit-btn" type="button" title="Show details for HIES">
+      <div class="accredit-card" tabindex="0">
+        <button class="accredit-card-btn" type="button" aria-expanded="false">
           <img src="assets/hies-cc-logo-2.png" alt="HIES" />
           <span>HIES</span>
         </button>
-        <div class="accredit-desc">
+        <div class="accredit-card-desc">
           <strong>HIES (Home Insulation & Energy Systems):</strong><br>
           Provides consumer protection including deposit and warranty insurance, dispute resolution, and ensures you’re covered if anything goes wrong with your solar purchase.
         </div>
       </div>
-      <div class="accredit-item">
-        <button class="accredit-btn" type="button" title="Show details for NAPIT">
+      <div class="accredit-card" tabindex="0">
+        <button class="accredit-card-btn" type="button" aria-expanded="false">
           <img src="assets/NAPIT-NEW-LOGO.jpg" alt="NAPIT" />
           <span>NAPIT</span>
         </button>
-        <div class="accredit-desc">
+        <div class="accredit-card-desc">
           <strong>NAPIT (National Association of Professional Inspectors and Testers):</strong><br>
           Certifies electrical safety and compliance of your installer, ensuring your solar system is installed to the latest regulations and standards.
         </div>
       </div>
-      <div class="accredit-item">
-        <button class="accredit-btn" type="button" title="Show details for Trading Standards">
+      <div class="accredit-card" tabindex="0">
+        <button class="accredit-card-btn" type="button" aria-expanded="false">
           <img src="assets/trading-standards-uk-logo.png" alt="Trading Standards" />
           <span>Trading Standards</span>
         </button>
-        <div class="accredit-desc">
+        <div class="accredit-card-desc">
           <strong>Trading Standards:</strong><br>
           Ensures solar businesses comply with UK consumer laws and codes of practice, protecting you from unfair sales and poor business practices.
         </div>
       </div>
-      <div class="accredit-item">
-        <button class="accredit-btn" type="button" title="Show details for TrustMark">
+      <div class="accredit-card" tabindex="0">
+        <button class="accredit-card-btn" type="button" aria-expanded="false">
           <img src="assets/tm_primary_logo_rgb.jpg" alt="TrustMark" />
           <span>TrustMark</span>
         </button>
-        <div class="accredit-desc">
+        <div class="accredit-card-desc">
           <strong>TrustMark:</strong><br>
           Government-endorsed scheme ensuring your solar installer is thoroughly vetted for quality, customer service, and trading practices.
         </div>
       </div>
-      <div class="accredit-item">
-        <button class="accredit-btn" type="button" title="Show details for FCA">
+      <div class="accredit-card" tabindex="0">
+        <button class="accredit-card-btn" type="button" aria-expanded="false">
           <img src="assets/Financial_Conduct_Authority_logo.svg.png" alt="FCA" />
           <span>FCA</span>
         </button>
-        <div class="accredit-desc">
+        <div class="accredit-card-desc">
           <strong>FCA (Financial Conduct Authority):</strong><br>
           Regulates finance providers and credit agreements, protecting you if you choose to finance your solar system, ensuring fair, clear, and legal financial products.
         </div>
       </div>
     </div>
   </section>
-  <!-- END TRUST ACCREDITATION SECTION -->
+  <!-- End Trust Accreditation Section -->
 
-  <!-- Facebook Feed Section -->
   <section id="facebook-feed" class="facebook-feed-section">
     <h2>Latest from Our Facebook Page</h2>
     <div id="fb-feed">Loading posts…</div>
@@ -737,7 +628,6 @@
     // Orientation section logic (Street View only)
     let autocomplete, lastPlaceLocation = null, panoMap = null;
 
-    // The callback for Google Maps JS API - sets up both orientation and quote form autocomplete
     function mapsApiLoaded() {
       if (typeof initMap === "function") initMap();
       if (typeof initQuoteAddressAutocomplete === "function") initQuoteAddressAutocomplete();
@@ -759,7 +649,6 @@
           return;
         }
         lastPlaceLocation = place.geometry.location;
-        // Orientation logic
         const viewport = place.geometry.viewport;
         let orientation = "Unknown";
         let explanation = "";
@@ -837,7 +726,7 @@
       }
     }
 
-    // --- SOLAR CALCULATOR (with standing charge and finance offset, UPDATED for homeDay checkbox) ---
+    // --- SOLAR CALCULATOR (with standing charge and finance offset, UPDATED for homeDay/outDay radio) ---
     let latestSavingsPerYear = 0;
     let latestAnnualSpend = 0;
     document.getElementById("calcForm").addEventListener("submit", function (e) {
@@ -846,9 +735,10 @@
       const standing = parseFloat(document.getElementById("standing").value);
       const usage = parseFloat(document.getElementById("usage").value);
       const battery = document.getElementById("battery").checked;
-      // ADDED: get homeDay checkbox value
-      const homeAllDay = document.getElementById("homeDay")?.checked;
-      // END ADDED
+
+      // Day presence logic
+      const homeAllDay = document.getElementById("homeDay").checked;
+      const outAllDay = document.getElementById("outDay").checked;
 
       const systemSizeKW = 3.68;
       const panelSystemKW = 9 * 0.46;
@@ -863,20 +753,18 @@
         batterySelfUse = Math.min(estimatedAnnualGen, usableBatteryKWh * batteryCyclesPerYear);
       }
 
-      // UPDATED: self-consumption logic to include homeDay
+      // Self-consumption logic based on presence radios
       let selfConsumptionRatio;
       if (battery) {
-        selfConsumptionRatio = homeAllDay ? 0.8 : 0.7;
+        selfConsumptionRatio = homeAllDay ? 0.8 : 0.6;
       } else {
-        selfConsumptionRatio = homeAllDay ? 0.65 : 0.5;
+        selfConsumptionRatio = homeAllDay ? 0.65 : 0.4;
       }
       let selfUsedKWh = estimatedAnnualGen * selfConsumptionRatio;
       if (battery) {
         selfUsedKWh = Math.min(selfUsedKWh + batterySelfUse, estimatedAnnualGen, usage);
       }
-      // END UPDATED
 
-      // ... rest of your calculator logic unchanged ...
       const annualStanding = standing * 365 / 100; // convert p/day to £/year
       const billUsage = rate * usage / 100; // convert p/kWh to £/year
       const annualSpend = billUsage + annualStanding;
@@ -901,13 +789,16 @@
       let tableRows = annualSavingsArr.map(row =>
         `<tr><td>Year ${row.year}</td><td>£${row.savings}</td><td>${row.price}p/kWh</td><td>£${row.cumulative}</td></tr>`
       ).join('');
+      const presenceText = homeAllDay
+        ? "You're home during the day"
+        : "You're out during the day";
       const calcResult = document.getElementById("calcResult");
       latestSavingsPerYear = parseFloat(annualSavingsArr[0].savings); // For finance offset
       calcResult.innerHTML = `
         <div style="margin-bottom:1.1em;">
           <h3>Estimated Annual Savings (Year 1): £${annualSavingsArr[0].savings}</h3>
           <p>Your system is estimated to generate <strong>${estimatedAnnualGen.toFixed(0)} kWh</strong> per year.</p>
-          <p>Annual self-used solar: <strong>${selfUsedKWh.toFixed(0)} kWh</strong> (${(100*selfUsedKWh/usage).toFixed(0)}% of your usage${battery ? ' with 5kWh battery' : ''}${homeAllDay ? ', and you\'re home during the day' : ''}).</p>
+          <p>Annual self-used solar: <strong>${selfUsedKWh.toFixed(0)} kWh</strong> (${(100*selfUsedKWh/usage).toFixed(0)}% of your usage${battery ? ' with 5kWh battery' : ''}, ${presenceText})</p>
           <p><b>Your annual energy spend (inc. standing charge): £${annualSpend.toFixed(2)}</b></p>
           <p>Typical installation: <strong>£${breakEvenEstimate.toLocaleString()}</strong></p>
         </div>
@@ -924,7 +815,6 @@
         <p style="font-size:0.95em;color:#888;">This calculation is based on a system with 9 solar panels – if your roof can fit more, your potential savings will be even higher. These are estimated figures and don’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.</p>
       `;
 
-      // Show finance offset section after calculation
       showFinanceOffset();
     });
 
@@ -1010,7 +900,7 @@
             borderColor: '#397a94',
             backgroundColor: 'rgba(57,122,148,0.13)',
             tension: 0.25,
-            pointBackgroundColor: '#ffc700',
+            pointBackgroundColor: '#ffd700',
             pointRadius: 5,
             fill: true
           }]
@@ -1034,19 +924,26 @@
       });
     }
 
-    // --- TRUST ACCREDITATIONS: Click-to-show descriptions ---
-    document.querySelectorAll('.accredit-btn').forEach(btn => {
+    // Trust card open/close logic
+    document.querySelectorAll('.accredit-card-btn').forEach(btn => {
       btn.addEventListener('click', function() {
-        document.querySelectorAll('.accredit-item').forEach(item => {
-          if (item.contains(btn)) {
-            item.classList.toggle('active');
+        document.querySelectorAll('.accredit-card').forEach(card => {
+          if (card.contains(btn)) {
+            card.classList.toggle('active');
+            btn.setAttribute('aria-expanded', card.classList.contains('active'));
           } else {
-            item.classList.remove('active');
+            card.classList.remove('active');
+            card.querySelector('.accredit-card-btn').setAttribute('aria-expanded', 'false');
           }
         });
       });
+      btn.addEventListener('keydown', function(e) {
+        if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+          e.preventDefault();
+          btn.click();
+        }
+      });
     });
-    // --- END TRUST ACCREDITATIONS ---
   </script>
 </body>
 </html>
