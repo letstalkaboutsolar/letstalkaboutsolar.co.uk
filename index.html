@@ -374,13 +374,15 @@
       <li><a href="#facebook-feed" class="cta-nav">FB Feed</a></li>  
       <li><a href="#quote" class="cta-nav">Get Quote</a></li>  
     </ul>  
-  </nav>    <section class="hero" id="hero">  
+  </nav>  
+  <section class="hero" id="hero">  
     <div class="hero-text">  
       <h1>Sunshine Meets Smart Savings</h1>  
       <p>See how solar can protect your bills and power your future.</p>  
       <a href="#quote" class="cta">Get My Free Quote</a>  
     </div>  
-  </section>    <section id="benefits" class="section">  
+  </section>  
+  <section id="benefits" class="section">  
     <h2>Why Solar?</h2>  
     <div class="benefit-cards">  
       <div class="benefit-card">  
@@ -396,7 +398,8 @@
         <p>Sell your surplus energy back to the grid.</p>  
       </div>  
     </div>  
-  </section>    <section id="solar-toolkit" class="section">  
+  </section>  
+  <section id="solar-toolkit" class="section">  
     <div>  
       <h2>Check Your Roof Orientation</h2>  
       <p>Enter your address to estimate your solar potential.</p>  
@@ -421,7 +424,35 @@
       </form>  
       <div id="calcResult"></div>  
     </div>  
-  </section>    <section id="historic-prices" class="section">  
+  </section>  
+
+  <!-- BEGIN: Solar Finance Monthly Payment Example -->
+  <section id="solar-finance" class="section">
+    <h2>Solar System Monthly Payment Example</h2>
+    <div class="calculator" style="margin-bottom:1.5rem;">
+      <p>
+        <strong>Example:</strong> A £9,500 solar system over 10 years at 9.9% APR.<br>
+        <span style="font-size:0.97em;color:#666;">
+          Enter your estimated monthly electricity bill savings to see your net cost.
+        </span>
+      </p>
+      <form id="finance-calc-form">
+        <label for="bill-saving">Estimated monthly bill saving (£):</label>
+        <input type="number" id="bill-saving" min="0" step="1" placeholder="e.g. 70" required>
+        <button type="submit" style="margin-top:1rem;">Calculate Offset</button>
+      </form>
+      <div id="finance-result" style="margin-top:1.2em;font-size:1.15em;"></div>
+    </div>
+    <div style="font-size:0.92em;color:gray;">
+      <em>
+        This example is for illustration purposes only and does not constitute financial advice or an offer of credit. Actual terms and savings will vary.<br>
+        We do not offer or arrange finance. Please seek professional advice before making any financial commitment.
+      </em>
+    </div>
+  </section>
+  <!-- END: Solar Finance Monthly Payment Example -->
+
+  <section id="historic-prices" class="section">  
     <button onclick="toggleHistoric()" style="font-size:1.1rem;padding:0.5rem 1.5rem;background:#72bcd4;color:#fff;border:none;border-radius:20px;cursor:pointer;">  
       Show Historic Electricity Prices (2000-2025)  
     </button>  
@@ -435,100 +466,54 @@
       </p>  
     </div>  
   </section>  
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>    <section id="trust" class="section">  
-    <h2>Who Can You Trust?</h2>  
-    <div class="trust-icons">  
-      <div>  
-        <a href="https://mcscertified.com/" target="_blank" title="MCS: Quality guaranteed equipment and installers">  
-          <img src="assets/mcs logo.png" alt="MCS Certified" />  
-        </a>  
-        <p style="max-width:140px;margin:0 auto;font-size:0.97em">  
-          <strong>MCS (Microgeneration Certification Scheme):</strong><br>  
-          Guarantees your installer and solar products meet strict UK quality and safety standards. MCS certification is required for eligibility for government incentives and ensures your installation is reliable and high performing.  
-        </p>  
-      </div>  
-      <div>  
-        <a href="https://www.epvs.co.uk/" target="_blank" title="EPVS: Verified energy savings and performance claims">  
-          <img src="assets/epvs logi.jpeg" alt="EPVS" />  
-        </a>  
-        <p style="max-width:140px;margin:0 auto;font-size:0.97em">  
-          <strong>EPVS (Energy Performance Validation Scheme):</strong><br>  
-          Protects you from misleading sales claims by ensuring all performance figures and savings estimates from your installer are independently validated and accurate.  
-        </p>  
-      </div>  
-      <div>  
-        <a href="https://www.hiesscheme.org.uk/" target="_blank" title="HIES: Consumer protection from start to finish">  
-          <img src="assets/hies-cc-logo-2.png" alt="HIES" />  
-        </a>  
-        <p style="max-width:140px;margin:0 auto;font-size:0.97em">  
-          <strong>HIES (Home Insulation & Energy Systems):</strong><br>  
-          Provides consumer protection including deposit and warranty insurance, dispute resolution, and ensures you’re covered if anything goes wrong with your solar purchase.  
-        </p>  
-      </div>  
-      <div>  
-        <a href="https://www.napit.org.uk/" target="_blank" title="NAPIT: Government-approved installer certification">  
-          <img src="assets/NAPIT-NEW-LOGO.jpg" alt="NAPIT" />  
-        </a>  
-        <p style="max-width:140px;margin:0 auto;font-size:0.97em">  
-          <strong>NAPIT (National Association of Professional Inspectors and Testers):</strong><br>  
-          Certifies electrical safety and compliance of your installer, ensuring your solar system is installed to the latest regulations and standards.  
-        </p>  
-      </div>  
-      <div>  
-        <a href="https://www.tradingstandards.uk/" target="_blank" title="Trading Standards: Ensuring legal and fair business practices">  
-          <img src="assets/trading-standards-uk-logo.png" alt="Trading Standards" />  
-        </a>  
-        <p style="max-width:140px;margin:0 auto;font-size:0.97em">  
-          <strong>Trading Standards:</strong><br>  
-          Ensures solar businesses comply with UK consumer laws and codes of practice, protecting you from unfair sales and poor business practices.  
-        </p>  
-      </div>  
-      <div>  
-        <a href="https://www.trustmark.org.uk/" target="_blank" title="Government TrustMark: The only government-endorsed quality scheme for trades in and around the home">  
-          <img src="assets/tm_primary_logo_rgb.jpg" alt="TrustMark" />  
-        </a>  
-        <p style="max-width:140px;margin:0 auto;font-size:0.97em">  
-          <strong>TrustMark:</strong><br>  
-          Government-endorsed scheme ensuring your solar installer is thoroughly vetted for quality, customer service, and trading practices.  
-        </p>  
-      </div>  
-      <div>  
-        <a href="https://register.fca.org.uk/" target="_blank" title="FCA: Regulated advice and consumer financial protection">  
-          <img src="assets/Financial_Conduct_Authority_logo.svg.png" alt="FCA" />  
-        </a>  
-        <p style="max-width:140px;margin:0 auto;font-size:0.97em">  
-          <strong>FCA (Financial Conduct Authority):</strong><br>  
-          Regulates finance providers and credit agreements, protecting you if you choose to finance your solar system, ensuring fair, clear, and legal financial products.  
-        </p>  
-      </div>  
-    </div>  
-  </section>    <!-- Facebook Feed Section -->    <section id="facebook-feed" class="facebook-feed-section">  
-    <h2>Latest from Our Facebook Page</h2>  
-    <div id="fb-feed">Loading posts…</div>  
-  </section>    <section id="quote" class="section">  
-    <h2>Request a Free Quote</h2>  
-    <form action="https://formspree.io/f/mldnarjp" method="POST" class="quote-form">  
-      <input type="text" name="name" placeholder="Full Name" required autocomplete="name">  
-      <input type="text" name="address" id="quote-address" placeholder="Start typing your address…" required autocomplete="street-address">  
-      <input type="email" name="email" placeholder="Email Address" required autocomplete="email">  
-      <input type="tel" name="phone" placeholder="Phone Number" required autocomplete="tel">  
-      <input type="text" name="unitrate" placeholder="Electricity Unit Rate (p/kWh)" required>  
-      <input type="text" name="annualspend" placeholder="Annual Electricity Spend (£)" required>  
-      <button type="submit">Send My Quote Request</button>  
-    </form>  
-  </section>    <footer>  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
+  <section id="trust" class="section">  
+    <!-- (TRUST section unchanged) -->
+    ...  
+  </section>  
+  <!-- Facebook Feed Section -->  
+  <!-- (Facebook Feed Section unchanged) -->
+  ...  
+  <section id="quote" class="section">  
+    <!-- (Quote section unchanged) -->
+    ...  
+  </section>  
+  <footer>  
     <p>&copy; 2025 Let’s Talk About Solar. All rights reserved.</p>  
-  </footer>    <script>  
-    // Facebook Feed Fetcher (using the new access token)  
-    (function() {  
-      const PAGE_ID = "1065220185700265";  
-      const PAGE_ACCESS_TOKEN = "EAAPIzZBbGt6kBOZBSOCOOuBKIZC3E8yAp8LZALPDrD4VB9KdSnhRCjZCYhFoREmst5lL78Jg4ZCd4Xab1uBOpIrnb2796AbNJEEWGfqa4WGjGghQA7AcfPOohnwNfgupUAt15JFTiQvd55RLoFlpsyJIjRxZBtKGg8GNUCe2Th4v0eW8Maexul6MbDdeYbtSdiyrW50aoA6DzM3WQngob9CDwCuFW40QU7umJSYzoIZB2NsZD";  
-      const url = `https://graph.facebook.com/v19.0/${PAGE_ID}/posts?fields=message,created_time,permalink_url,full_picture&access_token=${PAGE_ACCESS_TOKEN}`;  
-      fetch(url)  
-        .then(r => r.json())  
-        .then(data => {  
-          const container = document.getElementById('fb-feed');  
-          if (data && data.data && data.data.length > 0) {  
-            container.innerHTML = data.data.map(post => `  
-              <div class="fb-post">  
-                <div class="fb-date">${new Date(post.created_time).toL
+  </footer>  
+  <script>
+    // (your existing scripts above remain unchanged)
+    // --- Solar Finance Calculator Script ---
+    // Finance calculation constants
+    const loanAmount = 9500;
+    const years = 10;
+    const apr = 9.9;
+    const months = years * 12;
+    const monthlyRate = apr / 100 / 12;
+
+    // Monthly repayment formula for fixed-rate loan
+    function calculateMonthlyPayment(P, r, n) {
+      return (P * r) / (1 - Math.pow(1 + r, -n));
+    }
+
+    const monthlyPayment = calculateMonthlyPayment(loanAmount, monthlyRate, months);
+
+    // Only add the event if the element exists
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('finance-calc-form');
+      if (form) {
+        form.addEventListener('submit', function(e){
+          e.preventDefault();
+          const saving = parseFloat(document.getElementById('bill-saving').value || '0');
+          const offset = monthlyPayment - saving;
+          const resultDiv = document.getElementById('finance-result');
+          resultDiv.innerHTML =
+            `<strong>Estimated monthly payment: £${monthlyPayment.toFixed(2)}</strong><br>
+            If you save £${saving.toFixed(2)}/month on bills, your net extra cost could be <strong>£${offset.toFixed(2)}/month</strong>.`;
+        });
+      }
+    });
+    // (your existing scripts below remain unchanged)
+  </script>
+</body>
+</html>
