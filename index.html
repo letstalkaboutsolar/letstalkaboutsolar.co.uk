@@ -176,6 +176,41 @@
     #solar-toolkit h2 {
       text-align: center;
     }
+    /* Facebook Feed Section */
+    .facebook-feed-section {
+      max-width: 700px;
+      margin: 3rem auto;
+      padding: 2rem 1rem;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+    #fb-feed {
+      margin-top: 1.2em;
+      text-align: left;
+    }
+    .fb-post {
+      background: #f9fbff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px #e3f0fc;
+      margin-bottom: 1.5rem;
+      padding: 1.3rem;
+    }
+    .fb-date {
+      color: #888;
+      font-size: 0.93em;
+      margin-bottom: 0.6em;
+    }
+    .fb-message {
+      font-size: 1.05em;
+      margin-bottom: 0.7em;
+    }
+    .fb-link {
+      color: #1877f2;
+      text-decoration: underline;
+      font-size: 0.93em;
+    }
     @media (max-width: 950px) {
       #solar-toolkit {
         flex-direction: column;
@@ -258,6 +293,10 @@
         padding: 2px;
         border-radius: 6px;
       }
+      .facebook-feed-section {
+        margin: 2rem auto;
+        padding: 1.2rem 0.3rem;
+      }
     }
     footer {
       background: var(--primary);
@@ -332,6 +371,8 @@
       <li><a href="#orientation">Orientation</a></li>
       <li><a href="#calculator">Savings</a></li>
       <li><a href="#trust">Trust</a></li>
+      <!-- Add FB Feed to navbar for quick jump -->
+      <li><a href="#facebook-feed" class="cta-nav">FB Feed</a></li>
       <li><a href="#quote" class="cta-nav">Get Quote</a></li>
     </ul>
   </nav>
@@ -474,6 +515,12 @@
     </div>
   </section>
 
+  <!-- Facebook Feed Section -->
+  <section id="facebook-feed" class="facebook-feed-section">
+    <h2>Latest from Our Facebook Page</h2>
+    <div id="fb-feed">Loading posts…</div>
+  </section>
+
   <section id="quote" class="section">
     <h2>Request a Free Quote</h2>
     <form action="https://formspree.io/f/mldnarjp" method="POST" class="quote-form">
@@ -492,6 +539,34 @@
   </footer>
 
   <script>
+    // Facebook Feed Fetcher (using the new access token)
+    (function() {
+      const PAGE_ID = "1065220185700265";
+      const PAGE_ACCESS_TOKEN = "EAAPIzZBbGt6kBOZBSOCOOuBKIZC3E8yAp8LZALPDrD4VB9KdSnhRCjZCYhFoREmst5lL78Jg4ZCd4Xab1uBOpIrnb2796AbNJEEWGfqa4WGjGghQA7AcfPOohnwNfgupUAt15JFTiQvd55RLoFlpsyJIjRxZBtKGg8GNUCe2Th4v0eW8Maexul6MbDdeYbtSdiyrW50aoA6DzM3WQngob9CDwCuFW40QU7umJSYzoIZB2NsZD";
+      const url = `https://graph.facebook.com/v19.0/${PAGE_ID}/posts?fields=message,created_time,permalink_url,full_picture&access_token=${PAGE_ACCESS_TOKEN}`;
+      fetch(url)
+        .then(r => r.json())
+        .then(data => {
+          const container = document.getElementById('fb-feed');
+          if (data && data.data && data.data.length > 0) {
+            container.innerHTML = data.data.map(post => `
+              <div class="fb-post">
+                <div class="fb-date">${new Date(post.created_time).toLocaleString()}</div>
+                <div class="fb-message">${post.message ? post.message.replace(/\n/g, "<br>") : "<em>No text content</em>"}</div>
+                ${post.full_picture ? `<img src="${post.full_picture}" alt="Post image" style="max-width:100%;border-radius:8px;margin:0.6em 0;">` : ""}
+                <a class="fb-link" href="${post.permalink_url}" target="_blank">View on Facebook</a>
+              </div>
+            `).join('');
+          } else {
+            container.innerHTML = "<p>No posts found, or token expired/insufficient permissions.</p>";
+          }
+        })
+        .catch(err => {
+          document.getElementById('fb-feed').innerHTML = "<p>Error fetching posts.</p>";
+          console.error(err);
+        });
+    })();
+
     let lastScroll = 0;
     const nav = document.getElementById("navbar");
     let orientationFactor = 1;
