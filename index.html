@@ -410,6 +410,14 @@
       margin: 2em auto 1.2em auto;
       width: 65%;
     }
+    /* Facebook Page Plugin Style */
+    .fb-page, .fb-page * {
+      border-radius: 18px !important;
+      box-shadow: 0 4px 18px #397a9440 !important;
+      background: #183646 !important;
+      margin: 0 auto 2em auto;
+      max-width: 400px;
+    }
     @media (max-width: 900px) {
       #solar-toolkit {
         flex-direction: column;
@@ -437,6 +445,9 @@
       }
       .about-section {
         padding: 1.4rem 0.6rem;
+      }
+      .fb-page, .fb-page * {
+        max-width: 98vw !important;
       }
     }
     @keyframes fadeIn {
@@ -466,7 +477,7 @@
       <li><a href="#orientation">Orientation</a></li>
       <li><a href="#calculator">Savings</a></li>
       <li><a href="#trust">Trust</a></li>
-      <li><a href="#facebook-feed" class="cta-nav">FB Feed</a></li>
+      <li><a href="#facebook-profile-thread" class="cta-nav">FB Feed</a></li>
       <li><a href="#quote" class="cta-nav">Get Quote</a></li>
     </ul>
   </nav>
@@ -496,15 +507,7 @@
     </span>
     <hr>
     <div style="text-align:center; margin-top:1.5em;">
-      <a href="https://m.me/letstalkaboutsolar" target="_blank" rel="noopener" style="display:inline-block; background:#0084ff; color:#fff; font-weight:bold; font-size:1.11rem; padding:0.7em 1.4em; border-radius:999px; text-decoration:none; box-shadow:0 2px 12px #0084ff40;">
-        💬 Chat with us on Facebook Messenger
-      </a>
-      <div style="margin: 1em 0 0.2em 0; color:#fffbe7;">
-        or
-      </div>
-      <div>
-        For a comprehensive quotation directly from us, fill out the <a href="#quote" style="color:#ffd700;font-weight:bold;text-decoration:underline;">free quotation form</a>.
-      </div>
+      For a comprehensive quotation directly from us, fill out the <a href="#quote" style="color:#ffd700;font-weight:bold;text-decoration:underline;">free quotation form</a>.
     </div>
   </section>
   <!-- END ABOUT US SECTION -->
@@ -676,10 +679,24 @@
     </div>
   </section>
 
-  <!-- Facebook Feed Section -->
-  <section id="facebook-feed" class="facebook-feed-section">
-    <h2>Latest from Our Facebook Page</h2>
-    <div id="fb-feed">Loading posts…</div>
+  <!-- Facebook Profile Thread Section (Widget replaces API feed) -->
+  <section id="facebook-profile-thread" class="section">
+    <h2 style="color:var(--accent);text-align:center;">Our Latest on Facebook</h2>
+    <div style="display:flex;justify-content:center;">
+      <div class="fb-page"
+        data-href="https://www.facebook.com/letstalkaboutsolar"
+        data-tabs="timeline"
+        data-width="400"
+        data-height="600"
+        data-small-header="false"
+        data-adapt-container-width="true"
+        data-hide-cover="false"
+        data-show-facepile="true">
+        <blockquote cite="https://www.facebook.com/letstalkaboutsolar" class="fb-xfbml-parse-ignore">
+          <a href="https://www.facebook.com/letstalkaboutsolar">Let’s Talk About Solar</a>
+        </blockquote>
+      </div>
+    </div>
   </section>
 
   <!-- Quote Form Section -->
@@ -700,34 +717,12 @@
     <p>&copy; 2025 Let’s Talk About Solar. All rights reserved.</p>
   </footer>
 
+  <!-- Facebook SDK for Page Plugin -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v19.0" nonce="letstalksolar"></script>
+
   <script>
-    // Facebook Feed Fetcher (using the new access token)
-    (function() {
-      const PAGE_ID = "1065220185700265";
-      const PAGE_ACCESS_TOKEN = "EAAPIzZBbGt6kBOZBSOCOOuBKIZC3E8yAp8LZALPDrD4VB9KdSnhRCjZCYhFoREmst5lL78Jg4ZCd4Xab1uBOpIrnb2796AbNJEEWGfqa4WGjGghQA7AcfPOohnwNfgupUAt15JFTiQvd55RLoFlpsyJIjRxZBtKGg8GNUCe2Th4v0eW8Maexul6MbDdeYbtSdiyrW50aoA6DzM3WQngob9CDwCuFW40QU7umJSYzoIZB2NsZD";
-      const url = `https://graph.facebook.com/v19.0/${PAGE_ID}/posts?fields=message,created_time,permalink_url,full_picture&access_token=${PAGE_ACCESS_TOKEN}`;
-      fetch(url)
-        .then(r => r.json())
-        .then(data => {
-          const container = document.getElementById('fb-feed');
-          if (data && data.data && data.data.length > 0) {
-            container.innerHTML = data.data.map(post => `
-              <div class="fb-post">
-                <div class="fb-date">${new Date(post.created_time).toLocaleString()}</div>
-                <div class="fb-message">${post.message ? post.message.replace(/\n/g, "<br>") : "<em>No text content</em>"}</div>
-                ${post.full_picture ? `<img src="${post.full_picture}" alt="Post image" style="max-width:100%;border-radius:8px;margin:0.6em 0;">` : ""}
-                <a class="fb-link" href="${post.permalink_url}" target="_blank">View on Facebook</a>
-              </div>
-            `).join('');
-          } else {
-            container.innerHTML = "<p>No posts found, or token expired/insufficient permissions.</p>";
-          }
-        })
-        .catch(err => {
-          document.getElementById('fb-feed').innerHTML = "<p>Error fetching posts.</p>";
-          console.error(err);
-        });
-    })();
+    // Remove previous Facebook API feed JS entirely!
 
     let lastScroll = 0;
     const nav = document.getElementById("navbar");
