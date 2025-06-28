@@ -1,5 +1,4 @@
-<!DOCTYPE html>  
-<html lang="en">  
+<!DOCTYPE html>  <html lang="en">  
 <head>  
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ&libraries=places&callback=mapsApiLoaded" async defer></script>  
   <meta charset="UTF-8" />  
@@ -371,6 +370,7 @@
       <li><a href="#orientation">Orientation</a></li>  
       <li><a href="#calculator">Savings</a></li>  
       <li><a href="#trust">Trust</a></li>  
+      <!-- Add FB Feed to navbar for quick jump -->  
       <li><a href="#facebook-feed" class="cta-nav">FB Feed</a></li>  
       <li><a href="#quote" class="cta-nav">Get Quote</a></li>  
     </ul>  
@@ -424,8 +424,7 @@
       </form>  
       <div id="calcResult"></div>  
     </div>  
-  </section>  
-
+  </section>
   <!-- BEGIN: Solar Finance Monthly Payment Example -->
   <section id="solar-finance" class="section">
     <h2>Solar System Monthly Payment Example</h2>
@@ -451,7 +450,6 @@
     </div>
   </section>
   <!-- END: Solar Finance Monthly Payment Example -->
-
   <section id="historic-prices" class="section">  
     <button onclick="toggleHistoric()" style="font-size:1.1rem;padding:0.5rem 1.5rem;background:#72bcd4;color:#fff;border:none;border-radius:20px;cursor:pointer;">  
       Show Historic Electricity Prices (2000-2025)  
@@ -468,7 +466,7 @@
   </section>  
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>  
   <section id="trust" class="section">  
-    <!-- ...TRUST section as in your original HTML... -->  
+    <!-- ...your full trust section here... -->  
   </section>  
   <section id="facebook-feed" class="facebook-feed-section">  
     <h2>Latest from Our Facebook Page</h2>  
@@ -490,6 +488,33 @@
     <p>&copy; 2025 Let’s Talk About Solar. All rights reserved.</p>  
   </footer>  
   <script>
+    // Facebook Feed Fetcher (using the new access token)  
+    (function() {  
+      const PAGE_ID = "1065220185700265";  
+      const PAGE_ACCESS_TOKEN = "EAAPIzZBbGt6kBOZBSOCOOuBKIZC3E8yAp8LZALPDrD4VB9KdSnhRCjZCYhFoREmst5lpermalink_url,full_picture&access_token=${PAGE_ACCESS_TOKEN}`;  
+      fetch(url)  
+        .then(r => r.json())  
+        .then(data => {  
+          const container = document.getElementById('fb-feed');  
+          if (data && data.data && data.data.length > 0) {  
+            container.innerHTML = data.data.map(post => `  
+              <div class="fb-post">  
+                <div class="fb-date">${new Date(post.created_time).toLocaleString()}</div>  
+                <div class="fb-message">${post.message ? post.message.replace(/\n/g, "<br>") : "<em>No text content</em>"}</div>  
+                ${post.full_picture ? `<img src="${post.full_picture}" alt="Post image" style="max-width:100%;border-radius:8px;margin:0.6em 0;">` : ""}  
+                <a class="fb-link" href="${post.permalink_url}" target="_blank">View on Facebook</a>  
+              </div>  
+            `).join('');  
+          } else {  
+            container.innerHTML = "<p>No posts found, or token expired/insufficient permissions.</p>";  
+          }  
+        })  
+        .catch(err => {  
+          document.getElementById('fb-feed').innerHTML = "<p>Error fetching posts.</p>";  
+          console.error(err);  
+        });  
+    })();  
+  
     // --- Solar Finance Calculator Script ---
     // Finance calculation constants
     const loanAmount = 9500;
@@ -519,7 +544,7 @@
         });
       }
     });
-    // ...your other scripts (Facebook feed, calculator, etc.)...
+    // ...other scripts...
   </script>
 </body>  
 </html>
