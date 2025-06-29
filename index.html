@@ -6,90 +6,84 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Let’s Talk About Solar</title>
   <meta name="description" content="Clear, friendly, and honest solar advice for UK homeowners. Discover real savings, trusted installers, and smart solar tools." />
-  <!-- Whiteboard / Handwritten style fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Permanent+Marker&display=swap" rel="stylesheet">
+  <!-- Updated to Roboto for a more professional look -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --marker-blue: #38a1db;
-      --marker-yellow: #fbc02d;
-      --marker-red: #ef5350;
-      --marker-green: #43a047;
-      --whiteboard-bg: #fff;
-      --card-bg: #fffbe7;
-      --border-radius: 16px;
-      --shadow: 2px 5px 0 #38a1db33;
-      --shadow-hover: 4px 10px 0 #38a1db55;
+      --primary: #6ec6ff;
+      --primary-dark: #2196f3;
+      --secondary: #18475f;
+      --accent: #ffd700;
+      --white: #ffffff;
+      --gray-bg: #f5faff;
+      --card: rgba(255,255,255,0.97);
+      --soft-shadow: 0 2px 14px 0 #97cdfd33;
+      --radius: 24px;
+      --premium-gloss: linear-gradient(120deg, #eaf7ff 0%, #d7edff 50%, #fff 100%);
     }
     * { box-sizing: border-box; }
     html, body {
       margin: 0;
       padding: 0;
-      background: var(--whiteboard-bg);
-      color: #222;
-      font-family: 'Patrick Hand', 'Comic Neue', Arial, sans-serif;
+      background: var(--gray-bg);
+      font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+      color: var(--secondary);
       scroll-behavior: smooth;
     }
     nav {
-      background: var(--whiteboard-bg);
-      border-bottom: 8px solid transparent;
-      border-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="4" width="32" height="32" rx="12" stroke="%2338a1db" stroke-width="5" stroke-dasharray="19 5 5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>') 8;
-      font-family: 'Permanent Marker', cursive;
-      padding: 1.1em 2em 1.1em 2em;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: var(--premium-gloss);
+      box-shadow: 0 3px 22px 0 #aac5e855, 0 1px 0 #6ec6ff;
+      padding: 1.15rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: fixed;
-      width: 100%;
-      top: 0;
       z-index: 100;
-      box-shadow: var(--shadow);
+      transition: top 0.3s;
+      border-bottom: 2.5px solid #b2daff;
     }
     nav.hidden { top: -100px; }
     .logo {
-      font-family: 'Permanent Marker', cursive;
-      font-size: 2.2em;
-      color: var(--marker-blue);
-      letter-spacing: 2px;
-      text-shadow: 2px 2px 0 #38a1db22;
+      font-size: 1.7rem;
+      font-weight: bold;
+      color: var(--primary-dark);
+      letter-spacing: 1px;
+      filter: drop-shadow(0 2px 8px #b2daff55);
+      text-shadow: 0 2px 16px #b2daff44;
+      font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+      background: linear-gradient(90deg, #2196f3 0%, #6ec6ff 80%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     nav ul {
       list-style: none;
       display: flex;
-      gap: 1.1em;
+      gap: 1.4rem;
       margin: 0;
       padding: 0;
-      font-family: 'Patrick Hand', cursive;
     }
     nav ul li a {
       text-decoration: none;
-      color: #222;
-      font-size: 1.15em;
-      padding: 0.4em 1.1em;
+      color: var(--secondary);
+      font-size: 1.08rem;
+      padding: 0.5rem 1.1rem;
       border-radius: 999px;
-      background: #fff;
-      border: 2px solid transparent;
-      transition: background 0.18s, color 0.18s, border 0.15s;
+      transition: background 0.18s, color 0.18s;
+      background: rgba(110,198,255,0.08);
       font-weight: 500;
     }
     nav ul li a.cta-nav {
-      background: var(--marker-blue);
-      color: #fff;
-      font-family: 'Permanent Marker', cursive;
-      border: 2px solid #222;
-      box-shadow: 1px 2px 0 #222;
+      background: var(--primary-dark);
+      color: var(--white);
+      font-weight: 700;
+      box-shadow: 0 2px 9px #2196f333;
     }
     nav ul li a:hover,
     nav ul li a.cta-nav:hover {
-      background: var(--marker-yellow);
-      color: #222;
-      border-color: var(--marker-blue);
-    }
-    .section, .about-section, .calculator, .quote-form, .finance-offset-section, .benefit-card, .accredit-card, #solar-toolkit > div {
-      border: 8px solid transparent;
-      border-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="4" width="32" height="32" rx="12" stroke="%2338a1db" stroke-width="5" stroke-dasharray="19 5 5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>') 8;
-      border-radius: 18px;
-      background: #fff;
-      box-shadow: var(--shadow);
+      background: var(--accent);
+      color: var(--primary-dark);
     }
     .hero {
       padding: 6.2rem 2rem 2.5rem;
@@ -97,54 +91,58 @@
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-      background: var(--whiteboard-bg);
+      background:
+        linear-gradient(120deg, rgba(110,198,255,0.16) 0%, rgba(255,255,255,0.85) 100%),
+        url('assets/solar-bg.jpg') center/cover no-repeat;
       margin-top: 83px;
-      min-height: 340px;
-      border-bottom: 8px solid transparent;
-      border-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="4" width="32" height="32" rx="12" stroke="%2338a1db" stroke-width="5" stroke-dasharray="19 5 5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>') 8;
+      min-height: 400px;
+      position: relative;
+      border-bottom: 2px solid #b2daff;
     }
     .hero-text {
       max-width: 540px;
       padding: 2.1rem 2rem;
-      background: var(--whiteboard-bg);
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow);
-      font-family: 'Patrick Hand', cursive;
-      text-align: center;
+      z-index: 1;
+      background: var(--premium-gloss);
+      border-radius: 30px;
+      box-shadow: 0 8px 40px #6ec6ff33, var(--soft-shadow);
+      backdrop-filter: blur(8px);
     }
     .hero-text h1 {
-      font-size: 2.3rem;
-      color: var(--marker-blue);
+      font-size: 2.7rem;
+      color: var(--primary-dark);
       margin: 0 0 1rem;
       letter-spacing: 1px;
-      font-family: 'Permanent Marker', cursive;
+      font-weight: 700;
+      text-shadow: 0 2px 18px #b2daff66;
     }
     .hero-text p {
-      font-size: 1.23rem;
-      margin-bottom: 1.2rem;
-      color: #222;
-      font-family: 'Patrick Hand', cursive;
+      font-size: 1.22rem;
+      color: #2a4050;
+      margin-bottom: 1.4rem;
+      font-weight: 500;
     }
     .cta {
-      background: var(--marker-blue);
-      color: #fff;
-      padding: 0.9rem 2.1rem;
+      background: linear-gradient(90deg, #6ec6ff 0%, #2196f3 100%);
+      color: var(--white);
+      padding: 1rem 2.3rem;
       text-decoration: none;
-      border-radius: 10px;
-      font-size: 1.1rem;
+      border-radius: 999px;
+      font-size: 1.13rem;
       display: inline-block;
-      margin-top: 1rem;
-      font-family: 'Permanent Marker', cursive;
+      margin-top: 1.1rem;
+      box-shadow: 0 2px 28px #6ec6ff44;
       font-weight: 700;
-      border: 2px solid #222;
-      box-shadow: 1px 2px 0 #222;
-      transition: background .17s, color .2s;
+      border: none;
+      transition: background .17s, color .2s, box-shadow .18s;
+      text-shadow: 0 2px 15px #fff8;
     }
     .cta:hover {
-      background: var(--marker-yellow);
-      color: #222;
-      border-color: var(--marker-blue);
+      background: var(--accent);
+      color: var(--primary-dark);
+      box-shadow: 0 6px 28px #ffd70044;
     }
+    .section { padding: 3.5rem 1rem 2.5rem 1rem; text-align: center; }
     .benefit-cards {
       display: flex;
       flex-wrap: wrap;
@@ -153,75 +151,102 @@
       margin-top: 2.4rem;
     }
     .benefit-card {
-      background: var(--card-bg);
-      font-family: 'Patrick Hand', cursive;
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow);
-      padding: 1.6rem 1.1rem 1.2rem 1.1rem;
-      min-width: 170px;
-      max-width: 240px;
+      background: var(--card);
+      padding: 2rem 1.2rem 1.6rem 1.2rem;
+      border-radius: var(--radius);
+      box-shadow: var(--soft-shadow);
+      max-width: 260px;
+      min-width: 180px;
+      border: 2px solid #ccecff;
+      backdrop-filter: blur(7px);
       display: flex;
       flex-direction: column;
       align-items: center;
-      transition: box-shadow .16s;
+      transition: transform 0.16s, box-shadow 0.18s, border 0.14s;
+      position: relative;
+      overflow: hidden;
+    }
+    .benefit-card::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 28px;
+      background: linear-gradient(90deg, #e3f5ff 20%, #b3e3ff22 70%, #fff0 100%);
+      border-radius: 21px 21px 0 0;
+      z-index: 1;
+      opacity: 0.9;
     }
     .benefit-card:hover {
-      box-shadow: var(--shadow-hover);
+      transform: translateY(-8px) scale(1.032);
+      box-shadow: 0 8px 32px 0 #b2daff99, 0 4px 14px #ffd70033;
+      border-color: var(--accent);
     }
     .benefit-card img {
       width: 60px;
       height: 60px;
       object-fit: contain;
       margin-bottom: 1.1rem;
-      filter: drop-shadow(0 1px 8px #38a1db33);
-      background: #fff;
-      border-radius: 10px;
-      border: 2px solid var(--marker-blue);
-      padding: 0.3em;
+      filter: drop-shadow(0 1px 8px #6ec6ff44);
+      z-index: 2;
     }
     .benefit-card p {
-      color: #222;
-      font-size: 1.13rem;
-      text-align: center;
-      margin: 0;
-      font-family: 'Patrick Hand', cursive;
+      color: #285075;
+      font-size: 1.1rem;
+      font-weight: 500;
+      z-index: 2;
+    }
+    .calculator, .quote-form, .finance-offset-section {
+      max-width: 520px;
+      margin: 0 auto 2.2rem auto;
+      background: var(--premium-gloss);
+      padding: 2.1rem 1.1rem 1.6rem 1.1rem;
+      border-radius: var(--radius);
+      box-shadow: var(--soft-shadow);
+      border: 2px solid #b2daff;
+      backdrop-filter: blur(7px);
     }
     label, input, button {
-      font-family: 'Patrick Hand', cursive;
+      display: block;
+      width: 100%;
       font-size: 1.07rem;
-      color: #222;
       margin-top: 1rem;
+      font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+      color: var(--secondary);
     }
     input {
       padding: 0.7rem;
-      border: 2px solid var(--marker-blue);
-      background: #fff;
-      color: #222;
+      border: 1.8px solid #6ec6ff;
+      background: #f4fbff;
+      color: #285075;
       border-radius: 12px;
       margin-bottom: 0.4rem;
       transition: border 0.16s, box-shadow 0.15s;
       font-size: 1.08rem;
     }
     input:focus {
-      border: 2px solid var(--marker-green);
+      border: 2.5px solid var(--primary-dark);
       outline: none;
-      background: #fffde7;
+      background: #eaf7ff;
+      box-shadow: 0 2px 16px #6ec6ff22;
     }
+    #rate, #standing { box-shadow: 0 2px 8px #18405f12; }
     button {
-      background: var(--marker-blue);
-      color: #fff;
-      border-radius: 10px;
-      border: 2px solid #222;
-      font-family: 'Permanent Marker', cursive;
-      font-size: 1.1em;
-      box-shadow: 1px 2px 0 #222;
-      transition: background 0.2s, color 0.2s;
-      margin-top: 1.2em;
+      background: linear-gradient(90deg, #6ec6ff 0%, #2196f3 100%);
+      color: var(--white);
+      padding: 0.9rem;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 1.5rem;
+      letter-spacing: .2px;
+      font-size: 1.07rem;
+      transition: background .18s, color .17s, box-shadow .15s;
+      box-shadow: 0 2px 12px #6ec6ff33;
     }
     button:hover {
-      background: var(--marker-yellow);
-      color: #222;
-      border-color: var(--marker-blue);
+      background: var(--accent);
+      color: var(--primary-dark);
+      box-shadow: 0 2px 18px #ffd70044;
     }
     .presence-radio-group {
       display: flex;
@@ -238,21 +263,21 @@
       display: flex;
       align-items: center;
       gap: 0.3em;
-      font-weight: bold;
-      color: var(--marker-blue);
+      font-weight: 700;
+      color: var(--primary-dark);
       cursor: pointer;
     }
     .presence-radio-group input[type="radio"] {
-      accent-color: var(--marker-yellow);
+      accent-color: var(--accent);
       margin-right: .3em;
     }
     .presence-radio-group label.out {
-      color: var(--marker-red);
-      font-weight: normal;
+      color: #b7a23a;
+      font-weight: 500;
     }
     .presence-radio-group label.home {
-      color: var(--marker-blue);
-      font-weight: bold;
+      color: var(--primary-dark);
+      font-weight: 700;
     }
     #solar-toolkit {
       display: flex;
@@ -266,18 +291,21 @@
       flex: 1 1 330px;
       min-width: 280px;
       max-width: 480px;
-      background: var(--whiteboard-bg);
-      border-radius: var(--border-radius);
-      box-shadow: var(--shadow);
+      background: var(--premium-gloss);
+      border-radius: var(--radius);
+      box-shadow: var(--soft-shadow);
       padding: 2rem 1.2rem 2.2rem 1.2rem;
+      margin-bottom: 0;
+      border: 2px solid #b2daff;
+      backdrop-filter: blur(7px);
     }
     #solar-toolkit h2 {
       text-align: center;
-      color: var(--marker-blue);
+      color: var(--primary-dark);
       font-size: 1.17em;
       letter-spacing: .5px;
       margin-bottom: .8em;
-      font-family: 'Permanent Marker', cursive;
+      font-weight: 700;
     }
     .trust-cards {
       display: flex;
@@ -289,9 +317,10 @@
       max-width: 900px;
     }
     .accredit-card {
-      background: #fff;
-      box-shadow: 0 4px 16px #38a1db18;
+      background: linear-gradient(130deg, #e3f5ff 60%, #b6e0ff 100%);
+      box-shadow: 0 4px 16px #6ec6ff44;
       border-radius: 15px;
+      border: 2px solid #b2daff;
       padding: 1.2em 1em 0.8em 1em;
       min-width: 130px;
       max-width: 210px;
@@ -302,11 +331,11 @@
       position: relative;
       transition: box-shadow .15s, border .15s, background .15s;
       cursor: pointer;
-      font-family: 'Patrick Hand', cursive;
     }
     .accredit-card:focus-within, .accredit-card:hover {
-      box-shadow: var(--shadow-hover);
-      background: #fffbe7;
+      box-shadow: 0 8px 34px #ffd70066, 0 4px 16px #6ec6ff44;
+      border-color: var(--accent);
+      background: linear-gradient(120deg, #fffde1 0%, #e8f4ff 80%);
       transform: translateY(-4px) scale(1.04);
       z-index: 2;
     }
@@ -322,45 +351,44 @@
       transition: transform .13s;
     }
     .accredit-card-btn:focus {
-      outline: 2.5px solid var(--marker-blue);
+      outline: 2.5px solid var(--accent);
       outline-offset: 3px;
     }
     .accredit-card img {
       width: 50px;
       height: 50px;
       object-fit: contain;
-      background: #fff;
+      background: #f4fbff;
       border-radius: 11px;
-      box-shadow: 0 2px 9px #38a1db22;
+      box-shadow: 0 2px 9px #6ec6ff44;
       margin-bottom: 0.7em;
-      border: 2px solid var(--marker-blue);
+      border: 2px solid #6ec6ff;
       padding: 6px;
       transition: border .13s;
     }
     .accredit-card:hover img, .accredit-card:focus-within img {
-      border-color: var(--marker-yellow);
+      border-color: var(--accent);
     }
     .accredit-card span {
       font-weight: 700;
-      color: var(--marker-green);
+      color: var(--primary-dark);
       font-size: 1.1em;
       letter-spacing: .6px;
       margin-bottom: .2em;
-      font-family: 'Permanent Marker', cursive;
     }
     .accredit-card-desc {
       display: none;
       margin-top: 0.7em;
-      background: #fffbe7;
-      color: #222;
+      background: #e8f4ff;
+      color: var(--primary-dark);
       border-radius: 11px;
-      box-shadow: 0 2px 12px #38a1db22;
+      box-shadow: 0 2px 12px #6ec6ff44;
       padding: 0.82em 0.8em 1.1em 0.8em;
       font-size: 1em;
       text-align: left;
       max-width: 270px;
       min-height: 64px;
-      border: 2px solid var(--marker-blue);
+      border: 2px solid #6ec6ff;
       position: absolute;
       top: 100%;
       left: 50%;
@@ -372,51 +400,59 @@
     .accredit-card:focus-within .accredit-card-desc {
       display: block;
     }
+    .about-section {
+      max-width: 750px;
+      margin: 3rem auto 2.5rem auto;
+      background: var(--premium-gloss);
+      color: var(--primary-dark);
+      border-radius: 24px;
+      box-shadow: var(--soft-shadow);
+      padding: 2.5rem 1.2rem;
+      text-align: left;
+      border: 2px solid #b2daff;
+    }
     .about-section h2 {
-      color: var(--marker-blue);
+      color: var(--primary-dark);
       font-size: 2.1rem;
       margin-top: 0;
       margin-bottom: 1.1rem;
       text-align: center;
-      font-family: 'Permanent Marker', cursive;
+      font-weight: 700;
     }
     .about-section p {
-      color: #222;
+      color: #24485a;
       font-size: 1.13rem;
       line-height: 1.7;
       margin-bottom: 1.2em;
-      font-family: 'Patrick Hand', cursive;
+      font-weight: 400;
     }
     .about-section .about-highlight {
-      color: var(--marker-yellow);
+      color: var(--accent);
       font-size: 1.15rem;
-      font-weight: bold;
+      font-weight: 700;
       margin-bottom: 0.4em;
       display: block;
       text-align: center;
-      font-family: 'Permanent Marker', cursive;
     }
     .about-section .about-contact {
       text-align: center;
       margin-top: 1.5em;
-      font-family: 'Patrick Hand', cursive;
     }
     .about-section .about-contact a {
-      color: var(--marker-blue);
+      color: var(--primary-dark);
       text-decoration: underline;
       font-weight: bold;
     }
     .about-section hr {
       border: none;
-      border-top: 8px solid transparent;
-      border-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="4" width="32" height="32" rx="12" stroke="%2338a1db" stroke-width="5" stroke-dasharray="19 5 5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>') 8;
+      border-top: 1px solid #b2daff55;
       margin: 2em auto 1.2em auto;
       width: 65%;
     }
     .fb-page, .fb-page * {
       border-radius: 18px !important;
-      box-shadow: 0 4px 18px #38a1db22 !important;
-      background: #fff !important;
+      box-shadow: 0 4px 18px #6ec6ff44 !important;
+      background: #f5faff !important;
       margin: 0 auto 2em auto;
       max-width: 400px;
     }
@@ -457,18 +493,16 @@
       to { opacity: 1; transform: translate(-50%, .5em);}
     }
     footer {
-      background: #fff;
-      color: #222;
+      background: linear-gradient(90deg, #eaf7ff 0%, #ccecff 100%);
+      color: var(--primary-dark);
       padding: 2.2rem;
       text-align: center;
       margin-top: 3rem;
-      border-radius: var(--border-radius) var(--border-radius) 0 0;
+      border-radius: var(--radius) var(--radius) 0 0;
       font-size: 0.96rem;
       letter-spacing: 0.2px;
-      box-shadow: 0 -2px 22px #38a1db11;
-      border-top: 8px solid transparent;
-      border-image: url('data:image/svg+xml;utf8,<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="4" y="4" width="32" height="32" rx="12" stroke="%2338a1db" stroke-width="5" stroke-dasharray="19 5 5 5" stroke-linecap="round" stroke-linejoin="round"/></svg>') 8;
-      font-family: 'Patrick Hand', cursive;
+      box-shadow: 0 -2px 22px #b2daff33;
+      border-top: 2px solid #b2daff;
       font-weight: 500;
     }
   </style>
@@ -513,9 +547,10 @@
     </span>
     <hr>
     <div style="text-align:center; margin-top:1.5em;">
-      For a comprehensive quotation directly from us, fill out the <a href="#quote" style="color:#38a1db;font-weight:bold;text-decoration:underline;">free quotation form</a>.
+      For a comprehensive quotation directly from us, fill out the <a href="#quote" style="color:#2196f3;font-weight:bold;text-decoration:underline;">free quotation form</a>.
     </div>
   </section>
+  <!-- END ABOUT US SECTION -->
 
   <section id="benefits" class="section">
     <h2>Why Solar?</h2>
@@ -540,10 +575,10 @@
     <div>
       <h2>Check Your Roof Orientation</h2>
       <input id="addressInput" type="text" placeholder="Enter your address" style="max-width:350px;margin:0 auto 1rem auto;display:block;" />
-      <button id="toggleMapBtn" onclick="toggleStreetView()" style="margin:1rem 0 1.2rem 0;padding:0.7rem 1.3rem;border-radius:10px;background:#38a1db;color:#fff;font-weight:700;font-size:1rem;border:2px solid #222;box-shadow:1px 2px 0 #222;cursor:pointer;font-family:'Permanent Marker',cursive;">
+      <button id="toggleMapBtn" onclick="toggleStreetView()" style="margin:1rem 0 1.2rem 0;padding:0.7rem 1.3rem;border-radius:999px;background:linear-gradient(90deg,#6ec6ff,#2196f3);color:#fff;font-weight:700;font-size:1rem;border:none;box-shadow:0 2px 8px #6ec6ff40;cursor:pointer;">
         Show Street View
       </button>
-      <div id="streetview-container" style="width:100%;max-width:400px;height:200px;display:none;border-radius:18px;overflow:hidden;margin:0 auto 1rem auto;background:#fff;">
+      <div id="streetview-container" style="width:100%;max-width:400px;height:200px;display:none;border-radius:18px;overflow:hidden;margin:0 auto 1rem auto;background:#eaf7ff;">
         <div id="pano" style="width:100%;height:100%;"></div>
       </div>
       <p id="orientationResult" style="margin-top: 1rem; font-weight: bold;"></p>
@@ -575,21 +610,21 @@
   </section>
 
   <section id="finance-offset-section" class="finance-offset-section" style="display:none;">
-    <h2 style="text-align:center;font-family:'Permanent Marker',cursive;">Finance & Bill Offset Illustration</h2>
+    <h2 style="text-align:center;">Finance & Bill Offset Illustration</h2>
     <form id="depositForm" class="inline-form" autocomplete="off" style="text-align:center;margin-bottom:1.2em;">
       <label for="deposit-amount">Deposit (£):</label>
       <input type="number" id="deposit-amount" value="0" min="0" max="9500" step="100">
-      <button type="submit" style="background:#38a1db;color:#fff;padding:0.4em 1.3em;border-radius:10px;border:2px solid #222;cursor:pointer;font-family:'Permanent Marker',cursive;">Recalculate</button>
+      <button type="submit" style="background:linear-gradient(90deg,#6ec6ff,#2196f3);color:#fff;padding:0.4em 1.3em;border-radius:999px;border:none;cursor:pointer;">Recalculate</button>
     </form>
     <div id="finance-offset-summary" class="finance-summary"></div>
-    <div class="disclaimer" style="margin-top:1.4em;color:#fbc02d;">
+    <div class="disclaimer" style="margin-top:1.4em;color:#b7a23a;">
       <strong>Disclaimer:</strong> This illustration uses typical finance terms and current savings estimates for guidance only.
       Actual bills, savings, and finance rates may vary. Please consult a financial adviser for tailored advice.
     </div>
   </section>
 
   <section id="historic-prices" class="section">
-    <button onclick="toggleHistoric()" style="font-size:1.1rem;padding:0.5rem 1.5rem;background:#38a1db;color:#fff;border:2px solid #222;border-radius:10px;cursor:pointer;font-family:'Permanent Marker',cursive;">
+    <button onclick="toggleHistoric()" style="font-size:1.1rem;padding:0.5rem 1.5rem;background:linear-gradient(90deg,#6ec6ff,#2196f3);color:#fff;border:none;border-radius:20px;cursor:pointer;">
       Show Historic Electricity Prices (2000-2025)
     </button>
     <div id="historic-graph" style="display:none;margin-top:2rem;">
@@ -605,7 +640,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   
   <section id="trust" class="section">
-    <h2 style="color:#43a047;font-size:2rem;font-family:'Permanent Marker',cursive;">Who Can You Trust?</h2>
+    <h2 style="color:var(--primary-dark);font-size:2rem;font-weight:700;">Who Can You Trust?</h2>
     <div class="trust-cards">
       <div class="accredit-card" tabindex="0">
         <button class="accredit-card-btn" type="button" aria-expanded="false">
@@ -682,17 +717,26 @@
 
   <!-- Facebook Profile Thread Section -->
   <section id="facebook-profile-thread" class="section">
-    <h2 style="color:#38a1db;text-align:center;font-family:'Permanent Marker',cursive;">Our Latest on Facebook</h2>
+    <h2 style="color:var(--primary-dark);text-align:center;">Our Latest on Facebook</h2>
     <div style="display:flex;justify-content:center;">
-      <a href="https://www.facebook.com/profile.php?id=61576873361260" target="_blank" rel="noopener" style="display:inline-block;background:#38a1db;color:#fff;padding:1em 2em;border-radius:10px;font-weight:700;text-decoration:none;font-family:'Permanent Marker',cursive;font-size:1.2em;border:2px solid #222;box-shadow:1px 2px 0 #222;">
-        Visit us on Facebook
-      </a>
+      <div class="fb-page"
+        data-href="https://www.facebook.com/profile.php?id=61576873361260"
+        data-tabs="timeline"
+        data-width="400"
+        data-height="600"
+        data-small-header="false"
+        data-adapt-container-width="true"
+        data-hide-cover="false"
+        data-show-facepile="true">
+        <blockquote cite="https://www.facebook.com/profile.php?id=61576873361260" class="fb-xfbml-parse-ignore">
+          <a href="https://www.facebook.com/profile.php?id=61576873361260">Let’s Talk About Solar</a>
+        </blockquote>
+      </div>
     </div>
-    <p style="text-align:center;margin-top:0.7em;color:#ef5350;font-family:'Patrick Hand',cursive;">Interactive feed requires a Facebook Page, not a personal profile.</p>
   </section>
 
   <section id="quote" class="section">
-    <h2 style="font-family:'Permanent Marker',cursive;">Request a Free Quote</h2>
+    <h2>Request a Free Quote</h2>
     <form action="https://formspree.io/f/mldnarjp" method="POST" class="quote-form">
       <input type="text" name="name" placeholder="Full Name" required autocomplete="name">
       <input type="text" name="address" id="quote-address" placeholder="Start typing your address…" required autocomplete="street-address">
@@ -989,10 +1033,10 @@
           datasets: [{
             label: 'UK Domestic Electricity Price (p/kWh)',
             data: prices,
-            borderColor: '#38a1db',
+            borderColor: '#397a94',
             backgroundColor: 'rgba(57,122,148,0.13)',
             tension: 0.25,
-            pointBackgroundColor: '#fbc02d',
+            pointBackgroundColor: '#ffd700',
             pointRadius: 5,
             fill: true
           }]
