@@ -85,50 +85,6 @@
       background: var(--accent);
       color: var(--primary-dark);
     }
-
-    #nav-toggle {
-      display: none;
-      font-size: 1.8rem;
-      background: none;
-      border: none;
-      color: var(--primary-dark);
-      cursor: pointer;
-      z-index: 101;
-    }
-
-    @media (max-width: 768px) {
-      #nav-toggle {
-        display: block;
-      }
-
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: var(--gray-bg);
-        box-shadow: var(--soft-shadow);
-        padding: 1rem 2rem;
-        z-index: 100;
-      }
-
-      .nav-links.open {
-        display: block;
-      }
-
-      nav ul {
-        flex-direction: column;
-        gap: 1rem;
-      }
-
-      nav ul li a {
-        display: block;
-        padding: 0.8rem 1rem;
-        font-size: 1.1rem;
-        border-radius: var(--radius);
-      }
-    }
     .hero {
       padding: 6.2rem 2rem 2.5rem;
       display: flex;
@@ -554,9 +510,7 @@
 <body>
   <nav id="navbar">
     <div class="logo">Let’s Talk About Solar</div>
-    <button id="nav-toggle">☰</button>
-    <div class="nav-links">
-      <ul>
+    <ul>
       <li><a href="#hero">Home</a></li>
       <li><a href="#about">About Us</a></li>
       <li><a href="#benefits">Why Solar?</a></li>
@@ -566,7 +520,6 @@
       <li><a href="#facebook-profile-thread" class="cta-nav">FB Feed</a></li>
       <li><a href="#quote" class="cta-nav">Get Quote</a></li>
     </ul>
-    </div>
   </nav>
 
   <section class="hero" id="hero">
@@ -1125,28 +1078,6 @@
           e.preventDefault();
           btn.click();
         }
-      });
-    });
-
-    // Mobile menu toggle
-    const navToggle = document.getElementById('nav-toggle');
-    const navLinks = document.querySelector('.nav-links');
-
-    navToggle.addEventListener('click', function() {
-      navLinks.classList.toggle('open');
-    });
-
-    // Close mobile menu when clicking outside
-    document.addEventListener('click', function(e) {
-      if (!navToggle.contains(e.target) && !navLinks.contains(e.target)) {
-        navLinks.classList.remove('open');
-      }
-    });
-
-    // Close mobile menu when clicking on a link
-    document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', function() {
-        navLinks.classList.remove('open');
       });
     });
   </script>
