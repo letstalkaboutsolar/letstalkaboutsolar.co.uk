@@ -584,8 +584,6 @@
     <div>
       <h2>Solar Savings Calculator</h2>
       <form id="calcForm" class="calculator">
-        <label for="system-cost">System cost (£):</label>
-        <input type="number" id="system-cost" placeholder="e.g. 9500" value="9500" min="2000" required>
         <label for="rate">Electricity unit rate (p/kWh):</label>
         <input type="number" id="rate" placeholder="e.g. 25" required>
         <label for="standing">Standing charge (p/day):</label>
@@ -649,6 +647,7 @@
   <section id="trust" class="section">
     <h2 style="color:var(--primary-dark);font-size:2rem;font-weight:700;">Who Can You Trust?</h2>
     <div class="trust-cards">
+      <!-- ... trust cards unchanged ... -->
       <div class="accredit-card" tabindex="0">
         <button class="accredit-card-btn" type="button" aria-expanded="false">
           <img src="assets/mcs logo.png" alt="MCS Certified" />
@@ -876,14 +875,13 @@
       }
     }
 
-    // --- SOLAR CALCULATOR (UPDATED for adjustable system cost, deposit, and battery size) ---
+    // --- SOLAR CALCULATOR (UPDATED) ---
     let latestSavingsPerYear = 0;
     let latestAnnualSpend = 0;
     let latestSystemCost = 9500;
 
-    // Keep finance and calculator system cost in sync
+    // Only keep cost input in finance offset section
     function syncSystemCostFields(value) {
-      document.getElementById('system-cost').value = value;
       document.getElementById('finance-system-cost').value = value;
     }
 
@@ -898,60 +896,67 @@
       const usage = parseFloat(document.getElementById("usage").value);
       const batterySize = parseInt(document.getElementById("battery-size").value, 10); // 0, 5, 10
       const homeAllDay = document.getElementById("homeDay").checked;
-      const systemCost = parseFloat(document.getElementById("system-cost").value);
-      latestSystemCost = systemCost;
-      syncSystemCostFields(systemCost);
 
-      // Self-consumption calculation based on battery size and presence
-      let selfConsumptionRatio;
-      if (batterySize > 0) {
-        selfConsumptionRatio = homeAllDay
-          ? (batterySize === 10 ? 0.9 : 0.8)
-          : (batterySize === 10 ? 0.7 : 0.6);
-      } else {
-        selfConsumptionRatio = homeAllDay ? 0.65 : 0.4;
-      }
-
+      // Solar generation constants
       const systemSizeKW = 3.68;
       const panelSystemKW = 9 * 0.46;
       const kwhPerKWp = 1050;
       const estimatedAnnualGen = Math.min(systemSizeKW, panelSystemKW) * kwhPerKWp * orientationFactor;
 
-      let usableBatteryKWh = 0;
-      let batteryCyclesPerYear = 0;
-      let batterySelfUse = 0;
-      if (batterySize > 0) {
-        usableBatteryKWh = batterySize * 0.9 * 0.9; // 90% DoD, 90% efficiency
-        batteryCyclesPerYear = 365;
-        batterySelfUse = Math.min(estimatedAnnualGen, usableBatteryKWh * batteryCyclesPerYear);
+      // Self-consumption ratios
+      let baseSelfConsumption = homeAllDay ? 0.65 : 0.4;
+      let batterySelfConsumption = 0;
+      if (batterySize === 5) {
+        batterySelfConsumption = homeAllDay ? 0.8 : 0.6;
+      } else if (batterySize === 10) {
+        batterySelfConsumption = homeAllDay ? 0.9 : 0.7;
+      }
+      const selfConsumptionRatio = batterySize === 0 ? baseSelfConsumption : batterySelfConsumption;
+
+      // Calculate actual self-used and exported
+      let selfUsedKWh = Math.min(usage, estimatedAnnualGen * selfConsumptionRatio);
+      let exportKWh = Math.max(0, estimatedAnnualGen - selfUsedKWh);
+      if (usage < estimatedAnnualGen * selfConsumptionRatio) {
+        exportKWh = estimatedAnnualGen - usage;
+        selfUsedKWh = usage;
       }
 
-      let selfUsedKWh = estimatedAnnualGen * selfConsumptionRatio;
-      if (batterySize > 0) {
-        selfUsedKWh = Math.min(selfUsedKWh + batterySelfUse, estimatedAnnualGen, usage);
-      }
-
+      // Bill and savings calculations
       const annualStanding = standing * 365 / 100;
       const billUsage = rate * usage / 100;
       const annualSpend = billUsage + annualStanding;
       latestAnnualSpend = annualSpend;
 
+      // Yearly savings and export calculations
       let annualSavingsArr = [];
       let price = rate;
+      let exportRate = 16.5;
       let cumulative = 0;
+      let exportIncomeCumulative = 0;
       for (let year = 1; year <= 10; year++) {
         let yearSavings = (selfUsedKWh * price) / 100;
+        let yearExportIncome = (exportKWh * exportRate) / 100;
         cumulative += yearSavings;
+        exportIncomeCumulative += yearExportIncome;
         annualSavingsArr.push({
           year,
           price: price.toFixed(2),
           savings: yearSavings.toFixed(2),
-          cumulative: cumulative.toFixed(2)
+          exportIncome: yearExportIncome.toFixed(2),
+          cumulative: cumulative.toFixed(2),
+          exportCumulative: exportIncomeCumulative.toFixed(2)
         });
         price *= 1.0704;
       }
       let tableRows = annualSavingsArr.map(row =>
-        `<tr><td>Year ${row.year}</td><td>£${row.savings}</td><td>${row.price}p/kWh</td><td>£${row.cumulative}</td></tr>`
+        `<tr>
+          <td>Year ${row.year}</td>
+          <td>£${row.savings}</td>
+          <td>£${row.exportIncome}</td>
+          <td>${row.price}p/kWh</td>
+          <td>£${row.cumulative}</td>
+          <td>£${row.exportCumulative}</td>
+        </tr>`
       ).join('');
       const presenceText = homeAllDay
         ? "You're home during the day"
@@ -965,19 +970,24 @@
           <h3>Estimated Annual Savings (Year 1): £${annualSavingsArr[0].savings}</h3>
           <p>Your system is estimated to generate <strong>${estimatedAnnualGen.toFixed(0)} kWh</strong> per year.</p>
           <p>Annual self-used solar: <strong>${selfUsedKWh.toFixed(0)} kWh</strong> (${(100*selfUsedKWh/usage).toFixed(0)}% of your usage${batteryDesc}, ${presenceText})</p>
+          <p>Annual solar export: <strong>${exportKWh.toFixed(0)} kWh</strong>
+            <br>Value of exported energy at 16.5p/kWh: <strong>£${((exportKWh*exportRate)/100).toFixed(2)}</strong>
+          </p>
           <p><b>Your annual energy spend (inc. standing charge): £${annualSpend.toFixed(2)}</b></p>
         </div>
-        <h4>Projected Savings Over 10 Years (with 7.04% price increase per year):</h4>
+        <h4>Projected Savings and Export Over 10 Years (with 7.04% price increase per year):</h4>
         <table style="margin:auto;border-collapse:collapse;">
           <tr>
             <th>Year</th>
-            <th>Annual Savings</th>
+            <th>Bill Savings</th>
+            <th>Export Income</th>
             <th>Price per kWh</th>
             <th>Cumulative Savings</th>
+            <th>Cumulative Export</th>
           </tr>
           ${tableRows}
         </table>
-        <p style="font-size:0.95em;color:#888;">This calculation is based on a system with 9 solar panels – if your roof can fit more, your potential savings will be even higher. These are estimated figures and don’t include what you would be exporting per year on top of savings. For a free comprehensive breakdown, fill in the free quote form.</p>
+        <p style="font-size:0.95em;color:#888;">This calculation is based on a system with 9 solar panels – if your roof can fit more, your potential savings will be even higher. These are estimated figures based on typical UK conditions. For a free comprehensive breakdown, fill in the free quote form.</p>
       `;
 
       showFinanceOffset();
@@ -986,8 +996,6 @@
     function showFinanceOffset() {
       const section = document.getElementById("finance-offset-section");
       section.style.display = "block";
-      // Set deposit/system cost fields to most recent from calculator
-      document.getElementById("finance-system-cost").value = latestSystemCost;
       updateFinanceOffset();
     }
 
@@ -1042,11 +1050,7 @@
       updateFinanceOffset();
     });
 
-    // If user changes system cost in finance form, sync it back to main calculator
     document.getElementById('finance-system-cost').addEventListener('input', function(e) {
-      syncSystemCostFields(e.target.value);
-    });
-    document.getElementById('system-cost').addEventListener('input', function(e) {
       syncSystemCostFields(e.target.value);
     });
 
