@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Let’s Talk About Solar</title>
   <meta name="description" content="Clear, friendly, and honest solar advice for UK homeowners. Discover real savings, trusted installers, and smart solar tools." />
-  <!-- Updated to Roboto for a more professional look -->
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -203,7 +202,7 @@
       border: 2px solid #b2daff;
       backdrop-filter: blur(7px);
     }
-    label, input, button {
+    label, input, button, select {
       display: block;
       width: 100%;
       font-size: 1.07rem;
@@ -211,7 +210,7 @@
       font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
       color: var(--secondary);
     }
-    input {
+    input, select {
       padding: 0.7rem;
       border: 1.8px solid #6ec6ff;
       background: #f4fbff;
@@ -221,7 +220,7 @@
       transition: border 0.16s, box-shadow 0.15s;
       font-size: 1.08rem;
     }
-    input:focus {
+    input:focus, select:focus {
       border: 2.5px solid var(--primary-dark);
       outline: none;
       background: #eaf7ff;
@@ -585,13 +584,20 @@
     <div>
       <h2>Solar Savings Calculator</h2>
       <form id="calcForm" class="calculator">
+        <label for="system-cost">System cost (£):</label>
+        <input type="number" id="system-cost" placeholder="e.g. 9500" value="9500" min="2000" required>
         <label for="rate">Electricity unit rate (p/kWh):</label>
         <input type="number" id="rate" placeholder="e.g. 25" required>
         <label for="standing">Standing charge (p/day):</label>
         <input type="number" id="standing" placeholder="e.g. 60" required>
         <label for="usage">Annual electricity usage (kWh):</label>
         <input type="number" id="usage" placeholder="e.g. 4000" required>
-        <label><input type="checkbox" id="battery"> Include battery?</label>
+        <label for="battery-size">Battery size:</label>
+        <select id="battery-size">
+          <option value="0">No battery</option>
+          <option value="5">5 kWh battery</option>
+          <option value="10">10 kWh battery</option>
+        </select>
         <div class="presence-radio-group">
           <label class="home">
             <input type="radio" name="dayPresence" id="homeDay" value="home" checked>
@@ -612,7 +618,9 @@
     <h2 style="text-align:center;">Finance & Bill Offset Illustration</h2>
     <form id="depositForm" class="inline-form" autocomplete="off" style="text-align:center;margin-bottom:1.2em;">
       <label for="deposit-amount">Deposit (£):</label>
-      <input type="number" id="deposit-amount" value="0" min="0" max="9500" step="100">
+      <input type="number" id="deposit-amount" value="0" min="0" max="20000" step="100">
+      <label for="finance-system-cost">System cost (£):</label>
+      <input type="number" id="finance-system-cost" value="9500" min="2000" max="20000" step="100">
       <button type="submit" style="background:linear-gradient(90deg,#6ec6ff,#2196f3);color:#fff;padding:0.4em 1.3em;border-radius:999px;border:none;cursor:pointer;">Recalculate</button>
     </form>
     <div id="finance-offset-summary" class="finance-summary"></div>
@@ -868,38 +876,58 @@
       }
     }
 
-    // --- SOLAR CALCULATOR (with standing charge and finance offset, UPDATED for homeDay/outDay radio) ---
+    // --- SOLAR CALCULATOR (UPDATED for adjustable system cost, deposit, and battery size) ---
     let latestSavingsPerYear = 0;
     let latestAnnualSpend = 0;
+    let latestSystemCost = 9500;
+
+    // Keep finance and calculator system cost in sync
+    function syncSystemCostFields(value) {
+      document.getElementById('system-cost').value = value;
+      document.getElementById('finance-system-cost').value = value;
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      syncSystemCostFields('9500');
+    });
+
     document.getElementById("calcForm").addEventListener("submit", function (e) {
       e.preventDefault();
       const rate = parseFloat(document.getElementById("rate").value);
       const standing = parseFloat(document.getElementById("standing").value);
       const usage = parseFloat(document.getElementById("usage").value);
-      const battery = document.getElementById("battery").checked;
-
-      // Radio logic
+      const batterySize = parseInt(document.getElementById("battery-size").value, 10); // 0, 5, 10
       const homeAllDay = document.getElementById("homeDay").checked;
+      const systemCost = parseFloat(document.getElementById("system-cost").value);
+      latestSystemCost = systemCost;
+      syncSystemCostFields(systemCost);
+
+      // Self-consumption calculation based on battery size and presence
       let selfConsumptionRatio;
-      if (battery) {
-        selfConsumptionRatio = homeAllDay ? 0.8 : 0.6;
+      if (batterySize > 0) {
+        selfConsumptionRatio = homeAllDay
+          ? (batterySize === 10 ? 0.9 : 0.8)
+          : (batterySize === 10 ? 0.7 : 0.6);
       } else {
         selfConsumptionRatio = homeAllDay ? 0.65 : 0.4;
       }
+
       const systemSizeKW = 3.68;
       const panelSystemKW = 9 * 0.46;
       const kwhPerKWp = 1050;
       const estimatedAnnualGen = Math.min(systemSizeKW, panelSystemKW) * kwhPerKWp * orientationFactor;
+
       let usableBatteryKWh = 0;
       let batteryCyclesPerYear = 0;
       let batterySelfUse = 0;
-      if (battery) {
-        usableBatteryKWh = 5 * 0.9 * 0.9;
+      if (batterySize > 0) {
+        usableBatteryKWh = batterySize * 0.9 * 0.9; // 90% DoD, 90% efficiency
         batteryCyclesPerYear = 365;
         batterySelfUse = Math.min(estimatedAnnualGen, usableBatteryKWh * batteryCyclesPerYear);
       }
+
       let selfUsedKWh = estimatedAnnualGen * selfConsumptionRatio;
-      if (battery) {
+      if (batterySize > 0) {
         selfUsedKWh = Math.min(selfUsedKWh + batterySelfUse, estimatedAnnualGen, usage);
       }
 
@@ -928,13 +956,15 @@
       const presenceText = homeAllDay
         ? "You're home during the day"
         : "You're out during the day";
+      const batteryDesc = batterySize > 0 ? ` with ${batterySize}kWh battery` : "";
       const calcResult = document.getElementById("calcResult");
       latestSavingsPerYear = parseFloat(annualSavingsArr[0].savings);
+
       calcResult.innerHTML = `
         <div style="margin-bottom:1.1em;">
           <h3>Estimated Annual Savings (Year 1): £${annualSavingsArr[0].savings}</h3>
           <p>Your system is estimated to generate <strong>${estimatedAnnualGen.toFixed(0)} kWh</strong> per year.</p>
-          <p>Annual self-used solar: <strong>${selfUsedKWh.toFixed(0)} kWh</strong> (${(100*selfUsedKWh/usage).toFixed(0)}% of your usage${battery ? ' with 5kWh battery' : ''}, ${presenceText})</p>
+          <p>Annual self-used solar: <strong>${selfUsedKWh.toFixed(0)} kWh</strong> (${(100*selfUsedKWh/usage).toFixed(0)}% of your usage${batteryDesc}, ${presenceText})</p>
           <p><b>Your annual energy spend (inc. standing charge): £${annualSpend.toFixed(2)}</b></p>
         </div>
         <h4>Projected Savings Over 10 Years (with 7.04% price increase per year):</h4>
@@ -956,12 +986,19 @@
     function showFinanceOffset() {
       const section = document.getElementById("finance-offset-section");
       section.style.display = "block";
+      // Set deposit/system cost fields to most recent from calculator
+      document.getElementById("finance-system-cost").value = latestSystemCost;
       updateFinanceOffset();
     }
 
     function updateFinanceOffset() {
-      const installCost = 9500;
-      const deposit = parseFloat(document.getElementById("deposit-amount")?.value) || 0;
+      const systemCostInput = document.getElementById("finance-system-cost");
+      const depositInput = document.getElementById("deposit-amount");
+      const installCost = parseFloat(systemCostInput?.value) || latestSystemCost || 9500;
+      const deposit = parseFloat(depositInput?.value) || 0;
+      if (deposit > installCost) {
+        depositInput.value = installCost;
+      }
       const loanAmount = installCost - deposit;
       const years = 10;
       const n = years * 12;
@@ -1003,6 +1040,14 @@
     document.getElementById("depositForm").addEventListener("submit", function(e){
       e.preventDefault();
       updateFinanceOffset();
+    });
+
+    // If user changes system cost in finance form, sync it back to main calculator
+    document.getElementById('finance-system-cost').addEventListener('input', function(e) {
+      syncSystemCostFields(e.target.value);
+    });
+    document.getElementById('system-cost').addEventListener('input', function(e) {
+      syncSystemCostFields(e.target.value);
     });
 
     function toggleHistoric() {
@@ -1082,4 +1127,3 @@
   </script>
 </body>
 </html>
- 
