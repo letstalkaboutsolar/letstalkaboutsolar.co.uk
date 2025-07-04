@@ -1,1 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ&libraries=places&callback=mapsApiLoaded" async defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Let’s Talk About Solar</title>
+  <meta name="description" content="Clear, friendly, and honest solar advice for UK homeowners. Discover real savings, trusted installers, and smart solar tools." />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <nav id="navbar">
+    <div class="logo">Let’s Talk About Solar</div>
+    <ul>
+      <li><a href="#hero">Home</a></li>
+      <li><a href="#about">About Us</a></li>
+      <li><a href="#benefits">Why Solar?</a></li>
+      <li><a href="#orientation">Orientation</a></li>
+      <li><a href="#calculator">Savings</a></li>
+      <li><a href="#trust">Trust</a></li>
+      <li><a href="#facebook-profile-thread" class="cta-nav">FB Feed</a></li>
+      <li><a href="#quote" class="cta-nav">Get Quote</a></li>
+    </ul>
+    <button class="hamburger" id="nav-hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span>
+    </button>
+    <nav class="mobile-nav" id="mobile-nav" aria-hidden="true">
+      <ul>
+        <li><a href="#hero" class="mobile-nav-link">Home</a></li>
+        <li><a href="#about" class="mobile-nav-link">About Us</a></li>
+        <li><a href="#benefits" class="mobile-nav-link">Why Solar?</a></li>
+        <li><a href="#orientation" class="mobile-nav-link">Orientation</a></li>
+        <li><a href="#calculator" class="mobile-nav-link">Savings</a></li>
+        <li><a href="#trust" class="mobile-nav-link">Trust</a></li>
+        <li><a href="#facebook-profile-thread" class="cta-nav mobile-nav-link">FB Feed</a></li>
+        <li><a href="#quote" class="cta-nav mobile-nav-link">Get Quote</a></li>
+      </ul>
+    </nav>
+  </nav>
 
+  <!-- ... rest of your page as before ... -->
+
+  <section class="hero" id="hero">
+    <div class="hero-text">
+      <h1>Sunshine Meets Smart Savings</h1>
+      <p>See how solar can protect your bills and power your future.</p>
+      <a href="#quote" class="cta">Get My Free Quote</a>
+    </div>
+  </section>
+
+  <!-- ... all other content unchanged ... -->
+
+  <footer>
+    <p>&copy; 2025 Let’s Talk About Solar. All rights reserved.</p>
+  </footer>
+
+  <!-- Facebook SDK for Page Plugin -->
+  <div id="fb-root"></div>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v19.0" nonce="letstalksolar"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
