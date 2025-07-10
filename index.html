@@ -381,6 +381,37 @@
       margin-bottom: .8em;
       font-weight: 700;
     }
+    /* Orientation selector styles */
+    .orientation-selector {
+      margin: 1rem 0;
+    }
+    .orientation-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+    .orientation-option {
+      background: #f4fbff;
+      border: 2px solid #6ec6ff;
+      border-radius: 12px;
+      padding: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    .orientation-option:hover {
+      background: #eaf7ff;
+      border-color: var(--primary-dark);
+    }
+    .orientation-option.selected {
+      background: var(--primary-dark);
+      color: white;
+      border-color: var(--primary-dark);
+    }
+    .orientation-option input[type="radio"] {
+      display: none;
+    }
     .trust-cards {
       display: flex;
       flex-wrap: wrap;
@@ -656,14 +687,44 @@
   <section id="solar-toolkit" class="section">
     <div id="orientation" tabindex="-1" style="outline:none;">
       <h2>Check Your Roof Orientation</h2>
-      <input id="addressInput" type="text" placeholder="Enter your address" style="max-width:350px;margin:0 auto 1rem auto;display:block;" />
-      <button id="toggleMapBtn" onclick="toggleStreetView()" style="margin:1rem 0 1.2rem 0;padding:0.7rem 1.3rem;border-radius:999px;background:linear-gradient(90deg,#6ec6ff,#2196f3);color:#fff;font-weight:700;font-size:1rem;border:none;box-shadow:0 2px 8px #6ec6ff40;cursor:pointer;">
-        Show Street View
-      </button>
-      <div id="streetview-container" style="width:100%;max-width:400px;height:200px;display:none;border-radius:18px;overflow:hidden;margin:0 auto 1rem auto;background:#eaf7ff;">
-        <div id="pano" style="width:100%;height:100%;"></div>
+      <p style="margin-bottom: 1rem; color: #285075;">Which direction does your main roof face?</p>
+      
+      <div class="orientation-selector">
+        <div class="orientation-grid">
+          <label class="orientation-option" for="south">
+            <input type="radio" name="roof-orientation" id="south" value="south">
+            <strong>South</strong><br>
+            <small>Best for solar</small>
+          </label>
+          <label class="orientation-option" for="southwest">
+            <input type="radio" name="roof-orientation" id="southwest" value="southwest">
+            <strong>South-West</strong><br>
+            <small>Excellent</small>
+          </label>
+          <label class="orientation-option" for="southeast">
+            <input type="radio" name="roof-orientation" id="southeast" value="southeast">
+            <strong>South-East</strong><br>
+            <small>Excellent</small>
+          </label>
+          <label class="orientation-option" for="west">
+            <input type="radio" name="roof-orientation" id="west" value="west">
+            <strong>West</strong><br>
+            <small>Good</small>
+          </label>
+          <label class="orientation-option" for="east">
+            <input type="radio" name="roof-orientation" id="east" value="east">
+            <strong>East</strong><br>
+            <small>Good</small>
+          </label>
+          <label class="orientation-option" for="north">
+            <input type="radio" name="roof-orientation" id="north" value="north">
+            <strong>North</strong><br>
+            <small>Less ideal</small>
+          </label>
+        </div>
       </div>
-      <p id="orientationResult" style="margin-top: 1rem; font-weight: bold;"></p>
+      
+      <p id="orientationResult" style="margin-top: 1rem; font-weight: bold; min-height: 40px;"></p>
     </div>
     <div id="calculator" tabindex="-1" style="outline:none;">
       <h2>Solar Savings Calculator</h2>
@@ -878,7 +939,6 @@
       e.preventDefault();
       const el = document.getElementById('orientation');
       el.scrollIntoView({behavior:'smooth', block:'center'});
-      setTimeout(() => { document.getElementById('addressInput').focus(); }, 500);
     });
     document.getElementById('nav-savings-btn').addEventListener('click', function(e) {
       e.preventDefault();
@@ -887,105 +947,78 @@
       setTimeout(() => { document.getElementById('rate').focus(); }, 500);
     });
 
-    // Orientation section logic (Street View only)
-    let autocomplete, lastPlaceLocation = null, panoMap = null;
-
-    function mapsApiLoaded() {
-      if (typeof initMap === "function") initMap();
-      if (typeof initQuoteAddressAutocomplete === "function") initQuoteAddressAutocomplete();
-    }
-
-    function initMap() {
-      const input = document.getElementById("addressInput");
-      autocomplete = new google.maps.places.Autocomplete(input, {
-        componentRestrictions: { country: 'uk' },
-        fields: ["geometry", "formatted_address", "address_components"],
-        types: ["address"]
-      });
-
-      autocomplete.addListener("place_changed", () => {
-        const place = autocomplete.getPlace();
-        if (!place.geometry || !place.geometry.location) {
-          alert("No details available for input: '" + place.name + "'");
-          lastPlaceLocation = null;
-          return;
-        }
-        lastPlaceLocation = place.geometry.location;
-        // Orientation logic
-        const viewport = place.geometry.viewport;
-        let orientation = "Unknown";
+    // Simple orientation selector functionality
+    const orientationOptions = document.querySelectorAll('input[name="roof-orientation"]');
+    
+    orientationOptions.forEach(option => {
+      option.addEventListener('change', function() {
+        // Remove selected class from all options
+        document.querySelectorAll('.orientation-option').forEach(opt => {
+          opt.classList.remove('selected');
+        });
+        
+        // Add selected class to current option
+        this.parentElement.classList.add('selected');
+        
+        // Set orientation factor based on selection
         let explanation = "";
-        orientationFactor = 0.9;
-
-        if (viewport) {
-          const ne = viewport.getNorthEast();
-          const sw = viewport.getSouthWest();
-          const angle = Math.atan2(ne.lat() - sw.lat(), ne.lng() - sw.lng()) * (180 / Math.PI);
-
-          if (angle > -45 && angle <= 45) {
-            orientation = "East";
-            orientationFactor = 0.85;
-            explanation = "Your front roof likely faces East and the rear West. A solar system can still work well with morning sunlight.";
-          } else if (angle > 45 && angle <= 135) {
-            orientation = "North";
-            orientationFactor = 0.75;
-            explanation = "Your front roof likely faces North and the rear South. South-facing roofs are ideal for solar.";
-          } else if (angle > -135 && angle <= -45) {
-            orientation = "South";
+        switch(this.value) {
+          case 'south':
             orientationFactor = 1.0;
-            explanation = "Your front roof likely faces South and the rear North. This is excellent for solar efficiency.";
-          } else {
-            orientation = "West";
-            orientationFactor = 0.8;
-            explanation = "Your front roof likely faces West and the rear East. Good for catching late afternoon sunlight.";
-          }
+            explanation = "Excellent choice! South-facing roofs receive maximum sunlight throughout the day, making them ideal for solar panels with 100% efficiency.";
+            break;
+          case 'southwest':
+            orientationFactor = 0.95;
+            explanation = "Great choice! South-West facing roofs capture afternoon sun very effectively, achieving about 95% of optimal solar efficiency.";
+            break;
+          case 'southeast':
+            orientationFactor = 0.95;
+            explanation = "Great choice! South-East facing roofs capture morning sun very effectively, achieving about 95% of optimal solar efficiency.";
+            break;
+          case 'west':
+            orientationFactor = 0.85;
+            explanation = "Good choice! West-facing roofs catch afternoon and evening sun, achieving about 85% of optimal solar efficiency.";
+            break;
+          case 'east':
+            orientationFactor = 0.85;
+            explanation = "Good choice! East-facing roofs catch morning sun effectively, achieving about 85% of optimal solar efficiency.";
+            break;
+          case 'north':
+            orientationFactor = 0.65;
+            explanation = "North-facing roofs receive less direct sunlight but can still generate solar power, achieving about 65% of optimal efficiency. Consider if you have other roof areas available.";
+            break;
         }
-
-        document.getElementById("orientationResult").innerHTML =
-          `<strong>Estimated Roof Orientation:</strong> ${orientation}<br><em>${explanation}</em>`;
+        
+        document.getElementById("orientationResult").innerHTML = 
+          `<strong>Roof Orientation:</strong> ${this.value.charAt(0).toUpperCase() + this.value.slice(1)}<br><em>${explanation}</em>`;
       });
+    });
+
+    // Google Maps fallback (if API works)
+    function mapsApiLoaded() {
+      // Keep existing Google Maps functionality as backup
+      if (typeof google !== 'undefined' && google.maps) {
+        initQuoteAddressAutocomplete();
+      }
     }
 
     function initQuoteAddressAutocomplete() {
       var input = document.getElementById('quote-address');
-      if (!input) return;
-      var options = {
-        componentRestrictions: { country: 'uk' },
-        fields: ["formatted_address", "geometry"],
-        types: ["address"]
-      };
-      var autocomplete = new google.maps.places.Autocomplete(input, options);
-      autocomplete.setBounds(new google.maps.LatLngBounds(
-        new google.maps.LatLng(49.9, -7.6),
-        new google.maps.LatLng(58.7, 1.8)
-      ));
-    }
-
-    function toggleStreetView() {
-      const container = document.getElementById("streetview-container");
-      const btn = document.getElementById("toggleMapBtn");
-      if (container.style.display === 'none' || container.style.display === '') {
-        if (!lastPlaceLocation) {
-          alert("Please enter your address and select it from the dropdown first.");
-          return;
-        }
-        container.style.display = "block";
-        if (!panoMap) {
-          panoMap = new google.maps.StreetViewPanorama(
-            document.getElementById("pano"),
-            {
-              position: lastPlaceLocation,
-              pov: { heading: 165, pitch: 0 },
-              zoom: 1
-            }
-          );
-        } else {
-          panoMap.setPosition(lastPlaceLocation);
-        }
-        btn.innerText = "Hide Street View";
-      } else {
-        container.style.display = "none";
-        btn.innerText = "Show Street View";
+      if (!input || typeof google === 'undefined') return;
+      
+      try {
+        var options = {
+          componentRestrictions: { country: 'uk' },
+          fields: ["formatted_address", "geometry"],
+          types: ["address"]
+        };
+        var autocomplete = new google.maps.places.Autocomplete(input, options);
+        autocomplete.setBounds(new google.maps.LatLngBounds(
+          new google.maps.LatLng(49.9, -7.6),
+          new google.maps.LatLng(58.7, 1.8)
+        ));
+      } catch (error) {
+        console.log('Google Maps autocomplete not available');
       }
     }
 
@@ -1249,39 +1282,3 @@
             tension: 0.25,
             pointBackgroundColor: '#ffd700',
             pointRadius: 5,
-            fill: true
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: { display: true },
-            tooltip: { enabled: true }
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              title: { display: true, text: 'pence per kWh' }
-            },
-            x: {
-              title: { display: true, text: 'Year' }
-            }
-          }
-        }
-      });
-    }
-
-    // Trust card open/close logic
-    document.querySelectorAll('.accredit-card-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.accredit-card').forEach(card => {
-          if (card.contains(btn)) {
-            card.classList.toggle('active');
-            btn.setAttribute('aria-expanded', card.classList.contains('active'));
-          } else {
-            card.classList.remove('active');
-            card.querySelector('.accredit-card-btn').setAttribute('aria-expanded', 'false');
-          }
-        });
-      });
-      btn.addEventListener('key
