@@ -412,6 +412,32 @@
     .orientation-option input[type="radio"] {
       display: none;
     }
+    .method-toggle {
+      display: flex;
+      gap: 1rem;
+      margin: 1rem 0;
+      justify-content: center;
+    }
+    .method-btn {
+      padding: 0.5rem 1rem;
+      border: 2px solid #6ec6ff;
+      background: #f4fbff;
+      color: var(--primary-dark);
+      border-radius: 999px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .method-btn.active {
+      background: var(--primary-dark);
+      color: white;
+    }
+    .method-content {
+      display: none;
+    }
+    .method-content.active {
+      display: block;
+    }
     .trust-cards {
       display: flex;
       flex-wrap: wrap;
@@ -687,40 +713,59 @@
   <section id="solar-toolkit" class="section">
     <div id="orientation" tabindex="-1" style="outline:none;">
       <h2>Check Your Roof Orientation</h2>
-      <p style="margin-bottom: 1rem; color: #285075;">Which direction does your main roof face?</p>
       
-      <div class="orientation-selector">
-        <div class="orientation-grid">
-          <label class="orientation-option" for="south">
-            <input type="radio" name="roof-orientation" id="south" value="south">
-            <strong>South</strong><br>
-            <small>Best for solar</small>
-          </label>
-          <label class="orientation-option" for="southwest">
-            <input type="radio" name="roof-orientation" id="southwest" value="southwest">
-            <strong>South-West</strong><br>
-            <small>Excellent</small>
-          </label>
-          <label class="orientation-option" for="southeast">
-            <input type="radio" name="roof-orientation" id="southeast" value="southeast">
-            <strong>South-East</strong><br>
-            <small>Excellent</small>
-          </label>
-          <label class="orientation-option" for="west">
-            <input type="radio" name="roof-orientation" id="west" value="west">
-            <strong>West</strong><br>
-            <small>Good</small>
-          </label>
-          <label class="orientation-option" for="east">
-            <input type="radio" name="roof-orientation" id="east" value="east">
-            <strong>East</strong><br>
-            <small>Good</small>
-          </label>
-          <label class="orientation-option" for="north">
-            <input type="radio" name="roof-orientation" id="north" value="north">
-            <strong>North</strong><br>
-            <small>Less ideal</small>
-          </label>
+      <div class="method-toggle">
+        <button class="method-btn active" id="addressBtn">Enter Address</button>
+        <button class="method-btn" id="manualBtn">Select Manually</button>
+      </div>
+
+      <!-- Address Input Method -->
+      <div class="method-content active" id="addressMethod">
+        <input id="addressInput" type="text" placeholder="Enter your address" style="max-width:350px;margin:0 auto 1rem auto;display:block;" />
+        <button id="checkOrientationBtn" style="margin:1rem 0 1.2rem 0;padding:0.7rem 1.3rem;border-radius:999px;background:linear-gradient(90deg,#6ec6ff,#2196f3);color:#fff;font-weight:700;font-size:1rem;border:none;box-shadow:0 2px 8px #6ec6ff40;cursor:pointer;">
+          Check Orientation
+        </button>
+        <div id="streetview-container" style="width:100%;max-width:400px;height:200px;display:none;border-radius:18px;overflow:hidden;margin:0 auto 1rem auto;background:#eaf7ff;">
+          <div id="pano" style="width:100%;height:100%;"></div>
+        </div>
+      </div>
+
+      <!-- Manual Selection Method -->
+      <div class="method-content" id="manualMethod">
+        <p style="margin-bottom: 1rem; color: #285075;">Which direction does your main roof face?</p>
+        <div class="orientation-selector">
+          <div class="orientation-grid">
+            <label class="orientation-option" for="south">
+              <input type="radio" name="roof-orientation" id="south" value="south">
+              <strong>South</strong><br>
+              <small>Best for solar</small>
+            </label>
+            <label class="orientation-option" for="southwest">
+              <input type="radio" name="roof-orientation" id="southwest" value="southwest">
+              <strong>South-West</strong><br>
+              <small>Excellent</small>
+            </label>
+            <label class="orientation-option" for="southeast">
+              <input type="radio" name="roof-orientation" id="southeast" value="southeast">
+              <strong>South-East</strong><br>
+              <small>Excellent</small>
+            </label>
+            <label class="orientation-option" for="west">
+              <input type="radio" name="roof-orientation" id="west" value="west">
+              <strong>West</strong><br>
+              <small>Good</small>
+            </label>
+            <label class="orientation-option" for="east">
+              <input type="radio" name="roof-orientation" id="east" value="east">
+              <strong>East</strong><br>
+              <small>Good</small>
+            </label>
+            <label class="orientation-option" for="north">
+              <input type="radio" name="roof-orientation" id="north" value="north">
+              <strong>North</strong><br>
+              <small>Less ideal</small>
+            </label>
+          </div>
         </div>
       </div>
       
@@ -910,6 +955,7 @@
     let lastScroll = 0;
     const nav = document.getElementById("navbar");
     let orientationFactor = 1;
+    let autocomplete, lastPlaceLocation = null, panoMap = null;
 
     // Hamburger menu functionality
     const hamburger = document.getElementById('hamburger');
@@ -947,7 +993,22 @@
       setTimeout(() => { document.getElementById('rate').focus(); }, 500);
     });
 
-    // Simple orientation selector functionality
+    // Method toggle functionality
+    document.getElementById('addressBtn').addEventListener('click', function() {
+      document.getElementById('addressBtn').classList.add('active');
+      document.getElementById('manualBtn').classList.remove('active');
+      document.getElementById('addressMethod').classList.add('active');
+      document.getElementById('manualMethod').classList.remove('active');
+    });
+
+    document.getElementById('manualBtn').addEventListener('click', function() {
+      document.getElementById('manualBtn').classList.add('active');
+      document.getElementById('addressBtn').classList.remove('active');
+      document.getElementById('manualMethod').classList.add('active');
+      document.getElementById('addressMethod').classList.remove('active');
+    });
+
+    // Manual orientation selector functionality
     const orientationOptions = document.querySelectorAll('input[name="roof-orientation"]');
     
     orientationOptions.forEach(option => {
@@ -994,12 +1055,99 @@
       });
     });
 
-    // Google Maps fallback (if API works)
+    // Google Maps functionality
     function mapsApiLoaded() {
-      // Keep existing Google Maps functionality as backup
       if (typeof google !== 'undefined' && google.maps) {
+        initMap();
         initQuoteAddressAutocomplete();
       }
+    }
+
+    function initMap() {
+      const input = document.getElementById("addressInput");
+      if (!input || typeof google === 'undefined') return;
+      
+      try {
+        autocomplete = new google.maps.places.Autocomplete(input, {
+          componentRestrictions: { country: 'uk' },
+          fields: ["geometry", "formatted_address", "address_components"],
+          types: ["address"]
+        });
+
+        autocomplete.addListener("place_changed", () => {
+          const place = autocomplete.getPlace();
+          if (!place.geometry || !place.geometry.location) {
+            alert("No details available for input: '" + place.name + "'");
+            lastPlaceLocation = null;
+            return;
+          }
+          lastPlaceLocation = place.geometry.location;
+          
+          // Automatically determine orientation based on address
+          determineOrientationFromPlace(place);
+        });
+      } catch (error) {
+        console.log('Google Maps autocomplete not available');
+        // Fallback to simple address input
+        setupSimpleAddressInput();
+      }
+    }
+
+    function determineOrientationFromPlace(place) {
+      const viewport = place.geometry.viewport;
+      let orientation = "Unknown";
+      let explanation = "";
+      orientationFactor = 0.9;
+
+      if (viewport) {
+        const ne = viewport.getNorthEast();
+        const sw = viewport.getSouthWest();
+        const angle = Math.atan2(ne.lat() - sw.lat(), ne.lng() - sw.lng()) * (180 / Math.PI);
+
+        if (angle > -45 && angle <= 45) {
+          orientation = "East";
+          orientationFactor = 0.85;
+          explanation = "Based on your address, your roof likely faces East. This is good for catching morning sunlight with about 85% solar efficiency.";
+        } else if (angle > 45 && angle <= 135) {
+          orientation = "North";
+          orientationFactor = 0.65;
+          explanation = "Based on your address, your roof likely faces North. Consider if you have south-facing sections available for better solar efficiency.";
+        } else if (angle > -135 && angle <= -45) {
+          orientation = "South";
+          orientationFactor = 1.0;
+          explanation = "Excellent! Based on your address, your roof likely faces South. This is ideal for solar panels with maximum efficiency.";
+        } else {
+          orientation = "West";
+          orientationFactor = 0.85;
+          explanation = "Based on your address, your roof likely faces West. This is good for catching afternoon sunlight with about 85% solar efficiency.";
+        }
+      }
+
+      document.getElementById("orientationResult").innerHTML =
+        `<strong>Estimated Roof Orientation:</strong> ${orientation}<br><em>${explanation}</em><br><small style="color:#666;">This is an estimate. For precise results, use Street View or select manually.</small>`;
+    }
+
+    function setupSimpleAddressInput() {
+      // Fallback for when Google Maps isn't available
+      document.getElementById('checkOrientationBtn').addEventListener('click', function() {
+        const address = document.getElementById('addressInput').value.trim();
+        if (!address) {
+          alert('Please enter an address first.');
+          return;
+        }
+        
+        // Simple postcode-based estimation
+        const postcode = address.match(/[A-Z]{1,2}[0-9][0-9A-Z]?\s?[0-9][A-Z]{2}/i);
+        if (postcode) {
+          // Very basic estimation based on typical UK housing patterns
+          orientationFactor = 0.9; // Default
+          document.getElementById("orientationResult").innerHTML = 
+            `<strong>Address entered:</strong> ${address}<br><em>For accurate roof orientation, please use the manual selector above or contact us for a detailed assessment.</em>`;
+        } else {
+          document.getElementById("orientationResult").innerHTML = 
+            `<strong>Address entered:</strong> ${address}<br><em>Please use the manual selector above to choose your roof orientation for accurate calculations.</em>`;
+        }
+      });
     }
 
     function initQuoteAddressAutocomplete() {
@@ -1018,9 +1166,52 @@
           new google.maps.LatLng(58.7, 1.8)
         ));
       } catch (error) {
-        console.log('Google Maps autocomplete not available');
+        console.log('Google Maps autocomplete not available for quote form');
       }
     }
+
+    // Street View functionality
+    function toggleStreetView() {
+      const container = document.getElementById("streetview-container");
+      const btn = document.getElementById("checkOrientationBtn");
+      if (container.style.display === 'none' || container.style.display === '') {
+        if (!lastPlaceLocation) {
+          // Try to determine orientation without Street View
+          const address = document.getElementById('addressInput').value.trim();
+          if (address) {
+            setupSimpleAddressInput();
+            document.getElementById('checkOrientationBtn').click();
+          } else {
+            alert("Please enter your address first.");
+          }
+          return;
+        }
+        container.style.display = "block";
+        if (!panoMap) {
+          panoMap = new google.maps.StreetViewPanorama(
+            document.getElementById("pano"),
+            {
+              position: lastPlaceLocation,
+              pov: { heading: 165, pitch: 0 },
+              zoom: 1
+            }
+          );
+        } else {
+          panoMap.setPosition(lastPlaceLocation);
+        }
+        btn.innerText = "Hide Street View";
+      } else {
+        container.style.display = "none";
+        btn.innerText = "Check Orientation";
+      }
+    }
+
+    // Initialize fallback if Google Maps fails to load
+    setTimeout(() => {
+      if (typeof google === 'undefined') {
+        setupSimpleAddressInput();
+      }
+    }, 3000);
 
     // --- SOLAR CALCULATOR (UPDATED) ---
     let latestSavingsPerYear = 0;
@@ -1151,134 +1342,4 @@
 
     function updateFinanceOffset() {
       const systemCostInput = document.getElementById("finance-system-cost");
-      const depositInput = document.getElementById("deposit-amount");
-      const installCost = parseFloat(systemCostInput?.value) || latestSystemCost || 9500;
-      const deposit = parseFloat(depositInput?.value) || 0;
-      if (deposit > installCost) {
-        depositInput.value = installCost;
-      }
-      const loanAmount = installCost - deposit;
-      const years = 10;
-      const n = years * 12;
-      const rate = 0.099;
-      const monthlyRate = rate / 12;
-      let monthly = (loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -n));
-      const totalFinance = (monthly * n) + deposit;
-
-      const savingsPerYear = latestSavingsPerYear || 800;
-      const savingsPerMonth = savingsPerYear / 12;
-      const totalSavings10y = savingsPerYear * years;
-      const annualSpend = latestAnnualSpend || 1200;
-      const totalElec10y = annualSpend * years;
-
-      const netMonthly = monthly - savingsPerMonth;
-      const net10y = (monthly * n) - totalSavings10y + deposit;
-      const diff = totalElec10y - net10y;
-
-      // Info tag explanation for net outgoing
-      const infoIcon = `<span style="display:inline-block;vertical-align:middle;margin-left:0.4em;cursor:pointer;" tabindex="0" title="Your net outgoing is the remaining monthly amount after subtracting your expected solar bill savings from your finance payment. If negative, your savings exceed your payment!">
-        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" style="vertical-align:middle;"><circle cx="10" cy="10" r="9" stroke="#2196f3" stroke-width="2"/><text x="7" y="15" fill="#2196f3" font-size="13" font-family="Arial" font-weight="bold">i</text></svg>
-      </span>`;
-      // Info tag for 'Difference'
-      const diffInfo = `<span style="display:inline-block;vertical-align:middle;margin-left:0.4em;cursor:pointer;" tabindex="0" title="This is the difference between your total 10-year electricity spend (no solar) and your total 10-year outgoings with solar (including finance and deposit, minus savings). If this is positive, you save money overall.">${infoIcon}</span>`;
-
-      // Clear, stepwise breakdown table
-      const summary = `
-        <table style="margin:auto;border-collapse:separate;border-spacing:0 10px;font-size:1.07em;">
-          <tr>
-            <td style="font-weight:600;">System cost:</td>
-            <td>£${installCost.toLocaleString()}</td>
-          </tr>
-          <tr>
-            <td style="font-weight:600;">Deposit:</td>
-            <td>£${deposit.toLocaleString()}</td>
-          </tr>
-          <tr>
-            <td style="font-weight:600;">Loan amount:</td>
-            <td>£${loanAmount.toLocaleString()}</td>
-          </tr>
-          <tr>
-            <td style="font-weight:600;">Monthly finance payment:</td>
-            <td>£${monthly.toFixed(2)}</td>
-          </tr>
-          <tr>
-            <td style="font-weight:600;">Estimated monthly bill savings:</td>
-            <td>£${savingsPerMonth.toFixed(2)}</td>
-          </tr>
-          <tr>
-            <td style="font-weight:600;">Net outgoing per month:</td>
-            <td>
-              <span style="font-weight:bold;${netMonthly > 0 ? 'color:#b7a23a;' : 'color:#2196f3;'}">
-                £${netMonthly.toFixed(2)}
-              </span>
-              ${infoIcon}
-            </td>
-          </tr>
-          <tr><td colspan="2"><hr style="border:none;border-top:1px solid #b2daff55;"></td></tr>
-          <tr>
-            <td style="font-weight:600;">Total cost with solar & finance over 10 years:</td>
-            <td>£${net10y.toFixed(2)}</td>
-          </tr>
-          <tr>
-            <td style="font-weight:600;">Total electricity bill (no solar, 10 years):</td>
-            <td>£${totalElec10y.toFixed(2)}</td>
-          </tr>
-          <tr>
-            <td style="font-weight:600;">Difference over 10 years:</td>
-            <td>
-              <span style="font-weight:bold;${diff > 0 ? 'color:#2196f3;' : 'color:#b7a23a;'}">
-                ${diff > 0 ? "You save £" + diff.toFixed(2) : "Solar+finance costs £" + Math.abs(diff).toFixed(2) + " more"}
-              </span>
-              ${diffInfo}
-            </td>
-          </tr>
-        </table>
-        <div style="margin-top:1em;font-size:.98em;color:#555;text-align:left;max-width:520px;margin-left:auto;margin-right:auto;background:#f8faff;padding:0.8em 1.1em;border-radius:12px;">
-          <b>How does this reduce your outgoings?</b>
-          <br>Your monthly finance payment is partly offset by the savings on your electricity bill thanks to solar. In many cases, your combined finance payment <i>and</i> smaller electricity bill together will be less than what you'd pay for energy alone without solar. Over 10 years, these savings can add up to thousands of pounds in lower overall outgoings.
-        </div>
-      `;
-      document.getElementById("finance-offset-summary").innerHTML = summary;
-    }
-
-    document.getElementById("depositForm").addEventListener("submit", function(e){
-      e.preventDefault();
-      updateFinanceOffset();
-    });
-
-    document.getElementById('finance-system-cost').addEventListener('input', function(e) {
-      syncSystemCostFields(e.target.value);
-    });
-
-    function toggleHistoric() {
-      let g = document.getElementById('historic-graph');
-      g.style.display = (g.style.display === 'none' || g.style.display === '') ? 'block' : 'none';
-      if (g.style.display === 'block' && !window._historicChartLoaded) {
-        drawPriceChart();
-        window._historicChartLoaded = true;
-      }
-    }
-    function drawPriceChart() {
-      const ctx = document.getElementById('pricesChart').getContext('2d');
-      const years = [
-        2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,
-        2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,
-        2020,2021,2022,2023,2024,2025
-      ];
-      const prices = [
-        7.0,7.3,7.2,7.1,7.4,8.2,10.0,10.6,13.3,13.9,
-        13.7,14.5,15.5,15.6,15.6,15.2,14.4,14.4,15.0,17.2,
-        17.2,19.0,28.0,30.0,28.5,27.5
-      ];
-      new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: years,
-          datasets: [{
-            label: 'UK Domestic Electricity Price (p/kWh)',
-            data: prices,
-            borderColor: '#397a94',
-            backgroundColor: 'rgba(57,122,148,0.13)',
-            tension: 0.25,
-            pointBackgroundColor: '#ffd700',
-            pointRadius: 5,
+      const depositInput = document.
