@@ -1041,10 +1041,15 @@
       const annualSpend = billUsage + annualStanding;
       latestAnnualSpend = annualSpend;
 
+      // Calculate Year 1 export income
+      const exportRate = 16.5;
+      const yearOneExportIncome = (exportKWh * exportRate) / 100;
+      const yearOneBillSavings = (selfUsedKWh * rate) / 100;
+      const totalYearOneSavings = yearOneBillSavings + yearOneExportIncome;
+
       // Yearly savings and export calculations (UPDATED: Combined cumulative)
       let annualSavingsArr = [];
       let price = rate;
-      let exportRate = 16.5;
       let cumulative = 0;
       for (let year = 1; year <= 10; year++) {
         let yearSavings = (selfUsedKWh * price) / 100;
@@ -1073,15 +1078,18 @@
         : "You're out during the day";
       const batteryDesc = batterySize > 0 ? ` with ${batterySize}kWh battery` : "";
       const calcResult = document.getElementById("calcResult");
-      latestSavingsPerYear = parseFloat(annualSavingsArr[0].savings);
+      latestSavingsPerYear = totalYearOneSavings;
 
       calcResult.innerHTML = `
         <div style="margin-bottom:1.1em;">
-          <h3>Estimated Annual Savings (Year 1): £${annualSavingsArr[0].savings}</h3>
+          <h3>Estimated Annual Savings (Year 1): £${totalYearOneSavings.toFixed(2)}</h3>
+          <p style="font-size:0.95em;color:#666;margin-top:0.5em;">
+            (£${yearOneBillSavings.toFixed(2)} bill savings + £${yearOneExportIncome.toFixed(2)} export income)
+          </p>
           <p>Your system is estimated to generate <strong>${estimatedAnnualGen.toFixed(0)} kWh</strong> per year.</p>
           <p>Annual self-used solar: <strong>${selfUsedKWh.toFixed(0)} kWh</strong> (${(100*selfUsedKWh/usage).toFixed(0)}% of your usage${batteryDesc}, ${presenceText})</p>
           <p>Annual solar export: <strong>${exportKWh.toFixed(0)} kWh</strong>
-            <br>Value of exported energy at 16.5p/kWh: <strong>£${((exportKWh*exportRate)/100).toFixed(2)}</strong>
+            <br>Value of exported energy at 16.5p/kWh: <strong>£${yearOneExportIncome.toFixed(2)}</strong>
           </p>
           <p><b>Your annual energy spend (inc. standing charge): £${annualSpend.toFixed(2)}</b></p>
         </div>
@@ -1276,13 +1284,4 @@
           }
         });
       });
-      btn.addEventListener('keydown', function(e) {
-        if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
-          e.preventDefault();
-          btn.click();
-        }
-      });
-    });
-  </script>
-</body>
-</html>
+      btn.addEventListener('key
