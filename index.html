@@ -42,6 +42,7 @@
       z-index: 100;
       transition: top 0.3s;
       border-bottom: 2.5px solid #b2daff;
+      min-height: 64px;
     }
     nav.hidden { top: -100px; }
     .logo {
@@ -62,6 +63,7 @@
       gap: 1.4rem;
       margin: 0;
       padding: 0;
+      transition: max-height 0.3s;
     }
     nav ul li a {
       text-decoration: none;
@@ -84,432 +86,104 @@
       background: var(--accent);
       color: var(--primary-dark);
     }
-    .hero {
-      padding: 6.2rem 2rem 2.5rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      align-items: center;
-      background:
-        linear-gradient(120deg, rgba(110,198,255,0.16) 0%, rgba(255,255,255,0.85) 100%),
-        url('assets/solar-bg.jpg') center/cover no-repeat;
-      margin-top: 83px;
-      min-height: 400px;
-      position: relative;
-      border-bottom: 2px solid #b2daff;
-    }
-    .hero-text {
-      max-width: 540px;
-      padding: 2.1rem 2rem;
-      z-index: 1;
-      background: var(--premium-gloss);
-      border-radius: 30px;
-      box-shadow: 0 8px 40px #6ec6ff33, var(--soft-shadow);
-      backdrop-filter: blur(8px);
-    }
-    .hero-text h1 {
-      font-size: 2.7rem;
-      color: var(--primary-dark);
-      margin: 0 0 1rem;
-      letter-spacing: 1px;
-      font-weight: 700;
-      text-shadow: 0 2px 18px #b2daff66;
-    }
-    .hero-text p {
-      font-size: 1.22rem;
-      color: #2a4050;
-      margin-bottom: 1.4rem;
-      font-weight: 500;
-    }
-    .cta {
-      background: linear-gradient(90deg, #6ec6ff 0%, #2196f3 100%);
-      color: var(--white);
-      padding: 1rem 2.3rem;
-      text-decoration: none;
-      border-radius: 999px;
-      font-size: 1.13rem;
-      display: inline-block;
-      margin-top: 1.1rem;
-      box-shadow: 0 2px 28px #6ec6ff44;
-      font-weight: 700;
-      border: none;
-      transition: background .17s, color .2s, box-shadow .18s;
-      text-shadow: 0 2px 15px #fff8;
-    }
-    .cta:hover {
-      background: var(--accent);
-      color: var(--primary-dark);
-      box-shadow: 0 6px 28px #ffd70044;
-    }
-    .section { padding: 3.5rem 1rem 2.5rem 1rem; text-align: center; }
-    .benefit-cards {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2.3rem;
-      justify-content: center;
-      margin-top: 2.4rem;
-    }
-    .benefit-card {
-      background: var(--card);
-      padding: 2rem 1.2rem 1.6rem 1.2rem;
-      border-radius: var(--radius);
-      box-shadow: var(--soft-shadow);
-      max-width: 260px;
-      min-width: 180px;
-      border: 2px solid #ccecff;
-      backdrop-filter: blur(7px);
-      display: flex;
+    /* Hamburger styles */
+    .nav-hamburger {
+      display: none;
       flex-direction: column;
-      align-items: center;
-      transition: transform 0.16s, box-shadow 0.18s, border 0.14s;
-      position: relative;
-      overflow: hidden;
-    }
-    .benefit-card::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; height: 28px;
-      background: linear-gradient(90deg, #e3f5ff 20%, #b3e3ff22 70%, #fff0 100%);
-      border-radius: 21px 21px 0 0;
-      z-index: 1;
-      opacity: 0.9;
-    }
-    .benefit-card:hover {
-      transform: translateY(-8px) scale(1.032);
-      box-shadow: 0 8px 32px 0 #b2daff99, 0 4px 14px #ffd70033;
-      border-color: var(--accent);
-    }
-    .benefit-card img {
-      width: 60px;
-      height: 60px;
-      object-fit: contain;
-      margin-bottom: 1.1rem;
-      filter: drop-shadow(0 1px 8px #6ec6ff44);
-      z-index: 2;
-    }
-    .benefit-card p {
-      color: #285075;
-      font-size: 1.1rem;
-      font-weight: 500;
-      z-index: 2;
-    }
-    .calculator, .quote-form, .finance-offset-section {
-      max-width: 520px;
-      margin: 0 auto 2.2rem auto;
-      background: var(--premium-gloss);
-      padding: 2.1rem 1.1rem 1.6rem 1.1rem;
-      border-radius: var(--radius);
-      box-shadow: var(--soft-shadow);
-      border: 2px solid #b2daff;
-      backdrop-filter: blur(7px);
-    }
-    label, input, button, select {
-      display: block;
-      width: 100%;
-      font-size: 1.07rem;
-      margin-top: 1rem;
-      font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
-      color: var(--secondary);
-    }
-    input, select {
-      padding: 0.7rem;
-      border: 1.8px solid #6ec6ff;
-      background: #f4fbff;
-      color: #285075;
-      border-radius: 12px;
-      margin-bottom: 0.4rem;
-      transition: border 0.16s, box-shadow 0.15s;
-      font-size: 1.08rem;
-    }
-    input:focus, select:focus {
-      border: 2.5px solid var(--primary-dark);
-      outline: none;
-      background: #eaf7ff;
-      box-shadow: 0 2px 16px #6ec6ff22;
-    }
-    #rate, #standing { box-shadow: 0 2px 8px #18405f12; }
-    button {
-      background: linear-gradient(90deg, #6ec6ff 0%, #2196f3 100%);
-      color: var(--white);
-      padding: 0.9rem;
-      border: none;
-      border-radius: 999px;
-      cursor: pointer;
-      font-weight: bold;
-      margin-top: 1.5rem;
-      letter-spacing: .2px;
-      font-size: 1.07rem;
-      transition: background .18s, color .17s, box-shadow .15s;
-      box-shadow: 0 2px 12px #6ec6ff33;
-    }
-    button:hover {
-      background: var(--accent);
-      color: var(--primary-dark);
-      box-shadow: 0 2px 18px #ffd70044;
-    }
-    .presence-radio-group {
-      display: flex;
-      gap: 1.3em;
-      align-items: center;
-      justify-content: space-between;
-      margin: 1em 0 .7em 0;
-      font-size: 1.09em;
-    }
-    .presence-radio-group label {
-      margin-top: 0;
-      margin-bottom: 0;
-      width: auto;
-      display: flex;
-      align-items: center;
-      gap: 0.3em;
-      font-weight: 700;
-      color: var(--primary-dark);
-      cursor: pointer;
-    }
-    .presence-radio-group input[type="radio"] {
-      accent-color: var(--accent);
-      margin-right: .3em;
-    }
-    .presence-radio-group label.out {
-      color: #b7a23a;
-      font-weight: 500;
-    }
-    .presence-radio-group label.home {
-      color: var(--primary-dark);
-      font-weight: 700;
-    }
-    #solar-toolkit {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2.4rem;
       justify-content: center;
-      align-items: flex-start;
-      text-align: left;
-    }
-    #solar-toolkit > div {
-      flex: 1 1 330px;
-      min-width: 280px;
-      max-width: 480px;
-      background: var(--premium-gloss);
-      border-radius: var(--radius);
-      box-shadow: var(--soft-shadow);
-      padding: 2rem 1.2rem 2.2rem 1.2rem;
-      margin-bottom: 0;
-      border: 2px solid #b2daff;
-      backdrop-filter: blur(7px);
-    }
-    #solar-toolkit h2 {
-      text-align: center;
-      color: var(--primary-dark);
-      font-size: 1.17em;
-      letter-spacing: .5px;
-      margin-bottom: .8em;
-      font-weight: 700;
-    }
-    .trust-cards {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 2rem 1.5rem;
-      justify-content: center;
-      align-items: stretch;
-      margin: 1.5rem auto 0 auto;
-      max-width: 900px;
-    }
-    .accredit-card {
-      background: linear-gradient(130deg, #e3f5ff 60%, #b6e0ff 100%);
-      box-shadow: 0 4px 16px #6ec6ff44;
-      border-radius: 15px;
-      border: 2px solid #b2daff;
-      padding: 1.2em 1em 0.8em 1em;
-      min-width: 130px;
-      max-width: 210px;
-      display: flex;
-      flex-direction: column;
       align-items: center;
-      margin-bottom: 1.5em;
-      position: relative;
-      transition: box-shadow .15s, border .15s, background .15s;
+      width: 44px;
+      height: 44px;
       cursor: pointer;
-    }
-    .accredit-card:focus-within, .accredit-card:hover {
-      box-shadow: 0 8px 34px #ffd70066, 0 4px 16px #6ec6ff44;
-      border-color: var(--accent);
-      background: linear-gradient(120deg, #fffde1 0%, #e8f4ff 80%);
-      transform: translateY(-4px) scale(1.04);
-      z-index: 2;
-    }
-    .accredit-card-btn {
+      margin-left: 14px;
       background: none;
       border: none;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      font: inherit;
-      outline: none;
-      transition: transform .13s;
+      z-index: 201;
     }
-    .accredit-card-btn:focus {
-      outline: 2.5px solid var(--accent);
-      outline-offset: 3px;
-    }
-    .accredit-card img {
-      width: 50px;
-      height: 50px;
-      object-fit: contain;
-      background: #f4fbff;
-      border-radius: 11px;
-      box-shadow: 0 2px 9px #6ec6ff44;
-      margin-bottom: 0.7em;
-      border: 2px solid #6ec6ff;
-      padding: 6px;
-      transition: border .13s;
-    }
-    .accredit-card:hover img, .accredit-card:focus-within img {
-      border-color: var(--accent);
-    }
-    .accredit-card span {
-      font-weight: 700;
-      color: var(--primary-dark);
-      font-size: 1.1em;
-      letter-spacing: .6px;
-      margin-bottom: .2em;
-    }
-    .accredit-card-desc {
-      display: none;
-      margin-top: 0.7em;
-      background: #e8f4ff;
-      color: var(--primary-dark);
-      border-radius: 11px;
-      box-shadow: 0 2px 12px #6ec6ff44;
-      padding: 0.82em 0.8em 1.1em 0.8em;
-      font-size: 1em;
-      text-align: left;
-      max-width: 270px;
-      min-height: 64px;
-      border: 2px solid #6ec6ff;
-      position: absolute;
-      top: 100%;
-      left: 50%;
-      transform: translate(-50%, .5em);
-      z-index: 3;
-      animation: fadeIn .32s;
-    }
-    .accredit-card.active .accredit-card-desc,
-    .accredit-card:focus-within .accredit-card-desc {
-      display: block;
-    }
-    .about-section {
-      max-width: 750px;
-      margin: 3rem auto 2.5rem auto;
-      background: var(--premium-gloss);
-      color: var(--primary-dark);
-      border-radius: 24px;
-      box-shadow: var(--soft-shadow);
-      padding: 2.5rem 1.2rem;
-      text-align: left;
-      border: 2px solid #b2daff;
-    }
-    .about-section h2 {
-      color: var(--primary-dark);
-      font-size: 2.1rem;
-      margin-top: 0;
-      margin-bottom: 1.1rem;
-      text-align: center;
-      font-weight: 700;
-    }
-    .about-section p {
-      color: #24485a;
-      font-size: 1.13rem;
-      line-height: 1.7;
-      margin-bottom: 1.2em;
-      font-weight: 400;
-    }
-    .about-section .about-highlight {
-      color: var(--accent);
-      font-size: 1.15rem;
-      font-weight: 700;
-      margin-bottom: 0.4em;
-      display: block;
-      text-align: center;
-    }
-    .about-section .about-contact {
-      text-align: center;
-      margin-top: 1.5em;
-    }
-    .about-section .about-contact a {
-      color: var(--primary-dark);
-      text-decoration: underline;
-      font-weight: bold;
-    }
-    .about-section hr {
-      border: none;
-      border-top: 1px solid #b2daff55;
-      margin: 2em auto 1.2em auto;
-      width: 65%;
-    }
-    .fb-page, .fb-page * {
-      border-radius: 18px !important;
-      box-shadow: 0 4px 18px #6ec6ff44 !important;
-      background: #f5faff !important;
-      margin: 0 auto 2em auto;
-      max-width: 400px;
+    .nav-hamburger .bar {
+      width: 28px;
+      height: 4px;
+      background: var(--primary-dark);
+      margin: 4px 0;
+      border-radius: 2px;
+      transition: 0.3s;
     }
     @media (max-width: 900px) {
-      #solar-toolkit {
+      nav {
+        padding: 0.3rem 0.8rem;
+        min-height: 48px;
+      }
+      .logo {
+        font-size: 1.15rem;
+        padding: 0.2rem 0;
+      }
+      .nav-hamburger {
+        display: flex;
+      }
+      nav ul {
+        position: absolute;
+        top: 100%;
+        right: 0;
+        left: 0;
+        background: var(--premium-gloss);
         flex-direction: column;
-        align-items: stretch;
-        text-align: center;
+        align-items: flex-start;
+        gap: 0;
+        max-height: 0;
+        overflow: hidden;
+        box-shadow: 0 10px 40px #b2daff44;
+        border-radius: 0 0 20px 20px;
+        width: 100vw;
+        z-index: 200;
+        border-bottom: 2px solid #b2daff;
       }
-      #solar-toolkit > div {
-        margin: 0 auto 2rem auto;
+      nav ul.open {
+        max-height: 500px;
+        padding-bottom: 10px;
       }
-      .trust-cards {
-        flex-direction: column;
-        align-items: center;
-        gap: 1.3rem;
+      nav ul li {
+        width: 100%;
+        text-align: left;
+        margin: 0;
       }
-      .accredit-card {
-        max-width: 95vw;
-        min-width: 160px;
+      nav ul li a {
+        display: block;
+        padding: 1rem 1.8rem;
+        font-size: 1.18rem;
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
+        background: none;
+        border-bottom: 1px solid #eaf7ff;
       }
-      .accredit-card-desc {
-        position: static;
-        transform: none;
-        margin-top: .7em;
-        width: 99%;
-        max-width: 99vw;
-      }
-      .about-section {
-        padding: 1.4rem 0.6rem;
-      }
-      .fb-page, .fb-page * {
-        max-width: 98vw !important;
+      nav ul li:last-child a {
+        border-bottom: none;
       }
     }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translate(-50%, 1.5em);}
-      to { opacity: 1; transform: translate(-50%, .5em);}
+    @media (max-width: 600px) {
+      nav {
+        padding: 0.2rem 0.3rem;
+        min-height: 38px;
+      }
+      .logo {
+        font-size: 0.98rem;
+      }
+      nav ul li a {
+        padding-left: 1.3rem;
+      }
     }
-    footer {
-      background: linear-gradient(90deg, #eaf7ff 0%, #ccecff 100%);
-      color: var(--primary-dark);
-      padding: 2.2rem;
-      text-align: center;
-      margin-top: 3rem;
-      border-radius: var(--radius) var(--radius) 0 0;
-      font-size: 0.96rem;
-      letter-spacing: 0.2px;
-      box-shadow: 0 -2px 22px #b2daff33;
-      border-top: 2px solid #b2daff;
-      font-weight: 500;
-    }
+    /* All your other CSS remains as before (for brevity not repeated in this message) */
   </style>
 </head>
 <body>
   <nav id="navbar">
     <div class="logo">Let’s Talk About Solar</div>
-    <ul>
+    <button class="nav-hamburger" id="navHamburger" aria-label="Open navigation menu" aria-controls="navList" aria-expanded="false">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+    <ul id="navList">
       <li><a href="#hero">Home</a></li>
       <li><a href="#about">About Us</a></li>
       <li><a href="#benefits">Why Solar?</a></li>
@@ -520,7 +194,131 @@
       <li><a href="#quote" class="cta-nav">Get Quote</a></li>
     </ul>
   </nav>
+  <!-- ... All your main page HTML content here, unchanged ... -->
 
+  <!-- JS at bottom: Hamburger menu and Savings Table update -->
+  <script>
+    // Hamburger menu JS
+    const hamburger = document.getElementById('navHamburger');
+    const navList = document.getElementById('navList');
+    hamburger.addEventListener('click', () => {
+      navList.classList.toggle('open');
+      const expanded = hamburger.getAttribute('aria-expanded') === 'true';
+      hamburger.setAttribute('aria-expanded', !expanded);
+    });
+    navList.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 900) {
+          navList.classList.remove('open');
+          hamburger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+
+    // --- SOLAR CALCULATOR (UPDATED CUMULATIVE) ---
+    document.getElementById("calcForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+      const rate = parseFloat(document.getElementById("rate").value);
+      const standing = parseFloat(document.getElementById("standing").value);
+      const usage = parseFloat(document.getElementById("usage").value);
+      const batterySize = parseInt(document.getElementById("battery-size").value, 10); // 0, 5, 10
+      const homeAllDay = document.getElementById("homeDay").checked;
+
+      // Solar generation constants
+      const systemSizeKW = 3.68;
+      const panelSystemKW = 9 * 0.46;
+      const kwhPerKWp = 1050;
+      const estimatedAnnualGen = Math.min(systemSizeKW, panelSystemKW) * kwhPerKWp * orientationFactor;
+
+      // Self-consumption ratios
+      let baseSelfConsumption = homeAllDay ? 0.65 : 0.4;
+      let batterySelfConsumption = 0;
+      if (batterySize === 5) {
+        batterySelfConsumption = homeAllDay ? 0.8 : 0.6;
+      } else if (batterySize === 10) {
+        batterySelfConsumption = homeAllDay ? 0.9 : 0.7;
+      }
+      const selfConsumptionRatio = batterySize === 0 ? baseSelfConsumption : batterySelfConsumption;
+
+      // Calculate actual self-used and exported
+      let selfUsedKWh = Math.min(usage, estimatedAnnualGen * selfConsumptionRatio);
+      let exportKWh = Math.max(0, estimatedAnnualGen - selfUsedKWh);
+      if (usage < estimatedAnnualGen * selfConsumptionRatio) {
+        exportKWh = estimatedAnnualGen - usage;
+        selfUsedKWh = usage;
+      }
+
+      // Bill and savings calculations
+      const annualStanding = standing * 365 / 100;
+      const billUsage = rate * usage / 100;
+      const annualSpend = billUsage + annualStanding;
+      latestAnnualSpend = annualSpend;
+
+      // Yearly savings and export calculations
+      let annualSavingsArr = [];
+      let price = rate;
+      let exportRate = 16.5;
+      let cumulative = 0;
+      for (let year = 1; year <= 10; year++) {
+        let yearSavings = (selfUsedKWh * price) / 100;
+        let yearExportIncome = (exportKWh * exportRate) / 100;
+        cumulative += yearSavings + yearExportIncome;
+        annualSavingsArr.push({
+          year,
+          price: price.toFixed(2),
+          savings: yearSavings.toFixed(2),
+          exportIncome: yearExportIncome.toFixed(2),
+          cumulative: cumulative.toFixed(2)
+        });
+        price *= 1.0704;
+      }
+      let tableRows = annualSavingsArr.map(row =>
+        `<tr>
+          <td>Year ${row.year}</td>
+          <td>£${row.savings}</td>
+          <td>£${row.exportIncome}</td>
+          <td>${row.price}p/kWh</td>
+          <td>£${row.cumulative}</td>
+        </tr>`
+      ).join('');
+      const presenceText = homeAllDay
+        ? "You're home during the day"
+        : "You're out during the day";
+      const batteryDesc = batterySize > 0 ? ` with ${batterySize}kWh battery` : "";
+      const calcResult = document.getElementById("calcResult");
+      latestSavingsPerYear = parseFloat(annualSavingsArr[0].savings);
+
+      calcResult.innerHTML = `
+        <div style="margin-bottom:1.1em;">
+          <h3>Estimated Annual Savings (Year 1): £${annualSavingsArr[0].savings}</h3>
+          <p>Your system is estimated to generate <strong>${estimatedAnnualGen.toFixed(0)} kWh</strong> per year.</p>
+          <p>Annual self-used solar: <strong>${selfUsedKWh.toFixed(0)} kWh</strong> (${(100*selfUsedKWh/usage).toFixed(0)}% of your usage${batteryDesc}, ${presenceText})</p>
+          <p>Annual solar export: <strong>${exportKWh.toFixed(0)} kWh</strong>
+            <br>Value of exported energy at 16.5p/kWh: <strong>£${((exportKWh*exportRate)/100).toFixed(2)}</strong>
+          </p>
+          <p><b>Your annual energy spend (inc. standing charge): £${annualSpend.toFixed(2)}</b></p>
+        </div>
+        <h4>Projected Savings and Export Over 10 Years (with 7.04% price increase per year):</h4>
+        <table style="margin:auto;border-collapse:collapse;">
+          <tr>
+            <th>Year</th>
+            <th>Bill Savings</th>
+            <th>Export Income</th>
+            <th>Price per kWh</th>
+            <th>Cumulative Savings (inc. export)</th>
+          </tr>
+          ${tableRows}
+        </table>
+        <p style="font-size:0.95em;color:#888;">This calculation is based on a system with 9 solar panels – if your roof can fit more, your potential savings will be even higher. These are estimated figures based on typical UK conditions. For a free comprehensive breakdown, fill in the free quote form.</p>
+      `;
+
+      showFinanceOffset();
+    });
+
+    // ... All your remaining JS and HTML sections remain unchanged ...
+  </script>
+</body>
+</html>
   <section class="hero" id="hero">
     <div class="hero-text">
       <h1>Sunshine Meets Smart Savings</h1>
@@ -761,433 +559,696 @@
   <!-- Facebook SDK for Page Plugin -->
   <div id="fb-root"></div>
   <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v19.0" nonce="letstalksolar"></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    let lastScroll = 0;
-    const nav = document.getElementById("navbar");
-    let orientationFactor = 1;
-
-    window.addEventListener("scroll", () => {
-      const currentScroll = window.pageYOffset;
-      nav.classList.toggle("hidden", currentScroll > lastScroll);
-      lastScroll = currentScroll;
-    });
-
-    // Nav smooth scroll and focus for orientation & savings
-    document.getElementById('nav-orientation-btn').addEventListener('click', function(e) {
-      e.preventDefault();
-      const el = document.getElementById('orientation');
-      el.scrollIntoView({behavior:'smooth', block:'center'});
-      setTimeout(() => { document.getElementById('addressInput').focus(); }, 500);
-    });
-    document.getElementById('nav-savings-btn').addEventListener('click', function(e) {
-      e.preventDefault();
-      const el = document.getElementById('calculator');
-      el.scrollIntoView({behavior:'smooth', block:'center'});
-      setTimeout(() => { document.getElementById('rate').focus(); }, 500);
-    });
-
-    // Orientation section logic (Street View only)
-    let autocomplete, lastPlaceLocation = null, panoMap = null;
-
-    function mapsApiLoaded() {
-      if (typeof initMap === "function") initMap();
-      if (typeof initQuoteAddressAutocomplete === "function") initQuoteAddressAutocomplete();
-    }
-
-    function initMap() {
-      const input = document.getElementById("addressInput");
-      autocomplete = new google.maps.places.Autocomplete(input, {
-        componentRestrictions: { country: 'uk' },
-        fields: ["geometry", "formatted_address", "address_components"],
-        types: ["address"]
-      });
-
-      autocomplete.addListener("place_changed", () => {
-        const place = autocomplete.getPlace();
-        if (!place.geometry || !place.geometry.location) {
-          alert("No details available for input: '" + place.name + "'");
-          lastPlaceLocation = null;
-          return;
-        }
-        lastPlaceLocation = place.geometry.location;
-        // Orientation logic
-        const viewport = place.geometry.viewport;
-        let orientation = "Unknown";
-        let explanation = "";
-        orientationFactor = 0.9;
-
-        if (viewport) {
-          const ne = viewport.getNorthEast();
-          const sw = viewport.getSouthWest();
-          const angle = Math.atan2(ne.lat() - sw.lat(), ne.lng() - sw.lng()) * (180 / Math.PI);
-
-          if (angle > -45 && angle <= 45) {
-            orientation = "East";
-            orientationFactor = 0.85;
-            explanation = "Your front roof likely faces East and the rear West. A solar system can still work well with morning sunlight.";
-          } else if (angle > 45 && angle <= 135) {
-            orientation = "North";
-            orientationFactor = 0.75;
-            explanation = "Your front roof likely faces North and the rear South. South-facing roofs are ideal for solar.";
-          } else if (angle > -135 && angle <= -45) {
-            orientation = "South";
-            orientationFactor = 1.0;
-            explanation = "Your front roof likely faces South and the rear North. This is excellent for solar efficiency.";
-          } else {
-            orientation = "West";
-            orientationFactor = 0.8;
-            explanation = "Your front roof likely faces West and the rear East. Good for catching late afternoon sunlight.";
-          }
-        }
-
-        document.getElementById("orientationResult").innerHTML =
-          `<strong>Estimated Roof Orientation:</strong> ${orientation}<br><em>${explanation}</em>`;
-      });
-    }
-
-    function initQuoteAddressAutocomplete() {
-      var input = document.getElementById('quote-address');
-      if (!input) return;
-      var options = {
-        componentRestrictions: { country: 'uk' },
-        fields: ["formatted_address", "geometry"],
-        types: ["address"]
-      };
-      var autocomplete = new google.maps.places.Autocomplete(input, options);
-      autocomplete.setBounds(new google.maps.LatLngBounds(
-        new google.maps.LatLng(49.9, -7.6),
-        new google.maps.LatLng(58.7, 1.8)
-      ));
-    }
-
-    function toggleStreetView() {
-      const container = document.getElementById("streetview-container");
-      const btn = document.getElementById("toggleMapBtn");
-      if (container.style.display === 'none' || container.style.display === '') {
-        if (!lastPlaceLocation) {
-          alert("Please enter your address and select it from the dropdown first.");
-          return;
-        }
-        container.style.display = "block";
-        if (!panoMap) {
-          panoMap = new google.maps.StreetViewPanorama(
-            document.getElementById("pano"),
-            {
-              position: lastPlaceLocation,
-              pov: { heading: 165, pitch: 0 },
-              zoom: 1
-            }
-          );
-        } else {
-          panoMap.setPosition(lastPlaceLocation);
-        }
-        btn.innerText = "Hide Street View";
-      } else {
-        container.style.display = "none";
-        btn.innerText = "Show Street View";
-      }
-    }
-
-    // --- SOLAR CALCULATOR (UPDATED) ---
-    let latestSavingsPerYear = 0;
-    let latestAnnualSpend = 0;
-    let latestSystemCost = 9500;
-
-    // Only keep cost input in finance offset section
-    function syncSystemCostFields(value) {
-      document.getElementById('finance-system-cost').value = value;
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-      syncSystemCostFields('9500');
-    });
-
-    document.getElementById("calcForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-      const rate = parseFloat(document.getElementById("rate").value);
-      const standing = parseFloat(document.getElementById("standing").value);
-      const usage = parseFloat(document.getElementById("usage").value);
-      const batterySize = parseInt(document.getElementById("battery-size").value, 10); // 0, 5, 10
-      const homeAllDay = document.getElementById("homeDay").checked;
-
-      // Solar generation constants
-      const systemSizeKW = 3.68;
-      const panelSystemKW = 9 * 0.46;
-      const kwhPerKWp = 1050;
-      const estimatedAnnualGen = Math.min(systemSizeKW, panelSystemKW) * kwhPerKWp * orientationFactor;
-
-      // Self-consumption ratios
-      let baseSelfConsumption = homeAllDay ? 0.65 : 0.4;
-      let batterySelfConsumption = 0;
-      if (batterySize === 5) {
-        batterySelfConsumption = homeAllDay ? 0.8 : 0.6;
-      } else if (batterySize === 10) {
-        batterySelfConsumption = homeAllDay ? 0.9 : 0.7;
-      }
-      const selfConsumptionRatio = batterySize === 0 ? baseSelfConsumption : batterySelfConsumption;
-
-      // Calculate actual self-used and exported
-      let selfUsedKWh = Math.min(usage, estimatedAnnualGen * selfConsumptionRatio);
-      let exportKWh = Math.max(0, estimatedAnnualGen - selfUsedKWh);
-      if (usage < estimatedAnnualGen * selfConsumptionRatio) {
-        exportKWh = estimatedAnnualGen - usage;
-        selfUsedKWh = usage;
-      }
-
-      // Bill and savings calculations
-      const annualStanding = standing * 365 / 100;
-      const billUsage = rate * usage / 100;
-      const annualSpend = billUsage + annualStanding;
-      latestAnnualSpend = annualSpend;
-
-      // Yearly savings and export calculations
-      let annualSavingsArr = [];
-      let price = rate;
-      let exportRate = 16.5;
-      let cumulative = 0;
-      let exportIncomeCumulative = 0;
-      for (let year = 1; year <= 10; year++) {
-        let yearSavings = (selfUsedKWh * price) / 100;
-        let yearExportIncome = (exportKWh * exportRate) / 100;
-        cumulative += yearSavings;
-        exportIncomeCumulative += yearExportIncome;
-        annualSavingsArr.push({
-          year,
-          price: price.toFixed(2),
-          savings: yearSavings.toFixed(2),
-          exportIncome: yearExportIncome.toFixed(2),
-          cumulative: cumulative.toFixed(2),
-          exportCumulative: exportIncomeCumulative.toFixed(2)
-        });
-        price *= 1.0704;
-      }
-      let tableRows = annualSavingsArr.map(row =>
-        `<tr>
-          <td>Year ${row.year}</td>
-          <td>£${row.savings}</td>
-          <td>£${row.exportIncome}</td>
-          <td>${row.price}p/kWh</td>
-          <td>£${row.cumulative}</td>
-          <td>£${row.exportCumulative}</td>
-        </tr>`
-      ).join('');
-      const presenceText = homeAllDay
-        ? "You're home during the day"
-        : "You're out during the day";
-      const batteryDesc = batterySize > 0 ? ` with ${batterySize}kWh battery` : "";
-      const calcResult = document.getElementById("calcResult");
-      latestSavingsPerYear = parseFloat(annualSavingsArr[0].savings);
-
-      calcResult.innerHTML = `
-        <div style="margin-bottom:1.1em;">
-          <h3>Estimated Annual Savings (Year 1): £${annualSavingsArr[0].savings}</h3>
-          <p>Your system is estimated to generate <strong>${estimatedAnnualGen.toFixed(0)} kWh</strong> per year.</p>
-          <p>Annual self-used solar: <strong>${selfUsedKWh.toFixed(0)} kWh</strong> (${(100*selfUsedKWh/usage).toFixed(0)}% of your usage${batteryDesc}, ${presenceText})</p>
-          <p>Annual solar export: <strong>${exportKWh.toFixed(0)} kWh</strong>
-            <br>Value of exported energy at 16.5p/kWh: <strong>£${((exportKWh*exportRate)/100).toFixed(2)}</strong>
-          </p>
-          <p><b>Your annual energy spend (inc. standing charge): £${annualSpend.toFixed(2)}</b></p>
-        </div>
-        <h4>Projected Savings and Export Over 10 Years (with 7.04% price increase per year):</h4>
-        <table style="margin:auto;border-collapse:collapse;">
-          <tr>
-            <th>Year</th>
-            <th>Bill Savings</th>
-            <th>Export Income</th>
-            <th>Price per kWh</th>
-            <th>Cumulative Savings</th>
-            <th>Cumulative Export</th>
-          </tr>
-          ${tableRows}
-        </table>
-        <p style="font-size:0.95em;color:#888;">This calculation is based on a system with 9 solar panels – if your roof can fit more, your potential savings will be even higher. These are estimated figures based on typical UK conditions. For a free comprehensive breakdown, fill in the free quote form.</p>
-      `;
-
-      showFinanceOffset();
-    });
-
-    function showFinanceOffset() {
-      const section = document.getElementById("finance-offset-section");
-      section.style.display = "block";
-      updateFinanceOffset();
-    }
-
-    function updateFinanceOffset() {
-      const systemCostInput = document.getElementById("finance-system-cost");
-      const depositInput = document.getElementById("deposit-amount");
-      const installCost = parseFloat(systemCostInput?.value) || latestSystemCost || 9500;
-      const deposit = parseFloat(depositInput?.value) || 0;
-      if (deposit > installCost) {
-        depositInput.value = installCost;
-      }
-      const loanAmount = installCost - deposit;
-      const years = 10;
-      const n = years * 12;
-      const rate = 0.099;
-      const monthlyRate = rate / 12;
-      let monthly = (loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -n));
-      const totalFinance = (monthly * n) + deposit;
-
-      const savingsPerYear = latestSavingsPerYear || 800;
-      const savingsPerMonth = savingsPerYear / 12;
-      const totalSavings10y = savingsPerYear * years;
-      const annualSpend = latestAnnualSpend || 1200;
-      const totalElec10y = annualSpend * years;
-
-      const netMonthly = monthly - savingsPerMonth;
-      const net10y = (monthly * n) - totalSavings10y + deposit;
-      const diff = totalElec10y - net10y;
-
-      // Info tag explanation for net outgoing
-      const infoIcon = `<span style="display:inline-block;vertical-align:middle;margin-left:0.4em;cursor:pointer;" tabindex="0" title="Your net outgoing is the remaining monthly amount after subtracting your expected solar bill savings from your finance payment. If negative, your savings exceed your payment!">
-        <svg width="18" height="18" viewBox="0 0 20 20" fill="none" style="vertical-align:middle;"><circle cx="10" cy="10" r="9" stroke="#2196f3" stroke-width="2"/><text x="7" y="15" fill="#2196f3" font-size="13" font-family="Arial" font-weight="bold">i</text></svg>
-      </span>`;
-      // Info tag for 'Difference'
-      const diffInfo = `<span style="display:inline-block;vertical-align:middle;margin-left:0.4em;cursor:pointer;" tabindex="0" title="This is the difference between your total 10-year electricity spend (no solar) and your total 10-year outgoings with solar (including finance and deposit, minus savings). If this is positive, you save money overall.">${infoIcon}</span>`;
-
-      // Clear, stepwise breakdown table
-      const summary = `
-        <table style="margin:auto;border-collapse:separate;border-spacing:0 10px;font-size:1.07em;">
-          <tr>
-            <td style="font-weight:600;">System cost:</td>
-            <td>£${installCost.toLocaleString()}</td>
-          </tr>
-          <tr>
-            <td style="font-weight:600;">Deposit:</td>
-            <td>£${deposit.toLocaleString()}</td>
-          </tr>
-          <tr>
-            <td style="font-weight:600;">Loan amount:</td>
-            <td>£${loanAmount.toLocaleString()}</td>
-          </tr>
-          <tr>
-            <td style="font-weight:600;">Monthly finance payment:</td>
-            <td>£${monthly.toFixed(2)}</td>
-          </tr>
-          <tr>
-            <td style="font-weight:600;">Estimated monthly bill savings:</td>
-            <td>£${savingsPerMonth.toFixed(2)}</td>
-          </tr>
-          <tr>
-            <td style="font-weight:600;">Net outgoing per month:</td>
-            <td>
-              <span style="font-weight:bold;${netMonthly > 0 ? 'color:#b7a23a;' : 'color:#2196f3;'}">
-                £${netMonthly.toFixed(2)}
-              </span>
-              ${infoIcon}
-            </td>
-          </tr>
-          <tr><td colspan="2"><hr style="border:none;border-top:1px solid #b2daff55;"></td></tr>
-          <tr>
-            <td style="font-weight:600;">Total cost with solar & finance over 10 years:</td>
-            <td>£${net10y.toFixed(2)}</td>
-          </tr>
-          <tr>
-            <td style="font-weight:600;">Total electricity bill (no solar, 10 years):</td>
-            <td>£${totalElec10y.toFixed(2)}</td>
-          </tr>
-          <tr>
-            <td style="font-weight:600;">Difference over 10 years:</td>
-            <td>
-              <span style="font-weight:bold;${diff > 0 ? 'color:#2196f3;' : 'color:#b7a23a;'}">
-                ${diff > 0 ? "You save £" + diff.toFixed(2) : "Solar+finance costs £" + Math.abs(diff).toFixed(2) + " more"}
-              </span>
-              ${diffInfo}
-            </td>
-          </tr>
-        </table>
-        <div style="margin-top:1em;font-size:.98em;color:#555;text-align:left;max-width:520px;margin-left:auto;margin-right:auto;background:#f8faff;padding:0.8em 1.1em;border-radius:12px;">
-          <b>How does this reduce your outgoings?</b>
-          <br>Your monthly finance payment is partly offset by the savings on your electricity bill thanks to solar. In many cases, your combined finance payment <i>and</i> smaller electricity bill together will be less than what you'd pay for energy alone without solar. Over 10 years, these savings can add up to thousands of pounds in lower overall outgoings.
-        </div>
-      `;
-      document.getElementById("finance-offset-summary").innerHTML = summary;
-    }
-
-    document.getElementById("depositForm").addEventListener("submit", function(e){
-      e.preventDefault();
-      updateFinanceOffset();
-    });
-
-    document.getElementById('finance-system-cost').addEventListener('input', function(e) {
-      syncSystemCostFields(e.target.value);
-    });
-
-    function toggleHistoric() {
-      let g = document.getElementById('historic-graph');
-      g.style.display = (g.style.display === 'none' || g.style.display === '') ? 'block' : 'none';
-      if (g.style.display === 'block' && !window._historicChartLoaded) {
-        drawPriceChart();
-        window._historicChartLoaded = true;
-      }
-    }
-    function drawPriceChart() {
-      const ctx = document.getElementById('pricesChart').getContext('2d');
-      const years = [
-        2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,
-        2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,
-        2020,2021,2022,2023,2024,2025
-      ];
-      const prices = [
-        7.0,7.3,7.2,7.1,7.4,8.2,10.0,10.6,13.3,13.9,
-        13.7,14.5,15.5,15.6,15.6,15.2,14.4,14.4,15.0,17.2,
-        17.2,19.0,28.0,30.0,28.5,27.5
-      ];
-      new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: years,
-          datasets: [{
-            label: 'UK Domestic Electricity Price (p/kWh)',
-            data: prices,
-            borderColor: '#397a94',
-            backgroundColor: 'rgba(57,122,148,0.13)',
-            tension: 0.25,
-            pointBackgroundColor: '#ffd700',
-            pointRadius: 5,
-            fill: true
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: { display: true },
-            tooltip: { enabled: true }
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              title: { display: true, text: 'pence per kWh' }
-            },
-            x: {
-              title: { display: true, text: 'Year' }
-            }
-          }
-        }
-      });
-    }
-
-    // Trust card open/close logic
-    document.querySelectorAll('.accredit-card-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.accredit-card').forEach(card => {
-          if (card.contains(btn)) {
-            card.classList.toggle('active');
-            btn.setAttribute('aria-expanded', card.classList.contains('active'));
-          } else {
-            card.classList.remove('active');
-            card.querySelector('.accredit-card-btn').setAttribute('aria-expanded', 'false');
-          }
-        });
-      });
-      btn.addEventListener('keydown', function(e) {
-        if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
-          e.preventDefault();
-          btn.click();
-        }
-      });
-    });
+    // ... JS from previous response (including hamburger menu and calculator cumulative update) ...
+    // (Paste the full JS here from your existing file/earlier response, including the calculator update.)
   </script>
 </body>
 </html>
+let lastScroll = 0;
+const nav = document.getElementById("navbar");
+let orientationFactor = 1;
+
+window.addEventListener("scroll", () => {
+  const currentScroll = window.pageYOffset;
+  nav.classList.toggle("hidden", currentScroll > lastScroll);
+  lastScroll = currentScroll;
+});
+
+// Nav smooth scroll and focus for orientation & savings
+document.getElementById('nav-orientation-btn').addEventListener('click', function(e) {
+  e.preventDefault();
+  const el = document.getElementById('orientation');
+  el.scrollIntoView({behavior:'smooth', block:'center'});
+  setTimeout(() => { document.getElementById('addressInput').focus(); }, 500);
+});
+document.getElementById('nav-savings-btn').addEventListener('click', function(e) {
+  e.preventDefault();
+  const el = document.getElementById('calculator');
+  el.scrollIntoView({behavior:'smooth', block:'center'});
+  setTimeout(() => { document.getElementById('rate').focus(); }, 500);
+});
+
+// Orientation section logic (Street View only)
+let autocomplete, lastPlaceLocation = null, panoMap = null;
+
+function mapsApiLoaded() {
+  if (typeof initMap === "function") initMap();
+  if (typeof initQuoteAddressAutocomplete === "function") initQuoteAddressAutocomplete();
+}
+
+function initMap() {
+  const input = document.getElementById("addressInput");
+  autocomplete = new google.maps.places.Autocomplete(input, {
+    componentRestrictions: { country: 'uk' },
+    fields: ["geometry", "formatted_address", "address_components"],
+    types: ["address"]
+  });
+
+  autocomplete.addListener("place_changed", () => {
+    const place = autocomplete.getPlace();
+    if (!place.geometry || !place.geometry.location) {
+      alert("No details available for input: '" + place.name + "'");
+      lastPlaceLocation = null;
+      return;
+    }
+    lastPlaceLocation = place.geometry.location;
+    // Orientation logic
+    const viewport = place.geometry.viewport;
+    let orientation = "Unknown";
+    let explanation = "";
+    orientationFactor = 0.9;
+
+    if (viewport) {
+      const ne = viewport.getNorthEast();
+      const sw = viewport.getSouthWest();
+      const angle = Math.atan2(ne.lat() - sw.lat(), ne.lng() - sw.lng()) * (180 / Math.PI);
+
+      if (angle > -45 && angle <= 45) {
+        orientation = "East";
+        orientationFactor = 0.85;
+        explanation = "Your front roof likely faces East and the rear West. A solar system can still work well with morning sunlight.";
+      } else if (angle > 45 && angle <= 135) {
+        orientation = "North";
+        orientationFactor = 0.75;
+        explanation = "Your front roof likely faces North and the rear South. South-facing roofs are ideal for solar.";
+      } else if (angle > -135 && angle <= -45) {
+        orientation = "South";
+        orientationFactor = 1.0;
+        explanation = "Your front roof likely faces South and the rear North. This is excellent for solar efficiency.";
+      } else {
+        orientation = "West";
+        orientationFactor = 0.8;
+        explanation = "Your front roof likely faces West and the rear East. Good for catching late afternoon sunlight.";
+      }
+    }
+
+    document.getElementById("orientationResult").innerHTML =
+      `<strong>Estimated Roof Orientation:</strong> ${orientation}<br><em>${explanation}</em>`;
+  });
+}
+
+function initQuoteAddressAutocomplete() {
+  var input = document.getElementById('quote-address');
+  if (!input) return;
+  var options = {
+    componentRestrictions: { country: 'uk' },
+    fields: ["formatted_address", "geometry"],
+    types: ["address"]
+  };
+  var autocomplete = new google.maps.places.Autocomplete(input, options);
+  autocomplete.setBounds(new google.maps.LatLngBounds(
+    new google.maps.LatLng(49.9, -7.6),
+    new google.maps.LatLng(58.7, 1.8)
+  ));
+}
+
+function toggleStreetView() {
+  const container = document.getElementById("streetview-container");
+  const btn = document.getElementById("toggleMapBtn");
+  if (container.style.display === 'none' || container.style.display === '') {
+    if (!lastPlaceLocation) {
+      alert("Please enter your address and select it from the dropdown first.");
+      return;
+    }
+    container.style.display = "block";
+    if (!panoMap) {
+      panoMap = new google.maps.StreetViewPanorama(
+        document.getElementById("pano"),
+        {
+          position: lastPlaceLocation,
+          pov: { heading: 165, pitch: 0 },
+          zoom: 1
+        }
+      );
+    } else {
+      panoMap.setPosition(lastPlaceLocation);
+    }
+    btn.innerText = "Hide Street View";
+  } else {
+    container.style.display = "none";
+    btn.innerText = "Show Street View";
+  }
+}
+
+// --- SOLAR CALCULATOR (UPDATED CUMULATIVE) ---
+let latestSavingsPerYear = 0;
+let latestAnnualSpend = 0;
+let latestSystemCost = 9500;
+
+// Only keep cost input in finance offset section
+function syncSystemCostFields(value) {
+  document.getElementById('finance-system-cost').value = value;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  syncSystemCostFields('9500');
+});
+
+// Already-replaced calculator eventListener is in main HTML
+
+function showFinanceOffset() {
+  const section = document.getElementById("finance-offset-section");
+  section.style.display = "block";
+  updateFinanceOffset();
+}
+
+function updateFinanceOffset() {
+  const systemCostInput = document.getElementById("finance-system-cost");
+  const depositInput = document.getElementById("deposit-amount");
+  const installCost = parseFloat(systemCostInput?.value) || latestSystemCost || 9500;
+  const deposit = parseFloat(depositInput?.value) || 0;
+  if (deposit > installCost) {
+    depositInput.value = installCost;
+  }
+  const loanAmount = installCost - deposit;
+  const years = 10;
+  const n = years * 12;
+  const rate = 0.099;
+  const monthlyRate = rate / 12;
+  let monthly = (loanAmount * monthlyRate) / (1 - Math.pow(1 + monthlyRate, -n));
+  const totalFinance = (monthly * n) + deposit;
+
+  const savingsPerYear = latestSavingsPerYear || 800;
+  const savingsPerMonth = savingsPerYear / 12;
+  const totalSavings10y = savingsPerYear * years;
+  const annualSpend = latestAnnualSpend || 1200;
+  const totalElec10y = annualSpend * years;
+
+  const netMonthly = monthly - savingsPerMonth;
+  const net10y = (monthly * n) - totalSavings10y + deposit;
+  const diff = totalElec10y - net10y;
+
+  // Info tag explanation for net outgoing
+  const infoIcon = `<span style="display:inline-block;vertical-align:middle;margin-left:0.4em;cursor:pointer;" tabindex="0" title="Your net outgoing is the remaining monthly amount after subtracting your expected solar bill savings from your finance payment. If negative, your savings exceed your payment!">
+    <svg width="18" height="18" viewBox="0 0 20 20" fill="none" style="vertical-align:middle;"><circle cx="10" cy="10" r="9" stroke="#2196f3" stroke-width="2"/><text x="7" y="15" fill="#2196f3" font-size="13" font-family="Arial" font-weight="bold">i</text></svg>
+  </span>`;
+  // Info tag for 'Difference'
+  const diffInfo = `<span style="display:inline-block;vertical-align:middle;margin-left:0.4em;cursor:pointer;" tabindex="0" title="This is the difference between your total 10-year electricity spend (no solar) and your total 10-year outgoings with solar (including finance and deposit, minus savings). If this is positive, you save money overall.">${infoIcon}</span>`;
+
+  // Clear, stepwise breakdown table
+  const summary = `
+    <table style="margin:auto;border-collapse:separate;border-spacing:0 10px;font-size:1.07em;">
+      <tr>
+        <td style="font-weight:600;">System cost:</td>
+        <td>£${installCost.toLocaleString()}</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;">Deposit:</td>
+        <td>£${deposit.toLocaleString()}</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;">Loan amount:</td>
+        <td>£${loanAmount.toLocaleString()}</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;">Monthly finance payment:</td>
+        <td>£${monthly.toFixed(2)}</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;">Estimated monthly bill savings:</td>
+        <td>£${savingsPerMonth.toFixed(2)}</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;">Net outgoing per month:</td>
+        <td>
+          <span style="font-weight:bold;${netMonthly > 0 ? 'color:#b7a23a;' : 'color:#2196f3;'}">
+            £${netMonthly.toFixed(2)}
+          </span>
+          ${infoIcon}
+        </td>
+      </tr>
+      <tr><td colspan="2"><hr style="border:none;border-top:1px solid #b2daff55;"></td></tr>
+      <tr>
+        <td style="font-weight:600;">Total cost with solar & finance over 10 years:</td>
+        <td>£${net10y.toFixed(2)}</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;">Total electricity bill (no solar, 10 years):</td>
+        <td>£${totalElec10y.toFixed(2)}</td>
+      </tr>
+      <tr>
+        <td style="font-weight:600;">Difference over 10 years:</td>
+        <td>
+          <span style="font-weight:bold;${diff > 0 ? 'color:#2196f3;' : 'color:#b7a23a;'}">
+            ${diff > 0 ? "You save £" + diff.toFixed(2) : "Solar+finance costs £" + Math.abs(diff).toFixed(2) + " more"}
+          </span>
+          ${diffInfo}
+        </td>
+      </tr>
+    </table>
+    <div style="margin-top:1em;font-size:.98em;color:#555;text-align:left;max-width:520px;margin-left:auto;margin-right:auto;background:#f8faff;padding:0.8em 1.1em;border-radius:12px;">
+      <b>How does this reduce your outgoings?</b>
+      <br>Your monthly finance payment is partly offset by the savings on your electricity bill thanks to solar. In many cases, your combined finance payment <i>and</i> smaller electricity bill together will be less than what you'd pay for energy alone without solar. Over 10 years, these savings can add up to thousands of pounds in lower overall outgoings.
+    </div>
+  `;
+  document.getElementById("finance-offset-summary").innerHTML = summary;
+}
+
+document.getElementById("depositForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  updateFinanceOffset();
+});
+
+document.getElementById('finance-system-cost').addEventListener('input', function(e) {
+  syncSystemCostFields(e.target.value);
+});
+
+function toggleHistoric() {
+  let g = document.getElementById('historic-graph');
+  g.style.display = (g.style.display === 'none' || g.style.display === '') ? 'block' : 'none';
+  if (g.style.display === 'block' && !window._historicChartLoaded) {
+    drawPriceChart();
+    window._historicChartLoaded = true;
+  }
+}
+function drawPriceChart() {
+  const ctx = document.getElementById('pricesChart').getContext('2d');
+  const years = [
+    2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,
+    2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,
+    2020,2021,2022,2023,2024,2025
+  ];
+  const prices = [
+    7.0,7.3,7.2,7.1,7.4,8.2,10.0,10.6,13.3,13.9,
+    13.7,14.5,15.5,15.6,15.6,15.2,14.4,14.4,15.0,17.2,
+    17.2,19.0,28.0,30.0,28.5,27.5
+  ];
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: years,
+      datasets: [{
+        label: 'UK Domestic Electricity Price (p/kWh)',
+        data: prices,
+        borderColor: '#397a94',
+        backgroundColor: 'rgba(57,122,148,0.13)',
+        tension: 0.25,
+        pointBackgroundColor: '#ffd700',
+        pointRadius: 5,
+        fill: true
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: true },
+        tooltip: { enabled: true }
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          title: { display: true, text: 'pence per kWh' }
+        },
+        x: {
+          title: { display: true, text: 'Year' }
+        }
+      }
+    }
+  });
+}
+
+// Trust card open/close logic
+document.querySelectorAll('.accredit-card-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.accredit-card').forEach(card => {
+      if (card.contains(btn)) {
+        card.classList.toggle('active');
+        btn.setAttribute('aria-expanded', card.classList.contains('active'));
+      } else {
+        card.classList.remove('active');
+        card.querySelector('.accredit-card-btn').setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+  btn.addEventListener('keydown', function(e) {
+    if (e.key === "Enter" || e.key === " " || e.key === "Spacebar") {
+      e.preventDefault();
+      btn.click();
+    }
+  });
+});
+.section { padding: 3.5rem 1rem 2.5rem 1rem; text-align: center; }
+.benefit-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.3rem;
+  justify-content: center;
+  margin-top: 2.4rem;
+}
+.benefit-card {
+  background: var(--card);
+  padding: 2rem 1.2rem 1.6rem 1.2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--soft-shadow);
+  max-width: 260px;
+  min-width: 180px;
+  border: 2px solid #ccecff;
+  backdrop-filter: blur(7px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.16s, box-shadow 0.18s, border 0.14s;
+  position: relative;
+  overflow: hidden;
+}
+.benefit-card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 28px;
+  background: linear-gradient(90deg, #e3f5ff 20%, #b3e3ff22 70%, #fff0 100%);
+  border-radius: 21px 21px 0 0;
+  z-index: 1;
+  opacity: 0.9;
+}
+.benefit-card:hover {
+  transform: translateY(-8px) scale(1.032);
+  box-shadow: 0 8px 32px 0 #b2daff99, 0 4px 14px #ffd70033;
+  border-color: var(--accent);
+}
+.benefit-card img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 1.1rem;
+  filter: drop-shadow(0 1px 8px #6ec6ff44);
+  z-index: 2;
+}
+.benefit-card p {
+  color: #285075;
+  font-size: 1.1rem;
+  font-weight: 500;
+  z-index: 2;
+}
+.calculator, .quote-form, .finance-offset-section {
+  max-width: 520px;
+  margin: 0 auto 2.2rem auto;
+  background: var(--premium-gloss);
+  padding: 2.1rem 1.1rem 1.6rem 1.1rem;
+  border-radius: var(--radius);
+  box-shadow: var(--soft-shadow);
+  border: 2px solid #b2daff;
+  backdrop-filter: blur(7px);
+}
+label, input, button, select {
+  display: block;
+  width: 100%;
+  font-size: 1.07rem;
+  margin-top: 1rem;
+  font-family: 'Roboto', 'Segoe UI', Arial, sans-serif;
+  color: var(--secondary);
+}
+input, select {
+  padding: 0.7rem;
+  border: 1.8px solid #6ec6ff;
+  background: #f4fbff;
+  color: #285075;
+  border-radius: 12px;
+  margin-bottom: 0.4rem;
+  transition: border 0.16s, box-shadow 0.15s;
+  font-size: 1.08rem;
+}
+input:focus, select:focus {
+  border: 2.5px solid var(--primary-dark);
+  outline: none;
+  background: #eaf7ff;
+  box-shadow: 0 2px 16px #6ec6ff22;
+}
+#rate, #standing { box-shadow: 0 2px 8px #18405f12; }
+button {
+  background: linear-gradient(90deg, #6ec6ff 0%, #2196f3 100%);
+  color: var(--white);
+  padding: 0.9rem;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 1.5rem;
+  letter-spacing: .2px;
+  font-size: 1.07rem;
+  transition: background .18s, color .17s, box-shadow .15s;
+  box-shadow: 0 2px 12px #6ec6ff33;
+}
+button:hover {
+  background: var(--accent);
+  color: var(--primary-dark);
+  box-shadow: 0 2px 18px #ffd70044;
+}
+.presence-radio-group {
+  display: flex;
+  gap: 1.3em;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1em 0 .7em 0;
+  font-size: 1.09em;
+}
+.presence-radio-group label {
+  margin-top: 0;
+  margin-bottom: 0;
+  width: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  font-weight: 700;
+  color: var(--primary-dark);
+  cursor: pointer;
+}
+.presence-radio-group input[type="radio"] {
+  accent-color: var(--accent);
+  margin-right: .3em;
+}
+.presence-radio-group label.out {
+  color: #b7a23a;
+  font-weight: 500;
+}
+.presence-radio-group label.home {
+  color: var(--primary-dark);
+  font-weight: 700;
+}
+#solar-toolkit {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.4rem;
+  justify-content: center;
+  align-items: flex-start;
+  text-align: left;
+}
+#solar-toolkit > div {
+  flex: 1 1 330px;
+  min-width: 280px;
+  max-width: 480px;
+  background: var(--premium-gloss);
+  border-radius: var(--radius);
+  box-shadow: var(--soft-shadow);
+  padding: 2rem 1.2rem 2.2rem 1.2rem;
+  margin-bottom: 0;
+  border: 2px solid #b2daff;
+  backdrop-filter: blur(7px);
+}
+#solar-toolkit h2 {
+  text-align: center;
+  color: var(--primary-dark);
+  font-size: 1.17em;
+  letter-spacing: .5px;
+  margin-bottom: .8em;
+  font-weight: 700;
+}
+.trust-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem 1.5rem;
+  justify-content: center;
+  align-items: stretch;
+  margin: 1.5rem auto 0 auto;
+  max-width: 900px;
+}
+.accredit-card {
+  background: linear-gradient(130deg, #e3f5ff 60%, #b6e0ff 100%);
+  box-shadow: 0 4px 16px #6ec6ff44;
+  border-radius: 15px;
+  border: 2px solid #b2daff;
+  padding: 1.2em 1em 0.8em 1em;
+  min-width: 130px;
+  max-width: 210px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 1.5em;
+  position: relative;
+  transition: box-shadow .15s, border .15s, background .15s;
+  cursor: pointer;
+}
+.accredit-card:focus-within, .accredit-card:hover {
+  box-shadow: 0 8px 34px #ffd70066, 0 4px 16px #6ec6ff44;
+  border-color: var(--accent);
+  background: linear-gradient(120deg, #fffde1 0%, #e8f4ff 80%);
+  transform: translateY(-4px) scale(1.04);
+  z-index: 2;
+}
+.accredit-card-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font: inherit;
+  outline: none;
+  transition: transform .13s;
+}
+.accredit-card-btn:focus {
+  outline: 2.5px solid var(--accent);
+  outline-offset: 3px;
+}
+.accredit-card img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  background: #f4fbff;
+  border-radius: 11px;
+  box-shadow: 0 2px 9px #6ec6ff44;
+  margin-bottom: 0.7em;
+  border: 2px solid #6ec6ff;
+  padding: 6px;
+  transition: border .13s;
+}
+.accredit-card:hover img, .accredit-card:focus-within img {
+  border-color: var(--accent);
+}
+.accredit-card span {
+  font-weight: 700;
+  color: var(--primary-dark);
+  font-size: 1.1em;
+  letter-spacing: .6px;
+  margin-bottom: .2em;
+}
+.accredit-card-desc {
+  display: none;
+  margin-top: 0.7em;
+  background: #e8f4ff;
+  color: var(--primary-dark);
+  border-radius: 11px;
+  box-shadow: 0 2px 12px #6ec6ff44;
+  padding: 0.82em 0.8em 1.1em 0.8em;
+  font-size: 1em;
+  text-align: left;
+  max-width: 270px;
+  min-height: 64px;
+  border: 2px solid #6ec6ff;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, .5em);
+  z-index: 3;
+  animation: fadeIn .32s;
+}
+.accredit-card.active .accredit-card-desc,
+.accredit-card:focus-within .accredit-card-desc {
+  display: block;
+}
+.about-section {
+  max-width: 750px;
+  margin: 3rem auto 2.5rem auto;
+  background: var(--premium-gloss);
+  color: var(--primary-dark);
+  border-radius: 24px;
+  box-shadow: var(--soft-shadow);
+  padding: 2.5rem 1.2rem;
+  text-align: left;
+  border: 2px solid #b2daff;
+}
+.about-section h2 {
+  color: var(--primary-dark);
+  font-size: 2.1rem;
+  margin-top: 0;
+  margin-bottom: 1.1rem;
+  text-align: center;
+  font-weight: 700;
+}
+.about-section p {
+  color: #24485a;
+  font-size: 1.13rem;
+  line-height: 1.7;
+  margin-bottom: 1.2em;
+  font-weight: 400;
+}
+.about-section .about-highlight {
+  color: var(--accent);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 0.4em;
+  display: block;
+  text-align: center;
+}
+.about-section .about-contact {
+  text-align: center;
+  margin-top: 1.5em;
+}
+.about-section .about-contact a {
+  color: var(--primary-dark);
+  text-decoration: underline;
+  font-weight: bold;
+}
+.about-section hr {
+  border: none;
+  border-top: 1px solid #b2daff55;
+  margin: 2em auto 1.2em auto;
+  width: 65%;
+}
+.fb-page, .fb-page * {
+  border-radius: 18px !important;
+  box-shadow: 0 4px 18px #6ec6ff44 !important;
+  background: #f5faff !important;
+  margin: 0 auto 2em auto;
+  max-width: 400px;
+}
+@media (max-width: 900px) {
+  #solar-toolkit {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+  #solar-toolkit > div {
+    margin: 0 auto 2rem auto;
+  }
+  .trust-cards {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.3rem;
+  }
+  .accredit-card {
+    max-width: 95vw;
+    min-width: 160px;
+  }
+  .accredit-card-desc {
+    position: static;
+    transform: none;
+    margin-top: .7em;
+    width: 99%;
+    max-width: 99vw;
+  }
+  .about-section {
+    padding: 1.4rem 0.6rem;
+  }
+  .fb-page, .fb-page * {
+    max-width: 98vw !important;
+  }
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, 1.5em);}
+  to { opacity: 1; transform: translate(-50%, .5em);}
+}
+footer {
+  background: linear-gradient(90deg, #eaf7ff 0%, #ccecff 100%);
+  color: var(--primary-dark);
+  padding: 2.2rem;
+  text-align: center;
+  margin-top: 3rem;
+  border-radius: var(--radius) var(--radius) 0 0;
+  font-size: 0.96rem;
+  letter-spacing: 0.2px;
+  box-shadow: 0 -2px 22px #b2daff33;
+  border-top: 2px solid #b2daff;
+  font-weight: 500;
+}
