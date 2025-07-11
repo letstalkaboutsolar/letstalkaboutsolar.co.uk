@@ -84,7 +84,7 @@
       background: var(--accent);
       color: var(--primary-dark);
     }
-    /* Hamburger menu styles */
+    /* Hamburger menu styles - ADDED */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -110,7 +110,7 @@
     .hamburger.active span:nth-child(3) {
       transform: rotate(45deg) translate(-5px, -6px);
     }
-    /* Mobile navigation styles */
+    /* Mobile navigation styles - ADDED */
     @media (max-width: 900px) {
       nav {
         padding: 0.75rem 1rem;
@@ -532,7 +532,7 @@
     }
     @media (max-width: 900px) {
       .hero {
-        margin-top: 65px;
+        margin-top: 65px; /* UPDATED for mobile hamburger */
       }
       #solar-toolkit {
         flex-direction: column;
@@ -587,6 +587,7 @@
 <body>
   <nav id="navbar">
     <div class="logo">Let's Talk About Solar</div>
+    <!-- ADDED hamburger menu -->
     <div class="hamburger" id="hamburger">
       <span></span>
       <span></span>
@@ -850,7 +851,7 @@
     const nav = document.getElementById("navbar");
     let orientationFactor = 1;
 
-    // Hamburger menu functionality
+    // ADDED: Hamburger menu functionality
     const hamburger = document.getElementById('hamburger');
     const navMenu = document.getElementById('navMenu');
 
@@ -887,7 +888,7 @@
       setTimeout(() => { document.getElementById('rate').focus(); }, 500);
     });
 
-    // Orientation section logic (Street View only)
+    // Orientation section logic - UNCHANGED FROM YOUR ORIGINAL
     let autocomplete, lastPlaceLocation = null, panoMap = null;
 
     function mapsApiLoaded() {
@@ -989,12 +990,11 @@
       }
     }
 
-    // --- SOLAR CALCULATOR (UPDATED WITH EXPORT IN TOTAL SAVINGS) ---
+    // SOLAR CALCULATOR - UPDATED to include export savings in the total
     let latestSavingsPerYear = 0;
     let latestAnnualSpend = 0;
     let latestSystemCost = 9500;
 
-    // Only keep cost input in finance offset section
     function syncSystemCostFields(value) {
       document.getElementById('finance-system-cost').value = value;
     }
@@ -1008,7 +1008,7 @@
       const rate = parseFloat(document.getElementById("rate").value);
       const standing = parseFloat(document.getElementById("standing").value);
       const usage = parseFloat(document.getElementById("usage").value);
-      const batterySize = parseInt(document.getElementById("battery-size").value, 10); // 0, 5, 10
+      const batterySize = parseInt(document.getElementById("battery-size").value, 10);
       const homeAllDay = document.getElementById("homeDay").checked;
 
       // Solar generation constants
@@ -1041,7 +1041,7 @@
       const annualSpend = billUsage + annualStanding;
       latestAnnualSpend = annualSpend;
 
-      // Calculate Year 1 total savings (bill savings + export income)
+      // UPDATED: Calculate Year 1 total savings including export income
       const exportRate = 16.5;
       const yearOneExportIncome = (exportKWh * exportRate) / 100;
       const yearOneBillSavings = (selfUsedKWh * rate) / 100;
@@ -1082,7 +1082,9 @@
         : "You're out during the day";
       const batteryDesc = batterySize > 0 ? ` with ${batterySize}kWh battery` : "";
       const calcResult = document.getElementById("calcResult");
-      latestSavingsPerYear = totalYearOneSavings; // Now includes export income
+      
+      // UPDATED: Use total savings (bill + export) for finance calculations
+      latestSavingsPerYear = totalYearOneSavings;
 
       calcResult.innerHTML = `
         <div style="margin-bottom:1.1em;">
@@ -1174,7 +1176,7 @@
             <td>£${monthly.toFixed(2)}</td>
           </tr>
           <tr>
-            <td style="font-weight:600;">Estimated monthly bill savings:</td>
+            <td style="font-weight:600;">Estimated monthly savings (inc. export):</td>
             <td>£${savingsPerMonth.toFixed(2)}</td>
           </tr>
           <tr>
@@ -1277,8 +1279,4 @@
     }
 
     // Trust card open/close logic
-    document.querySelectorAll('.accredit-card-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.accredit-card').forEach(card => {
-          if (card.contains(btn)) {
-            card.classList
+    document.querySelectorAll('.
