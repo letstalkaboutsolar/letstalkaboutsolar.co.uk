@@ -1,7 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ&libraries=places&callback=mapsApiLoaded" async defer></script>
+  <script>
+    function mapsApiLoaded() {
+      console.log('Google Maps API loaded successfully');
+      if (typeof initMap === "function") initMap();
+      if (typeof initQuoteAddressAutocomplete === "function") initQuoteAddressAutocomplete();
+    }
+    
+    function mapsApiError() {
+      console.error('Google Maps API failed to load');
+      // Fallback functionality here if needed
+    }
+  </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ&libraries=places&callback=mapsApiLoaded&loading=async" async defer onerror="mapsApiError()"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Let's Talk About Solar</title>
@@ -890,75 +902,93 @@
     // Orientation section logic (Street View only)
     let autocomplete, lastPlaceLocation = null, panoMap = null;
 
-    function mapsApiLoaded() {
-      if (typeof initMap === "function") initMap();
-      if (typeof initQuoteAddressAutocomplete === "function") initQuoteAddressAutocomplete();
-    }
-
     function initMap() {
+      console.log('Initializing Google Maps...');
       const input = document.getElementById("addressInput");
-      autocomplete = new google.maps.places.Autocomplete(input, {
-        componentRestrictions: { country: 'uk' },
-        fields: ["geometry", "formatted_address", "address_components"],
-        types: ["address"]
-      });
+      if (!input) {
+        console.error('Address input not found');
+        return;
+      }
 
-      autocomplete.addListener("place_changed", () => {
-        const place = autocomplete.getPlace();
-        if (!place.geometry || !place.geometry.location) {
-          alert("No details available for input: '" + place.name + "'");
-          lastPlaceLocation = null;
-          return;
-        }
-        lastPlaceLocation = place.geometry.location;
-        // Orientation logic
-        const viewport = place.geometry.viewport;
-        let orientation = "Unknown";
-        let explanation = "";
-        orientationFactor = 0.9;
+      try {
+        autocomplete = new google.maps.places.Autocomplete(input, {
+          componentRestrictions: { country: 'uk' },
+          fields: ["geometry", "formatted_address", "address_components"],
+          types: ["address"]
+        });
 
-        if (viewport) {
-          const ne = viewport.getNorthEast();
-          const sw = viewport.getSouthWest();
-          const angle = Math.atan2(ne.lat() - sw.lat(), ne.lng() - sw.lng()) * (180 / Math.PI);
+        console.log('Autocomplete created successfully');
 
-          if (angle > -45 && angle <= 45) {
-            orientation = "East";
-            orientationFactor = 0.85;
-            explanation = "Your front roof likely faces East and the rear West. A solar system can still work well with morning sunlight.";
-          } else if (angle > 45 && angle <= 135) {
-            orientation = "North";
-            orientationFactor = 0.75;
-            explanation = "Your front roof likely faces North and the rear South. South-facing roofs are ideal for solar.";
-          } else if (angle > -135 && angle <= -45) {
-            orientation = "South";
-            orientationFactor = 1.0;
-            explanation = "Your front roof likely faces South and the rear North. This is excellent for solar efficiency.";
-          } else {
-            orientation = "West";
-            orientationFactor = 0.8;
-            explanation = "Your front roof likely faces West and the rear East. Good for catching late afternoon sunlight.";
+        autocomplete.addListener("place_changed", () => {
+          const place = autocomplete.getPlace();
+          console.log('Place selected:', place);
+          
+          if (!place.geometry || !place.geometry.location) {
+            alert("No details available for input: '" + place.name + "'");
+            lastPlaceLocation = null;
+            return;
           }
-        }
+          
+          lastPlaceLocation = place.geometry.location;
+          console.log('Location set:', lastPlaceLocation.toString());
+          
+          // Orientation logic
+          const viewport = place.geometry.viewport;
+          let orientation = "Unknown";
+          let explanation = "";
+          orientationFactor = 0.9;
 
-        document.getElementById("orientationResult").innerHTML =
-          `<strong>Estimated Roof Orientation:</strong> ${orientation}<br><em>${explanation}</em>`;
-      });
+          if (viewport) {
+            const ne = viewport.getNorthEast();
+            const sw = viewport.getSouthWest();
+            const angle = Math.atan2(ne.lat() - sw.lat(), ne.lng() - sw.lng()) * (180 / Math.PI);
+
+            if (angle > -45 && angle <= 45) {
+              orientation = "East";
+              orientationFactor = 0.85;
+              explanation = "Your front roof likely faces East and the rear West. A solar system can still work well with morning sunlight.";
+            } else if (angle > 45 && angle <= 135) {
+              orientation = "North";
+              orientationFactor = 0.75;
+              explanation = "Your front roof likely faces North and the rear South. South-facing roofs are ideal for solar.";
+            } else if (angle > -135 && angle <= -45) {
+              orientation = "South";
+              orientationFactor = 1.0;
+              explanation = "Your front roof likely faces South and the rear North. This is excellent for solar efficiency.";
+            } else {
+              orientation = "West";
+              orientationFactor = 0.8;
+              explanation = "Your front roof likely faces West and the rear East. Good for catching late afternoon sunlight.";
+            }
+          }
+
+          document.getElementById("orientationResult").innerHTML =
+            `<strong>Estimated Roof Orientation:</strong> ${orientation}<br><em>${explanation}</em>`;
+        });
+      } catch (error) {
+        console.error('Error creating autocomplete:', error);
+      }
     }
 
     function initQuoteAddressAutocomplete() {
       var input = document.getElementById('quote-address');
       if (!input) return;
-      var options = {
-        componentRestrictions: { country: 'uk' },
-        fields: ["formatted_address", "geometry"],
-        types: ["address"]
-      };
-      var autocomplete = new google.maps.places.Autocomplete(input, options);
-      autocomplete.setBounds(new google.maps.LatLngBounds(
-        new google.maps.LatLng(49.9, -7.6),
-        new google.maps.LatLng(58.7, 1.8)
-      ));
+      
+      try {
+        var options = {
+          componentRestrictions: { country: 'uk' },
+          fields: ["formatted_address", "geometry"],
+          types: ["address"]
+        };
+        var autocomplete = new google.maps.places.Autocomplete(input, options);
+        autocomplete.setBounds(new google.maps.LatLngBounds(
+          new google.maps.LatLng(49.9, -7.6),
+          new google.maps.LatLng(58.7, 1.8)
+        ));
+        console.log('Quote address autocomplete initialized');
+      } catch (error) {
+        console.error('Error with quote autocomplete:', error);
+      }
     }
 
     function toggleStreetView() {
@@ -970,19 +1000,24 @@
           return;
         }
         container.style.display = "block";
-        if (!panoMap) {
-          panoMap = new google.maps.StreetViewPanorama(
-            document.getElementById("pano"),
-            {
-              position: lastPlaceLocation,
-              pov: { heading: 165, pitch: 0 },
-              zoom: 1
-            }
-          );
-        } else {
-          panoMap.setPosition(lastPlaceLocation);
+        try {
+          if (!panoMap) {
+            panoMap = new google.maps.StreetViewPanorama(
+              document.getElementById("pano"),
+              {
+                position: lastPlaceLocation,
+                pov: { heading: 165, pitch: 0 },
+                zoom: 1
+              }
+            );
+          } else {
+            panoMap.setPosition(lastPlaceLocation);
+          }
+          btn.innerText = "Hide Street View";
+        } catch (error) {
+          console.error('Street View error:', error);
+          alert('Street View not available for this location');
         }
-        btn.innerText = "Hide Street View";
       } else {
         container.style.display = "none";
         btn.innerText = "Show Street View";
@@ -1235,53 +1270,4 @@
       const prices = [
         7.0,7.3,7.2,7.1,7.4,8.2,10.0,10.6,13.3,13.9,
         13.7,14.5,15.5,15.6,15.6,15.2,14.4,14.4,15.0,17.2,
-        17.2,19.0,28.0,30.0,28.5,27.5
-      ];
-      new Chart(ctx, {
-        type: 'line',
-        data: {
-          labels: years,
-          datasets: [{
-            label: 'UK Domestic Electricity Price (p/kWh)',
-            data: prices,
-            borderColor: '#397a94',
-            backgroundColor: 'rgba(57,122,148,0.13)',
-            tension: 0.25,
-            pointBackgroundColor: '#ffd700',
-            pointRadius: 5,
-            fill: true
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: {
-            legend: { display: true },
-            tooltip: { enabled: true }
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              title: { display: true, text: 'pence per kWh' }
-            },
-            x: {
-              title: { display: true, text: 'Year' }
-            }
-          }
-        }
-      });
-    }
-
-    // Trust card open/close logic
-    document.querySelectorAll('.accredit-card-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.accredit-card').forEach(card => {
-          if (card.contains(btn)) {
-            card.classList.toggle('active');
-            btn.setAttribute('aria-expanded', card.classList.contains('active'));
-          } else {
-            card.classList.remove('active');
-            card.querySelector('.accredit-card-btn').setAttribute('aria-expanded', 'false');
-          }
-        });
-      });
-      btn.addEventListener('key
+        17.2,19.0,28.0,30.0,28
