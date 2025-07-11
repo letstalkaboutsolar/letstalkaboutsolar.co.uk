@@ -10,7 +10,6 @@
     
     function mapsApiError() {
       console.error('Google Maps API failed to load');
-      // Fallback functionality here if needed
     }
   </script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ&libraries=places&callback=mapsApiLoaded&loading=async" async defer onerror="mapsApiError()"></script>
@@ -440,10 +439,9 @@
       outline: 2.5px solid var(--accent);
       outline-offset: 3px;
     }
-    .accredit-card img {
+    .accredit-card .icon {
       width: 50px;
       height: 50px;
-      object-fit: contain;
       background: #f4fbff;
       border-radius: 11px;
       box-shadow: 0 2px 9px #6ec6ff44;
@@ -451,8 +449,14 @@
       border: 2px solid #6ec6ff;
       padding: 6px;
       transition: border .13s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: var(--primary-dark);
+      font-size: 14px;
     }
-    .accredit-card:hover img, .accredit-card:focus-within img {
+    .accredit-card:hover .icon, .accredit-card:focus-within .icon {
       border-color: var(--accent);
     }
     .accredit-card span {
@@ -742,10 +746,9 @@
   <section id="trust" class="section">
     <h2 style="color:var(--primary-dark);font-size:2rem;font-weight:700;">Who Can You Trust?</h2>
     <div class="trust-cards">
-      <!-- ... trust cards unchanged ... -->
       <div class="accredit-card" tabindex="0">
         <button class="accredit-card-btn" type="button" aria-expanded="false">
-          <img src="assets/mcs logo.png" alt="MCS Certified" />
+          <div class="icon">MCS</div>
           <span>MCS</span>
         </button>
         <div class="accredit-card-desc">
@@ -755,7 +758,7 @@
       </div>
       <div class="accredit-card" tabindex="0">
         <button class="accredit-card-btn" type="button" aria-expanded="false">
-          <img src="assets/epvs logi.jpeg" alt="EPVS" />
+          <div class="icon">EPVS</div>
           <span>EPVS</span>
         </button>
         <div class="accredit-card-desc">
@@ -765,17 +768,17 @@
       </div>
       <div class="accredit-card" tabindex="0">
         <button class="accredit-card-btn" type="button" aria-expanded="false">
-          <img src="assets/hies-cc-logo-2.png" alt="HIES" />
+          <div class="icon">HIES</div>
           <span>HIES</span>
         </button>
         <div class="accredit-card-desc">
           <strong>HIES (Home Insulation & Energy Systems):</strong><br>
-          Provides consumer protection including deposit and warranty insurance, dispute resolution, and ensures you covered if anything goes wrong with your solar purchase.
+          Provides consumer protection including deposit and warranty insurance, dispute resolution, and ensures you're covered if anything goes wrong with your solar purchase.
         </div>
       </div>
       <div class="accredit-card" tabindex="0">
         <button class="accredit-card-btn" type="button" aria-expanded="false">
-          <img src="assets/NAPIT-NEW-LOGO.jpg" alt="NAPIT" />
+          <div class="icon">NAPIT</div>
           <span>NAPIT</span>
         </button>
         <div class="accredit-card-desc">
@@ -785,7 +788,7 @@
       </div>
       <div class="accredit-card" tabindex="0">
         <button class="accredit-card-btn" type="button" aria-expanded="false">
-          <img src="assets/trading-standards-uk-logo.png" alt="Trading Standards" />
+          <div class="icon">TS</div>
           <span>Trading Standards</span>
         </button>
         <div class="accredit-card-desc">
@@ -795,7 +798,7 @@
       </div>
       <div class="accredit-card" tabindex="0">
         <button class="accredit-card-btn" type="button" aria-expanded="false">
-          <img src="assets/tm_primary_logo_rgb.jpg" alt="TrustMark" />
+          <div class="icon">TM</div>
           <span>TrustMark</span>
         </button>
         <div class="accredit-card-desc">
@@ -805,7 +808,7 @@
       </div>
       <div class="accredit-card" tabindex="0">
         <button class="accredit-card-btn" type="button" aria-expanded="false">
-          <img src="assets/Financial_Conduct_Authority_logo.svg.png" alt="FCA" />
+          <div class="icon">FCA</div>
           <span>FCA</span>
         </button>
         <div class="accredit-card-desc">
@@ -855,27 +858,29 @@
 
   <!-- Facebook SDK for Page Plugin -->
   <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v19.0" nonce="letstalksolar"></script>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v19.0"></script>
 
   <script>
     let lastScroll = 0;
     const nav = document.getElementById("navbar");
     let orientationFactor = 1;
 
-    // Hamburger menu functionality
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('navMenu');
+    // Hamburger menu functionality - FIXED
+    document.addEventListener('DOMContentLoaded', function() {
+      const hamburger = document.getElementById('hamburger');
+      const navMenu = document.getElementById('navMenu');
 
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
-      navMenu.classList.toggle('open');
-    });
+      hamburger.addEventListener('click', function() {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('open');
+      });
 
-    // Close menu when clicking nav links
-    document.querySelectorAll('nav ul li a').forEach(link => {
-      link.addEventListener('click', () => {
-        hamburger.classList.remove('active');
-        navMenu.classList.remove('open');
+      // Close menu when clicking nav links
+      document.querySelectorAll('nav ul li a').forEach(link => {
+        link.addEventListener('click', function() {
+          hamburger.classList.remove('active');
+          navMenu.classList.remove('open');
+        });
       });
     });
 
@@ -1270,4 +1275,18 @@
       const prices = [
         7.0,7.3,7.2,7.1,7.4,8.2,10.0,10.6,13.3,13.9,
         13.7,14.5,15.5,15.6,15.6,15.2,14.4,14.4,15.0,17.2,
-        17.2,19.0,28.0,30.0,28
+        17.2,19.0,28.0,30.0,28.5,27.5
+      ];
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: years,
+          datasets: [{
+            label: 'UK Domestic Electricity Price (p/kWh)',
+            data: prices,
+            borderColor: '#397a94',
+            backgroundColor: 'rgba(57,122,148,0.13)',
+            tension: 0.25,
+            pointBackgroundColor: '#ffd700',
+            pointRadius: 5,
+            fill
