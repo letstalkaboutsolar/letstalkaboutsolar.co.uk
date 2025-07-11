@@ -1,18 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script>
-    function mapsApiLoaded() {
-      console.log('Google Maps API loaded successfully');
-      if (typeof initMap === "function") initMap();
-      if (typeof initQuoteAddressAutocomplete === "function") initQuoteAddressAutocomplete();
-    }
-    
-    function mapsApiError() {
-      console.error('Google Maps API failed to load');
-    }
-  </script>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ&libraries=places&callback=mapsApiLoaded&loading=async" async defer onerror="mapsApiError()"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC0y8SNlXSgKW0aHxXofroM4_aPqzaIrFQ&libraries=places&callback=mapsApiLoaded" async defer></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Let's Talk About Solar</title>
@@ -439,9 +428,10 @@
       outline: 2.5px solid var(--accent);
       outline-offset: 3px;
     }
-    .accredit-card .icon {
+    .accredit-card img {
       width: 50px;
       height: 50px;
+      object-fit: contain;
       background: #f4fbff;
       border-radius: 11px;
       box-shadow: 0 2px 9px #6ec6ff44;
@@ -449,14 +439,8 @@
       border: 2px solid #6ec6ff;
       padding: 6px;
       transition: border .13s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      color: var(--primary-dark);
-      font-size: 14px;
     }
-    .accredit-card:hover .icon, .accredit-card:focus-within .icon {
+    .accredit-card:hover img, .accredit-card:focus-within img {
       border-color: var(--accent);
     }
     .accredit-card span {
@@ -746,9 +730,10 @@
   <section id="trust" class="section">
     <h2 style="color:var(--primary-dark);font-size:2rem;font-weight:700;">Who Can You Trust?</h2>
     <div class="trust-cards">
+      <!-- ... trust cards unchanged ... -->
       <div class="accredit-card" tabindex="0">
         <button class="accredit-card-btn" type="button" aria-expanded="false">
-          <div class="icon">MCS</div>
+          <img src="assets/mcs logo.png" alt="MCS Certified" />
           <span>MCS</span>
         </button>
         <div class="accredit-card-desc">
@@ -758,7 +743,7 @@
       </div>
       <div class="accredit-card" tabindex="0">
         <button class="accredit-card-btn" type="button" aria-expanded="false">
-          <div class="icon">EPVS</div>
+          <img src="assets/epvs logi.jpeg" alt="EPVS" />
           <span>EPVS</span>
         </button>
         <div class="accredit-card-desc">
@@ -768,7 +753,7 @@
       </div>
       <div class="accredit-card" tabindex="0">
         <button class="accredit-card-btn" type="button" aria-expanded="false">
-          <div class="icon">HIES</div>
+          <img src="assets/hies-cc-logo-2.png" alt="HIES" />
           <span>HIES</span>
         </button>
         <div class="accredit-card-desc">
@@ -778,7 +763,7 @@
       </div>
       <div class="accredit-card" tabindex="0">
         <button class="accredit-card-btn" type="button" aria-expanded="false">
-          <div class="icon">NAPIT</div>
+          <img src="assets/NAPIT-NEW-LOGO.jpg" alt="NAPIT" />
           <span>NAPIT</span>
         </button>
         <div class="accredit-card-desc">
@@ -788,7 +773,7 @@
       </div>
       <div class="accredit-card" tabindex="0">
         <button class="accredit-card-btn" type="button" aria-expanded="false">
-          <div class="icon">TS</div>
+          <img src="assets/trading-standards-uk-logo.png" alt="Trading Standards" />
           <span>Trading Standards</span>
         </button>
         <div class="accredit-card-desc">
@@ -798,7 +783,7 @@
       </div>
       <div class="accredit-card" tabindex="0">
         <button class="accredit-card-btn" type="button" aria-expanded="false">
-          <div class="icon">TM</div>
+          <img src="assets/tm_primary_logo_rgb.jpg" alt="TrustMark" />
           <span>TrustMark</span>
         </button>
         <div class="accredit-card-desc">
@@ -808,7 +793,7 @@
       </div>
       <div class="accredit-card" tabindex="0">
         <button class="accredit-card-btn" type="button" aria-expanded="false">
-          <div class="icon">FCA</div>
+          <img src="assets/Financial_Conduct_Authority_logo.svg.png" alt="FCA" />
           <span>FCA</span>
         </button>
         <div class="accredit-card-desc">
@@ -858,29 +843,27 @@
 
   <!-- Facebook SDK for Page Plugin -->
   <div id="fb-root"></div>
-  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v19.0"></script>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v19.0" nonce="letstalksolar"></script>
 
   <script>
     let lastScroll = 0;
     const nav = document.getElementById("navbar");
     let orientationFactor = 1;
 
-    // Hamburger menu functionality - FIXED
-    document.addEventListener('DOMContentLoaded', function() {
-      const hamburger = document.getElementById('hamburger');
-      const navMenu = document.getElementById('navMenu');
+    // Hamburger menu functionality
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
 
-      hamburger.addEventListener('click', function() {
-        hamburger.classList.toggle('active');
-        navMenu.classList.toggle('open');
-      });
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navMenu.classList.toggle('open');
+    });
 
-      // Close menu when clicking nav links
-      document.querySelectorAll('nav ul li a').forEach(link => {
-        link.addEventListener('click', function() {
-          hamburger.classList.remove('active');
-          navMenu.classList.remove('open');
-        });
+    // Close menu when clicking nav links
+    document.querySelectorAll('nav ul li a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('open');
       });
     });
 
@@ -907,93 +890,75 @@
     // Orientation section logic (Street View only)
     let autocomplete, lastPlaceLocation = null, panoMap = null;
 
+    function mapsApiLoaded() {
+      if (typeof initMap === "function") initMap();
+      if (typeof initQuoteAddressAutocomplete === "function") initQuoteAddressAutocomplete();
+    }
+
     function initMap() {
-      console.log('Initializing Google Maps...');
       const input = document.getElementById("addressInput");
-      if (!input) {
-        console.error('Address input not found');
-        return;
-      }
+      autocomplete = new google.maps.places.Autocomplete(input, {
+        componentRestrictions: { country: 'uk' },
+        fields: ["geometry", "formatted_address", "address_components"],
+        types: ["address"]
+      });
 
-      try {
-        autocomplete = new google.maps.places.Autocomplete(input, {
-          componentRestrictions: { country: 'uk' },
-          fields: ["geometry", "formatted_address", "address_components"],
-          types: ["address"]
-        });
+      autocomplete.addListener("place_changed", () => {
+        const place = autocomplete.getPlace();
+        if (!place.geometry || !place.geometry.location) {
+          alert("No details available for input: '" + place.name + "'");
+          lastPlaceLocation = null;
+          return;
+        }
+        lastPlaceLocation = place.geometry.location;
+        // Orientation logic
+        const viewport = place.geometry.viewport;
+        let orientation = "Unknown";
+        let explanation = "";
+        orientationFactor = 0.9;
 
-        console.log('Autocomplete created successfully');
+        if (viewport) {
+          const ne = viewport.getNorthEast();
+          const sw = viewport.getSouthWest();
+          const angle = Math.atan2(ne.lat() - sw.lat(), ne.lng() - sw.lng()) * (180 / Math.PI);
 
-        autocomplete.addListener("place_changed", () => {
-          const place = autocomplete.getPlace();
-          console.log('Place selected:', place);
-          
-          if (!place.geometry || !place.geometry.location) {
-            alert("No details available for input: '" + place.name + "'");
-            lastPlaceLocation = null;
-            return;
+          if (angle > -45 && angle <= 45) {
+            orientation = "East";
+            orientationFactor = 0.85;
+            explanation = "Your front roof likely faces East and the rear West. A solar system can still work well with morning sunlight.";
+          } else if (angle > 45 && angle <= 135) {
+            orientation = "North";
+            orientationFactor = 0.75;
+            explanation = "Your front roof likely faces North and the rear South. South-facing roofs are ideal for solar.";
+          } else if (angle > -135 && angle <= -45) {
+            orientation = "South";
+            orientationFactor = 1.0;
+            explanation = "Your front roof likely faces South and the rear North. This is excellent for solar efficiency.";
+          } else {
+            orientation = "West";
+            orientationFactor = 0.8;
+            explanation = "Your front roof likely faces West and the rear East. Good for catching late afternoon sunlight.";
           }
-          
-          lastPlaceLocation = place.geometry.location;
-          console.log('Location set:', lastPlaceLocation.toString());
-          
-          // Orientation logic
-          const viewport = place.geometry.viewport;
-          let orientation = "Unknown";
-          let explanation = "";
-          orientationFactor = 0.9;
+        }
 
-          if (viewport) {
-            const ne = viewport.getNorthEast();
-            const sw = viewport.getSouthWest();
-            const angle = Math.atan2(ne.lat() - sw.lat(), ne.lng() - sw.lng()) * (180 / Math.PI);
-
-            if (angle > -45 && angle <= 45) {
-              orientation = "East";
-              orientationFactor = 0.85;
-              explanation = "Your front roof likely faces East and the rear West. A solar system can still work well with morning sunlight.";
-            } else if (angle > 45 && angle <= 135) {
-              orientation = "North";
-              orientationFactor = 0.75;
-              explanation = "Your front roof likely faces North and the rear South. South-facing roofs are ideal for solar.";
-            } else if (angle > -135 && angle <= -45) {
-              orientation = "South";
-              orientationFactor = 1.0;
-              explanation = "Your front roof likely faces South and the rear North. This is excellent for solar efficiency.";
-            } else {
-              orientation = "West";
-              orientationFactor = 0.8;
-              explanation = "Your front roof likely faces West and the rear East. Good for catching late afternoon sunlight.";
-            }
-          }
-
-          document.getElementById("orientationResult").innerHTML =
-            `<strong>Estimated Roof Orientation:</strong> ${orientation}<br><em>${explanation}</em>`;
-        });
-      } catch (error) {
-        console.error('Error creating autocomplete:', error);
-      }
+        document.getElementById("orientationResult").innerHTML =
+          `<strong>Estimated Roof Orientation:</strong> ${orientation}<br><em>${explanation}</em>`;
+      });
     }
 
     function initQuoteAddressAutocomplete() {
       var input = document.getElementById('quote-address');
       if (!input) return;
-      
-      try {
-        var options = {
-          componentRestrictions: { country: 'uk' },
-          fields: ["formatted_address", "geometry"],
-          types: ["address"]
-        };
-        var autocomplete = new google.maps.places.Autocomplete(input, options);
-        autocomplete.setBounds(new google.maps.LatLngBounds(
-          new google.maps.LatLng(49.9, -7.6),
-          new google.maps.LatLng(58.7, 1.8)
-        ));
-        console.log('Quote address autocomplete initialized');
-      } catch (error) {
-        console.error('Error with quote autocomplete:', error);
-      }
+      var options = {
+        componentRestrictions: { country: 'uk' },
+        fields: ["formatted_address", "geometry"],
+        types: ["address"]
+      };
+      var autocomplete = new google.maps.places.Autocomplete(input, options);
+      autocomplete.setBounds(new google.maps.LatLngBounds(
+        new google.maps.LatLng(49.9, -7.6),
+        new google.maps.LatLng(58.7, 1.8)
+      ));
     }
 
     function toggleStreetView() {
@@ -1005,31 +970,26 @@
           return;
         }
         container.style.display = "block";
-        try {
-          if (!panoMap) {
-            panoMap = new google.maps.StreetViewPanorama(
-              document.getElementById("pano"),
-              {
-                position: lastPlaceLocation,
-                pov: { heading: 165, pitch: 0 },
-                zoom: 1
-              }
-            );
-          } else {
-            panoMap.setPosition(lastPlaceLocation);
-          }
-          btn.innerText = "Hide Street View";
-        } catch (error) {
-          console.error('Street View error:', error);
-          alert('Street View not available for this location');
+        if (!panoMap) {
+          panoMap = new google.maps.StreetViewPanorama(
+            document.getElementById("pano"),
+            {
+              position: lastPlaceLocation,
+              pov: { heading: 165, pitch: 0 },
+              zoom: 1
+            }
+          );
+        } else {
+          panoMap.setPosition(lastPlaceLocation);
         }
+        btn.innerText = "Hide Street View";
       } else {
         container.style.display = "none";
         btn.innerText = "Show Street View";
       }
     }
 
-    // --- SOLAR CALCULATOR (UPDATED) ---
+    // --- SOLAR CALCULATOR (UPDATED WITH EXPORT IN TOTAL SAVINGS) ---
     let latestSavingsPerYear = 0;
     let latestAnnualSpend = 0;
     let latestSystemCost = 9500;
@@ -1081,26 +1041,29 @@
       const annualSpend = billUsage + annualStanding;
       latestAnnualSpend = annualSpend;
 
-      // Calculate Year 1 export income
+      // Calculate Year 1 total savings (bill savings + export income)
       const exportRate = 16.5;
       const yearOneExportIncome = (exportKWh * exportRate) / 100;
       const yearOneBillSavings = (selfUsedKWh * rate) / 100;
       const totalYearOneSavings = yearOneBillSavings + yearOneExportIncome;
 
-      // Yearly savings and export calculations (UPDATED: Combined cumulative)
+      // Yearly savings and export calculations
       let annualSavingsArr = [];
       let price = rate;
       let cumulative = 0;
+      let exportIncomeCumulative = 0;
       for (let year = 1; year <= 10; year++) {
         let yearSavings = (selfUsedKWh * price) / 100;
         let yearExportIncome = (exportKWh * exportRate) / 100;
-        cumulative += yearSavings + yearExportIncome; // Combined cumulative
+        cumulative += yearSavings;
+        exportIncomeCumulative += yearExportIncome;
         annualSavingsArr.push({
           year,
           price: price.toFixed(2),
           savings: yearSavings.toFixed(2),
           exportIncome: yearExportIncome.toFixed(2),
-          cumulative: cumulative.toFixed(2)
+          cumulative: cumulative.toFixed(2),
+          exportCumulative: exportIncomeCumulative.toFixed(2)
         });
         price *= 1.0704;
       }
@@ -1111,6 +1074,7 @@
           <td>£${row.exportIncome}</td>
           <td>${row.price}p/kWh</td>
           <td>£${row.cumulative}</td>
+          <td>£${row.exportCumulative}</td>
         </tr>`
       ).join('');
       const presenceText = homeAllDay
@@ -1118,7 +1082,7 @@
         : "You're out during the day";
       const batteryDesc = batterySize > 0 ? ` with ${batterySize}kWh battery` : "";
       const calcResult = document.getElementById("calcResult");
-      latestSavingsPerYear = totalYearOneSavings;
+      latestSavingsPerYear = totalYearOneSavings; // Now includes export income
 
       calcResult.innerHTML = `
         <div style="margin-bottom:1.1em;">
@@ -1140,7 +1104,8 @@
             <th>Bill Savings</th>
             <th>Export Income</th>
             <th>Price per kWh</th>
-            <th>Cumulative Savings (inc. export)</th>
+            <th>Cumulative Savings</th>
+            <th>Cumulative Export</th>
           </tr>
           ${tableRows}
         </table>
@@ -1289,4 +1254,31 @@
             tension: 0.25,
             pointBackgroundColor: '#ffd700',
             pointRadius: 5,
-            fill
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: true },
+            tooltip: { enabled: true }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              title: { display: true, text: 'pence per kWh' }
+            },
+            x: {
+              title: { display: true, text: 'Year' }
+            }
+          }
+        }
+      });
+    }
+
+    // Trust card open/close logic
+    document.querySelectorAll('.accredit-card-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.accredit-card').forEach(card => {
+          if (card.contains(btn)) {
+            card.classList
